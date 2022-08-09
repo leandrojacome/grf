@@ -21,17 +21,17 @@ public class InstituicaoController {
 
   @GetMapping("{chave}")
   public ResponseEntity<?> read(@PathVariable String chave) {
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok(chave);
   }
 
-  @PutMapping
-  public ResponseEntity<?> update() {
-    return ResponseEntity.ok().build();
+  @PutMapping("{chave}")
+  public ResponseEntity<?> update(@PathVariable String chave) {
+    return ResponseEntity.ok(chave);
   }
 
-  @DeleteMapping
-  public ResponseEntity<?> delete() {
-    return ResponseEntity.ok().build();
+  @DeleteMapping("{chave}")
+  public ResponseEntity<?> delete(@PathVariable String chave) {
+    return ResponseEntity.ok(chave);
   }
 
 

@@ -1,4 +1,4 @@
-package br.com.poupex.investimento.recursosfinanceiros.infrastructure;
+package br.com.poupex.investimento.recursosfinanceiros.infrastructure.security;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -51,7 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers(antPatternsAnonymous).anonymous();
     if (!Arrays.asList(env.getActiveProfiles()).contains("local") || "true".equals(env.getProperty("usar_roles"))) {
       config
-        .anyRequest().hasAnyAuthority("SCOPE")
+        .antMatchers(HttpMethod.GET).hasAnyAuthority(Scopes.GET)
+        .antMatchers(HttpMethod.POST).hasAnyAuthority(Scopes.POST)
+        .antMatchers(HttpMethod.PUT).hasAnyAuthority(Scopes.PUT)
+        .antMatchers(HttpMethod.DELETE).hasAnyAuthority(Scopes.DELETE)
         .and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
     } else {
       config.anyRequest().authenticated().and().oauth2ResourceServer().jwt();
