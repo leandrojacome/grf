@@ -1,0 +1,29 @@
+spring:
+  config:
+    activate:
+      on-profile: 'local'
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: @project.artifactId@
+  cloud:
+    config:
+      enabled: false
+---
+spring:
+  config:
+    activate:
+      on-profile: '!local'
+  main:
+    banner-mode: 'off'
+    allow-bean-definition-overriding: true
+  application:
+    name: @project.artifactId@
+  cloud:
+    config:
+      name: ${spring.application.name}
+      uri: ${SPRING_CONFIG_URI}
+      username: ${SPRING_CONFIG_USER}
+      password: ${SPRING_CONFIG_PASSWORD}
+      profile: ${SPRING_PROFILES_ACTIVE}
+      fail-fast: true

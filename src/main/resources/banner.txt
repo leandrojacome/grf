@@ -1,0 +1,7 @@
+${AnsiColor.BRIGHT_BLACK}
+<------------------------------------------------------------------------------>
+${AnsiColor.BRIGHT_WHITE} Projeto:${AnsiColor.BRIGHT_RED} @project.artifactId@
+${AnsiColor.BRIGHT_WHITE} Descricao:${AnsiColor.BRIGHT_RED} @project.description@
+${AnsiColor.BRIGHT_WHITE} Spring Boot:${AnsiColor.BRIGHT_RED} ${spring-boot.formatted-version}
+${AnsiColor.BRIGHT_WHITE} Profile:${AnsiColor.BRIGHT_RED} ${spring.profiles.active}${AnsiColor.BRIGHT_BLACK}
+<------------------------------------------------------------------------------>${AnsiColor.BRIGHT_WHITE}

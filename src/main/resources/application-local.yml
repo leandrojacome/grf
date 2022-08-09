@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: @project.artifactId@
+  datasource:
+    url: jdbc:oracle:thin:@//dboracledesenv.poupex.com.br:1521/desenv
+    username: USER_GESTAO_RECURSOS_FINANCEIROS
+    password: 2mGktD3ep$w3GDdgG
+  jpa:
+    properties:
+      hibernate.format_sql: true
+    open-in-view: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://devsso.poupex.com.br/f5-oauth2/v1
+  mvc:
+    async:
+      request-timeout: -1
+logging:
+  level:
+    root: info
+    org.hibernate.SQL: info
+    org.hibernate.cache: info
+    org.hibernate.type.descriptor.sql.BasicBinder: info
+    org.springframework.amqp: info
+    org.springframework.jdbc.core.JdbcTemplate: info
+    org.springframework.jdbc.core.StatementCreatorUtils: info
+barramento:
+  url: http://homologaesb.poupex.com.br
