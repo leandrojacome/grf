@@ -9,6 +9,13 @@ spring:
     properties:
       hibernate.format_sql: true
     open-in-view: false
+  flyway:
+    user: GESTAO_RECURSOS_FINANCEIROS
+    password: X!aX0Z32QU1#fEg
+    ignore-migration-patterns: '*:missing'
+    locations:
+      - classpath:db/migration
+      - classpath:db/callbacks
   security:
     oauth2:
       resourceserver:

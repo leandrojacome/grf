@@ -1,6 +1,10 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
+import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoDetalheResponse;
+import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoResumoResponse;
+import br.com.poupex.investimento.recursosfinanceiros.api.model.ResponseModel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,28 +14,43 @@ import org.springframework.web.bind.annotation.*;
 public class InstituicaoController {
 
   @PostMapping()
-  public ResponseEntity<?> create() {
-    return ResponseEntity.ok().build();
+  public ResponseEntity<ResponseModel> create() {
+    return ResponseEntity.ok(new ResponseModel(true, "xuxu", HttpStatus.OK.value(), null, new InstituicaoResumoResponse()));
   }
 
   @GetMapping()
-  public ResponseEntity<?> read() {
-    return ResponseEntity.ok().build();
+  public ResponseEntity<ResponseModel> read() {
+    return ResponseEntity.ok(new ResponseModel(true, "xuxu", HttpStatus.OK.value(), null, new InstituicaoResumoResponse()));
   }
 
-  @GetMapping("{chave}")
-  public ResponseEntity<?> read(@PathVariable String chave) {
-    return ResponseEntity.ok(chave);
+  @GetMapping("{instituicao}")
+  public ResponseEntity<ResponseModel> read(@PathVariable String instituicao) {
+    return ResponseEntity.ok(new ResponseModel(true, "xuxu", HttpStatus.OK.value(), null, new InstituicaoDetalheResponse()));
   }
 
-  @PutMapping("{chave}")
-  public ResponseEntity<?> update(@PathVariable String chave) {
-    return ResponseEntity.ok(chave);
+  @PutMapping("{instituicao}")
+  public ResponseEntity<ResponseModel> update(@PathVariable String instituicao) {
+    return ResponseEntity.ok(new ResponseModel(true, "xuxu", HttpStatus.OK.value(), null, new InstituicaoDetalheResponse()));
   }
 
-  @DeleteMapping("{chave}")
-  public ResponseEntity<?> delete(@PathVariable String chave) {
-    return ResponseEntity.ok(chave);
+  @DeleteMapping("{instituicao}")
+  public ResponseEntity<ResponseModel> delete(@PathVariable String instituicao) {
+    return ResponseEntity.ok(new ResponseModel(true, "xuxu", HttpStatus.OK.value(), null, null));
+  }
+
+  @GetMapping("{instituicao}/contatos")
+  public ResponseEntity<ResponseModel> readContatos(@PathVariable String instituicao) {
+    return ResponseEntity.ok(new ResponseModel(true, "xuxu", HttpStatus.OK.value(), null, new InstituicaoResumoResponse()));
+  }
+
+  @PostMapping("{instituicao}/contatos")
+  public ResponseEntity<ResponseModel> createContato(@PathVariable String instituicao) {
+    return ResponseEntity.ok(new ResponseModel(true, "xuxu", HttpStatus.OK.value(), null, new InstituicaoResumoResponse()));
+  }
+
+  @DeleteMapping("{instituicao}/contatos/{contato}")
+  public ResponseEntity<ResponseModel> deleteContato(@PathVariable String instituicao, @PathVariable String contato) {
+    return ResponseEntity.ok(new ResponseModel(true, "xuxu", HttpStatus.OK.value(), null, null));
   }
 
 
