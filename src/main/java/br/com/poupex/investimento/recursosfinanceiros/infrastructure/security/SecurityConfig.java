@@ -57,7 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.DELETE).hasAnyAuthority(Scopes.DELETE)
         .and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
     } else {
-      config.anyRequest().authenticated().and().oauth2ResourceServer().jwt();
+//      config.anyRequest().authenticated().and().oauth2ResourceServer().jwt();
+      config.anyRequest().anonymous();
     }
   }
 

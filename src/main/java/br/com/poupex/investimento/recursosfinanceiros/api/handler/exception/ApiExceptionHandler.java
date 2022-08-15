@@ -82,12 +82,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     val bindingResult = ex.getBindingResult();
     val validacoes = bindingResult.getAllErrors().stream()
       .map(objectError -> {
-        val message = messageSource.getMessage(objectError, LocaleContextHolder.getLocale());
         var name = objectError.getObjectName();
         if (objectError instanceof FieldError) {
           name = ((FieldError) objectError).getField();
         }
-        return new ValidacaoModel(name, message);
+        return new ValidacaoModel(name, messageSource.getMessage(objectError, LocaleContextHolder.getLocale()));
       }).collect(Collectors.toList());
     return handleExceptionInternal(ex, builder(status, "Dados inválidos", detail, detail, validacoes), headers, status, request);
   }
@@ -123,18 +122,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     val detail = "O corpo da requisição está inválido. Verifique erro de sintaxe.";
     return handleExceptionInternal(
       ex, builder(status, "A requisição está incorreta", detail, MSG_ERRO_GENERICA_USUARIO_FINAL), headers, status, request
-    );
-  }
-
-  @Override
-  protected ResponseEntity<Object> handleExceptionInternal(
-    final Exception ex, final Object body, final HttpHeaders headers, final HttpStatus status, final WebRequest request
-  ) {
-    return super.handleExceptionInternal(
-      ex,
-      builder(status, body instanceof String ? (String) body : status.getReasonPhrase(), null, MSG_ERRO_GENERICA_USUARIO_FINAL),
-      headers, status,
-      request
     );
   }
 
@@ -180,6 +167,17 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     final HttpStatus status, final String title, final String detail, final String userMessage, final List<ValidacaoModel> validacoes
   ) {
     return new ResponseModel(LocalDateTime.now(), status.value(), title, detail, userMessage, validacoes, null);
+  }
+
+  private ResponseModel builder(
+    final HttpStatus status,
+    final String title,
+    final String detail,
+    final String userMessage,
+    final List<ValidacaoModel> validacoes,
+    final Object conteudo
+  ) {
+    return new ResponseModel(LocalDateTime.now(), status.value(), title, detail, userMessage, validacoes, conteudo);
   }
 
   private String path(final List<Reference> references) {

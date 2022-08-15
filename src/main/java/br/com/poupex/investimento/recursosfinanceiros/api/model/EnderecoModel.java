@@ -1,23 +1,20 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.model;
 
+import javax.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class InstituicaoAlterarRequest {
-  private String nome;
-  private String abreviacao;
-  private String grupo;
-  private String tipo;
-  private String site;
-  private String cetipCodigo;
-  private String celiqCodigo;
-  private String celiqConta;
+public class EnderecoModel {
+  @NotBlank
   public String cep;
+  @NotBlank
   public String lograoudo;
   public String numero;
   public String complemento;
+  @NotBlank
   public String cidade;
+  @NotBlank
   public String uf;
 }

@@ -24,6 +24,11 @@ spring:
   mvc:
     async:
       request-timeout: -1
+    throw-exception-if-no-handler-found: true
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      fail-on-ignored-properties: true
 logging:
   level:
     root: info
