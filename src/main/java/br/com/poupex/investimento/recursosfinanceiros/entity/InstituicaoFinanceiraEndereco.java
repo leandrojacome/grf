@@ -16,10 +16,10 @@ public class InstituicaoFinanceiraEndereco extends AbstractEntidadeBase {
   @JoinColumn(name = "INSTITUICAO_FINANCEIRA")
   private InstituicaoFinanceira instituicaoFinanceira;
 
-  @Column(name = "CEP", nullable = false, length = 10)
+  @Column(name = "CEP", nullable = false, length = 8)
   private String cep;
 
-  @Column(name = "LOGRADOURO", nullable = false, length = 1000)
+  @Column(name = "LOGRADOURO", nullable = false, length = 512)
   private String logradouro;
 
   @Column(name = "NUMERO", length = 6)
@@ -28,10 +28,10 @@ public class InstituicaoFinanceiraEndereco extends AbstractEntidadeBase {
   @Column(name = "COMPLEMENTO", length = 256)
   private String complemento;
 
-  @Column(name = "CIDADE", nullable = false, length = 64)
+  @Column(name = "CIDADE", nullable = false, length = 32)
   private String cidade;
 
-  @Column(name = "UF", nullable = false, length = 4)
+  @Column(name = "UF", nullable = false, length = 2)
   private String uf;
 
 }

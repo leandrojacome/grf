@@ -3,15 +3,15 @@ package br.com.poupex.investimento.recursosfinanceiros.entity;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @MappedSuperclass
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Slf4j
@@ -45,6 +45,7 @@ public abstract class AbstractEntidadeBase {
   public void abstractPreUpdate() {
     preUpdate();
   }
+
   public void prePersist() {
     log.debug("Usando prePersist default da entidade base");
   }

@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum InstituicaoFinanceiraTipo {
 
-  TODOS("Todos"), BANCO("Banco"), FUNDOS("Fundos de Investimento"), ORGAOS("Orgãos"), CORRETORAS("Corretoras");
+  BANCO("Banco"), FUNDOS("Fundos de Investimento"), ORGAOS("Orgãos"), CORRETORAS("Corretoras");
 
   private final String label;
 

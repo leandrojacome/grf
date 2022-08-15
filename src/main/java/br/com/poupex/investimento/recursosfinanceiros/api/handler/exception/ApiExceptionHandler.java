@@ -1,5 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.handler.exception;
 
+import br.com.poupex.investimento.recursosfinanceiros.api.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.api.model.ValidacaoModel;
 import br.com.poupex.investimento.recursosfinanceiros.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
@@ -42,23 +44,31 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler(Exception.class)
   public ResponseEntity<Object> handleUncaught(final Exception ex, final WebRequest request) {
     log.error("Ocorreu um erro não esperado", ex);
-    val status = HttpStatus.INTERNAL_SERVER_ERROR;
-    Problem problem = builder(status, "Erro não experado", MSG_ERRO_GENERICA_USUARIO_FINAL, MSG_ERRO_GENERICA_USUARIO_FINAL).build();
-    return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    return handleExceptionInternal(
+      ex,
+      builder(HttpStatus.INTERNAL_SERVER_ERROR, "Erro não experado", MSG_ERRO_GENERICA_USUARIO_FINAL, MSG_ERRO_GENERICA_USUARIO_FINAL),
+      new HttpHeaders(),
+      HttpStatus.INTERNAL_SERVER_ERROR,
+      request
+    );
   }
 
   @ExceptionHandler(RecursoNaoEncontradoException.class)
   public ResponseEntity<?> handleEntidadeNaoEncontrada(final RecursoNaoEncontradoException ex, final WebRequest request) {
-    val status = ex.getStatus();
-    val detail = ex.getMessage();
-    val problem = builder(status, "Recurso não encontrado", detail, detail).build();
-    return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    return handleExceptionInternal(
+      ex, builder(ex.getStatus(), "Recurso não encontrado", ex.getMessage(), ex.getMessage()), new HttpHeaders(), ex.getStatus(), request
+    );
   }
 
   @ExceptionHandler(NegocioException.class)
   public ResponseEntity<?> handleNegocio(final NegocioException ex, final WebRequest request) {
-    val problem = builder(ex.getStatus(), "Erro de negócio", ex.getMessage(), ex.getMessage()).build();
-    return handleExceptionInternal(ex, problem, new HttpHeaders(), ex.getStatus(), request);
+    return handleExceptionInternal(
+      ex,
+      builder(ex.getStatus(), "Erro de negócio", ex.getMessage(), ex.getMessage()),
+      new HttpHeaders(),
+      ex.getStatus(),
+      request
+    );
   }
 
   @Override
@@ -70,17 +80,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   ) {
     val detail = "Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.";
     val bindingResult = ex.getBindingResult();
-    val problemObjects = bindingResult.getAllErrors().stream()
+    val validacoes = bindingResult.getAllErrors().stream()
       .map(objectError -> {
         val message = messageSource.getMessage(objectError, LocaleContextHolder.getLocale());
         var name = objectError.getObjectName();
         if (objectError instanceof FieldError) {
           name = ((FieldError) objectError).getField();
         }
-        return Problem.Object.builder().name(name).userMessage(message).build();
+        return new ValidacaoModel(name, message);
       }).collect(Collectors.toList());
-    val problem = builder(status, "Dados inválidos", detail, detail).objects(problemObjects).build();
-    return handleExceptionInternal(ex, problem, headers, status, request);
+    return handleExceptionInternal(ex, builder(status, "Dados inválidos", detail, detail, validacoes), headers, status, request);
   }
 
   @Override
@@ -88,8 +97,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     final NoHandlerFoundException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request
   ) {
     val detail = String.format("O recurso %s, que você tentou acessar, é inexistente.", ex.getRequestURL());
-    val problem = builder(status, "Recurso não encontrado", detail, MSG_ERRO_GENERICA_USUARIO_FINAL).build();
-    return handleExceptionInternal(ex, problem, headers, status, request);
+    return handleExceptionInternal(ex, builder(status, "Recurso não encontrado", detail, MSG_ERRO_GENERICA_USUARIO_FINAL), headers, status, request);
   }
 
   @Override
@@ -113,16 +121,21 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       return handlePropertyBinding((PropertyBindingException) rootCause, headers, status, request);
     }
     val detail = "O corpo da requisição está inválido. Verifique erro de sintaxe.";
-    val problem = builder(status, "A requisição está incorreta", detail, MSG_ERRO_GENERICA_USUARIO_FINAL).build();
-    return handleExceptionInternal(ex, problem, headers, status, request);
+    return handleExceptionInternal(
+      ex, builder(status, "A requisição está incorreta", detail, MSG_ERRO_GENERICA_USUARIO_FINAL), headers, status, request
+    );
   }
 
   @Override
   protected ResponseEntity<Object> handleExceptionInternal(
     final Exception ex, final Object body, final HttpHeaders headers, final HttpStatus status, final WebRequest request
   ) {
-    val problem = builder(status, body instanceof String ? (String) body : status.getReasonPhrase(), null, MSG_ERRO_GENERICA_USUARIO_FINAL).build();
-    return super.handleExceptionInternal(ex, problem, headers, status, request);
+    return super.handleExceptionInternal(
+      ex,
+      builder(status, body instanceof String ? (String) body : status.getReasonPhrase(), null, MSG_ERRO_GENERICA_USUARIO_FINAL),
+      headers, status,
+      request
+    );
   }
 
   private ResponseEntity<Object> handleMethodArgumentTypeMismatch(
@@ -134,16 +147,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       ex.getValue(),
       Objects.requireNonNull(ex.getRequiredType()).getSimpleName()
     );
-    val problem = builder(status, "Parametro inválido", detail, MSG_ERRO_GENERICA_USUARIO_FINAL).build();
-    return handleExceptionInternal(ex, problem, headers, status, request);
+    return handleExceptionInternal(ex, builder(status, "Parametro inválido", detail, MSG_ERRO_GENERICA_USUARIO_FINAL), headers, status, request);
   }
 
   private ResponseEntity<Object> handlePropertyBinding(
     final PropertyBindingException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request
   ) {
     val detail = String.format("A propriedade '%s' não existe. Corrija ou remova essa propriedade e tente novamente.", path(ex.getPath()));
-    val problem = builder(status, "Propriedade não existe", detail, MSG_ERRO_GENERICA_USUARIO_FINAL).build();
-    return handleExceptionInternal(ex, problem, headers, status, request);
+    return handleExceptionInternal(ex, builder(status, "Propriedade não existe", detail, MSG_ERRO_GENERICA_USUARIO_FINAL), headers, status, request);
   }
 
   private ResponseEntity<Object> handleInvalidFormat(
@@ -158,12 +169,17 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       ex.getValue(),
       ex.getTargetType().getSimpleName()
     );
-    val problem = builder(status, "Formato inválido", detail, MSG_ERRO_GENERICA_USUARIO_FINAL).build();
-    return handleExceptionInternal(ex, problem, headers, status, request);
+    return handleExceptionInternal(ex, builder(status, "Formato inválido", detail, MSG_ERRO_GENERICA_USUARIO_FINAL), headers, status, request);
   }
 
-  private Problem.ProblemBuilder builder(final HttpStatus status, final String title, final String detail, final String userMessage) {
-    return Problem.builder().timestamp(LocalDateTime.now()).status(status.value()).title(title).detail(detail).userMessage(userMessage);
+  private ResponseModel builder(final HttpStatus status, final String title, final String detail, final String userMessage) {
+    return new ResponseModel(LocalDateTime.now(), status.value(), title, detail, userMessage, null, null);
+  }
+
+  private ResponseModel builder(
+    final HttpStatus status, final String title, final String detail, final String userMessage, final List<ValidacaoModel> validacoes
+  ) {
+    return new ResponseModel(LocalDateTime.now(), status.value(), title, detail, userMessage, validacoes, null);
   }
 
   private String path(final List<Reference> references) {
