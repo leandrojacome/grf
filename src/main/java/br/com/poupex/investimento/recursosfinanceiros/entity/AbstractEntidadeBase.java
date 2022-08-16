@@ -22,7 +22,7 @@ public abstract class AbstractEntidadeBase {
   }
 
   @Id
-  @Column(name = "ID", nullable = false, length = 64)
+  @Column(name = "ID", nullable = false, length = 36)
   private String id;
 
   @CreationTimestamp

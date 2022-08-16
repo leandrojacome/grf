@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 public class RecursoNaoEncontradoException extends NegocioException {
 
   public RecursoNaoEncontradoException(final String recurso) {
-    super(HttpStatus.NOT_FOUND, String.format("Recurso não encontrado: %s", recurso));
+    super(HttpStatus.NOT_FOUND, "Recurso não encontrato", String.format("O recurso [%s] não foi encontrado", recurso));
   }
 
 }

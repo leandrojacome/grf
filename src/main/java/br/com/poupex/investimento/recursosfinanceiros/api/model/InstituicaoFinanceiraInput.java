@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class InstituicaoFinanceiraCreateRequest {
+public class InstituicaoFinanceiraInput {
   @NotBlank
   private String cnpj;
   @NotBlank
@@ -25,6 +25,6 @@ public class InstituicaoFinanceiraCreateRequest {
   private String cetipCodigo;
   private String celiqCodigo;
   private String celiqConta;
-  @Valid
+  @Valid @NotNull
   private EnderecoModel endereco;
 }

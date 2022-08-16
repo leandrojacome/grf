@@ -10,7 +10,7 @@ public class EnderecoModel {
   @NotBlank
   public String cep;
   @NotBlank
-  public String lograoudo;
+  public String logradouro;
   public String numero;
   public String complemento;
   @NotBlank

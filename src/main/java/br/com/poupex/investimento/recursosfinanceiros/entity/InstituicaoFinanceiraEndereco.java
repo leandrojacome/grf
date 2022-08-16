@@ -12,7 +12,7 @@ import lombok.*;
 @Table(name = "INSTITUICAO_FINANCEIRA_ENDERECO", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class InstituicaoFinanceiraEndereco extends AbstractEntidadeBase {
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   @JoinColumn(name = "INSTITUICAO_FINANCEIRA")
   private InstituicaoFinanceira instituicaoFinanceira;
 

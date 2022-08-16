@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.entity;
 
 import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
+import java.util.List;
 import javax.persistence.*;
 import lombok.*;
 
@@ -45,13 +46,15 @@ public class InstituicaoFinanceira extends AbstractEntidadeBase {
   @Column(name = "CELIQ_CONTA")
   private String celiqConta;
 
-  @OneToOne(cascade = {CascadeType.ALL}, mappedBy = "instituicaoFinanceira", optional = false)
-  private InstituicaoFinanceiraEndereco endereco;
+  @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "instituicaoFinanceira")
+  @OrderBy("cadastro DESC")
+  private List<InstituicaoFinanceiraEndereco> enderecos;
 
   @Override
   public void prePersist() {
-    if (endereco.getInstituicaoFinanceira() == null) {
-      endereco.setInstituicaoFinanceira(this);
+    try {
+      enderecos.forEach(endereco -> endereco.setInstituicaoFinanceira(this));
+    } catch (final NullPointerException ignored) {
     }
   }
 
