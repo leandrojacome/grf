@@ -1,21 +1,42 @@
 package br.com.poupex.investimento.recursosfinanceiros.exception;
 
+import br.com.poupex.investimento.recursosfinanceiros.api.model.ValidacaoModel;
+import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Getter
-@RequiredArgsConstructor
 public class NegocioException extends RuntimeException {
 
   private final HttpStatus status;
   private final String titulo;
   private final String mensagem;
+  private final List<ValidacaoModel> validacoes;
+  private final Object conteudo;
+
+  public NegocioException(final HttpStatus status, final String titulo, final String mensagem) {
+    this.status = status;
+    this.titulo = titulo;
+    this.mensagem = mensagem;
+    this.validacoes = null;
+    this.conteudo = null;
+  }
 
   public NegocioException(final String titulo, final String mensagem) {
     this.status = HttpStatus.BAD_REQUEST;
     this.titulo = titulo;
     this.mensagem = mensagem;
+    this.validacoes = null;
+    this.conteudo = null;
+  }
+
+  public NegocioException(final String titulo, final String mensagem, final List<ValidacaoModel> validacoes, final Object conteudo) {
+    this.status = HttpStatus.BAD_REQUEST;
+    this.titulo = titulo;
+    this.mensagem = mensagem;
+    this.validacoes = validacoes;
+    this.conteudo = conteudo;
   }
 
 }

@@ -67,7 +67,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler(NegocioException.class)
   public ResponseEntity<?> handleNegocio(final NegocioException ex, final WebRequest request) {
     return handleExceptionInternal(
-      ex, builder(ex.getStatus(), ex.getTitulo(), "Erro de negócio", ex.getMessage()), new HttpHeaders(), ex.getStatus(), request
+      ex,
+      builder(ex.getStatus(), "Erro de negócio", ex.getTitulo(), ex.getMensagem(), ex.getValidacoes(), ex.getConteudo()),
+      new HttpHeaders(),
+      ex.getStatus(),
+      request
     );
   }
 
@@ -157,8 +161,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     return new ResponseModel(
       LocalDateTime.now(),
       HttpStatus.BAD_REQUEST.value(),
-      "Dados inválidos",
-      "Campos inválidos.",
+      "Validação",
+      "Campos inválidos encontrados.",
       "Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.",
       validacoes,
       conteudo

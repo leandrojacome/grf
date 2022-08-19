@@ -1,8 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraInput;
+import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraCadastrarInput;
+import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraEditarInput;
 import br.com.poupex.investimento.recursosfinanceiros.api.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.service.CadastraInstituicaoFinanceiraService;
+import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraService;
+import br.com.poupex.investimento.recursosfinanceiros.service.EditarInstituicaoFinanceiraService;
+import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarInstituicaoFinanceiraService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,25 +16,27 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class InstituicaoController {
 
-  private final CadastraInstituicaoFinanceiraService cadastraInstituicaoFinanceiraService;
+  private final CadastrarInstituicaoFinanceiraService cadastrarInstituicaoFinanceiraService;
+  private final EditarInstituicaoFinanceiraService editarInstituicaoFinanceiraService;
+  private final RecuperarInstituicaoFinanceiraService recuperarInstituicaoFinanceiraService;
 
   @PostMapping()
-  public ResponseEntity<ResponseModel> create(@RequestBody @Valid final InstituicaoFinanceiraInput request) {
-    return ResponseEntity.ok(cadastraInstituicaoFinanceiraService.execute(request));
+  public ResponseEntity<ResponseModel> create(@RequestBody @Valid final InstituicaoFinanceiraCadastrarInput input) {
+    return ResponseEntity.ok(cadastrarInstituicaoFinanceiraService.execute(input));
+  }
+
+  @PutMapping("{id}")
+  public ResponseEntity<ResponseModel> update(@PathVariable String id, @RequestBody @Valid final InstituicaoFinanceiraEditarInput input) {
+    return ResponseEntity.ok(editarInstituicaoFinanceiraService.execute(id, input));
+  }
+
+  @GetMapping("{id}")
+  public ResponseEntity<ResponseModel> read(@PathVariable String id) {
+    return ResponseEntity.ok(recuperarInstituicaoFinanceiraService.execute(id));
   }
 
   @GetMapping()
   public ResponseEntity<ResponseModel> read() {
-    return ResponseEntity.ok().build();
-  }
-
-  @GetMapping("{instituicao}")
-  public ResponseEntity<ResponseModel> read(@PathVariable String instituicao) {
-    return ResponseEntity.ok().build();
-  }
-
-  @PutMapping("{instituicao}")
-  public ResponseEntity<ResponseModel> update(@PathVariable String instituicao) {
     return ResponseEntity.ok().build();
   }
 

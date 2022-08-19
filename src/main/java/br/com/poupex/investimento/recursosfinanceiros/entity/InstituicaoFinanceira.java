@@ -1,18 +1,21 @@
 package br.com.poupex.investimento.recursosfinanceiros.entity;
 
 import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
-import java.util.List;
 import javax.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "INSTITUICAO_FINANCEIRA", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class InstituicaoFinanceira extends AbstractEntidadeBase {
+
+  public InstituicaoFinanceira(final String id) {
+    super(id);
+  }
 
   @Column(name = "CNPJ", nullable = false, length = 14)
   private String cnpj;
@@ -46,16 +49,8 @@ public class InstituicaoFinanceira extends AbstractEntidadeBase {
   @Column(name = "CELIQ_CONTA")
   private String celiqConta;
 
-  @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "instituicaoFinanceira")
-  @OrderBy("cadastro DESC")
-  private List<InstituicaoFinanceiraEndereco> enderecos;
-
-  @Override
-  public void prePersist() {
-    try {
-      enderecos.forEach(endereco -> endereco.setInstituicaoFinanceira(this));
-    } catch (final NullPointerException ignored) {
-    }
-  }
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+  @JoinColumn(name = "INSTITUICAO_FINANCEIRA_ENDERECO", referencedColumnName = "ID")
+  private InstituicaoFinanceiraEndereco endereco;
 
 }

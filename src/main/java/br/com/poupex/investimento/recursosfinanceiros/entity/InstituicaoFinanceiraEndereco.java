@@ -12,10 +12,6 @@ import lombok.*;
 @Table(name = "INSTITUICAO_FINANCEIRA_ENDERECO", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class InstituicaoFinanceiraEndereco extends AbstractEntidadeBase {
 
-  @ManyToOne
-  @JoinColumn(name = "INSTITUICAO_FINANCEIRA")
-  private InstituicaoFinanceira instituicaoFinanceira;
-
   @Column(name = "CEP", nullable = false, length = 8)
   private String cep;
 
