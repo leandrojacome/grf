@@ -6,14 +6,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.br.CNPJ;
 
 @Getter
 @Setter
-public class InstituicaoFinanceiraCadastrarInput implements InstituicaoFinanceiraInput{
-  @NotBlank
-  @CNPJ
-  private String cnpj;
+public class InstituicaoFinanceiraInputEditar implements InstituicaoFinanceiraInput {
   @NotBlank
   private String nome;
   @NotBlank
@@ -27,6 +23,7 @@ public class InstituicaoFinanceiraCadastrarInput implements InstituicaoFinanceir
   private String cetipCodigo;
   private String celiqCodigo;
   private String celiqConta;
-  @Valid @NotNull
+  @Valid
+  @NotNull
   private EnderecoModel endereco;
 }

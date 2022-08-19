@@ -7,8 +7,6 @@ import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncont
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -28,8 +26,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -60,7 +56,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler(RecursoNaoEncontradoException.class)
   public ResponseEntity<?> handleEntidadeNaoEncontrada(final RecursoNaoEncontradoException ex, final WebRequest request) {
     return handleExceptionInternal(
-      ex, builder(ex.getStatus(), ex.getTitulo(), ex.getMessage(), ex.getMessage()), new HttpHeaders(), ex.getStatus(), request
+      ex, builder(ex.getStatus(), ex.getTitulo(), ex.getMessage(), ex.getMensagem()), new HttpHeaders(), ex.getStatus(), request
     );
   }
 
@@ -68,7 +64,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   public ResponseEntity<?> handleNegocio(final NegocioException ex, final WebRequest request) {
     return handleExceptionInternal(
       ex,
-      builder(ex.getStatus(), "Erro de negócio", ex.getTitulo(), ex.getMensagem(), ex.getValidacoes(), ex.getConteudo()),
+      builder(ex.getStatus(), ex.getTitulo(), ex.getMensagem(), ex.getValidacoes(), ex.getConteudo()),
       new HttpHeaders(),
       ex.getStatus(),
       request
@@ -171,13 +167,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
   private ResponseModel builder(
     final HttpStatus status,
-    final String title,
     final String detail,
     final String userMessage,
     final List<ValidacaoModel> validacoes,
     final Object conteudo
   ) {
-    return new ResponseModel(LocalDateTime.now(), status.value(), title, detail, userMessage, validacoes, conteudo);
+    return new ResponseModel(LocalDateTime.now(), status.value(), "Erro de negócio", detail, userMessage, validacoes, conteudo);
   }
 
 }

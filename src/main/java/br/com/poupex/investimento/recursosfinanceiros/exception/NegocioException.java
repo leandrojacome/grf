@@ -16,6 +16,7 @@ public class NegocioException extends RuntimeException {
   private final Object conteudo;
 
   public NegocioException(final HttpStatus status, final String titulo, final String mensagem) {
+    super(titulo);
     this.status = status;
     this.titulo = titulo;
     this.mensagem = mensagem;
@@ -24,6 +25,7 @@ public class NegocioException extends RuntimeException {
   }
 
   public NegocioException(final String titulo, final String mensagem) {
+    super(titulo);
     this.status = HttpStatus.BAD_REQUEST;
     this.titulo = titulo;
     this.mensagem = mensagem;
@@ -32,6 +34,7 @@ public class NegocioException extends RuntimeException {
   }
 
   public NegocioException(final String titulo, final String mensagem, final List<ValidacaoModel> validacoes, final Object conteudo) {
+    super(titulo);
     this.status = HttpStatus.BAD_REQUEST;
     this.titulo = titulo;
     this.mensagem = mensagem;

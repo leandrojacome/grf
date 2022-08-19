@@ -12,7 +12,7 @@ public class InstituicaoFinanceiraDetalhadaOutput {
   private String nome;
   private String abreviacao;
   private Boolean matriz;
-  private String grupo;
+  private InstituicaoFinanceiraOutput grupo;
   private InstituicaoFinanceiraTipo tipo;
   private String site;
   private String cetipCodigo;

@@ -1,6 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraCadastrarInput;
+import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraInputCadastrar;
 import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.api.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.entity.InstituicaoFinanceira;
@@ -21,7 +21,7 @@ public class CadastrarInstituicaoFinanceiraService {
   private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
   private final ValidaInstituicaoFinanceiraMatrizGrupoService validaInstituicaoFinanceiraMatrizGrupoService;
 
-  public ResponseModel execute(final InstituicaoFinanceiraCadastrarInput input) {
+  public ResponseModel execute(final InstituicaoFinanceiraInputCadastrar input) {
     validaInstituicaoFinanceiraMatrizGrupoService.execute(input);
     val instituicao = mapper.map(input, InstituicaoFinanceira.class);
     if (instituicaoFinanceiraRepository.existsByCnpj(instituicao.getCnpj())) {
