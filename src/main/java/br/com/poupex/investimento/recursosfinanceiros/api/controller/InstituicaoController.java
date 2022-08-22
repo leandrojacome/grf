@@ -1,7 +1,10 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
+import br.com.poupex.investimento.recursosfinanceiros.model.ChaveLabelDescricaoOutput;
+import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraInputCadastrar;
+import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraInputEditar;
+import br.com.poupex.investimento.recursosfinanceiros.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import br.com.poupex.investimento.recursosfinanceiros.service.*;
 import java.time.LocalDateTime;

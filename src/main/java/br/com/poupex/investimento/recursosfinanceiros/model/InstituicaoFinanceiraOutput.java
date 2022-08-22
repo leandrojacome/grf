@@ -1,4 +1,4 @@
-package br.com.poupex.investimento.recursosfinanceiros.api.model;
+package br.com.poupex.investimento.recursosfinanceiros.model;
 
 import lombok.Getter;
 import lombok.Setter;

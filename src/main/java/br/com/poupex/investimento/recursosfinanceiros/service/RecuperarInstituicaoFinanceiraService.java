@@ -1,7 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraDetalhadaOutput;
-import br.com.poupex.investimento.recursosfinanceiros.api.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraDetalhadaOutput;
+import br.com.poupex.investimento.recursosfinanceiros.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import java.time.LocalDateTime;

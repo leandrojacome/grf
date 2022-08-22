@@ -1,9 +1,8 @@
 package br.com.poupex.investimento.recursosfinanceiros.exception;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.model.ValidacaoModel;
+import br.com.poupex.investimento.recursosfinanceiros.model.ValidacaoModel;
 import java.util.List;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Getter

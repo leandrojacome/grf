@@ -1,7 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.model.ResponseModel;
-import com.fasterxml.jackson.databind.JsonNode;
+import br.com.poupex.investimento.recursosfinanceiros.model.ResponseModel;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

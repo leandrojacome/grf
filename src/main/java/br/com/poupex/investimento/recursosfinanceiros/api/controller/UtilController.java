@@ -1,7 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 
-import br.com.poupex.investimento.recursosfinanceiros.api.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCepExternoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCnpjExternoService;
 import lombok.RequiredArgsConstructor;

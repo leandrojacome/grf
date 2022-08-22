@@ -1,8 +1,10 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.entity.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
+import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraInputEditar;
+import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraOutput;
+import br.com.poupex.investimento.recursosfinanceiros.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;

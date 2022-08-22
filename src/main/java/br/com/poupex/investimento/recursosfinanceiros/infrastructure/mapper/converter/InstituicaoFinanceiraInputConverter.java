@@ -1,8 +1,8 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraInput;
-import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraInputCadastrar;
-import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraInputEditar;
+import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraInput;
+import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraInputCadastrar;
+import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraInputEditar;
 import br.com.poupex.investimento.recursosfinanceiros.entity.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.entity.InstituicaoFinanceiraEndereco;
 import lombok.val;

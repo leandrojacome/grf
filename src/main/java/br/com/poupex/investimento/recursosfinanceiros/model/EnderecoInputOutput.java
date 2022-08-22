@@ -1,4 +1,4 @@
-package br.com.poupex.investimento.recursosfinanceiros.api.model;
+package br.com.poupex.investimento.recursosfinanceiros.model;
 
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.validation.CEP;
 import javax.validation.constraints.NotBlank;

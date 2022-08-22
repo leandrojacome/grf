@@ -1,8 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraDetalhadaOutput;
-import br.com.poupex.investimento.recursosfinanceiros.api.model.InstituicaoFinanceiraOutput;
-import br.com.poupex.investimento.recursosfinanceiros.api.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraOutput;
+import br.com.poupex.investimento.recursosfinanceiros.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.entity.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.ExecutionUtil;

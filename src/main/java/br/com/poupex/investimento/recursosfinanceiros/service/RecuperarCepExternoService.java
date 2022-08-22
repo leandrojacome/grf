@@ -1,8 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.model.EnderecoInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.api.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.validation.CEPValidator;
+import br.com.poupex.investimento.recursosfinanceiros.model.EnderecoInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.model.ResponseModel;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
