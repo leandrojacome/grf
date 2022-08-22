@@ -25,5 +25,5 @@ public class InstituicaoFinanceiraInputEditar implements InstituicaoFinanceiraIn
   private String celiqConta;
   @Valid
   @NotNull
-  private EnderecoModel endereco;
+  private EnderecoInputOutput endereco;
 }

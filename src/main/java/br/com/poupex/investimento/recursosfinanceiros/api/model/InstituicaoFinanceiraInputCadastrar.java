@@ -29,5 +29,5 @@ public class InstituicaoFinanceiraInputCadastrar implements InstituicaoFinanceir
   private String celiqConta;
   @Valid
   @NotNull
-  private EnderecoModel endereco;
+  private EnderecoInputOutput endereco;
 }

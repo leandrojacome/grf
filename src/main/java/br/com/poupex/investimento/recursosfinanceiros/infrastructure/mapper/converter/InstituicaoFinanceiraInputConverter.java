@@ -31,7 +31,7 @@ public class InstituicaoFinanceiraInputConverter {
     try {
       val endereco = new InstituicaoFinanceiraEndereco();
       BeanUtils.copyProperties(input.getEndereco(), endereco);
-      endereco.setCep(input.getEndereco().getCep().replaceAll("^[0-9]", ""));
+      endereco.setCep(input.getEndereco().getCep().replaceAll("[^0-9]", ""));
       instituicao.setEndereco(endereco);
     } catch (NullPointerException ignored) {
     }

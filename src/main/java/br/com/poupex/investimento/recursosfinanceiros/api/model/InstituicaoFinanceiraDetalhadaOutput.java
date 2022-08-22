@@ -18,5 +18,5 @@ public class InstituicaoFinanceiraDetalhadaOutput {
   private String cetipCodigo;
   private String celiqCodigo;
   private String celiqConta;
-  private EnderecoModel endereco;
+  private EnderecoInputOutput endereco;
 }

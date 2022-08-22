@@ -26,5 +26,5 @@ public interface InstituicaoFinanceiraInput {
 
   String getCeliqConta();
 
-  EnderecoModel getEndereco();
+  EnderecoInputOutput getEndereco();
 }
