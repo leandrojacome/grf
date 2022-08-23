@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class InstituicaoFinanceiraDetalhadaOutput {
+public class InstituicaoFinanceiraOutputDetalhe {
   private String id;
   private String cnpj;
   private String nome;
@@ -17,6 +17,5 @@ public class InstituicaoFinanceiraDetalhadaOutput {
   private String site;
   private String cetipCodigo;
   private String celiqCodigo;
-  private String celiqConta;
   private EnderecoInputOutput endereco;
 }

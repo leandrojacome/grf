@@ -56,7 +56,6 @@ CREATE TABLE GESTAO_RECURSOS_FINANCEIROS.INSTITUICAO_FINANCEIRA
     SITE                                    VARCHAR2(1000)      ,
     CETIP_CODIGO                            VARCHAR2(512)       ,
     CELIQ_CODIGO                            VARCHAR2(512)       ,
-    CELIQ_CONTA                             VARCHAR2(512)       ,
     INSTITUICAO_FINANCEIRA_ENDERECO         VARCHAR2(36)        NOT NULL,
     CADASTRO                                TIMESTAMP           NOT NULL,
     ATUALIZACAO                             TIMESTAMP           NOT NULL,

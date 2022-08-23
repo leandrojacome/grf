@@ -22,7 +22,6 @@ public class EnderecoInputOutput {
   public String cidade;
   @NotBlank
   public String uf;
-
   public void setLocalidade(final String localidade) {
     this.cidade = localidade;
   }

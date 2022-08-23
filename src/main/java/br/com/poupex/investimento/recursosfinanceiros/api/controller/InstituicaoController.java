@@ -29,35 +29,6 @@ public class InstituicaoController {
   private final ConsultarInstituicoesFinanceirasService consultarInstituicoesFinanceirasService;
   private final ExcluirInstituicaoFinanceiraService excluirInstituicaoFinanceiraService;
 
-  //TODO: colocar em service
-  //TODO: criar mapper
-  @GetMapping("grupos")
-  public ResponseEntity<ResponseModel> grupos() {
-    instituicaoFinanceiraRepository.findAll(instituicaoFinanceiraRepository.matriz(Boolean.TRUE));
-    return ResponseEntity.ok(new ResponseModel(
-      LocalDateTime.now(),
-      HttpStatus.OK.value(),
-      null, null, null, null,
-      instituicaoFinanceiraRepository.findAll(instituicaoFinanceiraRepository.matriz(Boolean.TRUE)).stream()
-        .map(i -> new ChaveLabelDescricaoOutput(i.getId(), i.getAbreviacao(), i.getNome()))
-        .collect(Collectors.toList()))
-    );
-  }
-
-  //TODO: colocar em service
-  //TODO: criar mapper
-  @GetMapping("tipos")
-  public ResponseEntity<ResponseModel> tipos() {
-    return ResponseEntity.ok(new ResponseModel(
-      LocalDateTime.now(),
-      HttpStatus.OK.value(),
-      null, null, null, null,
-      Arrays.stream(InstituicaoFinanceiraTipo.values())
-        .map(i -> new ChaveLabelDescricaoOutput(i.name(), i.getLabel(), i.getDeclaringClass().getSimpleName()))
-        .collect(Collectors.toList()))
-    );
-  }
-
   @PostMapping()
   public ResponseEntity<ResponseModel> create(@RequestBody @Valid final InstituicaoFinanceiraInputCadastrar input) {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraService.execute(input));
@@ -87,6 +58,35 @@ public class InstituicaoController {
   @DeleteMapping("{id}")
   public ResponseEntity<ResponseModel> delete(@PathVariable String id) {
     return ResponseEntity.ok(excluirInstituicaoFinanceiraService.execute(id));
+  }
+
+  //TODO: colocar em service
+  //TODO: criar mapper
+  @GetMapping("grupos")
+  public ResponseEntity<ResponseModel> grupos() {
+    instituicaoFinanceiraRepository.findAll(instituicaoFinanceiraRepository.matriz(Boolean.TRUE));
+    return ResponseEntity.ok(new ResponseModel(
+      LocalDateTime.now(),
+      HttpStatus.OK.value(),
+      null, null, null, null,
+      instituicaoFinanceiraRepository.findAll(instituicaoFinanceiraRepository.matriz(Boolean.TRUE)).stream()
+        .map(i -> new ChaveLabelDescricaoOutput(i.getId(), i.getAbreviacao(), i.getNome()))
+        .collect(Collectors.toList()))
+    );
+  }
+
+  //TODO: colocar em service
+  //TODO: criar mapper
+  @GetMapping("tipos")
+  public ResponseEntity<ResponseModel> tipos() {
+    return ResponseEntity.ok(new ResponseModel(
+      LocalDateTime.now(),
+      HttpStatus.OK.value(),
+      null, null, null, null,
+      Arrays.stream(InstituicaoFinanceiraTipo.values())
+        .map(i -> new ChaveLabelDescricaoOutput(i.name(), i.getLabel(), i.getDeclaringClass().getSimpleName()))
+        .collect(Collectors.toList()))
+    );
   }
 
   @GetMapping("{instituicao}/contatos")

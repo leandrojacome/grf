@@ -22,7 +22,6 @@ public class InstituicaoFinanceiraInputEditar implements InstituicaoFinanceiraIn
   private String site;
   private String cetipCodigo;
   private String celiqCodigo;
-  private String celiqConta;
   @Valid
   @NotNull
   private EnderecoInputOutput endereco;

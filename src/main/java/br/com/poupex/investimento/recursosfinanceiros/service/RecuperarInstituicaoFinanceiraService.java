@@ -1,6 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraDetalhadaOutput;
+import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraOutputDetalhe;
 import br.com.poupex.investimento.recursosfinanceiros.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
@@ -26,7 +26,7 @@ public class RecuperarInstituicaoFinanceiraService {
       LocalDateTime.now(),
       HttpStatus.OK.value(),
       null, null, null, null,
-      mapper.map(instituicao, InstituicaoFinanceiraDetalhadaOutput.class)
+      mapper.map(instituicao, InstituicaoFinanceiraOutputDetalhe.class)
     );
   }
 
