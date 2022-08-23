@@ -24,9 +24,8 @@ public class InstituicaoFinanceiraInputCadastrar implements InstituicaoFinanceir
   @NotNull
   private InstituicaoFinanceiraTipo tipo;
   private String site;
-  private String cetipCodigo;
-  private String celiqCodigo;
-  private String celiqConta;
+  private String cetip;
+  private String celiq;
   @Valid
   @NotNull
   private EnderecoInputOutput endereco;

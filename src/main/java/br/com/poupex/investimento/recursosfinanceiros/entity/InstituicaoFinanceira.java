@@ -40,11 +40,11 @@ public class InstituicaoFinanceira extends AbstractEntidadeBase {
   @Column(name = "SITE", length = 1000)
   private String site;
 
-  @Column(name = "CETIP_CODIGO")
-  private String cetipCodigo;
+  @Column(name = "CETIP")
+  private String cetip;
 
-  @Column(name = "CELIQ_CODIGO")
-  private String celiqCodigo;
+  @Column(name = "CELIQ")
+  private String celiq;
 
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   @JoinColumn(name = "INSTITUICAO_FINANCEIRA_ENDERECO", referencedColumnName = "ID")

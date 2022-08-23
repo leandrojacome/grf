@@ -15,7 +15,7 @@ public class InstituicaoFinanceiraOutputDetalhe {
   private InstituicaoFinanceiraOutput grupo;
   private InstituicaoFinanceiraTipo tipo;
   private String site;
-  private String cetipCodigo;
-  private String celiqCodigo;
+  private String cetip;
+  private String celiq;
   private EnderecoInputOutput endereco;
 }

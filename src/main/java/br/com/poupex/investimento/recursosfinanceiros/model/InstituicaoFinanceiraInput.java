@@ -12,7 +12,7 @@ public interface InstituicaoFinanceiraInput {
   String getGrupo();
   InstituicaoFinanceiraTipo getTipo();
   String getSite();
-  String getCetipCodigo();
-  String getCeliqCodigo();
+  String getCetip();
+  String getCeliq();
   EnderecoInputOutput getEndereco();
 }
