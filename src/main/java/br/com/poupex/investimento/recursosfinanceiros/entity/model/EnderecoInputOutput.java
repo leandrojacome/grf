@@ -1,23 +1,23 @@
-package br.com.poupex.investimento.recursosfinanceiros.model;
+package br.com.poupex.investimento.recursosfinanceiros.entity.model;
 
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.validation.CEP;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class EnderecoInputOutput {
   @NotBlank
   @CEP
   public String cep;
   @NotBlank
   public String logradouro;
+  @Size(max = 6)
   public String numero;
+  @Size(max = 256)
   public String complemento;
-  public String bairro;
   @NotBlank
   public String cidade;
   @NotBlank

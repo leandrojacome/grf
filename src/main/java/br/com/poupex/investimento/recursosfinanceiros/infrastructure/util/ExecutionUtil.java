@@ -2,6 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.infrastructure.util;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ExecutionUtil {
@@ -14,4 +15,11 @@ public class ExecutionUtil {
     return initialSpec;
   }
 
+  public static <T> T getSafe(Supplier<T> supplier) {
+    try {
+      return supplier.get();
+    } catch (final Exception ignored) {
+    }
+    return null;
+  }
 }

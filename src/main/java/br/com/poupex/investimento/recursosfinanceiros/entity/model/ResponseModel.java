@@ -1,4 +1,4 @@
-package br.com.poupex.investimento.recursosfinanceiros.model;
+package br.com.poupex.investimento.recursosfinanceiros.entity.model;
 
 import java.time.LocalDateTime;
 import java.util.List;

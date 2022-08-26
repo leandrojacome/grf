@@ -1,6 +1,7 @@
-package br.com.poupex.investimento.recursosfinanceiros.model;
+package br.com.poupex.investimento.recursosfinanceiros.entity.model;
 
 import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
+import java.util.List;
 
 public interface InstituicaoFinanceiraInput {
   default String getCnpj() {
@@ -15,4 +16,7 @@ public interface InstituicaoFinanceiraInput {
   String getCetip();
   String getCeliq();
   EnderecoInputOutput getEndereco();
+  default List<ContatoInputOutput> getContatos() {
+    return null;
+  }
 }

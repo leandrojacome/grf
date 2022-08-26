@@ -1,4 +1,4 @@
-package br.com.poupex.investimento.recursosfinanceiros.entity;
+package br.com.poupex.investimento.recursosfinanceiros.entity.data;
 
 import javax.persistence.*;
 import lombok.*;

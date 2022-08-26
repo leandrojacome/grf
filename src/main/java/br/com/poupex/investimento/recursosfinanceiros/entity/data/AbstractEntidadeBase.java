@@ -1,4 +1,4 @@
-package br.com.poupex.investimento.recursosfinanceiros.entity;
+package br.com.poupex.investimento.recursosfinanceiros.entity.data;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

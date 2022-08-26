@@ -1,6 +1,7 @@
-package br.com.poupex.investimento.recursosfinanceiros.entity;
+package br.com.poupex.investimento.recursosfinanceiros.entity.data;
 
 import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
+import java.util.List;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,8 +47,11 @@ public class InstituicaoFinanceira extends AbstractEntidadeBase {
   @Column(name = "CELIQ")
   private String celiq;
 
-  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true)
   @JoinColumn(name = "INSTITUICAO_FINANCEIRA_ENDERECO", referencedColumnName = "ID")
   private InstituicaoFinanceiraEndereco endereco;
+
+  @OneToMany(mappedBy = "instituicaoFinanceira", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
+  private List<InstituicaoFinanceiraContato> contatos;
 
 }

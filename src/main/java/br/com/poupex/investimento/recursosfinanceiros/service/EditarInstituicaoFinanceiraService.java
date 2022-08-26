@@ -1,10 +1,10 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.entity.InstituicaoFinanceira;
+import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
-import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraInputEditar;
-import br.com.poupex.investimento.recursosfinanceiros.model.InstituicaoFinanceiraOutput;
-import br.com.poupex.investimento.recursosfinanceiros.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraInputEditar;
+import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
+import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +27,15 @@ public class EditarInstituicaoFinanceiraService {
     val instituicao = instituicaoFinanceiraRepository.findById(id).orElseThrow(
       () -> new RecursoNaoEncontradoException(String.format("Instituição [Id: %s]", id))
     );
-    BeanUtils.copyProperties(mapper.map(input, InstituicaoFinanceira.class), instituicao, "id", "cnpj", "cadastro", "atualizacao");
+    BeanUtils.copyProperties(
+      mapper.map(input, InstituicaoFinanceira.class), instituicao,
+      "id", "cnpj", "cadastro", "atualizacao"
+    );
     try {
-      BeanUtils.copyProperties(input.getEndereco(), instituicao.getEndereco(), "id", "cadastro", "atualizacao");
+      BeanUtils.copyProperties(
+        input.getEndereco(), instituicao.getEndereco(),
+        "id", "cadastro", "atualizacao"
+      );
     } catch (final NullPointerException ignored) {
     }
     return new ResponseModel(

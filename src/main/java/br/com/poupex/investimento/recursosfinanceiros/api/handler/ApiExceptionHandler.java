@@ -1,7 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.handler;
 
-import br.com.poupex.investimento.recursosfinanceiros.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.model.ValidacaoModel;
+import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.entity.model.ValidacaoModel;
 import br.com.poupex.investimento.recursosfinanceiros.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;

@@ -1,7 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.model.EnderecoInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.entity.model.EnderecoInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,6 @@ public class RecuperarCepExternoService {
 
   private final RestTemplate api = new RestTemplate();
 
-  //TODO: Criar adapter
   public ResponseModel execute(final String cep) {
     return new ResponseModel(
       LocalDateTime.now(),
