@@ -1,12 +1,9 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
 import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceira;
-import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceiraContato;
-import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceiraEndereco;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraInput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraInputCadastrar;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraInputEditar;
-import java.util.ArrayList;
 import lombok.val;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
@@ -30,18 +27,7 @@ public class InstituicaoFinanceiraInputConverter {
       instituicao.setCnpj(input.getCnpj().replaceAll("[^0-9]", ""));
     } catch (final NullPointerException ignored) {
     }
-    try {
-      val endereco = intern.map(input.getEndereco(), InstituicaoFinanceiraEndereco.class);
-      endereco.setCep(input.getEndereco().getCep().replaceAll("[^0-9]", ""));
-      instituicao.setEndereco(endereco);
-    } catch (NullPointerException ignored) {
-    }
-    instituicao.setContatos(new ArrayList<>() {{
-      try {
-        input.getContatos().forEach(contato -> add(intern.map(contato, InstituicaoFinanceiraContato.class)));
-      } catch (final NullPointerException ignored) {
-      }
-    }});
     return instituicao;
   }
+  
 }

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 public class InstituicaoFinanceiraOutputConverter {
 
   private final InstituicaoFinanceiraContatoRepository instituicaoFinanceiraContatoRepository;
-
   private final ModelMapper intern = new ModelMapper();
 
   public InstituicaoFinanceiraOutputConverter(
@@ -24,10 +23,6 @@ public class InstituicaoFinanceiraOutputConverter {
 
   public InstituicaoFinanceiraOutputDetalhe converterDetalhe(MappingContext<InstituicaoFinanceira, InstituicaoFinanceiraOutputDetalhe> context) {
     val instituicao = context.getSource();
-    instituicao.setContatos(instituicaoFinanceiraContatoRepository.findByInstituicaoFinanceira(instituicao));
-    if (instituicao.getContatos().isEmpty()) {
-      instituicao.setContatos(null);
-    }
     return intern.map(instituicao, InstituicaoFinanceiraOutputDetalhe.class);
   }
 

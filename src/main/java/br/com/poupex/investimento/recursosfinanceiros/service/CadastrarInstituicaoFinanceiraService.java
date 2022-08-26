@@ -33,8 +33,8 @@ public class CadastrarInstituicaoFinanceiraService {
       LocalDateTime.now(),
       HttpStatus.OK.value(),
       "Cadastro realizado com sucesso",
-      "O cadastro da Instituição foi realizado com sucesso",
-      String.format("O cadastro da Instituição %s foi realizado com sucesso", input.getNome()),
+      String.format("A instituição %s foi cadastrada com sucesso", input.getNome()),
+      "Instituição cadastrada com sucesso",
       null,
       mapper.map(instituicaoFinanceiraRepository.save(instituicao), InstituicaoFinanceiraOutput.class
       )

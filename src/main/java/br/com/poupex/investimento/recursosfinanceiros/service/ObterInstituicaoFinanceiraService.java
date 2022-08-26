@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutputDetalhe;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
@@ -19,14 +20,18 @@ public class ObterInstituicaoFinanceiraService {
   private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
 
   public ResponseModel execute(final String id) {
-    val instituicao = instituicaoFinanceiraRepository.findById(id).orElseThrow(
-      () -> new RecursoNaoEncontradoException(String.format("Instituição [Id: %s]", id))
-    );
+    val instituicao = id(id);
     return new ResponseModel(
       LocalDateTime.now(),
       HttpStatus.OK.value(),
       null, null, null, null,
       mapper.map(instituicao, InstituicaoFinanceiraOutputDetalhe.class)
+    );
+  }
+
+  public InstituicaoFinanceira id(final String id) {
+    return instituicaoFinanceiraRepository.findById(id).orElseThrow(
+      () -> new RecursoNaoEncontradoException(String.format("Instituição [Id: %s]", id))
     );
   }
 
