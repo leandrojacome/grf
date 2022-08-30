@@ -7,11 +7,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class InstituicaoFinanceiraOutput {
   private String id;
   private String nome;
   private String cnpj;
-  private InstituicaoFinanceiraOutput grupo;
   private InstituicaoFinanceiraTipo tipo;
+  private InstituicaoFinanceiraOutput grupo;
+  private Boolean matriz;
 }

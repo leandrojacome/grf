@@ -31,7 +31,7 @@ public class ObterInstituicaoFinanceiraService {
 
   public InstituicaoFinanceira id(final String id) {
     return instituicaoFinanceiraRepository.findById(id).orElseThrow(
-      () -> new RecursoNaoEncontradoException(String.format("Instituição [Id: %s]", id))
+      () -> new RecursoNaoEncontradoException("Instituição Financeira", String.format("Não foi encontrado Instituição Financeira com id: %s", id))
     );
   }
 

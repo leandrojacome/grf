@@ -16,14 +16,6 @@ public class ValidaInstituicaoFinanceiraMatrizGrupoService {
   private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
 
   public void execute(final InstituicaoFinanceiraInput input) {
-    if (input.getMatriz() && input.getGrupo() != null) {
-      throw new NegocioException(
-        "Matriz não pode estar associada a um grupo",
-        "Não é permitido criar uma matriz subordinada a um grupo.",
-        List.of(new ValidacaoModel("grupo", "grupo é inválido")),
-        input
-      );
-    }
     if (!input.getMatriz() && input.getGrupo() == null) {
       throw new NegocioException(
         "Selecione um grupo",
@@ -54,13 +46,12 @@ public class ValidaInstituicaoFinanceiraMatrizGrupoService {
     }
     if (id != null && !input.getMatriz() && instituicaoFinanceiraRepository.existsByGrupo(new InstituicaoFinanceira(id))) {
       throw new NegocioException(
-        "A instituição é matriz",
-        "A instituição é matriz de um grupo que tem outras instituições associadas.",
+        "A Instituição é uma matriz",
+        "A Instituição é uma matriz e tem outras instituições associadas.",
         List.of(new ValidacaoModel("matriz", "matriz é inválido")),
         input
       );
     }
-
   }
 
 }

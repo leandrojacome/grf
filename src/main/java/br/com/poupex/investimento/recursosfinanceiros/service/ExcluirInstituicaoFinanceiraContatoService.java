@@ -16,19 +16,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ExcluirInstituicaoFinanceiraContatoService {
 
-  private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
+  private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final InstituicaoFinanceiraContatoRepository instituicaoFinanceiraContatoRepository;
 
   public ResponseModel execute(final String idInstituicaoFinanceira, final String idContato) {
-    instituicaoFinanceiraRepository.findById(idInstituicaoFinanceira).orElseThrow(
-      () -> new RecursoNaoEncontradoException(String.format("Instituição [Id: %s]", idInstituicaoFinanceira))
-    );
+    obterInstituicaoFinanceiraService.id(idInstituicaoFinanceira);
     try {
       instituicaoFinanceiraContatoRepository.deleteById(idContato);
     } catch (EmptyResultDataAccessException e) {
-      throw new RecursoNaoEncontradoException(String.format("Contato Instituição Financeira %s", idContato));
+      throw new RecursoNaoEncontradoException(
+        "Contato Instituição Financeira", String.format("Não foi encontrado Contato Instituição Financeira com id: %s", idContato)
+      );
     } catch (DataIntegrityViolationException e) {
-      throw new EntidadeEmUsoException("Contato Instituição Financeira", "Existe operações associadas");
+      throw new EntidadeEmUsoException("Contato Instituição Financeira");
     }
     return new ResponseModel(
       LocalDateTime.now(),

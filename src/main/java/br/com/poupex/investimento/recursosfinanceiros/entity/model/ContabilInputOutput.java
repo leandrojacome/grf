@@ -1,6 +1,8 @@
 package br.com.poupex.investimento.recursosfinanceiros.entity.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -9,19 +11,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ContatoInputOutput {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ContabilInputOutput {
   private String id;
-  @NotBlank
-  @Size(max = 256)
-  private String nome;
-  @Size(max = 256)
-  @Email
-  private String email;
-  @Size(max = 256)
-  private String cargoSetor;
-  @Size(max = 20)
-  private String telefone1;
-  @Size(max = 20)
-  private String telefone2;
+  private BigDecimal emissao;
+  private BigDecimal ativo;
+  private LocalDate data;
 }

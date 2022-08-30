@@ -1,5 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.entity.data;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import javax.persistence.*;
 import lombok.*;
 
@@ -15,5 +17,14 @@ public class InstituicaoFinanceiraContabil extends AbstractEntidadeBase {
   @ManyToOne
   @JoinColumn(name = "INSTITUICAO_FINANCEIRA")
   private InstituicaoFinanceira instituicaoFinanceira;
+
+  @Column(name = "EMISSAO", nullable = false)
+  private BigDecimal emissao;
+
+  @Column(name = "ATIVO", nullable = false)
+  private BigDecimal ativo;
+
+  @Column(name = "DATA", nullable = false)
+  private LocalDate data;
 
 }

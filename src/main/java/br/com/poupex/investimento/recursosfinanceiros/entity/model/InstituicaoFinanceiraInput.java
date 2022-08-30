@@ -24,12 +24,4 @@ public interface InstituicaoFinanceiraInput {
 
   String getCeliq();
 
-  default EnderecoInputOutput getEndereco() {
-    return null;
-  }
-
-  default List<ContatoInputOutput> getContatos() {
-    return null;
-  }
-
 }
