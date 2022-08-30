@@ -1,8 +1,8 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraInput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ValidacaoModel;
-import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import java.util.List;

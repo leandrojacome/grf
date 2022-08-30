@@ -1,7 +1,10 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.*;
-import br.com.poupex.investimento.recursosfinanceiros.service.*;
+import br.com.poupex.investimento.recursosfinanceiros.entity.model.ContatoInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraContatoService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirInstituicaoFinanceiraContatoService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraContatosService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +21,6 @@ public class InstituicaoContatoController {
   @PostMapping
   public ResponseEntity<ResponseModel> create(@PathVariable String id, @RequestBody @Valid final ContatoInputOutput input) {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraContatoService.execute(id, input));
-  }
-
-  @PutMapping("{contato}")
-  public ResponseEntity<ResponseModel> update(
-    @PathVariable String id, @PathVariable String contato, @RequestBody @Valid final ContatoInputOutput input
-  ) {
-    return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("{contato}")

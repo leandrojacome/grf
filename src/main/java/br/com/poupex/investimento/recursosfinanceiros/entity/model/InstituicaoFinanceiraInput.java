@@ -1,7 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.entity.model;
 
 import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
-import java.util.List;
 
 public interface InstituicaoFinanceiraInput {
   default String getCnpj() {

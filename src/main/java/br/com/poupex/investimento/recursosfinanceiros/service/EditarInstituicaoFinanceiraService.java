@@ -4,7 +4,6 @@ import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFin
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraInputEditar;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;

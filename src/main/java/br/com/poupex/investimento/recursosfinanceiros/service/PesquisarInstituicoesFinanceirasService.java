@@ -1,11 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceira;
-import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.ExecutionUtil;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.ExecutionUtil;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

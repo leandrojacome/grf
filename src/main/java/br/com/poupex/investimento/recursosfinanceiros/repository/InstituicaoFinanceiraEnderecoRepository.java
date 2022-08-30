@@ -9,12 +9,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface InstituicaoFinanceiraEnderecoRepository extends JpaRepository<InstituicaoFinanceiraEndereco, String>,
   JpaSpecificationExecutor<InstituicaoFinanceiraEndereco> {
-
   default Specification<InstituicaoFinanceiraEndereco> instituicaoFinanceira(final InstituicaoFinanceira instituicaoFinanceira) {
     if (Objects.nonNull(instituicaoFinanceira)) {
       return (root, query, builder) -> builder.equal(root.get("instituicaoFinanceira"), instituicaoFinanceira);
     }
     return null;
   }
-
 }

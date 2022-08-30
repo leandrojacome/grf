@@ -21,12 +21,11 @@ public class ObterInstituicaoFinanceiraEnderecoService {
   private final InstituicaoFinanceiraEnderecoRepository instituicaoFinanceiraEnderecoRepository;
 
   public ResponseModel execute(final String id) {
-    val endereco = id(id);
     return new ResponseModel(
       LocalDateTime.now(),
       HttpStatus.OK.value(),
       null, null, null, null,
-      mapper.map(endereco, EnderecoInputOutput.class)
+      mapper.map(id(id), EnderecoInputOutput.class)
     );
   }
 

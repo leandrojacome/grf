@@ -2,12 +2,10 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.exception.EntidadeEmUsoException;
-import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 

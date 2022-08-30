@@ -1,12 +1,12 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.adapter;
 
 
-import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
-import br.com.poupex.investimento.recursosfinanceiros.exception.NegocioException;
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.ExecutionUtil;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ContatoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.EnderecoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutputDetalhe;
+import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
+import br.com.poupex.investimento.recursosfinanceiros.exception.NegocioException;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.ExecutionUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

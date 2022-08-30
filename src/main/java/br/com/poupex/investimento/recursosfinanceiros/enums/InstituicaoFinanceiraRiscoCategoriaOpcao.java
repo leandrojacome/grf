@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.enums;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -76,7 +77,7 @@ public enum InstituicaoFinanceiraRiscoCategoriaOpcao {
     if (Objects.nonNull(categoria)) {
       return Arrays.stream(values()).filter(opcao -> opcao.categorias.contains(categoria)).toList();
     }
-    return null;
+    return Collections.emptyList();
   }
 
 }

@@ -3,7 +3,6 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceiraEndereco;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.EnderecoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraEnderecoRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,7 @@ public class EditarInstituicaoFinanceiraEnderecoService {
     val endereco = obterInstituicaoFinanceiraEnderecoService.id(id);
     BeanUtils.copyProperties(
       mapper.map(input, InstituicaoFinanceiraEndereco.class), endereco,
-      "id", "cadastro", "atualizacao"
+      "id", "instituicaoFinanceira", "cadastro", "atualizacao"
     );
     return new ResponseModel(
       LocalDateTime.now(),
