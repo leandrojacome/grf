@@ -12,6 +12,7 @@ import lombok.val;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +21,12 @@ public class CadastrarInstituicaoFinanceiraService {
   private final ModelMapper mapper;
   private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
   private final ValidaInstituicaoFinanceiraMatrizGrupoService validaInstituicaoFinanceiraMatrizGrupoService;
+  private final CadastrarInstituicaoFinanceiraEnderecoService cadastrarInstituicaoFinanceiraEnderecoService;
+  private final CadastrarInstituicaoFinanceiraContatoService cadastrarInstituicaoFinanceiraContatoService;
+  private final CadastrarInstituicaoFinanceiraContabilService cadastrarInstituicaoFinanceiraContabilService;
+  private final CadastrarInstituicaoFinanceiraRiscoService cadastrarInstituicaoFinanceiraRiscoService;
 
+  @Transactional
   public ResponseModel execute(final InstituicaoFinanceiraInputCadastrar input) {
     validaInstituicaoFinanceiraMatrizGrupoService.execute(input);
     val instituicao = mapper.map(input, InstituicaoFinanceira.class);
@@ -29,6 +35,19 @@ public class CadastrarInstituicaoFinanceiraService {
         "Instituição já cadastrada", String.format("O Cnpj %s já está sendo usando por outra instituição.", input.getCnpj()
       ));
     }
+    val dto = mapper.map(instituicaoFinanceiraRepository.save(instituicao), InstituicaoFinanceiraOutput.class);
+    if (input.getEndereco() != null) {
+      cadastrarInstituicaoFinanceiraEnderecoService.execute(dto.getId(), input.getEndereco());
+    }
+    if (input.getContatos() != null && !input.getContatos().isEmpty()) {
+      input.getContatos().forEach(contato -> cadastrarInstituicaoFinanceiraContatoService.execute(dto.getId(), contato));
+    }
+    if (input.getContabil() != null) {
+      cadastrarInstituicaoFinanceiraContabilService.execute(dto.getId(), input.getContabil());
+    }
+    if (input.getRisco() != null) {
+      cadastrarInstituicaoFinanceiraRiscoService.execute(dto.getId(), input.getRisco());
+    }
     return new ResponseModel(
       LocalDateTime.now(),
       HttpStatus.OK.value(),
@@ -36,8 +55,7 @@ public class CadastrarInstituicaoFinanceiraService {
       String.format("A instituição %s foi cadastrada com sucesso", input.getNome()),
       "Instituição cadastrada com sucesso",
       null,
-      mapper.map(instituicaoFinanceiraRepository.save(instituicao), InstituicaoFinanceiraOutput.class
-      )
+      dto
     );
   }
 

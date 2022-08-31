@@ -34,7 +34,7 @@ public class InstituicaoController {
     return ResponseEntity.ok(recuperarInstituicaoFinanceiraGruposMatrizService.execute());
   }
 
-  @PostMapping()
+  @PostMapping
   public ResponseEntity<ResponseModel> create(@RequestBody @Valid final InstituicaoFinanceiraInputCadastrar input) {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraService.execute(input));
   }
@@ -54,7 +54,7 @@ public class InstituicaoController {
     return ResponseEntity.ok(excluirInstituicaoFinanceiraService.execute(id));
   }
 
-  @GetMapping()
+  @GetMapping
   public ResponseEntity<ResponseModel> read(
     @RequestParam(required = false) final String nome,
     @RequestParam(required = false) final String cnpj,

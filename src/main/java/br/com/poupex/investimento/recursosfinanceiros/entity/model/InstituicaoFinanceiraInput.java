@@ -21,6 +21,6 @@ public interface InstituicaoFinanceiraInput {
 
   String getCetip();
 
-  String getCeliq();
+  String getSeliq();
 
 }
