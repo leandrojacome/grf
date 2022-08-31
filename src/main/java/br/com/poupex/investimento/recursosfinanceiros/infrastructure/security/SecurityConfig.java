@@ -48,17 +48,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .authorizeRequests()
       .antMatchers(HttpMethod.OPTIONS).anonymous()
       .antMatchers(HttpMethod.HEAD).anonymous()
-      .antMatchers(antPatternsAnonymous).anonymous();
-    if (!Arrays.asList(env.getActiveProfiles()).contains("local") || "true".equals(env.getProperty("usar_roles"))) {
-      config
-        .antMatchers(HttpMethod.GET).hasAnyAuthority(Scopes.GET)
-        .antMatchers(HttpMethod.POST).hasAnyAuthority(Scopes.POST)
-        .antMatchers(HttpMethod.PUT).hasAnyAuthority(Scopes.PUT)
-        .antMatchers(HttpMethod.DELETE).hasAnyAuthority(Scopes.DELETE)
-        .and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
-    } else {
-      config.anyRequest().authenticated().and().oauth2ResourceServer().jwt();
-    }
+      .antMatchers(antPatternsAnonymous).anonymous()
+      .anyRequest().authenticated().and().oauth2ResourceServer().jwt();
+//    if (!Arrays.asList(env.getActiveProfiles()).contains("local") || "true".equals(env.getProperty("usar_roles"))) {
+//      config
+//        .antMatchers(HttpMethod.GET).hasAnyAuthority(Scopes.GET)
+//        .antMatchers(HttpMethod.POST).hasAnyAuthority(Scopes.POST)
+//        .antMatchers(HttpMethod.PUT).hasAnyAuthority(Scopes.PUT)
+//        .antMatchers(HttpMethod.DELETE).hasAnyAuthority(Scopes.DELETE)
+//        .and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
+//    } else {
+//      config.anyRequest().authenticated().and().oauth2ResourceServer().jwt();
+//    }
   }
 
   private JwtAuthenticationConverter jwtAuthenticationConverter() {

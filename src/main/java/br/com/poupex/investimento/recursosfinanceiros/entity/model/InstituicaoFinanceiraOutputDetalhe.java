@@ -13,7 +13,9 @@ public class InstituicaoFinanceiraOutputDetalhe extends InstituicaoFinanceiraOut
   private Boolean matriz;
   private String site;
   private String cetip;
-  private String celiq;
+  private String seliq;
   private EnderecoInputOutput endereco;
   private List<ContatoInputOutput> contatos;
+  private ContabilInputOutput contabil;
+  private RiscoInputOutput risco;
 }

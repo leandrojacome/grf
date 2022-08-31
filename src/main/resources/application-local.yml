@@ -16,11 +16,6 @@ spring:
     locations:
       - classpath:db/migration
       - classpath:db/callbacks
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://devsso.poupex.com.br/f5-oauth2/v1
   mvc:
     throw-exception-if-no-handler-found: true
   jackson:
@@ -30,15 +25,19 @@ spring:
   web:
     resources:
       add-mappings: false
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://devsso.poupex.com.br/f5-oauth2/v1
 logging:
   level:
     root: info
-    org.hibernate.SQL: debug
+    org.hibernate.SQL: info
     org.hibernate.cache: info
     org.hibernate.type.descriptor.sql.BasicBinder: info
     org.springframework.amqp: info
-    org.springframework.jdbc.core.JdbcTemplate: debug
-    org.springframework.jdbc.core.StatementCreatorUtils: debug
+    org.springframework.jdbc.core.JdbcTemplate: info
+    org.springframework.jdbc.core.StatementCreatorUtils: info
 barramento:
   url: http://homologaesb.poupex.com.br
