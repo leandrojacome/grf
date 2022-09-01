@@ -29,11 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final Environment env;
 
+  private final String[] allowedOrigins = {"*"};
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     val antPatternsAnonymous = new String[]{"/actuator/**", "/v3/api-docs/**", "/swagger-ui/**"};
-    val config = http.cors()
-            .configurationSource(corsConfigSource())
+    val config = http.cors().configurationSource(corsConfigSource())
       .and().headers().frameOptions().disable()
       .and().csrf().disable()
       .authorizeRequests()
@@ -80,8 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private CorsConfigurationSource corsConfigSource() {
-
-    final CorsConfiguration corsConfig = new CorsConfiguration();
+    val corsConfig = new CorsConfiguration();
     corsConfig.addAllowedHeader(CorsConfiguration.ALL);
     corsConfig.addAllowedMethod(CorsConfiguration.ALL);
     Stream.of(allowedOrigins).forEach(corsConfig::addAllowedOriginPattern);
