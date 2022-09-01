@@ -29,20 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final Environment env;
 
-  private final String[] allowedOrigins = {"*"};
-
-  @Bean
-  public CorsFilter corsFilter() {
-    final CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
-    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    config.setAllowCredentials(true);
-    config.addAllowedOrigin("*");
-    config.addAllowedHeader("*");
-    config.addAllowedMethod("*");
-    source.registerCorsConfiguration("/**", config);
-    return new CorsFilter(source);
-  }
-
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     val antPatternsAnonymous = new String[]{"/actuator/**", "/v3/api-docs/**", "/swagger-ui/**"};
@@ -53,18 +39,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .authorizeRequests()
       .antMatchers(HttpMethod.OPTIONS).anonymous()
       .antMatchers(HttpMethod.HEAD).anonymous()
-      .antMatchers(antPatternsAnonymous).anonymous()
-      .anyRequest().authenticated().and().oauth2ResourceServer().jwt();
-//    if (!Arrays.asList(env.getActiveProfiles()).contains("local") || "true".equals(env.getProperty("usar_roles"))) {
-//      config
-//        .antMatchers(HttpMethod.GET).hasAnyAuthority(Scopes.GET)
-//        .antMatchers(HttpMethod.POST).hasAnyAuthority(Scopes.POST)
-//        .antMatchers(HttpMethod.PUT).hasAnyAuthority(Scopes.PUT)
-//        .antMatchers(HttpMethod.DELETE).hasAnyAuthority(Scopes.DELETE)
-//        .and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
-//    } else {
-//      config.anyRequest().authenticated().and().oauth2ResourceServer().jwt();
-//    }
+      .antMatchers(antPatternsAnonymous).anonymous();
+    if (usarRoles()) {
+      config
+        .antMatchers(HttpMethod.GET).hasAnyAuthority(Scopes.GET)
+        .antMatchers(HttpMethod.POST).hasAnyAuthority(Scopes.POST)
+        .antMatchers(HttpMethod.PUT).hasAnyAuthority(Scopes.PUT)
+        .antMatchers(HttpMethod.DELETE).hasAnyAuthority(Scopes.DELETE)
+        .and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
+    } else {
+      config.anyRequest().authenticated().and().oauth2ResourceServer().jwt();
+    }
+  }
+
+  private boolean usarRoles() {
+    return !Arrays.asList(env.getActiveProfiles()).contains("local") || "true".equals(env.getProperty("usar_roles"));
   }
 
   private JwtAuthenticationConverter jwtAuthenticationConverter() {
