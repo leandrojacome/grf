@@ -3,6 +3,7 @@ package br.com.poupex.investimento.recursosfinanceiros.infrastructure.security;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
@@ -26,6 +28,8 @@ import org.springframework.web.filter.CorsFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final Environment env;
+
+  private final String[] allowedOrigins = {"*"};
 
   @Bean
   public CorsFilter corsFilter() {
@@ -43,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     val antPatternsAnonymous = new String[]{"/actuator/**", "/v3/api-docs/**", "/swagger-ui/**"};
     val config = http.cors()
+            .configurationSource(corsConfigSource())
       .and().headers().frameOptions().disable()
       .and().csrf().disable()
       .authorizeRequests()
@@ -83,6 +88,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     } catch (final NullPointerException e) {
       return Collections.emptyList();
     }
+  }
+
+  private CorsConfigurationSource corsConfigSource() {
+
+    final CorsConfiguration corsConfig = new CorsConfiguration();
+    corsConfig.addAllowedHeader(CorsConfiguration.ALL);
+    corsConfig.addAllowedMethod(CorsConfiguration.ALL);
+    Stream.of(allowedOrigins).forEach(corsConfig::addAllowedOriginPattern);
+    return request -> corsConfig;
   }
 
 }
