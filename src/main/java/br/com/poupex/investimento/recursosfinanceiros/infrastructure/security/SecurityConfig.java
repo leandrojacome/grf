@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private boolean usarRoles() {
-    return !Arrays.asList(env.getActiveProfiles()).contains("local") || "true".equals(env.getProperty("usar_roles"));
+    return "true".equals(env.getProperty("poupex.usa-roles"));
   }
 
   private JwtAuthenticationConverter jwtAuthenticationConverter() {
