@@ -36,12 +36,8 @@ public class CadastrarInstituicaoFinanceiraService {
       ));
     }
     val dto = mapper.map(instituicaoFinanceiraRepository.save(instituicao), InstituicaoFinanceiraOutput.class);
-    if (input.getEndereco() != null) {
-      cadastrarInstituicaoFinanceiraEnderecoService.execute(dto.getId(), input.getEndereco());
-    }
-    if (input.getContatos() != null && !input.getContatos().isEmpty()) {
-      input.getContatos().forEach(contato -> cadastrarInstituicaoFinanceiraContatoService.execute(dto.getId(), contato));
-    }
+    cadastrarInstituicaoFinanceiraEnderecoService.execute(dto.getId(), input.getEndereco());
+    input.getContatos().forEach(contato -> cadastrarInstituicaoFinanceiraContatoService.execute(dto.getId(), contato));
     if (input.getContabil() != null) {
       cadastrarInstituicaoFinanceiraContabilService.execute(dto.getId(), input.getContabil());
     }

@@ -23,9 +23,7 @@ public class RecuperarCepExternoService {
       LocalDateTime.now(),
       HttpStatus.OK.value(),
       null, null, null, null,
-      api.getForEntity("http://enderecoapihml.hml.cloud.poupex/cep/{cep}", EnderecoInputOutput.class, cep.replaceAll("[^0-9]", "")).getBody()
+      api.getForEntity("/{cep}", EnderecoInputOutput.class, cep.replaceAll("[^0-9]", "")).getBody()
     );
-
   }
-
 }

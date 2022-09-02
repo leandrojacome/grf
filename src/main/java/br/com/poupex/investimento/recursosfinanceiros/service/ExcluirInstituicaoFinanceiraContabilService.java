@@ -2,6 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.exception.EntidadeEmUsoException;
+import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraContabilRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,8 @@ public class ExcluirInstituicaoFinanceiraContabilService {
   public ResponseModel execute(final String id) {
     try {
       instituicaoFinanceiraContabilRepository.delete(obterInstituicaoFinanceiraContabilService.id(id));
-    } catch (DataIntegrityViolationException e) {
+    } catch (final RecursoNaoEncontradoException ignored) {
+    } catch (final DataIntegrityViolationException e) {
       throw new EntidadeEmUsoException("Dados Contabéis Instituição Financeira");
     }
     return new ResponseModel(

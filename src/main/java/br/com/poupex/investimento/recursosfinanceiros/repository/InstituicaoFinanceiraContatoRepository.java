@@ -15,4 +15,7 @@ public interface InstituicaoFinanceiraContatoRepository extends JpaRepository<In
     }
     return null;
   }
+
+  void deleteByInstituicaoFinanceira(InstituicaoFinanceira id);
+
 }

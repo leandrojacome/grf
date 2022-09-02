@@ -1,7 +1,9 @@
 package br.com.poupex.investimento.recursosfinanceiros.entity.model;
 
 import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public interface InstituicaoFinanceiraInput {
   default String getCnpj() {
     return null;
@@ -21,6 +23,6 @@ public interface InstituicaoFinanceiraInput {
 
   String getCetip();
 
-  String getSeliq();
+  String getSelic();
 
 }

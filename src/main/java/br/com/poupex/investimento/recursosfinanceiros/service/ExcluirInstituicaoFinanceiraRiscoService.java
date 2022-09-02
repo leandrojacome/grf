@@ -2,6 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.exception.EntidadeEmUsoException;
+import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRiscoRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class ExcluirInstituicaoFinanceiraRiscoService {
   public ResponseModel execute(final String id) {
     try {
       instituicaoFinanceiraRiscoRepository.delete(obterInstituicaoFinanceiraRiscoService.id(id));
+    } catch (final RecursoNaoEncontradoException ignored) {
     } catch (DataIntegrityViolationException e) {
       throw new EntidadeEmUsoException("Riscos Instituição Financeira");
     }

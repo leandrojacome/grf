@@ -1,9 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceiraContato;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ContatoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraContatoRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -24,9 +26,13 @@ public class ObterInstituicaoFinanceiraContatosService {
       LocalDateTime.now(),
       HttpStatus.OK.value(),
       null, null, null, null,
-      instituicaoFinanceiraContatoRepository.findAll(
-        instituicaoFinanceiraContatoRepository.instituicaoFinanceira(obterInstituicaoFinanceiraService.id(id))
-      ).stream().map(c -> mapper.map(c, ContatoInputOutput.class)).collect(Collectors.toList())
+      lista(id).stream().map(c -> mapper.map(c, ContatoInputOutput.class)).collect(Collectors.toList())
+    );
+  }
+
+  public List<InstituicaoFinanceiraContato> lista(final String id) {
+    return instituicaoFinanceiraContatoRepository.findAll(
+      instituicaoFinanceiraContatoRepository.instituicaoFinanceira(obterInstituicaoFinanceiraService.id(id))
     );
   }
 

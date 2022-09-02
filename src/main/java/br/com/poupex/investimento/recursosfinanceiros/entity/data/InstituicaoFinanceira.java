@@ -43,7 +43,7 @@ public class InstituicaoFinanceira extends AbstractEntidadeBase {
   @Column(name = "CETIP")
   private String cetip;
 
-  @Column(name = "SELIQ")
-  private String seliq;
+  @Column(name = "SELIC")
+  private String selic;
 
 }

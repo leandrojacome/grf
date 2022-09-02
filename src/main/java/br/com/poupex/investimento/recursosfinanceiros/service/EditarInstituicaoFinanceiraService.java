@@ -1,17 +1,22 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceira;
+import br.com.poupex.investimento.recursosfinanceiros.entity.model.ContatoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraInputEditar;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +27,13 @@ public class EditarInstituicaoFinanceiraService {
   private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
   private final EditarInstituicaoFinanceiraEnderecoService editarInstituicaoFinanceiraEnderecoService;
+  private final ObterInstituicaoFinanceiraContatosService obterInstituicaoFinanceiraContatosService;
+  private final ExcluirInstituicaoFinanceiraContatoService excluirInstituicaoFinanceiraContatoService;
+  private final CadastrarInstituicaoFinanceiraContatoService cadastrarInstituicaoFinanceiraContatoService;
+  private final EditarInstituicaoFinanceiraContabilService editarInstituicaoFinanceiraContabilService;
+  private final EditarInstituicaoFinanceiraRiscoService editarInstituicaoFinanceiraRiscoService;
 
+  @Transactional
   public ResponseModel execute(final String id, final InstituicaoFinanceiraInputEditar input) {
     validaInstituicaoFinanceiraMatrizGrupoService.execute(id, input);
     val instituicao = obterInstituicaoFinanceiraService.id(id);
@@ -30,8 +41,23 @@ public class EditarInstituicaoFinanceiraService {
       mapper.map(input, InstituicaoFinanceira.class), instituicao,
       "id", "cnpj", "cadastro", "atualizacao"
     );
-    if (input.getEndereco() != null) {
-      editarInstituicaoFinanceiraEnderecoService.execute(id, input.getEndereco());
+    editarInstituicaoFinanceiraEnderecoService.execute(id, input.getEndereco());
+    var idsContatosEnviados = input.getContatos() != null ?
+      input.getContatos().stream().map(ContatoInputOutput::getId).filter(Objects::nonNull).toList() :
+      new ArrayList<String>();
+    obterInstituicaoFinanceiraContatosService.lista(id).stream().filter(contato -> !idsContatosEnviados.contains(contato.getId())).forEach(
+      contato -> excluirInstituicaoFinanceiraContatoService.execute(id, contato.getId())
+    );
+    input.getContatos().forEach(contato -> {
+      if (Objects.isNull(contato.getId())) {
+        cadastrarInstituicaoFinanceiraContatoService.execute(id, contato);
+      }
+    });
+    if (input.getContabil() != null) {
+      editarInstituicaoFinanceiraContabilService.execute(id, input.getContabil());
+    }
+    if (input.getRisco() != null) {
+      editarInstituicaoFinanceiraRiscoService.execute(id, input.getRisco());
     }
     return new ResponseModel(
       LocalDateTime.now(),

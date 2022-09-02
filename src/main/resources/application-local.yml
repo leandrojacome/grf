@@ -48,6 +48,6 @@ poupex:
         client: d974a758f623c0fb97af568a0a210094a15bdef885b01063
         secret: f14fe88814bf4169fe00beb2e4ab9eddf461e0b488a40094a15bdef885b01063
       endereco-cep:
-        url: http://emailservicehomologa.hml.cloud.poupex
+        url: http://enderecoapihml.hml.cloud.poupex/cep
 barramento:
   url: http://homologaesb.poupex.com.br
