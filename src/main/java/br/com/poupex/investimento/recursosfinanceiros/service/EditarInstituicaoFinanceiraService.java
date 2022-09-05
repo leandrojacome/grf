@@ -41,22 +41,26 @@ public class EditarInstituicaoFinanceiraService {
       mapper.map(input, InstituicaoFinanceira.class), instituicao,
       "id", "cnpj", "cadastro", "atualizacao"
     );
-    editarInstituicaoFinanceiraEnderecoService.execute(id, input.getEndereco());
-    var idsContatosEnviados = input.getContatos() != null ?
+    if (Objects.nonNull(input.getEndereco())) {
+      editarInstituicaoFinanceiraEnderecoService.execute(id, input.getEndereco());
+    }
+    val idsContatosEnviados = input.getContatos() != null ?
       input.getContatos().stream().map(ContatoInputOutput::getId).filter(Objects::nonNull).toList() :
       new ArrayList<String>();
     obterInstituicaoFinanceiraContatosService.lista(id).stream().filter(contato -> !idsContatosEnviados.contains(contato.getId())).forEach(
       contato -> excluirInstituicaoFinanceiraContatoService.execute(id, contato.getId())
     );
-    input.getContatos().forEach(contato -> {
-      if (Objects.isNull(contato.getId())) {
-        cadastrarInstituicaoFinanceiraContatoService.execute(id, contato);
-      }
-    });
-    if (input.getContabil() != null) {
+    if (Objects.nonNull(input.getContatos())) {
+      input.getContatos().forEach(contato -> {
+        if (Objects.isNull(contato.getId())) {
+          cadastrarInstituicaoFinanceiraContatoService.execute(id, contato);
+        }
+      });
+    }
+    if (Objects.nonNull(input.getContabil())) {
       editarInstituicaoFinanceiraContabilService.execute(id, input.getContabil());
     }
-    if (input.getRisco() != null) {
+    if (Objects.nonNull(input.getRisco())) {
       editarInstituicaoFinanceiraRiscoService.execute(id, input.getRisco());
     }
     return new ResponseModel(

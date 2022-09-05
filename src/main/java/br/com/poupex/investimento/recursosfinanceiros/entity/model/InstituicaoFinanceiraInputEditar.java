@@ -4,7 +4,6 @@ import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceir
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,10 +23,8 @@ public class InstituicaoFinanceiraInputEditar implements InstituicaoFinanceiraIn
   private String site;
   private String cetip;
   private String selic;
-  @NotNull
   @Valid
   private EnderecoInputOutput endereco;
-  @NotEmpty
   @Valid
   private List<ContatoInputOutput> contatos;
   private ContabilInputOutput contabil;

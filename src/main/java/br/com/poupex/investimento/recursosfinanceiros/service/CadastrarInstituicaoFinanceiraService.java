@@ -7,6 +7,7 @@ import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel
 import br.com.poupex.investimento.recursosfinanceiros.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.modelmapper.ModelMapper;
@@ -36,12 +37,16 @@ public class CadastrarInstituicaoFinanceiraService {
       ));
     }
     val dto = mapper.map(instituicaoFinanceiraRepository.save(instituicao), InstituicaoFinanceiraOutput.class);
-    cadastrarInstituicaoFinanceiraEnderecoService.execute(dto.getId(), input.getEndereco());
-    input.getContatos().forEach(contato -> cadastrarInstituicaoFinanceiraContatoService.execute(dto.getId(), contato));
-    if (input.getContabil() != null) {
+    if (Objects.nonNull(input.getEndereco())) {
+      cadastrarInstituicaoFinanceiraEnderecoService.execute(dto.getId(), input.getEndereco());
+    }
+    if (Objects.nonNull(input.getContatos())) {
+      input.getContatos().forEach(contato -> cadastrarInstituicaoFinanceiraContatoService.execute(dto.getId(), contato));
+    }
+    if (Objects.nonNull(input.getContabil())) {
       cadastrarInstituicaoFinanceiraContabilService.execute(dto.getId(), input.getContabil());
     }
-    if (input.getRisco() != null) {
+    if (Objects.nonNull(input.getRisco())) {
       cadastrarInstituicaoFinanceiraRiscoService.execute(dto.getId(), input.getRisco());
     }
     return new ResponseModel(

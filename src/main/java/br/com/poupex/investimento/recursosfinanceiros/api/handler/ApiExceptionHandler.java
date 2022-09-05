@@ -45,7 +45,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     return handleExceptionInternal(ex,
       builder(
         HttpStatus.INTERNAL_SERVER_ERROR,
-        "Erro não experado.",
+        "Erro não esperado.",
         "Ocorreu um erro interno inesperado no sistema.",
         "Tente novamente. Se problema persistir, entre em contato com o administrador do sistema."
       ),
