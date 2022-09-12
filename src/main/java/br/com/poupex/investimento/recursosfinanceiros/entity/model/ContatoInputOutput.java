@@ -3,6 +3,7 @@ package br.com.poupex.investimento.recursosfinanceiros.entity.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,9 @@ public class ContatoInputOutput {
   @Size(max = 256)
   private String cargoSetor;
   @Size(max = 20)
+  @Pattern(regexp="\\d{20}")
   private String telefone1;
   @Size(max = 20)
+  @Pattern(regexp="\\d{20}")
   private String telefone2;
 }

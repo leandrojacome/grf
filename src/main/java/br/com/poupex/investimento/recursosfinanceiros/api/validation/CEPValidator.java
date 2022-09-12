@@ -1,4 +1,4 @@
-package br.com.poupex.investimento.recursosfinanceiros.infrastructure.validation;
+package br.com.poupex.investimento.recursosfinanceiros.api.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

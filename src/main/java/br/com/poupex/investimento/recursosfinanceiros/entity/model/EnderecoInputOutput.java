@@ -1,6 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.entity.model;
 
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.validation.CEP;
+import br.com.poupex.investimento.recursosfinanceiros.api.validation.CEP;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.validation.constraints.NotBlank;

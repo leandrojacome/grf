@@ -19,9 +19,11 @@ public class EditarInstituicaoFinanceiraEnderecoService {
   private final ModelMapper mapper;
   private final ObterInstituicaoFinanceiraEnderecoService obterInstituicaoFinanceiraEnderecoService;
   private final InstituicaoFinanceiraEnderecoRepository instituicaoFinanceiraEnderecoRepository;
+  private final ValidaEnderecoCepService validaEnderecoCepService;
 
   public ResponseModel execute(final String id, final EnderecoInputOutput input) {
     val endereco = obterInstituicaoFinanceiraEnderecoService.id(id);
+    validaEnderecoCepService.execute(input.getCep());
     BeanUtils.copyProperties(
       mapper.map(input, InstituicaoFinanceiraEndereco.class), endereco,
       "id", "instituicaoFinanceira", "cadastro", "atualizacao"
