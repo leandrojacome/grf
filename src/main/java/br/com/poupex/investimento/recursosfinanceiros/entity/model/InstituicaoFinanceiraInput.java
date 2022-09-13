@@ -8,21 +8,12 @@ public interface InstituicaoFinanceiraInput {
   default String getCnpj() {
     return null;
   }
-
   String getNome();
-
   String getAbreviacao();
-
   Boolean getMatriz();
-
   String getGrupo();
-
   InstituicaoFinanceiraTipo getTipo();
-
   String getSite();
-
   String getCetip();
-
   String getSelic();
-
 }
