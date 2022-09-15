@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class InstituicaoFinanceiraOutputDetalhe extends InstituicaoFinanceiraOutput {
-  private String abreviacao;
   private Boolean matriz;
   private String site;
   private String cetip;
