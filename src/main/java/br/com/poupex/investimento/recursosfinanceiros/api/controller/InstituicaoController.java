@@ -36,6 +36,7 @@ public class InstituicaoController {
   private final EditarInstituicaoFinanceiraService editarInstituicaoFinanceiraService;
   private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final ExcluirInstituicaoFinanceiraService excluirInstituicaoFinanceiraService;
+  private final PesquisarInstituicoesFinanceirasPagedService pesquisarInstituicoesFinanceirasPagedService;
   private final PesquisarInstituicoesFinanceirasService pesquisarInstituicoesFinanceirasService;
   private final ExportaInstituicaoFinanceiraService exportaInstituicaoFinanceiraService;
 
@@ -155,7 +156,7 @@ public class InstituicaoController {
     @RequestParam(required = false) final String grupo,
     @Parameter(hidden = true) final Pageable pageable
   ) {
-    return ResponseEntity.ok(pesquisarInstituicoesFinanceirasService.execute(nome, cnpj, tipo, grupo, pageable));
+    return ResponseEntity.ok(pesquisarInstituicoesFinanceirasPagedService.execute(nome, cnpj, tipo, grupo, pageable));
   }
 
   @Operation(summary = "Exportação de lista de Instituições Financeiras")
@@ -182,4 +183,18 @@ public class InstituicaoController {
     return ResponseEntity.ok(exportaInstituicaoFinanceiraService.execute(nome, cnpj, tipo, grupo, formato));
   }
 
+  @Operation(summary = "Pesquisa lista de instituições por nome")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Lista de Instituições Financeiras (Filtradas por nome)", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+      @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ChaveLabelDescricaoOutput.class)))
+    }),
+  })
+  @Parameters({
+    @Parameter(name = "nome", description = "Parte ou nome da Instituição Financeira")
+  })
+  @GetMapping("por-nome/{nome}")
+  public ResponseEntity<ResponseModel> readPorNome(@PathVariable String nome) {
+    return ResponseEntity.ok(pesquisarInstituicoesFinanceirasService.execute(nome, null, null, null));
+  }
 }

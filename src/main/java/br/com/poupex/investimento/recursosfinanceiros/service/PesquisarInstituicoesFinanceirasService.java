@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceira;
+import br.com.poupex.investimento.recursosfinanceiros.entity.model.ChaveLabelDescricaoOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
@@ -9,6 +10,7 @@ import br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.Execut
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -24,19 +26,14 @@ import org.springframework.stereotype.Service;
 public class PesquisarInstituicoesFinanceirasService {
 
   private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
-  private final ModelMapper mapper;
 
-  public ResponseModel execute(
-    final String nome, final String cnpj, final InstituicaoFinanceiraTipo tipo, final String grupo, final Pageable pageable
-  ) {
-    val resultado = instituicaoFinanceiraRepository.findAll(spec(nome, cnpj, tipo, grupo), pageable);
-    val mensagem = resultado.getTotalElements() == 0 ? "Nenhum registro encontrado" : null;
-    val page = new PageImpl<>(
-      resultado.getContent().stream().map(r -> mapper.map(r, InstituicaoFinanceiraOutput.class)).collect(Collectors.toList()),
-      pageable,
-      resultado.getTotalElements()
+  public ResponseModel execute(final String nome, final String cnpj, final InstituicaoFinanceiraTipo tipo, final String grupo) {
+    val resultado = instituicaoFinanceiraRepository.findAll(spec(nome, cnpj, tipo, grupo));
+    val mensagem = resultado.size() == 0 ? "Nenhum registro encontrado" : null;
+    return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), "Instituições Financeiras", null, mensagem, null,
+      resultado.stream().map(instituicao -> new ChaveLabelDescricaoOutput(instituicao.getId(), instituicao.getAbreviacao(), instituicao.getNome()))
+        .sorted(Comparator.comparing(ChaveLabelDescricaoOutput::label)).toList()
     );
-    return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), null, null, mensagem, null, mapper.map(page, PageOutput.class));
   }
 
   public Specification<InstituicaoFinanceira> spec(String nome, String cnpj, InstituicaoFinanceiraTipo tipo, String grupo) {
