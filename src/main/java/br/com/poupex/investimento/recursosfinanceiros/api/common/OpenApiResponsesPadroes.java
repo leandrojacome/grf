@@ -25,5 +25,5 @@ import java.lang.annotation.Target;
     @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class))
   }),
 })
-public @interface ApiResponsesPadroes {
+public @interface OpenApiResponsesPadroes {
 }

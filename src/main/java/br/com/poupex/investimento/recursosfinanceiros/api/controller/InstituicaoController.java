@@ -1,8 +1,9 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.common.ApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.api.common.Paginacao;
+import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.*;
+import br.com.poupex.investimento.recursosfinanceiros.enums.ExportacaoFormato;
 import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraRiscoCategoria;
 import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.*;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("instituicoes")
 @RequiredArgsConstructor
 @Tag(name = "Instituições Financeiras")
-@ApiResponsesPadroes
+@OpenApiResponsesPadroes
 public class InstituicaoController {
 
   private final RecuperarInstituicaoFinanceiraTiposService recuperarInstituicaoFinanceiraTiposService;
@@ -36,6 +37,7 @@ public class InstituicaoController {
   private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final ExcluirInstituicaoFinanceiraService excluirInstituicaoFinanceiraService;
   private final PesquisarInstituicoesFinanceirasService pesquisarInstituicoesFinanceirasService;
+  private final ExportaInstituicaoFinanceiraService exportaInstituicaoFinanceiraService;
 
   @Operation(summary = "Lista os Tipos das Instituições Financeiras")
   @ApiResponses({
@@ -144,7 +146,7 @@ public class InstituicaoController {
     @Parameter(name = "tipo", description = "Tipo da Instituição Financeira"),
     @Parameter(name = "grupo", description = "Identificador do Grupo"),
   })
-  @Paginacao
+  @OpenApiPaginacao
   @GetMapping
   public ResponseEntity<ResponseModel> read(
     @RequestParam(required = false) final String nome,
@@ -154,6 +156,30 @@ public class InstituicaoController {
     @Parameter(hidden = true) final Pageable pageable
   ) {
     return ResponseEntity.ok(pesquisarInstituicoesFinanceirasService.execute(nome, cnpj, tipo, grupo, pageable));
+  }
+
+  @Operation(summary = "Exportação de lista de Instituições Financeiras")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Arquivo com as Instituições Financeiras (Filtradas)", content = {
+      @Content(schema = @Schema(implementation = byte[].class)),
+    }),
+  })
+  @Parameters({
+    @Parameter(name = "nome", description = "Parte ou nome da Instituição Financeira"),
+    @Parameter(name = "cnpj", description = "CNPJ da Instituição Financeira"),
+    @Parameter(name = "tipo", description = "Tipo da Instituição Financeira"),
+    @Parameter(name = "grupo", description = "Identificador do Grupo"),
+    @Parameter(name = "formato", description = "Formato de saida"),
+  })
+  @GetMapping("export")
+  public ResponseEntity<byte[]> export(
+    @RequestParam(required = false) final String nome,
+    @RequestParam(required = false) final String cnpj,
+    @RequestParam(required = false) final InstituicaoFinanceiraTipo tipo,
+    @RequestParam(required = false) final String grupo,
+    @RequestParam final ExportacaoFormato formato
+  ) {
+    return ResponseEntity.ok(exportaInstituicaoFinanceiraService.execute(nome, cnpj, tipo, grupo, formato));
   }
 
 }

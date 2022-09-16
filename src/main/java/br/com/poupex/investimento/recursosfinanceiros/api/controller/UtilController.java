@@ -1,14 +1,12 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 
-import br.com.poupex.investimento.recursosfinanceiros.api.common.ApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.EnderecoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutputDetalhe;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraRiscoCategoria;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCepExternoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCnpjExternoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarRiscoCategoriaOpcoesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("uteis")
 @RequiredArgsConstructor
 @Tag(name = "Utilitários (Helpers)")
-@ApiResponsesPadroes
+@OpenApiResponsesPadroes
 public class UtilController {
 
   private final RecuperarCepExternoService recuperarCepExternoService;

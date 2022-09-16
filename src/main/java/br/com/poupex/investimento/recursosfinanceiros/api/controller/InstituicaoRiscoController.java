@@ -1,7 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.common.ApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
+import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.RiscoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraRiscoService;
@@ -25,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("instituicoes/{id}/riscos")
 @RequiredArgsConstructor
 @Tag(name = "Instituições Financeiras (Risco)")
-@ApiResponsesPadroes
+@OpenApiResponsesPadroes
 public class InstituicaoRiscoController {
 
   private final CadastrarInstituicaoFinanceiraRiscoService cadastrarInstituicaoFinanceiraRiscoService;

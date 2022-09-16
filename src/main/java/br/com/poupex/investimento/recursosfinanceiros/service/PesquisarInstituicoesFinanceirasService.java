@@ -23,8 +23,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PesquisarInstituicoesFinanceirasService {
 
-  private final ModelMapper mapper;
   private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
+  private final ModelMapper mapper;
 
   public ResponseModel execute(
     final String nome, final String cnpj, final InstituicaoFinanceiraTipo tipo, final String grupo, final Pageable pageable
@@ -39,7 +39,7 @@ public class PesquisarInstituicoesFinanceirasService {
     return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), null, null, mensagem, null, mapper.map(page, PageOutput.class));
   }
 
-  private Specification<InstituicaoFinanceira> spec(String nome, String cnpj, InstituicaoFinanceiraTipo tipo, String grupo) {
+  public Specification<InstituicaoFinanceira> spec(String nome, String cnpj, InstituicaoFinanceiraTipo tipo, String grupo) {
     return ExecutionUtil.and(
       instituicaoFinanceiraRepository.init(),
       new ArrayList<>() {{

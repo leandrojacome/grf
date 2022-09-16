@@ -1,8 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.common.ApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.EnderecoInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraEnderecoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.EditarInstituicaoFinanceiraEnderecoService;
@@ -25,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("instituicoes/{id}/enderecos")
 @RequiredArgsConstructor
 @Tag(name = "Instituições Financeiras (Endereço)")
-@ApiResponsesPadroes
+@OpenApiResponsesPadroes
 public class InstituicaoEnderecoController {
 
   private final CadastrarInstituicaoFinanceiraEnderecoService cadastrarInstituicaoFinanceiraEnderecoService;

@@ -39,5 +39,5 @@ import java.lang.annotation.Target;
     )
   )
 )})
-public @interface Paginacao {
+public @interface OpenApiPaginacao {
 }

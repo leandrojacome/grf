@@ -1,9 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.common.ApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.ChaveLabelDescricaoOutput;
+import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ContatoInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraContatoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirInstituicaoFinanceiraContatoService;
@@ -26,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("instituicoes/{id}/contatos")
 @RequiredArgsConstructor
 @Tag(name = "Instituições Financeiras (Contatos)")
-@ApiResponsesPadroes
+@OpenApiResponsesPadroes
 public class InstituicaoContatoController {
   private final CadastrarInstituicaoFinanceiraContatoService cadastrarInstituicaoFinanceiraContatoService;
   private final ObterInstituicaoFinanceiraContatosService obterInstituicaoFinanceiraContatosService;
