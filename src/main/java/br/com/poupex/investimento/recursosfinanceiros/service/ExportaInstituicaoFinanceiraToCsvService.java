@@ -22,7 +22,7 @@ public class ExportaInstituicaoFinanceiraToCsvService {
 
 
   public byte[] execute(final List<InstituicaoFinanceiraOutput> instituicoes) {
-    val csv = new StringBuilder();
+    val csv = new StringBuilder(String.format("%s,%s,%s,%s,%s\n","Nome", "Abreviacao", "Cnpj", "Tipo", "Grupo"));
     instituicoes.forEach(instituicao -> csv.append(String.format("%s,%s,%s,%s,%s\n",
       instituicao.getNome(),
       instituicao.getAbreviacao(),
