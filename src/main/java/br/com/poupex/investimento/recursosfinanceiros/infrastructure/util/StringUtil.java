@@ -21,13 +21,17 @@ public class StringUtil {
     return mask.valueToString(cnpj);
   }
 
-  public String decodeToIso88591(final String utf8) {
-    return decodeTo(utf8, StandardCharsets.ISO_8859_1);
+  public String decodeToIso88591(final String string) {
+    return decodeTo(string, StandardCharsets.ISO_8859_1);
   }
 
-  public String decodeTo(final String utf8, final Charset charset) {
+  public String decodeToUtf8(final String string) {
+    return decodeTo(string, StandardCharsets.UTF_8);
+  }
+
+  public String decodeTo(final String string, final Charset charset) {
     try {
-      return new String(utf8.getBytes(charset), charset);
+      return new String(string.getBytes(charset), charset);
     } catch (final NullPointerException ignored) {
     }
     return null;

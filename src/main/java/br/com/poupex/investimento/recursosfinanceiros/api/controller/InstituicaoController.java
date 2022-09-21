@@ -172,7 +172,7 @@ public class InstituicaoController {
     @Parameter(name = "grupo", description = "Identificador do Grupo"),
     @Parameter(name = "formato", description = "Formato de saida"),
   })
-  @GetMapping("export")
+  @GetMapping(value = "export", produces = "application/octet-stream;charset=UTF-8")
   public ResponseEntity<byte[]> export(
     @RequestParam(required = false) final String nome,
     @RequestParam(required = false) final String cnpj,

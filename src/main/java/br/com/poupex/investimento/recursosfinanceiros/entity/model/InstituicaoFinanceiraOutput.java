@@ -14,6 +14,7 @@ public class InstituicaoFinanceiraOutput {
   private String abreviacao;
   private String cnpj;
   private InstituicaoFinanceiraTipo tipo;
+  private String tipoLabel;
   private InstituicaoFinanceiraOutput grupo;
   private Boolean matriz;
 }
