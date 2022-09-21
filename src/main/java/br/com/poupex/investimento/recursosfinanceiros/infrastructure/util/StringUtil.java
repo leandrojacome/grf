@@ -1,5 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.util;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import javax.swing.text.MaskFormatter;
 import lombok.SneakyThrows;
@@ -18,4 +20,17 @@ public class StringUtil {
     mask.setValueContainsLiteralCharacters(false);
     return mask.valueToString(cnpj);
   }
+
+  public String decodeToIso88591(final String utf8) {
+    return decodeTo(utf8, StandardCharsets.ISO_8859_1);
+  }
+
+  public String decodeTo(final String utf8, final Charset charset) {
+    try {
+      return new String(utf8.getBytes(charset), charset);
+    } catch (final NullPointerException ignored) {
+    }
+    return null;
+  }
+
 }
