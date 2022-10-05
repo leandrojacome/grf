@@ -1,8 +1,5 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.security;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 public class Scopes {
 
   public static final String GET = "GESTAO-RECURSOS-FINANCEIROS:GET";

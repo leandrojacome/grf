@@ -9,7 +9,6 @@ import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFina
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.modelmapper.ModelMapper;

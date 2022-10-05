@@ -1,6 +1,5 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure;
 
-import br.com.poupex.investimento.recursosfinanceiros.GestaoRecursosFinanceirosApiApplication;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.security.Scopes;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

@@ -1,7 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceiraRisco;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.ContabilInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.RiscoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
