@@ -6,6 +6,7 @@ import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel
 import br.com.poupex.investimento.recursosfinanceiros.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraContatoRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.modelmapper.ModelMapper;
@@ -17,14 +18,11 @@ import org.springframework.stereotype.Service;
 public class CadastrarInstituicaoFinanceiraContatoService {
 
   private final ModelMapper mapper;
-  private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final InstituicaoFinanceiraContatoRepository instituicaoFinanceiraContatoRepository;
+  private final ValidaInstituicaoFinanceiraContatosService validaInstituicaoFinanceiraContatosService;
 
   public ResponseModel execute(final String idInstituicaoFinanceira, final ContatoInputOutput input) {
-    val instituicaoFinanceira = obterInstituicaoFinanceiraService.id(idInstituicaoFinanceira);
-    if (instituicaoFinanceiraContatoRepository.count(instituicaoFinanceiraContatoRepository.instituicaoFinanceira(instituicaoFinanceira)) >= 3) {
-      throw new NegocioException("Limite contatos Instituição Financeira", "Só é possível salvar até 3 contatos por Instituição Financeira");
-    }
+    val instituicaoFinanceira = validaInstituicaoFinanceiraContatosService.execute(idInstituicaoFinanceira);
     val contato = mapper.map(input, InstituicaoFinanceiraContato.class);
     contato.setInstituicaoFinanceira(instituicaoFinanceira);
     return new ResponseModel(
@@ -37,6 +35,26 @@ public class CadastrarInstituicaoFinanceiraContatoService {
       mapper.map(
         instituicaoFinanceiraContatoRepository.save(contato), ContatoInputOutput.class
       )
+    );
+  }
+
+  public ResponseModel execute(final String idInstituicaoFinanceira, final List<ContatoInputOutput> input) {
+    val instituicaoFinanceira = validaInstituicaoFinanceiraContatosService.execute(idInstituicaoFinanceira);
+    val contatos = instituicaoFinanceiraContatoRepository.saveAll(
+      input.stream().map(c -> {
+        val contato = mapper.map(c, InstituicaoFinanceiraContato.class);
+        contato.setInstituicaoFinanceira(instituicaoFinanceira);
+        return contato;
+      }).toList()
+    ).stream().map(c -> mapper.map(c, ContatoInputOutput.class)).toList();
+    return new ResponseModel(
+      LocalDateTime.now(),
+      HttpStatus.OK.value(),
+      "Cadastro",
+      "Contato cadastrado com sucesso",
+      "Contato cadastrado com sucesso",
+      null,
+      contatos
     );
   }
 

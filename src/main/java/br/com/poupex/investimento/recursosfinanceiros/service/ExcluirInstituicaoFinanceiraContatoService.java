@@ -40,7 +40,7 @@ public class ExcluirInstituicaoFinanceiraContatoService {
     );
   }
 
-  public ResponseModel instituicaoFinanceira(final String id) {
+  public ResponseModel execute(final String id) {
     try {
       instituicaoFinanceiraContatoRepository.deleteByInstituicaoFinanceira(obterInstituicaoFinanceiraService.id(id));
     } catch (DataIntegrityViolationException e) {

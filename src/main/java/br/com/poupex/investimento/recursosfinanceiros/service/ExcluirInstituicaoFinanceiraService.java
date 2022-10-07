@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ExcluirInstituicaoFinanceiraService {
 
-  private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
   private final ExcluirInstituicaoFinanceiraEnderecoService excluirInstituicaoFinanceiraEnderecoService;
   private final ExcluirInstituicaoFinanceiraContatoService excluirInstituicaoFinanceiraContatoService;
@@ -25,10 +24,10 @@ public class ExcluirInstituicaoFinanceiraService {
   public ResponseModel execute(final String id) {
     try {
       excluirInstituicaoFinanceiraEnderecoService.execute(id);
-      excluirInstituicaoFinanceiraContatoService.instituicaoFinanceira(id);
+      excluirInstituicaoFinanceiraContatoService.execute(id);
       excluirInstituicaoFinanceiraContabilService.execute(id);
       excluirInstituicaoFinanceiraRiscoService.execute(id);
-      instituicaoFinanceiraRepository.delete(obterInstituicaoFinanceiraService.id(id));
+      instituicaoFinanceiraRepository.deleteById(id);
       instituicaoFinanceiraRepository.flush();
     } catch (EntidadeEmUsoException | DataIntegrityViolationException e) {
       throw new EntidadeEmUsoException("Instituição Financeira");

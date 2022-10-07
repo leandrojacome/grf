@@ -1,8 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.entity.model;
 
 import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
-import java.util.List;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -23,10 +21,4 @@ public class InstituicaoFinanceiraInputEditar implements InstituicaoFinanceiraIn
   private String site;
   private String cetip;
   private String selic;
-  @Valid
-  private EnderecoInputOutput endereco;
-  @Valid
-  private List<ContatoInputOutput> contatos;
-  private ContabilInputOutput contabil;
-  private RiscoInputOutput risco;
 }

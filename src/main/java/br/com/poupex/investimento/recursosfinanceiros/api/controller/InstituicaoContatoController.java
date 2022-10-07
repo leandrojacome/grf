@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,23 @@ public class InstituicaoContatoController {
   @Parameters({
     @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
   })
-  @PostMapping
+  @PutMapping
   public ResponseEntity<ResponseModel> create(@PathVariable String id, @RequestBody @Valid final ContatoInputOutput input) {
+    return ResponseEntity.ok(cadastrarInstituicaoFinanceiraContatoService.execute(id, input));
+  }
+
+  @Operation(summary = "Cadastra o contato da Instituição Financeira (Lista)")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ContatoInputOutput.class))
+    }),
+  })
+  @Parameters({
+    @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
+  })
+  @PostMapping
+  public ResponseEntity<ResponseModel> create(@PathVariable String id, @RequestBody @Valid final List<ContatoInputOutput> input) {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraContatoService.execute(id, input));
   }
 

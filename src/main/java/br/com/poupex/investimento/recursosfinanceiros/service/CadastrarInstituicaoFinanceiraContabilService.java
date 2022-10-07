@@ -18,13 +18,9 @@ public class CadastrarInstituicaoFinanceiraContabilService {
   private final ModelMapper mapper;
   private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final InstituicaoFinanceiraContabilRepository instituicaoFinanceiraContabilRepository;
-  private final EditarInstituicaoFinanceiraContabilService editarInstituicaoFinanceiraContabilService;
 
   public ResponseModel execute(final String id, final ContabilInputOutput input) {
     val instituicaoFinanceira = obterInstituicaoFinanceiraService.id(id);
-    if (instituicaoFinanceiraContabilRepository.exists(instituicaoFinanceiraContabilRepository.instituicaoFinanceira(instituicaoFinanceira))) {
-      return editarInstituicaoFinanceiraContabilService.execute(id, input);
-    }
     val contabil = mapper.map(input, InstituicaoFinanceiraContabil.class);
     contabil.setInstituicaoFinanceira(instituicaoFinanceira);
     return new ResponseModel(

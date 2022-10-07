@@ -18,15 +18,11 @@ public class CadastrarInstituicaoFinanceiraEnderecoService {
   private final ModelMapper mapper;
   private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final InstituicaoFinanceiraEnderecoRepository instituicaoFinanceiraEnderecoRepository;
-  private final EditarInstituicaoFinanceiraEnderecoService editarInstituicaoFinanceiraEnderecoService;
   private final ValidaEnderecoCepService validaEnderecoCepService;
 
   public ResponseModel execute(final String id, final EnderecoInputOutput input) {
     val instituicaoFinanceira = obterInstituicaoFinanceiraService.id(id);
     validaEnderecoCepService.execute(input.getCep());
-    if (instituicaoFinanceiraEnderecoRepository.exists(instituicaoFinanceiraEnderecoRepository.instituicaoFinanceira(instituicaoFinanceira))) {
-      return editarInstituicaoFinanceiraEnderecoService.execute(id, input);
-    }
     val endereco = mapper.map(input, InstituicaoFinanceiraEndereco.class);
     endereco.setInstituicaoFinanceira(instituicaoFinanceira);
     return new ResponseModel(
