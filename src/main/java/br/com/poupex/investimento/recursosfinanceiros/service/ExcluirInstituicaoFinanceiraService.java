@@ -2,6 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.exception.EntidadeEmUsoException;
+import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +24,22 @@ public class ExcluirInstituicaoFinanceiraService {
   @Transactional
   public ResponseModel execute(final String id) {
     try {
-      excluirInstituicaoFinanceiraEnderecoService.execute(id);
-      excluirInstituicaoFinanceiraContatoService.execute(id);
-      excluirInstituicaoFinanceiraContabilService.execute(id);
-      excluirInstituicaoFinanceiraRiscoService.execute(id);
+      try {
+        excluirInstituicaoFinanceiraEnderecoService.execute(id);
+      } catch (final RecursoNaoEncontradoException ignored) {
+      }
+      try {
+        excluirInstituicaoFinanceiraContatoService.execute(id);
+      } catch (final RecursoNaoEncontradoException ignored) {
+      }
+      try {
+        excluirInstituicaoFinanceiraContabilService.execute(id);
+      } catch (final RecursoNaoEncontradoException ignored) {
+      }
+      try {
+        excluirInstituicaoFinanceiraRiscoService.execute(id);
+      } catch (final RecursoNaoEncontradoException ignored) {
+      }
       instituicaoFinanceiraRepository.deleteById(id);
       instituicaoFinanceiraRepository.flush();
     } catch (EntidadeEmUsoException | DataIntegrityViolationException e) {
