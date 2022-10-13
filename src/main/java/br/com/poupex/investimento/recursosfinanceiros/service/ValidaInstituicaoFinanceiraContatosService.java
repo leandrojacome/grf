@@ -1,8 +1,8 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceira;
-import br.com.poupex.investimento.recursosfinanceiros.exception.NegocioException;
-import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraContatoRepository;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
+import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraContatoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.stereotype.Service;

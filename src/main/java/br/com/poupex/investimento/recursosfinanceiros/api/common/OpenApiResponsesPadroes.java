@@ -1,6 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.common;
 
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

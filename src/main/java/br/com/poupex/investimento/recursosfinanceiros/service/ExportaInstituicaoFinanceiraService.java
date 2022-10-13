@@ -1,12 +1,12 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.ValidacaoModel;
-import br.com.poupex.investimento.recursosfinanceiros.enums.ExportacaoFormato;
-import br.com.poupex.investimento.recursosfinanceiros.enums.InstituicaoFinanceiraTipo;
-import br.com.poupex.investimento.recursosfinanceiros.exception.NegocioException;
-import br.com.poupex.investimento.recursosfinanceiros.exception.RecursoNaoEncontradoException;
-import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ExportacaoFormato;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraTipo;
+import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
+import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidacaoModel;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraRepository;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;

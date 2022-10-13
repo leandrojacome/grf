@@ -1,6 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.adapter.CnpjExternoAdapter;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;

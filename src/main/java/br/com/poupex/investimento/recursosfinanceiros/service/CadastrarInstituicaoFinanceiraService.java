@@ -1,11 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceira;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraInputCadastrar;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.exception.NegocioException;
-import br.com.poupex.investimento.recursosfinanceiros.repository.InstituicaoFinanceiraRepository;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
+import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraInputCadastrar;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.val;

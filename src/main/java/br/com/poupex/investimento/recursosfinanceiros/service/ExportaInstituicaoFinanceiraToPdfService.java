@@ -1,6 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.StringUtil;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;

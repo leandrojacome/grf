@@ -1,9 +1,9 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
-import br.com.poupex.investimento.recursosfinanceiros.entity.data.InstituicaoFinanceira;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraInput;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraInputCadastrar;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraInputEditar;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraInputCadastrar;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraInputEditar;
 import lombok.val;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;

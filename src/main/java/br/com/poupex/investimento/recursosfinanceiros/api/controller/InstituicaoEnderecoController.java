@@ -1,8 +1,8 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.EnderecoInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.EnderecoInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraEnderecoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.EditarInstituicaoFinanceiraEnderecoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirInstituicaoFinanceiraEnderecoService;

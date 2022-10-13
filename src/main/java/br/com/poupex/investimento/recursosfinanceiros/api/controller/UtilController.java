@@ -2,9 +2,9 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.EnderecoInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutputDetalhe;
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.EnderecoInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutputDetalhe;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCepExternoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCnpjExternoService;
 import io.swagger.v3.oas.annotations.Operation;

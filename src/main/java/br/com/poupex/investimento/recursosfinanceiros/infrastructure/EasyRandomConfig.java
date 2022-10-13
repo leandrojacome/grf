@@ -1,6 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure;
 
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.InstituicaoFinanceiraOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutput;
 import lombok.RequiredArgsConstructor;
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;

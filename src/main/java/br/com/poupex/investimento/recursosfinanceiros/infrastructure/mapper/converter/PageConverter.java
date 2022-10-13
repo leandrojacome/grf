@@ -1,6 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
-import br.com.poupex.investimento.recursosfinanceiros.entity.model.PageOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import java.util.stream.Collectors;
 import lombok.val;
 import org.modelmapper.ModelMapper;
