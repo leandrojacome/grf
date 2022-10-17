@@ -22,6 +22,7 @@ public class EditarInstituicaoFinanceiraService {
   private final ValidaInstituicaoFinanceiraMatrizGrupoService validaInstituicaoFinanceiraMatrizGrupoService;
   private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
+  private final EditarInstituicaoFinanceiraEnderecoService editarInstituicaoFinanceiraEnderecoService;
 
   @Transactional
   public ResponseModel execute(final String id, final InstituicaoFinanceiraInputEditar input) {
@@ -31,6 +32,9 @@ public class EditarInstituicaoFinanceiraService {
       mapper.map(input, InstituicaoFinanceira.class), instituicao,
       "id", "cnpj", "cadastro", "atualizacao"
     );
+    if (input.getEndereco() != null) {
+      editarInstituicaoFinanceiraEnderecoService.execute(id, input.getEndereco());
+    }
     return new ResponseModel(
       LocalDateTime.now(),
       HttpStatus.OK.value(),

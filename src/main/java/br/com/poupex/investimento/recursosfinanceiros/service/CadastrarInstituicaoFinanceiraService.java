@@ -20,6 +20,7 @@ public class CadastrarInstituicaoFinanceiraService {
   private final ModelMapper mapper;
   private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
   private final ValidaInstituicaoFinanceiraMatrizGrupoService validaInstituicaoFinanceiraMatrizGrupoService;
+  private final CadastrarInstituicaoFinanceiraEnderecoService cadastrarInstituicaoFinanceiraEnderecoService;
 
   public ResponseModel execute(final InstituicaoFinanceiraInputCadastrar input) {
     validaInstituicaoFinanceiraMatrizGrupoService.execute(input);
@@ -29,6 +30,10 @@ public class CadastrarInstituicaoFinanceiraService {
         "Instituição já cadastrada", String.format("O Cnpj %s já está sendo usando por outra instituição.", input.getCnpj()
       ));
     }
+    val dto = mapper.map(instituicaoFinanceiraRepository.save(instituicao), InstituicaoFinanceiraOutput.class);
+    if (input.getEndereco() != null) {
+      cadastrarInstituicaoFinanceiraEnderecoService.execute(dto.getId(), input.getEndereco());
+    }
     return new ResponseModel(
       LocalDateTime.now(),
       HttpStatus.OK.value(),
@@ -36,7 +41,7 @@ public class CadastrarInstituicaoFinanceiraService {
       String.format("A instituição %s foi cadastrada com sucesso", input.getNome()),
       "Instituição cadastrada com sucesso",
       null,
-      mapper.map(instituicaoFinanceiraRepository.save(instituicao), InstituicaoFinanceiraOutput.class)
+      dto
     );
   }
 
