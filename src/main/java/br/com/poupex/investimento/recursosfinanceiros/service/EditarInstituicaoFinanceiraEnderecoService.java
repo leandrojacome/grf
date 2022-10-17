@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraEndereco;
+import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.EnderecoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraEnderecoRepository;
@@ -20,24 +21,29 @@ public class EditarInstituicaoFinanceiraEnderecoService {
   private final ObterInstituicaoFinanceiraEnderecoService obterInstituicaoFinanceiraEnderecoService;
   private final InstituicaoFinanceiraEnderecoRepository instituicaoFinanceiraEnderecoRepository;
   private final ValidaEnderecoCepService validaEnderecoCepService;
+  private final CadastrarInstituicaoFinanceiraEnderecoService cadastrarInstituicaoFinanceiraEnderecoService;
 
   public ResponseModel execute(final String id, final EnderecoInputOutput input) {
-    val endereco = obterInstituicaoFinanceiraEnderecoService.id(id);
-    validaEnderecoCepService.execute(input.getCep());
-    BeanUtils.copyProperties(
-      mapper.map(input, InstituicaoFinanceiraEndereco.class), endereco,
-      "id", "instituicaoFinanceira", "cadastro", "atualizacao"
-    );
-    return new ResponseModel(
-      LocalDateTime.now(),
-      HttpStatus.OK.value(),
-      "Alteração realizada com sucesso",
-      String.format("O endereção da instituição %s foi alterada com sucesso", id),
-      "Endereço da Instituição alterado com sucesso",
-      null,
-      mapper.map(instituicaoFinanceiraEnderecoRepository.save(endereco), EnderecoInputOutput.class
-      )
-    );
+    try {
+      val endereco = obterInstituicaoFinanceiraEnderecoService.id(id);
+      validaEnderecoCepService.execute(input.getCep());
+      BeanUtils.copyProperties(
+        mapper.map(input, InstituicaoFinanceiraEndereco.class), endereco,
+        "id", "instituicaoFinanceira", "cadastro", "atualizacao"
+      );
+      return new ResponseModel(
+        LocalDateTime.now(),
+        HttpStatus.OK.value(),
+        "Alteração realizada com sucesso",
+        String.format("O endereção da instituição %s foi alterada com sucesso", id),
+        "Endereço da Instituição alterado com sucesso",
+        null,
+        mapper.map(instituicaoFinanceiraEnderecoRepository.save(endereco), EnderecoInputOutput.class
+        )
+      );
+    } catch (final RecursoNaoEncontradoException e) {
+      return cadastrarInstituicaoFinanceiraEnderecoService.execute(id, input);
+    }
   }
 
 }
