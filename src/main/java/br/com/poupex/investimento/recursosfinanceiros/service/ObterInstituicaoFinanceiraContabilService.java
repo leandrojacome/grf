@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -30,15 +32,16 @@ public class ObterInstituicaoFinanceiraContabilService {
   }
 
   public InstituicaoFinanceiraContabil id(final String id) {
-    val optional = instituicaoFinanceiraContabilRepository.findOne(
-      instituicaoFinanceiraContabilRepository.instituicaoFinanceira(obterInstituicaoFinanceiraService.id(id))
+    val page = instituicaoFinanceiraContabilRepository.findAll(
+      instituicaoFinanceiraContabilRepository.instituicaoFinanceira(obterInstituicaoFinanceiraService.id(id)),
+      PageRequest.of(0, 1, Sort.by(Sort.Order.desc("cadastro")))
     );
-    if (optional.isEmpty()) {
+    if (page.isEmpty()) {
       throw new RecursoNaoEncontradoException(
         "Dados Contabeis da Instituição Financeira", String.format("Não foram encontrados Dados Contabeis da Instituição Financeira com id: %s", id)
       );
     }
-    return optional.get();
+    return page.getContent().get(0);
   }
 
 }

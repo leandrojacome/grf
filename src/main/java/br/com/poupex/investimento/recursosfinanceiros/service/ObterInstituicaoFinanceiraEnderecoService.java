@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -30,15 +32,16 @@ public class ObterInstituicaoFinanceiraEnderecoService {
   }
 
   public InstituicaoFinanceiraEndereco id(final String id) {
-    val enderecoOptional = instituicaoFinanceiraEnderecoRepository.findOne(
-      instituicaoFinanceiraEnderecoRepository.instituicaoFinanceira(obterInstituicaoFinanceiraService.id(id))
+    val page = instituicaoFinanceiraEnderecoRepository.findAll(
+      instituicaoFinanceiraEnderecoRepository.instituicaoFinanceira(obterInstituicaoFinanceiraService.id(id)),
+      PageRequest.of(0, 1, Sort.by(Sort.Order.desc("cadastro")))
     );
-    if (enderecoOptional.isEmpty()) {
+    if (page.isEmpty()) {
       throw new RecursoNaoEncontradoException(
         "Endereço da Instituição Financeira", String.format("Não foi encontrado Endereço da Instituição Financeira com id: %s", id)
       );
     }
-    return enderecoOptional.get();
+    return page.getContent().get(0);
   }
 
 }
