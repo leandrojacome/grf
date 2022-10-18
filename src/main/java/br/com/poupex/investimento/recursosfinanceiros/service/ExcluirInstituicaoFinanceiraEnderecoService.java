@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.EntidadeEmUsoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraEnderecoRepository;
@@ -13,12 +14,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ExcluirInstituicaoFinanceiraEnderecoService {
 
-  private final ObterInstituicaoFinanceiraEnderecoService obterInstituicaoFinanceiraEnderecoService;
   private final InstituicaoFinanceiraEnderecoRepository instituicaoFinanceiraEnderecoRepository;
 
   public ResponseModel execute(final String id) {
     try {
-      instituicaoFinanceiraEnderecoRepository.delete(obterInstituicaoFinanceiraEnderecoService.id(id));
+      instituicaoFinanceiraEnderecoRepository.deleteAll(
+        instituicaoFinanceiraEnderecoRepository.findAll(instituicaoFinanceiraEnderecoRepository.instituicaoFinanceira(new InstituicaoFinanceira(id)))
+      );
     } catch (DataIntegrityViolationException e) {
       throw new EntidadeEmUsoException("Endereço Instituição Financeira");
     }

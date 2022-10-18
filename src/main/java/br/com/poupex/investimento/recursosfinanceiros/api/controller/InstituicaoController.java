@@ -197,4 +197,5 @@ public class InstituicaoController {
   public ResponseEntity<ResponseModel> readPorNome(@PathVariable String nome) {
     return ResponseEntity.ok(pesquisarInstituicoesFinanceirasService.execute(nome, null, null, null));
   }
+
 }

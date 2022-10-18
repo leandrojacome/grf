@@ -91,5 +91,4 @@ public class InstituicaoEnderecoController {
     return ResponseEntity.ok(obterInstituicaoFinanceiraEnderecoService.execute(id));
   }
 
-
 }

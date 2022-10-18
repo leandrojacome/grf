@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.EntidadeEmUsoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
@@ -42,7 +43,9 @@ public class ExcluirInstituicaoFinanceiraContatoService {
 
   public ResponseModel execute(final String id) {
     try {
-      instituicaoFinanceiraContatoRepository.deleteByInstituicaoFinanceira(obterInstituicaoFinanceiraService.id(id));
+      instituicaoFinanceiraContatoRepository.deleteAll(
+        instituicaoFinanceiraContatoRepository.findAll(instituicaoFinanceiraContatoRepository.instituicaoFinanceira(new InstituicaoFinanceira(id)))
+      );
     } catch (DataIntegrityViolationException e) {
       throw new EntidadeEmUsoException("Contato Instituição Financeira");
     }

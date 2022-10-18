@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.EntidadeEmUsoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
@@ -14,12 +15,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ExcluirInstituicaoFinanceiraRiscoService {
 
-  private final ObterInstituicaoFinanceiraRiscoService obterInstituicaoFinanceiraRiscoService;
   private final InstituicaoFinanceiraRiscoRepository instituicaoFinanceiraRiscoRepository;
 
   public ResponseModel execute(final String id) {
     try {
-      instituicaoFinanceiraRiscoRepository.delete(obterInstituicaoFinanceiraRiscoService.id(id));
+      instituicaoFinanceiraRiscoRepository.deleteAll(
+        instituicaoFinanceiraRiscoRepository.findAll(instituicaoFinanceiraRiscoRepository.instituicaoFinanceira(new InstituicaoFinanceira(id)))
+      );
     } catch (final RecursoNaoEncontradoException ignored) {
     } catch (DataIntegrityViolationException e) {
       throw new EntidadeEmUsoException("Riscos Instituição Financeira");
