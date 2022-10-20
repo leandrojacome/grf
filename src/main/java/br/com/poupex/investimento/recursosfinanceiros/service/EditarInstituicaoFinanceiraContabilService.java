@@ -32,7 +32,7 @@ public class EditarInstituicaoFinanceiraContabilService {
       HttpStatus.OK.value(),
       "Alteração realizada com sucesso",
       String.format("Os Dados Contábeis da Instituição %s foram alterados com sucesso", id),
-      "Dados Contábeis da Instituição alterados com sucesso",
+      "Dados Contábeis salvos com sucesso",
       null,
       mapper.map(instituicaoFinanceiraContabilRepository.save(contabil), EnderecoInputOutput.class
       )
