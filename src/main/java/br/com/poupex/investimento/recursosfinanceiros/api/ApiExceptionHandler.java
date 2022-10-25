@@ -1,4 +1,4 @@
-package br.com.poupex.investimento.recursosfinanceiros.api.handler;
+package br.com.poupex.investimento.recursosfinanceiros.api;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;

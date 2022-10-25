@@ -22,20 +22,20 @@ public class EditarInstituicaoFinanceiraRiscoService {
   private final InstituicaoFinanceiraRiscoRepository instituicaoFinanceiraRiscoRepository;
 
   public ResponseModel execute(final String id, final RiscoInputOutput input) {
-    validaInstituicaoFinanceiraRiscosOpcoesService.execute(input);
-    val riscos = obterInstituicaoFinanceiraRiscoService.id(id);
+    validaInstituicaoFinanceiraRiscosOpcoesService.execute(id, input);
+    val risco = obterInstituicaoFinanceiraRiscoService.id(input.getId());
     BeanUtils.copyProperties(
-      mapper.map(input, InstituicaoFinanceiraRisco.class), riscos,
+      mapper.map(input, InstituicaoFinanceiraRisco.class), risco,
       "id", "instituicaoFinanceira", "cadastro", "atualizacao"
     );
     return new ResponseModel(
       LocalDateTime.now(),
       HttpStatus.OK.value(),
-      "Alteração realizada com sucesso",
-      String.format("Os Riscos da Instituição %s foram alterados com sucesso", id),
-      "Riscos da Instituição alterados com sucesso",
+      "Risco alterado",
+      String.format("Risco %s alterado com sucesso", input.getId()),
+      "Risco alterado com sucesso",
       null,
-      mapper.map(instituicaoFinanceiraRiscoRepository.save(riscos), RiscoInputOutput.class
+      mapper.map(instituicaoFinanceiraRiscoRepository.save(risco), RiscoInputOutput.class
       )
     );
   }

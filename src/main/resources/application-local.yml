@@ -49,5 +49,10 @@ poupex:
         secret: f14fe88814bf4169fe00beb2e4ab9eddf461e0b488a40094a15bdef885b01063
       endereco-cep:
         url: http://enderecoapihml.hml.cloud.poupex/cep
+  minio:
+    endpoint: https://miniostage.poupex.com.br
+    bucket: gestao-recursos-financeiros-hml
+    accessKey: user-gestao-recursos-financeiros-hml
+    secretKey: fYbMnnEtgehPNZhR
 barramento:
   url: http://homologaesb.poupex.com.br

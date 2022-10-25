@@ -138,6 +138,12 @@
             <artifactId>easy-random-core</artifactId>
             <version>5.0.0</version>
         </dependency>
+        <!--MINIO -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.4.5</version>
+        </dependency>
         <!-- ITEXT -->
         <dependency>
             <groupId>com.itextpdf</groupId>

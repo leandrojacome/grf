@@ -19,8 +19,9 @@ public class CadastrarInstituicaoFinanceiraRiscoService {
   private final ValidaInstituicaoFinanceiraRiscosOpcoesService validaInstituicaoFinanceiraRiscosOpcoesService;
   private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final InstituicaoFinanceiraRiscoRepository instituicaoFinanceiraRiscoRepository;
+
   public ResponseModel execute(final String id, final RiscoInputOutput input) {
-    validaInstituicaoFinanceiraRiscosOpcoesService.execute(input);
+    validaInstituicaoFinanceiraRiscosOpcoesService.execute(id, input);
     val instituicaoFinanceira = obterInstituicaoFinanceiraService.id(id);
     val risco = mapper.map(input, InstituicaoFinanceiraRisco.class);
     risco.setInstituicaoFinanceira(instituicaoFinanceira);
@@ -28,8 +29,8 @@ public class CadastrarInstituicaoFinanceiraRiscoService {
       LocalDateTime.now(),
       HttpStatus.OK.value(),
       "Cadastro",
-      "Riscos da Instituição cadastrados com sucesso",
-      "Riscos da Instituição cadastrados com sucesso",
+      "Risco cadastrado",
+      "Risco cadastrado com sucesso",
       null,
       mapper.map(
         instituicaoFinanceiraRiscoRepository.save(risco), RiscoInputOutput.class

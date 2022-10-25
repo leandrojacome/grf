@@ -17,28 +17,18 @@ import org.springframework.stereotype.Service;
 public class ObterInstituicaoFinanceiraRiscoService {
 
   private final ModelMapper mapper;
-  private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final InstituicaoFinanceiraRiscoRepository instituicaoFinanceiraRiscoRepository;
 
-  public ResponseModel execute(final String id) {
-    return new ResponseModel(
-      LocalDateTime.now(),
-      HttpStatus.OK.value(),
-      null, null, null, null,
-      mapper.map(id(id), RiscoInputOutput.class)
+  public ResponseModel execute(final String id, final String risco) {
+    return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), null, null, null, null,
+      mapper.map(id(risco), RiscoInputOutput.class)
     );
   }
 
   public InstituicaoFinanceiraRisco id(final String id) {
-    val optional = instituicaoFinanceiraRiscoRepository.findOne(
-      instituicaoFinanceiraRiscoRepository.instituicaoFinanceira(obterInstituicaoFinanceiraService.id(id))
-    );
-    if (optional.isEmpty()) {
-      throw new RecursoNaoEncontradoException(
-        "Riscos da Instituição Financeira", String.format("Não foram encontrados Riscos da Instituição Financeira com id: %s", id)
-      );
-    }
-    return optional.get();
+    return instituicaoFinanceiraRiscoRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException(
+      "Riscos da Instituição Financeira", String.format("Não foram encontrados Riscos da Instituição Financeira com id: %s", id)
+    ));
   }
 
 }
