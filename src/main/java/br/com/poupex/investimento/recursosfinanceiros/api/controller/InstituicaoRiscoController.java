@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,7 @@ public class InstituicaoRiscoController {
     @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
   })
   @PostMapping
-  public ResponseEntity<ResponseModel> create(@PathVariable String id, @RequestBody @Valid final RiscoInputOutput input) {
+  public ResponseEntity<ResponseModel> create(@PathVariable final String id, @RequestBody @Valid final RiscoInputOutput input) {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraRiscoService.execute(id, input));
   }
 
@@ -58,22 +59,8 @@ public class InstituicaoRiscoController {
     @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
   })
   @PutMapping
-  public ResponseEntity<ResponseModel> update(@PathVariable String id, @RequestBody @Valid final RiscoInputOutput input) {
+  public ResponseEntity<ResponseModel> update(@PathVariable final String id, @RequestBody @Valid final RiscoInputOutput input) {
     return ResponseEntity.ok(editarInstituicaoFinanceiraRiscoService.execute(id, input));
-  }
-
-  @Operation(summary = "Exclui o Risco atual da Instituição Financeira")
-  @ApiResponses({
-    @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
-      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-    }),
-  })
-  @Parameters({
-    @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
-  })
-  @DeleteMapping
-  public ResponseEntity<ResponseModel> delete(@PathVariable String id) {
-    return ResponseEntity.ok(excluirInstituicaoFinanceiraRiscoService.execute(id));
   }
 
   @Operation(summary = "Recupera o Risco atual da Instituição Financeira")
@@ -86,9 +73,24 @@ public class InstituicaoRiscoController {
   @Parameters({
     @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
   })
-  @GetMapping
-  public ResponseEntity<ResponseModel> read(@PathVariable String id) {
-    return ResponseEntity.ok(obterInstituicaoFinanceiraRiscoService.execute(id));
+  @GetMapping("{risco}")
+  public ResponseEntity<ResponseModel> read(@PathVariable final String id, @PathVariable final String risco) {
+    return ResponseEntity.ok(obterInstituicaoFinanceiraRiscoService.execute(id, risco));
+  }
+
+  @Operation(summary = "Exclui o Risco atual da Instituição Financeira")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+    }),
+  })
+  @Parameters({
+    @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
+    @Parameter(name = "risco", description = "Identificador do Risco"),
+  })
+  @DeleteMapping("{risco}")
+  public ResponseEntity<ResponseModel> delete(@PathVariable final String id, @PathVariable final String risco) {
+    return ResponseEntity.ok(excluirInstituicaoFinanceiraRiscoService.execute(id, risco));
   }
 
 }
