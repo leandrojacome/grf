@@ -64,18 +64,18 @@ public class InstituicaoController {
     return ResponseEntity.ok(recuperarInstituicaoFinanceiraGruposMatrizService.execute());
   }
 
-  @Operation(summary = "Recupera as cetegorias por tipo de Risco")
+  @Operation(summary = "Recupera as cetegorias por agencia de Risco")
   @ApiResponses({
     @ApiResponse(
-      responseCode = "200", description = "Dados da empresa",
+      responseCode = "200", description = "Dados dos riscos de uma agencia classificadora",
       content = {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
         @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ChaveLabelDescricaoOutput.class))),
       }),
   })
-  @GetMapping("risco/categoria/{categoria}")
-  public ResponseEntity<ResponseModel> categoria(@PathVariable InstituicaoFinanceiraRiscoCategoria categoria) {
-    return ResponseEntity.ok(recuperarRiscoCategoriaOpcoesService.execute(categoria));
+  @GetMapping("risco/{agencia}/classificacoes")
+  public ResponseEntity<ResponseModel> categoria(@PathVariable InstituicaoFinanceiraRiscoCategoria agencia) {
+    return ResponseEntity.ok(recuperarRiscoCategoriaOpcoesService.execute(agencia));
   }
 
   @Operation(summary = "Cadastra a Instituição Financeira")
