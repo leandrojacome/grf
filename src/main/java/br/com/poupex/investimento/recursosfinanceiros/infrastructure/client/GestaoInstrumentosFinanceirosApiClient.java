@@ -1,10 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.client;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +16,6 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstrumentoFi
 public interface GestaoInstrumentosFinanceirosApiClient {
 
 	  @GetMapping("/instrumento-financeiro/listar/ativos/paginado")
-	  List<InstrumentoFinanceiroOutput> getInstrumentosFinanceiros(@RequestBody InstrumentoFinanceiroInput input, @RequestParam Pageable pageable);
+	  Page<InstrumentoFinanceiroOutput> getInstrumentosFinanceiros(@RequestBody InstrumentoFinanceiroInput input, @RequestParam Pageable pageable);
 	  
 }
