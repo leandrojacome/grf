@@ -15,15 +15,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ExcluirInstituicaoFinanceiraRiscoService {
 
-
   private final ExcluirInstituicaoFinanceiraRiscoArquivoService excluirInstituicaoFinanceiraRiscoArquivoService;
   private final InstituicaoFinanceiraRiscoRepository instituicaoFinanceiraRiscoRepository;
 
   public ResponseModel execute(final String instituicao, final String risco) {
     try {
       excluirInstituicaoFinanceiraRiscoArquivoService.execute(instituicao, risco);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    } catch (final RecursoNaoEncontradoException ignored) {
     }
     try {
       instituicaoFinanceiraRiscoRepository.deleteById(risco);
@@ -48,8 +46,7 @@ public class ExcluirInstituicaoFinanceiraRiscoService {
       ).forEach(risco -> {
         try {
           excluirInstituicaoFinanceiraRiscoArquivoService.execute(instituicao, risco.getId());
-        } catch (Exception e) {
-          throw new RuntimeException(e);
+        } catch (final RecursoNaoEncontradoException ignored) {
         }
         instituicaoFinanceiraRiscoRepository.delete(risco);
       });

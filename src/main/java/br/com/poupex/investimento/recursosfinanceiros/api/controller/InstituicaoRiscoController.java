@@ -1,10 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoClassificacao;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInput;
+import br.com.poupex.investimento.recursosfinanceiros.service.AlteraInstituicaoFinanceiraRiscoClassificacaoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraRiscoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.EditarInstituicaoFinanceiraRiscoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirInstituicaoFinanceiraRiscoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraRiscoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,9 +16,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,45 +30,47 @@ import org.springframework.web.bind.annotation.*;
 public class InstituicaoRiscoController {
 
   private final CadastrarInstituicaoFinanceiraRiscoService cadastrarInstituicaoFinanceiraRiscoService;
-  private final EditarInstituicaoFinanceiraRiscoService editarInstituicaoFinanceiraRiscoService;
+  private final AlteraInstituicaoFinanceiraRiscoClassificacaoService alteraInstituicaoFinanceiraRiscoClassificacaoService;
   private final ExcluirInstituicaoFinanceiraRiscoService excluirInstituicaoFinanceiraRiscoService;
   private final ObterInstituicaoFinanceiraRiscoService obterInstituicaoFinanceiraRiscoService;
 
-  @Operation(summary = "Adiciona/Altera Risco da Instituição Financeira")
+  @Operation(summary = "Adiciona/Altera um Risco da Instituição Financeira")
   @ApiResponses({
-    @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
+    @ApiResponse(responseCode = "200", description = "Risco salvo", content = {
       @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInputOutput.class))
+      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInput.class))
     }),
   })
   @Parameters({
     @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
   })
-  @PostMapping
-  public ResponseEntity<ResponseModel> create(@PathVariable final String id, @RequestBody @Valid final RiscoInputOutput input) {
+  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public ResponseEntity<ResponseModel> create(@PathVariable final String id, @RequestBody @Valid final RiscoInput input) {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraRiscoService.execute(id, input));
   }
 
-  @Operation(summary = "Altera Risco da Instituição Financeira")
+  @Operation(summary = "Altera Classificacao do Risco da Instituição Financeira")
   @ApiResponses({
-    @ApiResponse(responseCode = "200", description = "Alteração realizada", content = {
+    @ApiResponse(responseCode = "200", description = "Risco salvo", content = {
       @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInputOutput.class))
+      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInput.class))
     }),
   })
   @Parameters({
     @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
   })
-  @PutMapping
-  public ResponseEntity<ResponseModel> update(@PathVariable final String id, @RequestBody @Valid final RiscoInputOutput input) {
-    return ResponseEntity.ok(editarInstituicaoFinanceiraRiscoService.execute(id, input));
+  @PutMapping("{risco}/classificacao/{classificacao}")
+  public ResponseEntity<ResponseModel> classificacao(
+    @PathVariable final String id, @PathVariable final String risco, @PathVariable final InstituicaoFinanceiraRiscoClassificacao classificacao)
+  {
+    return ResponseEntity.ok(alteraInstituicaoFinanceiraRiscoClassificacaoService.execute(id, risco, classificacao));
   }
 
   @Operation(summary = "Recupera o Risco atual da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
       @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInputOutput.class))
+      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInput.class))
     }),
   })
   @Parameters({

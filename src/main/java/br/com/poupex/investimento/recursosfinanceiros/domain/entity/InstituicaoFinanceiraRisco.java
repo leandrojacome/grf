@@ -1,7 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoCategoria;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoCategoriaOpcao;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoAgenciaModalidade;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoClassificacao;
 import javax.persistence.*;
 import lombok.*;
 
@@ -19,11 +19,15 @@ public class InstituicaoFinanceiraRisco extends AbstractEntidadeBase {
   private InstituicaoFinanceira instituicaoFinanceira;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "CATEGORIA", length = 36)
-  private InstituicaoFinanceiraRiscoCategoria categoria;
+  @Column(name = "AGENCIA_MODALIDADE", length = 36)
+  private InstituicaoFinanceiraRiscoAgenciaModalidade agenciaModalidade;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "OPCAO", length = 36)
-  private InstituicaoFinanceiraRiscoCategoriaOpcao opcao;
+  @Column(name = "CLASSIFICACAO", length = 36)
+  private InstituicaoFinanceiraRiscoClassificacao classificacao;
+
+  @OneToOne(mappedBy = "instituicaoFinanceiraRisco")
+  @PrimaryKeyJoinColumn
+  private InstituicaoFinanceiraRiscoArquivo arquivo;
 
 }

@@ -3,7 +3,7 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ExportacaoFormato;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoCategoria;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoAgenciaModalidade;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraTipo;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.service.*;
@@ -64,17 +64,17 @@ public class InstituicaoController {
     return ResponseEntity.ok(recuperarInstituicaoFinanceiraGruposMatrizService.execute());
   }
 
-  @Operation(summary = "Recupera as cetegorias por agencia de Risco")
+  @Operation(summary = "Recupera as classificações por agencia/modalidade de Risco")
   @ApiResponses({
     @ApiResponse(
-      responseCode = "200", description = "Dados dos riscos de uma agencia classificadora",
+      responseCode = "200", description = "Classificações por agencia/modalidade de Risco",
       content = {
         @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
         @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ChaveLabelDescricaoOutput.class))),
       }),
   })
   @GetMapping("risco/{agencia}/classificacoes")
-  public ResponseEntity<ResponseModel> categoria(@PathVariable InstituicaoFinanceiraRiscoCategoria agencia) {
+  public ResponseEntity<ResponseModel> classificacao(@PathVariable InstituicaoFinanceiraRiscoAgenciaModalidade agencia) {
     return ResponseEntity.ok(recuperarRiscoCategoriaOpcoesService.execute(agencia));
   }
 

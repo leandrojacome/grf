@@ -3,15 +3,17 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRisco;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraRiscoRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ObterInstituicaoFinanceiraRiscoService {
@@ -20,8 +22,9 @@ public class ObterInstituicaoFinanceiraRiscoService {
   private final InstituicaoFinanceiraRiscoRepository instituicaoFinanceiraRiscoRepository;
 
   public ResponseModel execute(final String id, final String risco) {
+    log.debug(String.format("Instituição %s", id));
     return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), null, null, null, null,
-      mapper.map(id(risco), RiscoInputOutput.class)
+      mapper.map(id(risco), RiscoOutput.class)
     );
   }
 
