@@ -11,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RiscoArquivoOutput {
+  private String id;
   private String nome;
   private String tipo;
   private Long tamanho;

@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -22,8 +23,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -72,14 +76,24 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @Override
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(
-    final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request
-  ) {
+  protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    return getObjectResponseEntity(ex, headers, status, request);
+  }
+
+  @NotNull
+  private ResponseEntity<Object> getObjectResponseEntity(BindException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
     val validacoes = ex.getBindingResult().getAllErrors().stream().map(objectError -> {
       val name = objectError instanceof FieldError ? ((FieldError) objectError).getField() : objectError.getObjectName();
       return new ValidacaoModel(name, messageSource.getMessage(objectError, LocaleContextHolder.getLocale()));
     }).toList();
     return handleExceptionInternal(ex, builder(validacoes, ex.getTarget()), headers, status, request);
+  }
+
+  @Override
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(
+    final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request
+  ) {
+    return getObjectResponseEntity(ex, headers, status, request);
   }
 
   @Override

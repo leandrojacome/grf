@@ -1,7 +1,10 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
+import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Builder
 @NoArgsConstructor
@@ -10,14 +13,9 @@ import lombok.*;
 @Setter
 @Entity
 @Table(name = "INSTITUICAO_FINANCEIRA_RISCO_ARQUIVO", schema = "GESTAO_RECURSOS_FINANCEIROS")
-public class InstituicaoFinanceiraRiscoArquivo {
+public class InstituicaoFinanceiraRiscoArquivo extends AbstractEntidadeBase {
 
-  @Id
-  @Column(name="INSTITUICAO_FINANCEIRA_RISCO")
-  private String id;
-
-  @OneToOne
-  @MapsId
+  @ManyToOne
   @JoinColumn(name = "INSTITUICAO_FINANCEIRA_RISCO")
   private InstituicaoFinanceiraRisco instituicaoFinanceiraRisco;
 

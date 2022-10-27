@@ -9,12 +9,13 @@ import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import lombok.val;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ManterInstituicaoFinanceiraRiscoArquivoService {
@@ -27,21 +28,12 @@ public class ManterInstituicaoFinanceiraRiscoArquivoService {
 
   @SneakyThrows
   public InstituicaoFinanceiraRiscoArquivo entity(final String instituicao, final String risco, final MultipartFile arquivo) {
+    log.debug(String.format("Instituição (%s)", instituicao));
     try {
-      excluirInstituicaoFinanceiraRiscoArquivoService.execute(instituicao, risco);
+      excluirInstituicaoFinanceiraRiscoArquivoService.execute(risco);
     } catch (final RecursoNaoEncontradoException ignored) {
     }
-    val instituicaoFinanceiraRisco = obterInstituicaoFinanceiraRiscoService.id(risco);
-    val caminho = armanezaArquivoService.execute(caminhoArquivo(instituicaoFinanceiraRisco), arquivo.getBytes());
-    return instituicaoFinanceiraRiscoArquivoRepository.save(
-      InstituicaoFinanceiraRiscoArquivo.builder()
-        .id(instituicaoFinanceiraRisco.getId())
-        .caminho(caminho)
-        .nome(arquivo.getName())
-        .tipo(arquivo.getContentType())
-        .tamanho(arquivo.getSize())
-        .build()
-    );
+    return instituicaoFinanceiraRiscoArquivoRepository.save(montaEntity(obterInstituicaoFinanceiraRiscoService.id(risco), arquivo));
   }
 
   public ResponseModel execute(final String instituicao, final String risco, final MultipartFile arquivo) {
@@ -56,12 +48,24 @@ public class ManterInstituicaoFinanceiraRiscoArquivoService {
     );
   }
 
-  private String caminhoArquivo(final InstituicaoFinanceiraRisco instituicaoFinanceiraRisco) {
+  private String caminhoArquivo(final InstituicaoFinanceiraRisco instituicaoFinanceiraRisco, final String nome) {
     return String.format("INSTITUICOES/%s/RISCOS/%s/ARQUIVOS/%s",
       instituicaoFinanceiraRisco.getInstituicaoFinanceira().getId(),
       instituicaoFinanceiraRisco.getId(),
-      instituicaoFinanceiraRisco.getId()
+      nome
     );
   }
 
+  @SneakyThrows
+  public InstituicaoFinanceiraRiscoArquivo montaEntity(final InstituicaoFinanceiraRisco instituicaoFinanceiraRisco, final MultipartFile arquivo) {
+    return instituicaoFinanceiraRiscoArquivoRepository.save(
+      InstituicaoFinanceiraRiscoArquivo.builder()
+        .instituicaoFinanceiraRisco(instituicaoFinanceiraRisco)
+        .caminho(armanezaArquivoService.execute(caminhoArquivo(instituicaoFinanceiraRisco, arquivo.getOriginalFilename()), arquivo.getBytes()))
+        .nome(arquivo.getName())
+        .tipo(arquivo.getContentType())
+        .tamanho(arquivo.getSize())
+        .build()
+    );
+  }
 }

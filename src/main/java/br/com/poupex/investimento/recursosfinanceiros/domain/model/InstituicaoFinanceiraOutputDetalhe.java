@@ -16,5 +16,5 @@ public class InstituicaoFinanceiraOutputDetalhe extends InstituicaoFinanceiraOut
   private EnderecoInputOutput endereco;
   private List<ContatoInputOutput> contatos;
   private ContabilInputOutput contabil;
-  private RiscoInput risco;
+  private List<RiscoOutput> riscos;
 }

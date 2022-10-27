@@ -18,15 +18,13 @@ public class MinioConfig {
   private String accessKey;
   private String secretKey;
 
-  public static final String PATH_INIT = "GESTAO-RECURSOS_FINANCEIROS";
-
   @Bean
   public MinioClient client() {
     return MinioClient.builder().endpoint(endpoint).credentials(accessKey, secretKey).build();
   }
 
   public String object(String object) {
-    return String.format("%s/%s", PATH_INIT, object != null ? object : "");
+    return object != null ? object : "";
   }
 
 }

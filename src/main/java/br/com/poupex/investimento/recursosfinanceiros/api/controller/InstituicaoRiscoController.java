@@ -18,10 +18,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("instituicoes/{id}/riscos")
 @RequiredArgsConstructor
@@ -45,7 +49,7 @@ public class InstituicaoRiscoController {
     @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
   })
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<ResponseModel> create(@PathVariable final String id, @RequestBody @Valid final RiscoInput input) {
+  public ResponseEntity<ResponseModel> create(@PathVariable final String id, @Valid @ModelAttribute final RiscoInput input) {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraRiscoService.execute(id, input));
   }
 
@@ -61,24 +65,8 @@ public class InstituicaoRiscoController {
   })
   @PutMapping("{risco}/classificacao/{classificacao}")
   public ResponseEntity<ResponseModel> classificacao(
-    @PathVariable final String id, @PathVariable final String risco, @PathVariable final InstituicaoFinanceiraRiscoClassificacao classificacao)
-  {
+    @PathVariable final String id, @PathVariable final String risco, @PathVariable final InstituicaoFinanceiraRiscoClassificacao classificacao) {
     return ResponseEntity.ok(alteraInstituicaoFinanceiraRiscoClassificacaoService.execute(id, risco, classificacao));
-  }
-
-  @Operation(summary = "Recupera o Risco atual da Instituição Financeira")
-  @ApiResponses({
-    @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
-      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInput.class))
-    }),
-  })
-  @Parameters({
-    @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
-  })
-  @GetMapping("{risco}")
-  public ResponseEntity<ResponseModel> read(@PathVariable final String id, @PathVariable final String risco) {
-    return ResponseEntity.ok(obterInstituicaoFinanceiraRiscoService.execute(id, risco));
   }
 
   @Operation(summary = "Exclui o Risco atual da Instituição Financeira")
@@ -93,7 +81,9 @@ public class InstituicaoRiscoController {
   })
   @DeleteMapping("{risco}")
   public ResponseEntity<ResponseModel> delete(@PathVariable final String id, @PathVariable final String risco) {
-    return ResponseEntity.ok(excluirInstituicaoFinanceiraRiscoService.execute(id, risco));
+    log.debug(String.format("Instituição (%s)", id));
+    return ResponseEntity.ok(excluirInstituicaoFinanceiraRiscoService.execute(risco));
   }
+
 
 }

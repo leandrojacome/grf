@@ -31,7 +31,7 @@ public class InstituicaoRiscoArquivoController {
   private final DownloadInstituicaoFinanceiraRiscoArquivoService downloadInstituicaoFinanceiraRiscoArquivoService;
   private final ExcluirInstituicaoFinanceiraRiscoArquivoService excluirInstituicaoFinanceiraRiscoArquivoService;
 
-  @Operation(summary = "Adiciona arquivo do Risco da Instituição Financeira")
+  @Operation(summary = "Substitui o arquivo do Risco da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Arquivo adicionado", content = {
       @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
@@ -56,10 +56,13 @@ public class InstituicaoRiscoArquivoController {
   @Parameters({
     @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
     @Parameter(name = "risco", description = "Identificador do Risco"),
+    @Parameter(name = "arquivo", description = "Identificador do Arquivo"),
   })
-  @GetMapping
-  public ResponseEntity<byte[]> read(@PathVariable final String id, @PathVariable final String risco) {
-    return ResponseEntity.ok(downloadInstituicaoFinanceiraRiscoArquivoService.execute(id, risco));
+  @GetMapping("{arquivo}")
+  public ResponseEntity<byte[]> read(@PathVariable final String id, @PathVariable final String risco, @PathVariable final String arquivo) {
+    log.debug(String.format("Instituição (%s)", id));
+    log.debug(String.format("Risco (%s)", risco));
+    return ResponseEntity.ok(downloadInstituicaoFinanceiraRiscoArquivoService.execute(arquivo));
   }
 
   @Operation(summary = "Exclui o arquivo do Risco da Instituição Financeira")
@@ -71,10 +74,14 @@ public class InstituicaoRiscoArquivoController {
   @Parameters({
     @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
     @Parameter(name = "risco", description = "Identificador do Risco"),
+    @Parameter(name = "arquivo", description = "Identificador do Arquivo"),
   })
-  @DeleteMapping
-  public ResponseEntity<ResponseModel> delete(@PathVariable final String id, @PathVariable final String risco) {
-    return ResponseEntity.ok(excluirInstituicaoFinanceiraRiscoArquivoService.execute(id, risco));
+  @DeleteMapping("{arquivo}")
+  public ResponseEntity<ResponseModel> delete(@PathVariable final String id, @PathVariable final String risco, @PathVariable final String arquivo) {
+    log.debug(String.format("Instituição (%s)", id));
+    log.debug(String.format("Risco (%s)", risco));
+    log.debug(String.format("Arquivo (%s)", arquivo));
+    return ResponseEntity.ok(excluirInstituicaoFinanceiraRiscoArquivoService.execute(risco));
   }
 
 }

@@ -13,9 +13,8 @@ public class DownloadInstituicaoFinanceiraRiscoArquivoService {
   private final ObterInstituicaoFinanceiraRiscoArquivoService obterInstituicaoFinanceiraRiscoArquivoService;
   private final DownloadArquivoService downloadArquivoService;
 
-  public byte[] execute(final String instituicao, final String risco) {
-    log.debug(String.format("Instituição: %s", instituicao));
-    return downloadArquivoService.execute(obterInstituicaoFinanceiraRiscoArquivoService.id(risco).getCaminho());
+  public byte[] execute(final String arquivo) {
+    return downloadArquivoService.execute(obterInstituicaoFinanceiraRiscoArquivoService.id(arquivo).getCaminho());
   }
 
 
