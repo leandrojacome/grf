@@ -3,7 +3,7 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRisco;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInputRisco;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraRiscoRepository;
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ public class CadastrarInstituicaoFinanceiraRiscoService {
   private final ManterInstituicaoFinanceiraRiscoArquivoService manterInstituicaoFinanceiraRiscoArquivoService;
   private final ExcluirInstituicaoFinanceiraRiscoService excluirInstituicaoFinanceiraRiscoService;
 
-  public ResponseModel execute(final String instituicao, final RiscoInput input) {
+  public ResponseModel execute(final String instituicao, final RiscoInputRisco input) {
     validaInstituicaoFinanceiraRiscoClassificacaoService.execute(instituicao, input);
     val instituicaoFinanceira = obterInstituicaoFinanceiraService.id(instituicao);
     val risco = mapper.map(input, InstituicaoFinanceiraRisco.class);

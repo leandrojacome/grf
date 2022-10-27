@@ -4,11 +4,10 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoF
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRiscoArquivo;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInputRisco;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraRiscoArquivoRepository;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.ServiceLoader;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,7 @@ public class ObterInstituicaoFinanceiraRiscoArquivoService {
 
   public ResponseModel execute(final String id) {
     return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), null, null, null, null,
-      mapper.map(id(id), RiscoInput.class)
+      mapper.map(id(id), RiscoInputRisco.class)
     );
   }
 

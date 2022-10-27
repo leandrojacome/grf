@@ -17,6 +17,8 @@ spring:
       - classpath:db/migration
       - classpath:db/callbacks
   mvc:
+    async:
+      request-timeout: -1
     throw-exception-if-no-handler-found: true
   jackson:
     deserialization:
@@ -25,6 +27,9 @@ spring:
   web:
     resources:
       add-mappings: false
+  servlet:
+    multipart:
+      max-file-size: 8MB
   security:
     oauth2:
       resourceserver:
@@ -39,6 +44,12 @@ logging:
     org.springframework.amqp: info
     org.springframework.jdbc.core.JdbcTemplate: info
     org.springframework.jdbc.core.StatementCreatorUtils: info
+management:
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
 poupex:
   api:
     time-out: 3

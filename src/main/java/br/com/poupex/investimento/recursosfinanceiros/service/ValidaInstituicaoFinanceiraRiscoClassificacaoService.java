@@ -4,7 +4,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoF
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoAgenciaModalidade;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoClassificacao;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInputRisco;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraRiscoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -16,7 +16,7 @@ public class ValidaInstituicaoFinanceiraRiscoClassificacaoService {
 
   private final InstituicaoFinanceiraRiscoRepository instituicaoFinanceiraRiscoRepository;
 
-  public void execute(final String instituicao, final RiscoInput input) {
+  public void execute(final String instituicao, final RiscoInputRisco input) {
     val risco = instituicaoFinanceiraRiscoRepository.findOne(
       instituicaoFinanceiraRiscoRepository.instituicaoFinanceira(new InstituicaoFinanceira(instituicao))
         .and(instituicaoFinanceiraRiscoRepository.agenciaModalidade(input.getAgenciaModalidade()))
@@ -35,7 +35,7 @@ public class ValidaInstituicaoFinanceiraRiscoClassificacaoService {
         "Risco inválido",
         String.format("A Classificacao %s é inválida para a agência/modalidade %s.", classificacao, agenciaModalidade),
         null,
-        RiscoInput.builder().agenciaModalidade(agenciaModalidade).classificacao(classificacao).build()
+        RiscoInputRisco.builder().agenciaModalidade(agenciaModalidade).classificacao(classificacao).build()
       );
     }
   }

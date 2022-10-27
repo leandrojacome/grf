@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoArquivoInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoArquivoOutput;
 import br.com.poupex.investimento.recursosfinanceiros.service.*;
@@ -12,12 +13,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RestController
@@ -43,8 +44,10 @@ public class InstituicaoRiscoArquivoController {
     @Parameter(name = "risco", description = "Identificador do Risco"),
   })
   @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<ResponseModel> create(@PathVariable final String id, @PathVariable final String risco, final MultipartFile arquivo) {
-    return ResponseEntity.ok(manterInstituicaoFinanceiraRiscoArquivoService.execute(id, risco, arquivo));
+  public ResponseEntity<ResponseModel> create(
+    @PathVariable final String id, @PathVariable final String risco, @Valid @ModelAttribute RiscoArquivoInput input
+  ) {
+    return ResponseEntity.ok(manterInstituicaoFinanceiraRiscoArquivoService.execute(id, risco, input.getArquivo()));
   }
 
   @Operation(summary = "Recupera (Download) do arquivo o Risco da Instituição Financeira")

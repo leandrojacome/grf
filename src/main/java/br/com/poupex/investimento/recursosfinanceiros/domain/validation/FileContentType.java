@@ -9,9 +9,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = {CEPValidator.class})
-public @interface CEP {
-  String message() default "cep inválido";
-  Class<?>[] groups() default {};
-  Class<? extends Payload>[] payload() default {};
+@Constraint(validatedBy = {FileContentTypeValidator.class})
+public @interface FileContentType {
+  String message() default "tipo do arquivo inválido";
+  Class<?>[] groups() default { };
+  Class<? extends Payload>[] payload() default { };
+  String allowed();
 }
