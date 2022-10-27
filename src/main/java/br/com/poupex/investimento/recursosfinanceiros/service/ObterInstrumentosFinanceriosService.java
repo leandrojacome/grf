@@ -2,6 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,12 @@ public class ObterInstrumentosFinanceriosService {
 
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
-	public ResponseModel execute(final InstrumentoFinanceiroInput input, Pageable pageable) {
+	public ResponseModel execute(Pageable pageable) {
 		return new ResponseModel(
 			LocalDateTime.now(), 
 			HttpStatus.OK.value(), 
 			null, null, null, null,
-			gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(input, pageable));
+			gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(pageable));
 	}
 
 }

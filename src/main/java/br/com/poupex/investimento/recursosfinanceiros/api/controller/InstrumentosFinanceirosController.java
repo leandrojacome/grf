@@ -4,10 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
@@ -38,9 +35,8 @@ public class InstrumentosFinanceirosController {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = InstrumentoFinanceiroInput.class)) }), })
 	@OpenApiPaginacao
 	@GetMapping
-	public ResponseEntity<ResponseModel> read(@RequestBody @Valid final InstrumentoFinanceiroInput input,
-			@Parameter(hidden = true) final Pageable pageable) {
-		return ResponseEntity.ok(obterInstrumentosFinanceriosService.execute(input, pageable));
+	public ResponseEntity<ResponseModel> read(@Parameter(hidden = true) final Pageable pageable) {
+		return ResponseEntity.ok(obterInstrumentosFinanceriosService.execute(pageable));
 	}
 
 }
