@@ -14,8 +14,8 @@ public class ExcluirInstituicaoFinanceiraRiscoService {
 
   private final ExcluirInstituicaoFinanceiraRiscoArquivoService excluirInstituicaoFinanceiraRiscoArquivoService;
   private final InstituicaoFinanceiraRiscoRepository instituicaoFinanceiraRiscoRepository;
-
   private final ObterInstituicaoFinanceiraRiscoService obterInstituicaoFinanceiraRiscoService;
+  private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
 
   public ResponseModel execute(final String risco) {
     try {
@@ -34,4 +34,9 @@ public class ExcluirInstituicaoFinanceiraRiscoService {
     );
   }
 
+  public void executeByInstituicao(final String instituicao) {
+    instituicaoFinanceiraRiscoRepository.findAll(
+      instituicaoFinanceiraRiscoRepository.instituicaoFinanceira(obterInstituicaoFinanceiraService.id(instituicao))
+    ).forEach(risco -> execute(risco.getId()));
+  }
 }

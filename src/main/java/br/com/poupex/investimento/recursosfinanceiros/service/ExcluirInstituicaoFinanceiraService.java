@@ -37,7 +37,7 @@ public class ExcluirInstituicaoFinanceiraService {
       } catch (final RecursoNaoEncontradoException ignored) {
       }
       try {
-        excluirInstituicaoFinanceiraRiscoService.execute(id);
+        excluirInstituicaoFinanceiraRiscoService.executeByInstituicao(id);
       } catch (final RecursoNaoEncontradoException ignored) {
       }
       instituicaoFinanceiraRepository.deleteById(id);
