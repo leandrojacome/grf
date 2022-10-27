@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "INSTITUICAO_FINANCEIRA_RISCO", schema = "GESTAO_RECURSOS_FINANCEIROS")
+@Table(name = "INSTITUICAO_FINANCEIRA_RISCO_ARQUIVO", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class InstituicaoFinanceiraRiscoArquivo {
 
   @Id
@@ -17,7 +17,8 @@ public class InstituicaoFinanceiraRiscoArquivo {
   private String id;
 
   @OneToOne
-  @JoinColumn(name = "INSTITUICAO_FINANCEIRA_RISCO", insertable = false, updatable = false)
+  @MapsId
+  @JoinColumn(name = "INSTITUICAO_FINANCEIRA_RISCO")
   private InstituicaoFinanceiraRisco instituicaoFinanceiraRisco;
 
   @Column(name = "NOME", length = 64, nullable = false)

@@ -2,7 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRisco;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoCategoria;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoAgenciaModalidade;
 import java.util.Objects;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,9 +18,9 @@ public interface InstituicaoFinanceiraRiscoRepository extends JpaRepository<Inst
     return null;
   }
 
-  default Specification<InstituicaoFinanceiraRisco> categoria(final InstituicaoFinanceiraRiscoCategoria categoria) {
-    if (Objects.nonNull(categoria)) {
-      return (root, query, builder) -> builder.equal(root.get("categoria"), categoria);
+  default Specification<InstituicaoFinanceiraRisco> agenciaModalidade(final InstituicaoFinanceiraRiscoAgenciaModalidade agenciaModalidade) {
+    if (Objects.nonNull(agenciaModalidade)) {
+      return (root, query, builder) -> builder.equal(root.get("agenciaModalidade"), agenciaModalidade);
     }
     return null;
   }

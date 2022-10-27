@@ -36,12 +36,12 @@ spring:
 logging:
   level:
     root: info
-    org.hibernate.SQL: info
+    org.hibernate.SQL: debug
     org.hibernate.cache: info
-    org.hibernate.type.descriptor.sql.BasicBinder: info
+    org.hibernate.type.descriptor.sql.BasicBinder: debug
     org.springframework.amqp: info
-    org.springframework.jdbc.core.JdbcTemplate: info
-    org.springframework.jdbc.core.StatementCreatorUtils: info
+    org.springframework.jdbc.core.JdbcTemplate: debug
+    org.springframework.jdbc.core.StatementCreatorUtils: debug
 poupex:
   api:
     time-out: 3
