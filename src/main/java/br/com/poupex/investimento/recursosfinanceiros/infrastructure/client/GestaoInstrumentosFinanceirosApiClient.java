@@ -12,7 +12,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.Instrumen
         url = "${poupex.api.terceiros.gestao-instrumentos-api-url}")
 public interface GestaoInstrumentosFinanceirosApiClient {
 
-    @GetMapping("/instrumento-financeiro/listar/ativos/paginado/index.json")
+    @GetMapping("/instrumento-financeiro/listar/ativos/paginado")
     Page<InstrumentoFinanceiroOutput> getInstrumentosFinanceiros(Pageable pageable);
 
 }
