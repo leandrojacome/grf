@@ -2,6 +2,8 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.model.gif;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown=true)
+
 public class InstrumentoFinanceiroOutput {
 
 	private Long codigo;
@@ -24,10 +28,7 @@ public class InstrumentoFinanceiroOutput {
 	private LocalDateTime dtVencimento;
 
 	private InstituicaoOutput instituicao;
-	private PeriodoOutput capitalizacaoJuros;
-	private PeriodoOutput fluxoPagamentos;
 	private TipoInstrumentoFinanceiroOutput tipoInstrumentoFinanceiro;
 	private StatusInstrumentoFinanceiroOutput statusInstrumentoFinanceiro;
-	private HierarquiaValorJustoOutput hierarquiaValorJusto;
 	
 }
