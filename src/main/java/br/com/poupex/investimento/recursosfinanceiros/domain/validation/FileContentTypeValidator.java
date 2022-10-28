@@ -1,7 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.validation;
 
 import java.util.Arrays;
-import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.springframework.web.multipart.MultipartFile;

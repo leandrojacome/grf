@@ -1,7 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import javax.persistence.Column;
 import lombok.*;
 
 @Getter

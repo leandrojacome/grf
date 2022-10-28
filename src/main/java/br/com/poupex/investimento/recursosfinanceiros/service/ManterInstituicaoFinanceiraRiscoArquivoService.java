@@ -61,7 +61,7 @@ public class ManterInstituicaoFinanceiraRiscoArquivoService {
     return instituicaoFinanceiraRiscoArquivoRepository.save(
       InstituicaoFinanceiraRiscoArquivo.builder()
         .instituicaoFinanceiraRisco(instituicaoFinanceiraRisco)
-        .caminho(armanezaArquivoService.execute(caminhoArquivo(instituicaoFinanceiraRisco, arquivo.getOriginalFilename()), arquivo.getBytes()))
+        .caminho(armanezaArquivoService.execute(caminhoArquivo(instituicaoFinanceiraRisco, arquivo.getName()), arquivo.getBytes()))
         .nome(arquivo.getName())
         .tipo(arquivo.getContentType())
         .tamanho(arquivo.getSize())

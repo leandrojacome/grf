@@ -4,7 +4,9 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFi
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoClassificacao;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.validation.constraints.NotNull;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Getter

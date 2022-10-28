@@ -2,8 +2,6 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import lombok.val;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.multipart.MultipartFile;
 

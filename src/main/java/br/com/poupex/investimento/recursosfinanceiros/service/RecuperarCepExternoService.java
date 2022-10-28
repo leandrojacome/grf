@@ -1,11 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.validation.CEPValidator;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.EnderecoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidacaoModel;
+import br.com.poupex.investimento.recursosfinanceiros.domain.validation.CEPValidator;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

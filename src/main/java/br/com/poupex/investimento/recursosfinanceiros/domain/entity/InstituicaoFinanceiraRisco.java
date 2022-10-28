@@ -2,12 +2,9 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoAgenciaModalidade;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoClassificacao;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Builder
 @NoArgsConstructor

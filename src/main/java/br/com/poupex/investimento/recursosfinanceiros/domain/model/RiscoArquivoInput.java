@@ -4,7 +4,9 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.validation.FileCont
 import br.com.poupex.investimento.recursosfinanceiros.domain.validation.FileSize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
