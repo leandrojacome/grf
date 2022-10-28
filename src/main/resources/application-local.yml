@@ -33,6 +33,10 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://devsso.poupex.com.br/f5-oauth2/v1
+# configuracao para testar integracao do GIFxGRF em localhost
+#server:
+#  port : 8081
+  
 logging:
   level:
     root: info
@@ -46,7 +50,7 @@ poupex:
   api:
     time-out: 3
     terceiros:
-      gestao-instrumentos-api-url: https://mocki.io
+      gestao-instrumentos-api-url: http://localhost:8080
       auth:
         url: https://hmlsso.poupex.com.br/f5-oauth2/v1/token
         client: d974a758f623c0fb97af568a0a210094a15bdef885b01063
