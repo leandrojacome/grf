@@ -22,7 +22,7 @@ public class ObterInstrumentosFinanceriosService {
 			LocalDateTime.now(), 
 			HttpStatus.OK.value(), 
 			null, null, null, null,
-			gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(nome, sigla, formaMensuracao, pageable));
+			gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(1L, nome, sigla, formaMensuracao, pageable));
 	}
 
 }

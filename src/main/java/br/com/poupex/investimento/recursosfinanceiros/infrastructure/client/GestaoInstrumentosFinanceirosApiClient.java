@@ -14,8 +14,9 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.Instrumen
         url = "${poupex.api.terceiros.gestao-instrumentos-api-url}")
 public interface GestaoInstrumentosFinanceirosApiClient {
 
-    @GetMapping("/instrumento-financeiro/listar/ativos/paginado.json")
+    @GetMapping("/instrumento-financeiro/listar/ativos/paginado")
     Page<InstrumentoFinanceiroOutput> getInstrumentosFinanceiros(
+    		@RequestParam final Long tipoInstrumentoFinanceiro,
     		@RequestParam final String nome, 
     		@RequestParam final String sigla, 
     		@RequestParam final FormaMensuracaoEnum formaMensuracao, 
