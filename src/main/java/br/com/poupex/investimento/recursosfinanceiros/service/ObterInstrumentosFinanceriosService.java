@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoInstrumentoFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class ObterInstrumentosFinanceriosService {
 
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
-	public ResponseModel execute(final String nome, final String sigla, final FormaMensuracaoEnum formaMensuracao, Pageable pageable) {
+	public ResponseModel execute(final TipoInstrumentoFinanceiro tipoInstrumento, final String nome, final String sigla, final FormaMensuracaoEnum formaMensuracao, Pageable pageable) {
 		return new ResponseModel(
 			LocalDateTime.now(), 
 			HttpStatus.OK.value(), 
