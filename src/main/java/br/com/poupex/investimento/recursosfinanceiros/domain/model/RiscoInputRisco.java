@@ -5,16 +5,18 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFi
 import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
+@SuperBuilder
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RiscoInput {
+public class RiscoInputRisco extends RiscoArquivoInput {
   @NotNull
   private InstituicaoFinanceiraRiscoAgenciaModalidade agenciaModalidade;
   @NotNull
   private InstituicaoFinanceiraRiscoClassificacao classificacao;
-  private MultipartFile arquivo;
 }

@@ -10,14 +10,9 @@ import lombok.*;
 @Setter
 @Entity
 @Table(name = "INSTITUICAO_FINANCEIRA_RISCO_ARQUIVO", schema = "GESTAO_RECURSOS_FINANCEIROS")
-public class InstituicaoFinanceiraRiscoArquivo {
+public class InstituicaoFinanceiraRiscoArquivo extends AbstractEntidadeBase {
 
-  @Id
-  @Column(name="INSTITUICAO_FINANCEIRA_RISCO")
-  private String id;
-
-  @OneToOne
-  @MapsId
+  @ManyToOne
   @JoinColumn(name = "INSTITUICAO_FINANCEIRA_RISCO")
   private InstituicaoFinanceiraRisco instituicaoFinanceiraRisco;
 

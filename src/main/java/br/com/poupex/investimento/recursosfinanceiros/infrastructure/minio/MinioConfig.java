@@ -3,6 +3,7 @@ package br.com.poupex.investimento.recursosfinanceiros.infrastructure.minio;
 import io.minio.MinioClient;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.val;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +18,7 @@ public class MinioConfig {
   private String bucket;
   private String accessKey;
   private String secretKey;
-
-  public static final String PATH_INIT = "GESTAO-RECURSOS_FINANCEIROS";
+  private String initialPath;
 
   @Bean
   public MinioClient client() {
@@ -26,7 +26,14 @@ public class MinioConfig {
   }
 
   public String object(String object) {
-    return String.format("%s/%s", PATH_INIT, object != null ? object : "");
+    val path = new StringBuilder();
+    if (initialPath != null) {
+      path.append(initialPath.concat("/"));
+    }
+    if (object != null) {
+      path.append(object);
+    }
+    return path.toString();
   }
 
 }

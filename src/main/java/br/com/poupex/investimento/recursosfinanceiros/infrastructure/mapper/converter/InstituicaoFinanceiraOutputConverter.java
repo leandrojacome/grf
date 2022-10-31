@@ -2,13 +2,11 @@ package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.con
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.ContabilInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.ContatoInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.EnderecoInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutputDetalhe;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraContabilService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraContatosService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraEnderecoService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraRiscoService;
 import lombok.val;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
@@ -18,20 +16,25 @@ import org.springframework.stereotype.Component;
 public class InstituicaoFinanceiraOutputConverter {
 
   private final ModelMapper intern = new ModelMapper();
+  private final ModelMapper global;
   private final ObterInstituicaoFinanceiraEnderecoService obterInstituicaoFinanceiraEnderecoService;
   private final ObterInstituicaoFinanceiraContatosService obterInstituicaoFinanceiraContatosService;
   private final ObterInstituicaoFinanceiraContabilService obterInstituicaoFinanceiraContabilService;
+  private final ObterInstituicaoFinanceiraRiscoService obterInstituicaoFinanceiraRiscoService;
 
   public InstituicaoFinanceiraOutputConverter(
     final ModelMapper mapper,
     final ObterInstituicaoFinanceiraEnderecoService obterInstituicaoFinanceiraEnderecoService,
     final ObterInstituicaoFinanceiraContatosService obterInstituicaoFinanceiraContatosService,
-    final ObterInstituicaoFinanceiraContabilService obterInstituicaoFinanceiraContabilService
+    final ObterInstituicaoFinanceiraContabilService obterInstituicaoFinanceiraContabilService,
+    final ObterInstituicaoFinanceiraRiscoService obterInstituicaoFinanceiraRiscoService
   ) {
     mapper.createTypeMap(InstituicaoFinanceira.class, InstituicaoFinanceiraOutputDetalhe.class).setConverter(this::converterDetalhe);
+    this.global = mapper;
     this.obterInstituicaoFinanceiraEnderecoService = obterInstituicaoFinanceiraEnderecoService;
     this.obterInstituicaoFinanceiraContatosService = obterInstituicaoFinanceiraContatosService;
     this.obterInstituicaoFinanceiraContabilService = obterInstituicaoFinanceiraContabilService;
+    this.obterInstituicaoFinanceiraRiscoService = obterInstituicaoFinanceiraRiscoService;
   }
 
   public InstituicaoFinanceiraOutputDetalhe converterDetalhe(MappingContext<InstituicaoFinanceira, InstituicaoFinanceiraOutputDetalhe> context) {
@@ -48,6 +51,9 @@ public class InstituicaoFinanceiraOutputConverter {
       output.setContabil(intern.map(obterInstituicaoFinanceiraContabilService.id(instituicao.getId()), ContabilInputOutput.class));
     } catch (final RecursoNaoEncontradoException ignored) {
     }
+    output.setRiscos(obterInstituicaoFinanceiraRiscoService.lista(instituicao.getId()).stream()
+      .map(risco -> global.map(risco, RiscoOutput.class)).toList()
+    );
     return output;
   }
 

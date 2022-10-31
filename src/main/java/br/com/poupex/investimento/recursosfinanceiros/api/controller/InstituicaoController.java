@@ -31,7 +31,8 @@ public class InstituicaoController {
 
   private final RecuperarInstituicaoFinanceiraTiposService recuperarInstituicaoFinanceiraTiposService;
   private final RecuperarInstituicaoFinanceiraGruposMatrizService recuperarInstituicaoFinanceiraGruposMatrizService;
-  private final RecuperarRiscoCategoriaOpcoesService recuperarRiscoCategoriaOpcoesService;
+  private final RecuperarRiscoAgenciasModalidadesService recuperarRiscoAgenciasModalidadesService;
+  private final RecuperarRiscoClassificacoesPorAgenciaModalidadeService recuperarRiscoClassificacoesPorAgenciaModalidadeService;
   private final CadastrarInstituicaoFinanceiraService cadastrarInstituicaoFinanceiraService;
   private final EditarInstituicaoFinanceiraService editarInstituicaoFinanceiraService;
   private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
@@ -64,6 +65,20 @@ public class InstituicaoController {
     return ResponseEntity.ok(recuperarInstituicaoFinanceiraGruposMatrizService.execute());
   }
 
+  @Operation(summary = "Recupera as agencias/modalidades de Risco")
+  @ApiResponses({
+    @ApiResponse(
+      responseCode = "200", description = "Agencias/Modalidades de Risco",
+      content = {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+        @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ChaveLabelDescricaoOutput.class))),
+      }),
+  })
+  @GetMapping("risco/agencias")
+  public ResponseEntity<ResponseModel> agencias() {
+    return ResponseEntity.ok(recuperarRiscoAgenciasModalidadesService.execute());
+  }
+
   @Operation(summary = "Recupera as classificações por agencia/modalidade de Risco")
   @ApiResponses({
     @ApiResponse(
@@ -75,7 +90,7 @@ public class InstituicaoController {
   })
   @GetMapping("risco/{agencia}/classificacoes")
   public ResponseEntity<ResponseModel> classificacao(@PathVariable InstituicaoFinanceiraRiscoAgenciaModalidade agencia) {
-    return ResponseEntity.ok(recuperarRiscoCategoriaOpcoesService.execute(agencia));
+    return ResponseEntity.ok(recuperarRiscoClassificacoesPorAgenciaModalidadeService.execute(agencia));
   }
 
   @Operation(summary = "Cadastra a Instituição Financeira")
