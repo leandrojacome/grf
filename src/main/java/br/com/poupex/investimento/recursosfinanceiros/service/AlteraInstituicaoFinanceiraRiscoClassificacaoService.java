@@ -30,7 +30,7 @@ public class AlteraInstituicaoFinanceiraRiscoClassificacaoService {
       HttpStatus.OK.value(),
       "Classificação",
       String.format("Risco (%s) da Instituição (%s) alterado para %s", risco, instituicao, classificacao),
-      "Classificação do risco aletrado com sucesso",
+      "Classificação do risco alterado com sucesso",
       null,
       mapper.map(instituicaoFinanceiraRiscoRepository.save(riscoEncontrado), RiscoOutput.class)
     );
