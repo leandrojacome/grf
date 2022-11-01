@@ -39,17 +39,17 @@ public class InstrumentosFinanceirosController {
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Instrumentos Financeiros", content = {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
 			@Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = InstrumentoFinanceiroOutput.class))) }) })
-	@Parameters({ @Parameter(name = "tipoInstrumento", description = "Tipo do Instrumento Financeiro"),
-			@Parameter(name = "nome", description = "Nome do Instrumento Financeiro"),
-			@Parameter(name = "sigla", description = "Sigla do Instrumento Financeiro"),
-			@Parameter(name = "formaMensuracao", description = "Forma de Mensuração do Instrumento Financeiro"), })
 	@OpenApiPaginacao
 	@GetMapping
 	public ResponseEntity<ResponseModel> read(
-		    @RequestParam(required = true) final TipoInstrumentoFinanceiro tipoInstrumento,
-		    @RequestParam(required = false) final String nome,
-		    @RequestParam(required = false) final String sigla,
-		    @RequestParam(required = false) final FormaMensuracaoEnum formaMensuracao,
+			@Parameter(name = "tipoInstrumento1", description = "Tipo do Instrumento Financeiro") 
+			@RequestParam(required = true) final TipoInstrumentoFinanceiro tipoInstrumento,
+			@Parameter(name = "formaMensuracao", description = "Forma de Mensuração do Instrumento Financeiro") 
+			@RequestParam(required = false) final String nome,
+			@Parameter(name = "nome", description = "Nome do Instrumento Financeiro") 
+			@RequestParam(required = false) final String sigla,
+			@Parameter(name = "sigla", description = "Sigla do Instrumento Financeiro") 
+			@RequestParam(required = false) final FormaMensuracaoEnum formaMensuracao,
 			@Parameter(hidden = true) final Pageable pageable) {
 		return ResponseEntity.ok(obterInstrumentosFinanceriosService.execute(tipoInstrumento, nome, sigla, formaMensuracao, pageable));
 	}
