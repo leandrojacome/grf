@@ -61,7 +61,7 @@ poupex:
       endereco-cep:
         url: http://enderecoapihml.hml.cloud.poupex/cep
   minio:
-    initialPath: DEV
+    initialPath: LOCAL-${user.name}
     endpoint: https://miniostage.poupex.com.br
     bucket: gestao-recursos-financeiros-hml
     accessKey: user-gestao-recursos-financeiros-hml
