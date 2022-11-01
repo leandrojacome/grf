@@ -1,14 +1,23 @@
--- docker run --name oracle -d -p 1521:1521 -e DB_SID=XE -e DB_MEMORY=4G store/oracle/database-enterprise:12.2.0.1
--- docker exec -it oracle bash -c “source /home/oracle/.bashrc; sqlplus /nolog”
--- connect sys as sysdba;
--- sys
-ALTER SESSION SET "_ORACLE_SCRIPT"=true;
+/**
+1. docker run --name oracle -d -p 1521:1521 -e ORACLE_PASSWORD=system -e ORACLE_DATABASE=oracle gvenzl/oracle-xe (leva alguns minutos)
 
-CREATE USER GESTAO_RECURSOS_FINANCEIROS identified by GESTAO_RECURSOS_FINANCEIROS;
-GRANT ALL PRIVILEGES TO GESTAO_RECURSOS_FINANCEIROS;
+2. abra o banco com as configs:
+    url: jdbc:oracle:thin:@//localhost:1521/oracle
+    username: system
+    password: system
 
-CREATE USER USER_GESTAO_RECURSOS_FINANCEIROS identified by USER_GESTAO_RECURSOS_FINANCEIROS;
-GRANT ALL PRIVILEGES TO USER_GESTAO_RECURSOS_FINANCEIROS;
+3.rode os scripts:
+    CREATE USER GESTAO_RECURSOS_FINANCEIROS identified by docker;
+    GRANT ALL PRIVILEGES TO GESTAO_RECURSOS_FINANCEIROS;
+    CREATE USER USER_GESTAO_RECURSOS_FINANCEIROS identified by docker;
+    GRANT ALL PRIVILEGES TO USER_GESTAO_RECURSOS_FINANCEIROS;
+    CREATE TABLESPACE GESTAO_RECURSOS_FINAN_DATA DATAFILE 'tbs_grfd.dbf' SIZE 1024m;
 
-CREATE TABLESPACE GESTAO_RECURSOS_FINAN_DATA DATAFILE 'tbs_grfd.dbf' SIZE 1024m;
---DROP TABLESPACE GESTAO_RECURSOS_FINAN_DATA INCLUDING CONTENTS CASCADE CONSTRAINTS;
+4. Configura o SpringBoot pra aceitar os aprametros:
+  spring.datasource.url=jdbc:oracle:thin:@//localhost:1521/oracle
+  spring.datasource.password=docker
+  spring.flyway.password=docker
+ */
+
+
+
