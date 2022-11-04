@@ -69,9 +69,11 @@ public class InstrumentosFinanceirosController {
 	})
 	@PostMapping
 	public ResponseEntity<ResponseModel> create(
+			@Parameter(name = "tipoInstrumento", description = "Tipo do Instrumento Financeiro") 
+			@RequestParam(required = true) final TipoInstrumentoFinanceiro tipoInstrumento,
 			@RequestBody @Valid InstrumentoFinanceiroInputOutput input
 			) {
-		return ResponseEntity.ok(cadastrarInstrumentoFinanceiroService.execute(input));
+		return ResponseEntity.ok(cadastrarInstrumentoFinanceiroService.execute(tipoInstrumento, input));
 	}
 
 }

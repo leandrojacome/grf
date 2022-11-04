@@ -15,17 +15,25 @@ public class ObterInstituicaoGifService {
 	
 	private final GestaoInstituicaoApiClient gestaoInstituicaoApiClient;
 
-	public InstituicaoGifInputOutput execute(String pesquisaNome, InstituicaoGifInputOutput input) {
+	private final InstituicaoGifInputOutput poupex = new InstituicaoGifInputOutput(null, "Poupex", "PPX", true);
+	
+	private static final String pesquisaNome = "[Pp]oupex"; //regex
+
+	public Long getCodInstituicao() {
+		return execute().getCodigo();
+	}
+	
+	public InstituicaoGifInputOutput execute() {
 		InstituicaoGifInputOutput retorno;
 		Optional<InstituicaoGifInputOutput> optionalInstituicao = search(pesquisaNome);
 		
 		if (! optionalInstituicao.isPresent()) {
-			gestaoInstituicaoApiClient.createInstituicao(input);
+			gestaoInstituicaoApiClient.createInstituicao(poupex);
 			optionalInstituicao = search(pesquisaNome);
 			
 			if (! optionalInstituicao.isPresent()) {
 				throw new NegocioException("Instituição no GIF", 
-						String.format("Não foi possível criar instituição '%s' no GIF!", input.getDescricao()));
+						String.format("Não foi possível criar instituição '%s' no GIF!", poupex.getDescricao()));
 			} else
 				retorno = optionalInstituicao.get();
 		} else
