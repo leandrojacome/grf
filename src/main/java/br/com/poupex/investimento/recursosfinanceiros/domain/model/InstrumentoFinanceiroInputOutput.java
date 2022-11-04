@@ -6,8 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class InstrumentoFinanceiroInput {
+public class InstrumentoFinanceiroInputOutput {
 	private String sigla;
 	private String nome;
 	private FormaMensuracaoEnum formaMensuracao;
+	private Boolean ativoFinanceiro;
 }
