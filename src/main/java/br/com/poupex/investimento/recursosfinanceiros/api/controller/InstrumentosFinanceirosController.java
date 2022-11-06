@@ -1,12 +1,5 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
@@ -14,7 +7,8 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoInstrumen
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstrumentoFinanceiroOutput;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstrumentosFinanceriosService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstrumentoFinancerioService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaInstrumentosFinanceriosService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -25,6 +19,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("instrumentos-financeiros")
@@ -33,7 +33,8 @@ import lombok.RequiredArgsConstructor;
 @OpenApiResponsesPadroes
 public class InstrumentosFinanceirosController {
 
-	private final ObterInstrumentosFinanceriosService obterInstrumentosFinanceriosService;
+	private final ObterListaInstrumentosFinanceriosService obterListaInstrumentosFinanceriosService;
+	private final ObterInstrumentoFinancerioService obterInstrumentoFinancerioService;
 
 	@Operation(summary = "Lista todos os Instrumentos Financeiros")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Instrumentos Financeiros", content = {
@@ -51,7 +52,19 @@ public class InstrumentosFinanceirosController {
 			@Parameter(name = "sigla", description = "Sigla do Instrumento Financeiro") 
 			@RequestParam(required = false) final FormaMensuracaoEnum formaMensuracao,
 			@Parameter(hidden = true) final Pageable pageable) {
-		return ResponseEntity.ok(obterInstrumentosFinanceriosService.execute(tipoInstrumento, nome, sigla, formaMensuracao, pageable));
+		return ResponseEntity.ok(obterListaInstrumentosFinanceriosService.execute(tipoInstrumento, nome, sigla, formaMensuracao, pageable));
+	}
+
+	@Operation(summary = "Detalha o Instrumento Financeiro")
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", description = "Instrumento Financeiro detalhado", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+					@Content(mediaType = "application/json", schema = @Schema(implementation = InstrumentoFinanceiroOutput.class))
+			}),
+	})
+	@GetMapping("{id}")
+	public ResponseEntity<ResponseModel> read(@Parameter(name = "id", description = "Identificador do Instrumento Financeiro", required = true) final int id) {
+		return ResponseEntity.ok(obterInstrumentoFinancerioService.execute(id));
 	}
 
 }
