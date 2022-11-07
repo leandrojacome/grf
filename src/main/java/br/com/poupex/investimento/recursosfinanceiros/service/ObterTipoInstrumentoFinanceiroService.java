@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoInstrumentoFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.TipoInstrumentoFinanceiroInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoTipoInstrumentoFinanceiroApiClient;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class ObterTipoInstrumentoFinanceiroService {
 
-	private final GestaoTipoInstrumentoFinanceiroApiClient gestaoTipoInstrumentoFinanceiroApiClient;
+	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
 	private final TipoInstrumentoFinanceiroInputOutput tituloPrivado = new TipoInstrumentoFinanceiroInputOutput(null, "Título Privado", "TPV", true);
 	private static final String pesquisaTituloPrivado = "[Tt][ií]tulo [Pp]rivado";
@@ -58,7 +58,7 @@ public class ObterTipoInstrumentoFinanceiroService {
 		Optional<TipoInstrumentoFinanceiroInputOutput> optionalTipo = search(pesquisaNome);
 		
 		if (! optionalTipo.isPresent()) {
-			retorno = gestaoTipoInstrumentoFinanceiroApiClient.createTipoInstrumentoFinanceiro(tipoInstrumento);
+			retorno = gestaoInstrumentosFinanceirosApiClient.createTipoInstrumentoFinanceiro(tipoInstrumento);
 		} else
 			retorno = optionalTipo.get();
 		
@@ -66,7 +66,7 @@ public class ObterTipoInstrumentoFinanceiroService {
 	}
 
 	private Optional<TipoInstrumentoFinanceiroInputOutput> search(String pesquisaNome) {
-		return gestaoTipoInstrumentoFinanceiroApiClient.getTipoInstrumentosFinanceiros().stream().filter(tipo -> tipo.getNome().matches(pesquisaNome)).findFirst();
+		return gestaoInstrumentosFinanceirosApiClient.getTipoInstrumentosFinanceiros().stream().filter(tipo -> tipo.getNome().matches(pesquisaNome)).findFirst();
 	}
 
 }

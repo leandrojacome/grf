@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstituicaoGifInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstituicaoApiClient;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class ObterInstituicaoGifService {
 	
-	private final GestaoInstituicaoApiClient gestaoInstituicaoApiClient;
+	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
 	private final InstituicaoGifInputOutput poupex = new InstituicaoGifInputOutput(null, "Poupex", "PPX", true);
 	
@@ -28,7 +28,7 @@ public class ObterInstituicaoGifService {
 		Optional<InstituicaoGifInputOutput> optionalInstituicao = search(pesquisaNome);
 		
 		if (! optionalInstituicao.isPresent()) {
-			gestaoInstituicaoApiClient.createInstituicao(poupex);
+			gestaoInstrumentosFinanceirosApiClient.createInstituicao(poupex);
 			optionalInstituicao = search(pesquisaNome);
 			
 			if (! optionalInstituicao.isPresent()) {
@@ -43,7 +43,7 @@ public class ObterInstituicaoGifService {
 	}
 
 	private Optional<InstituicaoGifInputOutput> search(String pesquisaNome) {
-		return gestaoInstituicaoApiClient.getInstituicoes().stream().filter(tipo -> tipo.getDescricao().matches(pesquisaNome)).findFirst();
+		return gestaoInstrumentosFinanceirosApiClient.getInstituicoes().stream().filter(tipo -> tipo.getDescricao().matches(pesquisaNome)).findFirst();
 	}
 
 }
