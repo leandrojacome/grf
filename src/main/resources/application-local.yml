@@ -37,11 +37,24 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://devsso.poupex.com.br/f5-oauth2/v1
-# configuracao para testar integracao do GIFxGRF em localhost
-#server:
-#  port : 8081
-  
+          issuer-uri: https://hmlsso.poupex.com.br/f5-oauth2/v1
+---
+security:
+  oauth2:
+    client:
+      id: f5
+      #gestao-recursos-financeiros-api-hml
+      client-id: d974a758f623c0fb97af568a0a210094a15bdef885b01063
+      client-secret: f14fe88814bf4169fe00beb2e4ab9eddf461e0b488a40094a15bdef885b01063
+      scope:
+        - endereco-api:get
+        - gestao-instrumentos-financeiros-api:get
+        - gestao-instrumentos-financeiros-api:post
+        - gestao-instrumentos-financeiros-api:put
+      access-token-uri: https://hmlsso.poupex.com.br/f5-oauth2/v1/token
+      user-authorization-uri: https://hmlsso.poupex.com.br/f5-oauth2/v1/authorize
+      grant-type: client_credentials
+---
 logging:
   level:
     root: info
@@ -51,28 +64,25 @@ logging:
     org.springframework.amqp: info
     org.springframework.jdbc.core.JdbcTemplate: info
     org.springframework.jdbc.core.StatementCreatorUtils: info
+---
 management:
   endpoint:
     health:
       show-details: always
       probes:
         enabled: true
+---
 poupex:
   api:
-    time-out: 3
     terceiros:
-      gestao-instrumentos-api-url: http://localhost:8080
-      auth:
-        url: https://hmlsso.poupex.com.br/f5-oauth2/v1/token
-        client: d974a758f623c0fb97af568a0a210094a15bdef885b01063
-        secret: f14fe88814bf4169fe00beb2e4ab9eddf461e0b488a40094a15bdef885b01063
-      endereco-cep:
-        url: http://enderecoapihml.hml.cloud.poupex/cep
+      endereco-api-url: http://enderecoapihml.hml.cloud.poupex
+      gestao-instrumentos-api-url: http://gestaoinstrumentosfinanceirosapihml.hml.cloud.poupex
   minio:
     initialPath: LOCAL-${user.name}
     endpoint: https://miniostage.poupex.com.br
     bucket: gestao-recursos-financeiros-hml
     accessKey: user-gestao-recursos-financeiros-hml
     secretKey: fYbMnnEtgehPNZhR
+---
 barramento:
   url: http://homologaesb.poupex.com.br
