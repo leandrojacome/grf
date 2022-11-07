@@ -25,11 +25,8 @@ public class InstrumentoFinanceiroGifInputOutput {
 	private Boolean semTestesSppj;
 	private Boolean origem;
 	
-	@JsonProperty(access = Access.READ_ONLY)
 	private InstituicaoGifInputOutput instituicao;
-	@JsonProperty(access = Access.READ_ONLY)
 	private TipoInstrumentoFinanceiroInputOutput tipoInstrumentoFinanceiro;
-	@JsonProperty(access = Access.READ_ONLY)
 	private StatusInstrumentoFinanceiroOutput statusInstrumentoFinanceiro;
 	
 	private Long codTipoInstrumentoFinanceiro;
