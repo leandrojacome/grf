@@ -6,13 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TipoInstrumentoFinanceiroOutput {
-
+public class InstituicaoGifInputOutput {
+	
 	private Long codigo;
-	private String nome;
+	private String descricao;
 	private String sigla;
 	private Boolean habilitado;
 
