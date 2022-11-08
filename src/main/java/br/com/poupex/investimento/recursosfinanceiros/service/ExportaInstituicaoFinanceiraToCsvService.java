@@ -14,13 +14,13 @@ public class ExportaInstituicaoFinanceiraToCsvService {
   private final StringUtil stringUtil;
 
   public byte[] execute(final List<InstituicaoFinanceiraOutput> instituicoes) {
-    val csv = new StringBuilder(String.format("%s,%s,%s,%s,%s\n", "Nome", "Abreviação", "Cnpj", "Tipo", "Grupo"));
+    val csv = new StringBuilder(String.format("%s,%s,%s,%s,%s\n", "Nome", "Abreviacao", "Cnpj", "Tipo", "Grupo"));
     instituicoes.forEach(instituicao -> csv.append(String.format("%s,%s,%s,%s,%s\n",
       instituicao.getNome(),
       instituicao.getAbreviacao(),
       stringUtil.cnpf(instituicao.getCnpj()),
       instituicao.getTipo().getLabel(),
-      instituicao.getMatriz() ? "É matriz" : instituicao.getGrupo().getNome()
+      instituicao.getMatriz() ? "Matriz" : instituicao.getGrupo().getNome()
     )));
     return stringUtil.decodeToUtf8(csv.toString()).getBytes();
   }

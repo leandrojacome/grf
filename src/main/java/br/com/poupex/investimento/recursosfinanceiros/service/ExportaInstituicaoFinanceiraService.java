@@ -7,11 +7,20 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNa
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidacaoModel;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraRepository;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.val;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,9 +30,15 @@ public class ExportaInstituicaoFinanceiraService {
   private final PesquisarInstituicoesFinanceirasService pesquisarInstituicoesFinanceirasService;
   private final InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
   private final ModelMapper mapper;
-  private final ExportaInstituicaoFinanceiraToPdfService exportaInstituicaoFinanceiraToPdfService;
   private final ExportaInstituicaoFinanceiraToCsvService exportaInstituicaoFinanceiraToCsvService;
 
+  @Value("classpath:report/instituicoes_financeiras.jasper")
+  private Resource report;
+
+  @Value("classpath:image/logo.png")
+  private Resource logo;
+
+  @SneakyThrows
   public byte[] execute(
     final String nome, final String cnpj, final InstituicaoFinanceiraTipo tipo, final String grupo, final ExportacaoFormato formato
   ) {
@@ -37,10 +52,22 @@ public class ExportaInstituicaoFinanceiraService {
     if (instituicoes.isEmpty()) {
       throw new RecursoNaoEncontradoException("Instituição Financeira", "Não foram encontradas instituições (filtro) para serem exportadas");
     }
-    return switch (formato) {
-      case PDF -> exportaInstituicaoFinanceiraToPdfService.execute(instituicoes);
-      case CSV -> exportaInstituicaoFinanceiraToCsvService.execute(instituicoes);
-    };
+
+    try (val reportStream = report.getInputStream()) {
+      val jasperPrint = JasperFillManager.fillReport(reportStream, parametros(), new JRBeanCollectionDataSource(instituicoes));
+      return switch (formato) {
+        case PDF -> JasperExportManager.exportReportToPdf(jasperPrint);
+        case CSV -> exportaInstituicaoFinanceiraToCsvService.execute(instituicoes);
+      };
+    }
+
+  }
+
+  @SneakyThrows
+  private Map<String, Object> parametros() {
+    return new HashMap<>() {{
+      put("logo", logo.getInputStream());
+    }};
   }
 
 }

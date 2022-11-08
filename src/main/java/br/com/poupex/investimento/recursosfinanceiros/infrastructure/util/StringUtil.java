@@ -16,13 +16,9 @@ public class StringUtil {
     if (Objects.isNull(cnpj) || cnpj.trim().length() != 14) {
       return null;
     }
-    val mask = new MaskFormatter("###.###.###/####-##");
+    val mask = new MaskFormatter("##.###.###/####-##");
     mask.setValueContainsLiteralCharacters(false);
     return mask.valueToString(cnpj);
-  }
-
-  public String decodeToIso88591(final String string) {
-    return decodeTo(string, StandardCharsets.ISO_8859_1);
   }
 
   public String decodeToUtf8(final String string) {
