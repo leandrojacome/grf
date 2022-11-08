@@ -22,8 +22,7 @@ public class RecuperarCepExternoService {
 
   private static final CEPValidator cepValidator = new CEPValidator();
 
- private final EnderecoApiClient apiClient;
-
+  private final EnderecoApiClient apiClient;
 
   public ResponseModel execute(final String cep) {
     if (!cepValidator.isValid(cep, null)) {

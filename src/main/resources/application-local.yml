@@ -37,8 +37,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-  #  port : 8081
-          issuer-uri: https://hmlsso.poupex.com.br/f5-oauth2/v1
+          issuer-uri: https://devsso.poupex.com.br/f5-oauth2/v1
 ---
 security:
   oauth2:
