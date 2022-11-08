@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -196,6 +197,29 @@ public class InstituicaoController {
     @RequestParam final ExportacaoFormato formato
   ) {
     return ResponseEntity.ok(exportaInstituicaoFinanceiraService.execute(nome, cnpj, tipo, grupo, formato));
+  }
+
+  @Operation(summary = "Exportação de lista de Instituições Financeiras")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Arquivo com as Instituições Financeiras (Filtradas)", content = {
+      @Content(schema = @Schema(implementation = byte[].class)),
+    }),
+  })
+  @Parameters({
+    @Parameter(name = "nome", description = "Parte ou nome da Instituição Financeira"),
+    @Parameter(name = "cnpj", description = "CNPJ da Instituição Financeira"),
+    @Parameter(name = "tipo", description = "Tipo da Instituição Financeira"),
+    @Parameter(name = "grupo", description = "Identificador do Grupo"),
+    @Parameter(name = "formato", description = "Formato de saida"),
+  })
+  @GetMapping(value = "export/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+  public ResponseEntity<byte[]> pdf(
+    @RequestParam(required = false) final String nome,
+    @RequestParam(required = false) final String cnpj,
+    @RequestParam(required = false) final InstituicaoFinanceiraTipo tipo,
+    @RequestParam(required = false) final String grupo
+  ) {
+    return ResponseEntity.ok(exportaInstituicaoFinanceiraService.execute(nome, cnpj, tipo, grupo, ExportacaoFormato.PDF));
   }
 
   @Operation(summary = "Pesquisa lista de instituições por nome")
