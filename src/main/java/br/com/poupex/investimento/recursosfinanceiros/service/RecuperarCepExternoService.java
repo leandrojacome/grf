@@ -6,6 +6,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidacaoModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.validation.CEPValidator;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.EnderecoApiClient;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class RecuperarCepExternoService {
         null, null, null, null,
         apiClient.getEndereco(cep.replaceAll("[^0-9]", ""))
       );
-    } catch (final HttpClientErrorException e) {
+    } catch (FeignException.NotFound e){
       throw new RecursoNaoEncontradoException("Endereço", String.format("O endereço do cep %s não foi encontrado.", cep));
     }
   }
