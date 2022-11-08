@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.security;
 
+import lombok.val;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,11 +24,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .antMatchers("/actuator/**", "/v3/api-docs/**", "/webjars/**", "/configuration/**", "/swagger-resources/**", "/util/**", "/swagger-ui/**").anonymous()
       // Validação de escopos conforme a documentação de referência https://docs.spring.io/spring-security/site/docs/5.3.4.RELEASE/reference/html5/#oauth2resourceserver-jwt-authorization
       // A ordem de configuração desses métodos influencia na validação da seguraça
-      //TODO: REFATORAR PARA APLICAR SCOPE DO JWT E uri DOMAIN
-      .antMatchers("/configuracoes/**").hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:GET")
-      .antMatchers("/pendencias/**").hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:POST")
-      .antMatchers("/restricoes/**").hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:PUT")
-      .antMatchers("/credito/**").hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:DELETE")
+      // TODO: REFATORAR PARA APLICAR SCOPE DO JWT E URI DOMAIN
+      .antMatchers(HttpMethod.GET).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:GET")
+      .antMatchers(HttpMethod.POST).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:POST")
+      .antMatchers(HttpMethod.PUT).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:PUT")
+      .antMatchers(HttpMethod.DELETE).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:DELETE")
       .anyRequest().authenticated()
       .and().oauth2ResourceServer().jwt();
   }
@@ -35,11 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public CorsFilter corsFilter() {
     CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    config.setAllowCredentials(true);
-    config.addAllowedOrigin("*");
-    config.addAllowedHeader("*");
-    config.addAllowedMethod("*");
+    config.setAllowedMethods(java.util.List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+    val source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", config);
     return new CorsFilter(source);
   }
