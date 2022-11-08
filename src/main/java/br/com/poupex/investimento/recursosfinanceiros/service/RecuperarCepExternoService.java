@@ -2,19 +2,18 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.EnderecoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidacaoModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.validation.CEPValidator;
-import java.time.LocalDateTime;
-import java.util.List;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.EnderecoApiClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -23,8 +22,7 @@ public class RecuperarCepExternoService {
 
   private static final CEPValidator cepValidator = new CEPValidator();
 
-  @Qualifier("restTemplate:endereco-cep")
-  private final RestTemplate api;
+ private final EnderecoApiClient apiClient;
 
 
   public ResponseModel execute(final String cep) {
@@ -41,7 +39,7 @@ public class RecuperarCepExternoService {
         LocalDateTime.now(),
         HttpStatus.OK.value(),
         null, null, null, null,
-        api.getForEntity("/{cep}", EnderecoInputOutput.class, cep.replaceAll("[^0-9]", "")).getBody()
+        apiClient.getEndereco(cep.replaceAll("[^0-9]", ""))
       );
     } catch (final HttpClientErrorException e) {
       throw new RecursoNaoEncontradoException("Endereço", String.format("O endereço do cep %s não foi encontrado.", cep));
