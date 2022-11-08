@@ -1,22 +1,23 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.security;
 
+import java.util.stream.Stream;
 import lombok.val;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+  private static final String[] allowedOrigins = {"*"};
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.cors().and()
-      .headers().frameOptions().disable()
+    http.cors().configurationSource(corsConfigSource())
+      .and().headers().frameOptions().disable()
       .and().csrf().disable()
       .authorizeRequests()
       .antMatchers(HttpMethod.OPTIONS).anonymous()
@@ -33,13 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .and().oauth2ResourceServer().jwt();
   }
 
-  @Bean
-  public CorsFilter corsFilter() {
-    CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
-    config.setAllowedMethods(java.util.List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
-    val source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", config);
-    return new CorsFilter(source);
+  private CorsConfigurationSource corsConfigSource() {
+    val corsConfig = new CorsConfiguration();
+    corsConfig.addAllowedHeader(CorsConfiguration.ALL);
+    corsConfig.addAllowedMethod(CorsConfiguration.ALL);
+    Stream.of(allowedOrigins).forEach(corsConfig::addAllowedOriginPattern);
+    return request -> corsConfig;
   }
 
 }
