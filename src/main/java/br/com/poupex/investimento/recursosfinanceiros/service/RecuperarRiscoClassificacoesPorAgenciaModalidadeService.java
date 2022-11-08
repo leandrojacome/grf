@@ -5,11 +5,9 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFi
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ChaveLabelDescricaoOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import java.time.LocalDateTime;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
 public class RecuperarRiscoClassificacoesPorAgenciaModalidadeService {
 

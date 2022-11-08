@@ -37,8 +37,8 @@ public class CadastrarInstituicaoFinanceiraRiscoService {
           manterInstituicaoFinanceiraRiscoArquivoService.entity(instituicao, risco.getId(), input.getArquivo())
         ));
       }
-    }catch (final Exception e){
-      if(risco.getId() != null){
+    } catch (final Exception e) {
+      if (risco.getId() != null) {
         excluirInstituicaoFinanceiraRiscoService.execute(risco.getId());
       }
       throw new NegocioException("Ocorreu um erro ao cadastrar o risco", "Não foi possível cadastrar o risco");

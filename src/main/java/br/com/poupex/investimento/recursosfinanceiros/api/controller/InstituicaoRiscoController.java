@@ -7,7 +7,6 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInputRis
 import br.com.poupex.investimento.recursosfinanceiros.service.AlteraInstituicaoFinanceiraRiscoClassificacaoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraRiscoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirInstituicaoFinanceiraRiscoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraRiscoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -34,7 +33,6 @@ public class InstituicaoRiscoController {
   private final CadastrarInstituicaoFinanceiraRiscoService cadastrarInstituicaoFinanceiraRiscoService;
   private final AlteraInstituicaoFinanceiraRiscoClassificacaoService alteraInstituicaoFinanceiraRiscoClassificacaoService;
   private final ExcluirInstituicaoFinanceiraRiscoService excluirInstituicaoFinanceiraRiscoService;
-  private final ObterInstituicaoFinanceiraRiscoService obterInstituicaoFinanceiraRiscoService;
 
   @Operation(summary = "Adiciona/Altera um Risco da Instituição Financeira")
   @ApiResponses({
@@ -63,7 +61,8 @@ public class InstituicaoRiscoController {
   })
   @PutMapping("{risco}/classificacao/{classificacao}")
   public ResponseEntity<ResponseModel> classificacao(
-    @PathVariable final String id, @PathVariable final String risco, @PathVariable final InstituicaoFinanceiraRiscoClassificacao classificacao) {
+    @PathVariable final String id, @PathVariable final String risco, @PathVariable final InstituicaoFinanceiraRiscoClassificacao classificacao
+  ) {
     return ResponseEntity.ok(alteraInstituicaoFinanceiraRiscoClassificacaoService.execute(id, risco, classificacao));
   }
 

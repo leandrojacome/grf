@@ -28,7 +28,7 @@ public class CadastrarInstituicaoFinanceiraContabilService {
       HttpStatus.OK.value(),
       "Cadastro Dados Contábeis",
       "Dados Contábeis salvos com sucesso",
-      "Dados Contábeis salvos com sucessoo",
+      "Dados Contábeis salvos com sucesso",
       null,
       mapper.map(
         instituicaoFinanceiraContabilRepository.save(contabil), ContabilInputOutput.class
