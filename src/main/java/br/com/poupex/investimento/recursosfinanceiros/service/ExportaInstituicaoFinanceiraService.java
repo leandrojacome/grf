@@ -7,7 +7,6 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNa
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidacaoModel;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraRepository;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

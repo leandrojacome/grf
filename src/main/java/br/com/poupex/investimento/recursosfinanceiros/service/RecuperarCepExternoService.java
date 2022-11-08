@@ -7,14 +7,12 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidacaoMode
 import br.com.poupex.investimento.recursosfinanceiros.domain.validation.CEPValidator;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.EnderecoApiClient;
 import feign.FeignException;
+import java.time.LocalDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Slf4j
 @Service
