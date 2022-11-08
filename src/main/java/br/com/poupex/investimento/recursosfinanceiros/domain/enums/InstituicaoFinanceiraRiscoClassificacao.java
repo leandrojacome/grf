@@ -4,8 +4,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 @RequiredArgsConstructor
 public enum InstituicaoFinanceiraRiscoClassificacao {
   LINHA_1("1ª Linha", List.of(InstituicaoFinanceiraRiscoAgenciaModalidade.CLASSIFICACAO)),
@@ -61,17 +63,13 @@ public enum InstituicaoFinanceiraRiscoClassificacao {
   RA30(List.of(InstituicaoFinanceiraRiscoAgenciaModalidade.RISK_BANK)),
   ;
 
-  private InstituicaoFinanceiraRiscoClassificacao(final List<InstituicaoFinanceiraRiscoAgenciaModalidade> agenciasModalidades) {
+  InstituicaoFinanceiraRiscoClassificacao(final List<InstituicaoFinanceiraRiscoAgenciaModalidade> agenciasModalidades) {
     this.label = name();
     this.agenciasModalidades = agenciasModalidades;
   }
 
   private final String label;
   private final List<InstituicaoFinanceiraRiscoAgenciaModalidade> agenciasModalidades;
-
-  public String getLabel() {
-    return label != null ? label : name();
-  }
 
   public static List<InstituicaoFinanceiraRiscoClassificacao> findByAgenciaModalidade(
     final InstituicaoFinanceiraRiscoAgenciaModalidade agenciaModalidade

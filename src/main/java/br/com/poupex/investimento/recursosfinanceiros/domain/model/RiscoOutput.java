@@ -12,6 +12,8 @@ import lombok.Setter;
 public class RiscoOutput {
   private String id;
   private InstituicaoFinanceiraRiscoAgenciaModalidade agenciaModalidade;
+  private String agenciaModalidadeLabel;
   private InstituicaoFinanceiraRiscoClassificacao classificacao;
+  private String classificacaoLabel;
   private RiscoArquivoOutput arquivo;
 }
