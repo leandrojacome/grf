@@ -25,10 +25,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       // Validação de escopos conforme a documentação de referência https://docs.spring.io/spring-security/site/docs/5.3.4.RELEASE/reference/html5/#oauth2resourceserver-jwt-authorization
       // A ordem de configuração desses métodos influencia na validação da seguraça
       // TODO: REFATORAR PARA APLICAR SCOPE DO JWT E URI DOMAIN
-      .antMatchers(HttpMethod.GET).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:GET")
-      .antMatchers(HttpMethod.POST).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:POST")
-      .antMatchers(HttpMethod.PUT).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:PUT")
-      .antMatchers(HttpMethod.DELETE).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:DELETE")
+//      .antMatchers(HttpMethod.GET).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:GET")
+//      .antMatchers(HttpMethod.POST).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:POST")
+//      .antMatchers(HttpMethod.PUT).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:PUT")
+//      .antMatchers(HttpMethod.DELETE).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:DELETE")
       .anyRequest().authenticated()
       .and().oauth2ResourceServer().jwt();
   }
