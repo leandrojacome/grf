@@ -51,7 +51,7 @@ public class InstrumentosFinanceirosController {
 	@GetMapping
 	public ResponseEntity<ResponseModel> read(
 			@Parameter(name = "tipoInstrumento", description = "Tipo do Instrumento Financeiro") 
-			@RequestParam(required = true) final TipoInstrumentoFinanceiro tipoInstrumento,
+			@RequestParam final TipoInstrumentoFinanceiro tipoInstrumento,
 			@Parameter(name = "formaMensuracao", description = "Forma de Mensuração do Instrumento Financeiro") 
 			@RequestParam(required = false) final String nome,
 			@Parameter(name = "nome", description = "Nome do Instrumento Financeiro") 
