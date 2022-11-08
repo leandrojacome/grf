@@ -96,7 +96,7 @@
 				</textElement>
 				<text><![CDATA[Grupo]]></text>
 			</staticText>
-			<textField pattern="MMMMM dd, yyyy">
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="630" y="0" width="100" height="20" uuid="db29789f-cd75-4c7b-8339-b2ea3658242b"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
@@ -155,14 +155,14 @@
 	<pageFooter>
 		<band height="20">
 			<textField>
-				<reportElement x="0" y="0" width="650" height="20" uuid="819b64cd-89d3-4886-b25d-87322462ba97">
+				<reportElement x="0" y="0" width="700" height="20" uuid="819b64cd-89d3-4886-b25d-87322462ba97">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="650" y="0" width="80" height="20" uuid="6b37ebd2-7ae2-4cfa-a5de-a2d3addd65d0">
+				<reportElement x="700" y="0" width="30" height="20" uuid="6b37ebd2-7ae2-4cfa-a5de-a2d3addd65d0">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
