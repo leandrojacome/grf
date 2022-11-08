@@ -1,81 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-              name="instituicoes_financeiras" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="730"
-              leftMargin="56" rightMargin="56" topMargin="42" bottomMargin="42"
-              uuid="cbe4bc87-6d08-4b61-9c97-75d064ac7b4f">
-    <property name="com.jaspersoft.studio.unit." value="pixel"/>
-    <queryString>
-        <![CDATA[]]>
-    </queryString>
-    <field name="nome" class="java.lang.String"/>
-    <field name="abreviacao" class="java.lang.String"/>
-    <field name="cnpj" class="java.lang.String"/>
-    <field name="tipo" class="br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraTipo"/>
-    <field name="grupo"
-           class="br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutput"/>
-    <background>
-        <band splitType="Stretch"/>
-    </background>
-    <pageHeader>
-        <band height="104" splitType="Stretch">
-            <staticText>
-                <reportElement x="0" y="0" width="730" height="20" uuid="3800365e-5772-4e43-9e8d-717d25e11fac">
-                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
-                </reportElement>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="12"/>
-                </textElement>
-                <text><![CDATA[Sistema de Gestão de Recursos]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="0" y="20" width="730" height="30" uuid="05c40afe-b7c2-47ba-a56a-e79e05bfa143">
-                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
-                </reportElement>
-                <box>
-                    <topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-                    <leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-                    <bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-                    <rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-                </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font size="16"/>
-                </textElement>
-                <text><![CDATA[Relatório deInstituições Financeiras]]></text>
-            </staticText>
-            <image>
-                <reportElement x="0" y="0" width="186" height="20" uuid="0c1fc1b8-392e-40f7-bedd-9002f7f79d7e"/>
-                <imageExpression><![CDATA["/src/main/resources/image/logo.png"]]></imageExpression>
-            </image>
-        </band>
-    </pageHeader>
-    <detail>
-        <band height="204" splitType="Stretch">
-            <textField>
-                <reportElement x="0" y="0" width="146" height="30" uuid="38f72fb4-13df-4e8e-8df4-c07072c5370a"/>
-                <textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="146" y="0" width="146" height="30" uuid="b139a14e-3e19-4d93-b60a-cbe2dee36d67"/>
-                <textFieldExpression><![CDATA[$F{abreviacao}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="292" y="0" width="146" height="30" uuid="014123c1-9201-40f9-bc08-7b48d9c9c91a"/>
-                <textFieldExpression><![CDATA[$F{cnpj}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="438" y="0" width="146" height="30" uuid="2f88365d-ee16-4a41-bb46-7a7cf2be2b68"/>
-                <textFieldExpression><![CDATA[$F{tipo}.getLabel()]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="584" y="0" width="146" height="30" uuid="1b7390be-e717-43ab-bd11-470d1767efe7"/>
-                <textFieldExpression><![CDATA[$F{grupo}.getNome()]]></textFieldExpression>
-            </textField>
-        </band>
-    </detail>
-    <pageFooter>
-        <band height="108" splitType="Stretch"/>
-    </pageFooter>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instituicoes_financeiras" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="730" leftMargin="56" rightMargin="56" topMargin="42" bottomMargin="42" uuid="cbe4bc87-6d08-4b61-9c97-75d064ac7b4f">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nome" class="java.lang.String"/>
+	<field name="abreviacao" class="java.lang.String"/>
+	<field name="cnpj" class="java.lang.String"/>
+	<field name="tipo" class="br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraTipo"/>
+	<field name="grupo" class="br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutput"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="730" height="20" uuid="3800365e-5772-4e43-9e8d-717d25e11fac">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Sistema de Gestão de Recursos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="730" height="30" uuid="05c40afe-b7c2-47ba-a56a-e79e05bfa143">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Relatório deInstituições Financeiras]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="186" height="20" uuid="0c1fc1b8-392e-40f7-bedd-9002f7f79d7e"/>
+				<imageExpression><![CDATA["/src/main/resources/image/logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="50" width="100" height="30" uuid="fc9ba5db-53e0-4b1e-b36e-93ae9678869a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="50" width="100" height="30" uuid="8a54ec4d-85fd-476b-aff8-3103b3adb2b6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[abreviacao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="50" width="100" height="30" uuid="203f077c-b903-4a52-9cb9-ba68761cca90"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[cnpj]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="50" width="100" height="30" uuid="0a89b3b2-cfe8-4273-a9d4-7aa197047133"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="50" width="100" height="30" uuid="c2e2ccbc-20fb-443e-b767-2b6435d97b6b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[grupo]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="839f5f52-9335-4475-b1d6-c08e88ed0150"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="30" uuid="cf9b5d95-6004-4184-89a2-e655f628bfd1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{abreviacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="30" uuid="c11835d1-6b8d-444b-90d1-711e66cd6f4e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cnpj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="30" uuid="53d01b45-e867-4d55-aa7f-e9147e27872b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="100" height="30" uuid="056b4968-cc5a-45c0-bc69-e2f26f9eea95"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{grupo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
 </jasperReport>
