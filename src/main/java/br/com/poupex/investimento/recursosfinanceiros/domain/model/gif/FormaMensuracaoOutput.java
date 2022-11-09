@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StatusInstrumentoFinanceiroOutput {
+public class FormaMensuracaoOutput {
 	
 	private Long codigo;
 	private String descricao;
+	private String sigla;
 
 }
