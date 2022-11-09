@@ -16,15 +16,15 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CadastrarInstrumentoFinanceiroService {
-	
+public class AlteraInstrumentoFinanceiroService {
+
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 	private final ObterTipoInstrumentoFinanceiroService obterTipoInstrumentoFinanceiroService;
 	private final ObterInstituicaoGifService obterInstituicaoGifService;
-	
+
 	private final ModelMapper mapper;
 	
-	public ResponseModel execute(final InstrumentoFinanceiroInputOutput input) {
+	public ResponseModel execute(Long codigo, final InstrumentoFinanceiroInputOutput input) {
 		var instrumentoGif = mapper.map(input, InstrumentoFinanceiroGifInputOutput.class);
 		var tipoInstrumento = input.getTipoInstrumento();
 		
@@ -41,7 +41,7 @@ public class CadastrarInstrumentoFinanceiroService {
 			throw new NegocioException("Cadastrar Instrumento Financeiro", "Tipo de Instrumento Financeiro não existe " + tipoInstrumento);
 		}
 		
-		gestaoInstrumentosFinanceirosApiClient.createInstrumentoFinanceiro(instrumentoGif);
+		gestaoInstrumentosFinanceirosApiClient.updateInstrumentoFinanceiro(codigo, instrumentoGif);
 		
 		return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), "Cadastro realizado com sucesso",
 				String.format("O Instrumento Financeiro %s foi cadastrado com sucesso", input.getNome()),

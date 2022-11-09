@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoInstrumen
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstrumentoFinanceiroInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.service.AlteraInstrumentoFinanceiroService;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstrumentoFinanceiroService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstrumentoFinancerioService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaInstrumentosFinanceriosService;
@@ -42,6 +44,7 @@ public class InstrumentosFinanceirosController {
 	private final ObterListaInstrumentosFinanceriosService obterListaInstrumentosFinanceriosService;
 	private final ObterInstrumentoFinancerioService obterInstrumentoFinancerioService;
 	private final CadastrarInstrumentoFinanceiroService cadastrarInstrumentoFinanceiroService;
+	private final AlteraInstrumentoFinanceiroService alteraInstrumentoFinanceiroService;
 
 	@Operation(summary = "Lista todos os Instrumentos Financeiros")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Instrumentos Financeiros", content = {
@@ -85,11 +88,25 @@ public class InstrumentosFinanceirosController {
 	})
 	@PostMapping
 	public ResponseEntity<ResponseModel> create(
-			@Parameter(name = "tipoInstrumento", description = "Tipo do Instrumento Financeiro") 
-			@RequestParam(required = true) final TipoInstrumentoFinanceiro tipoInstrumento,
 			@RequestBody @Valid InstrumentoFinanceiroInputOutput input
 			) {
-		return ResponseEntity.ok(cadastrarInstrumentoFinanceiroService.execute(tipoInstrumento, input));
+		return ResponseEntity.ok(cadastrarInstrumentoFinanceiroService.execute(input));
+	}
+
+	@Operation(summary = "Atualiza o Instrumento Financeiro")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Atualização realizada", content = {
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+			@Content(mediaType = "application/json", schema = @Schema(implementation = InstrumentoFinanceiroInputOutput.class))
+		}) 
+	})
+	@PutMapping("{codigo}")
+	public ResponseEntity<ResponseModel> update(
+			@Parameter(name = "codigo", description = "Codigo GIF do Instrumento Financeiro") 
+			@PathVariable final Long codigo,
+			@RequestBody @Valid InstrumentoFinanceiroInputOutput input
+			) {
+		return ResponseEntity.ok(alteraInstrumentoFinanceiroService.execute(codigo, input));
 	}
 
 }

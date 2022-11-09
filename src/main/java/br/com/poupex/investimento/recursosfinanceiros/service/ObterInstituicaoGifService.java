@@ -17,7 +17,7 @@ public class ObterInstituicaoGifService {
 
 	private final InstituicaoGifInputOutput poupex = new InstituicaoGifInputOutput(null, "Poupex", "PPX", true);
 	
-	private static final String pesquisaNome = "[Pp]oupex"; //regex
+	private static final String pesquisaNome = "[Pp][Oo][Uu][Pp][Ee][Xx]"; //regex
 
 	public Long getCodInstituicao() {
 		return execute().getCodigo();

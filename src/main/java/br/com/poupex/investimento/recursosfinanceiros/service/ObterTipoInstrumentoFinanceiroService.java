@@ -17,13 +17,13 @@ public class ObterTipoInstrumentoFinanceiroService {
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
 	private final TipoInstrumentoFinanceiroInputOutput tituloPrivado = new TipoInstrumentoFinanceiroInputOutput(null, "Título Privado", "TPV", true);
-	private static final String pesquisaTituloPrivado = "[Tt][ií]tulo [Pp]rivado";
+	private static final String pesquisaTituloPrivado = "[Tt][Iií][Tt][Uu][Ll][Oo] [Pp][Rr][Ii][Vv][Aa][Dd][Oo]";
 	
 	private final TipoInstrumentoFinanceiroInputOutput tituloPublico = new TipoInstrumentoFinanceiroInputOutput(null, "Título Público", "TPP", true);
-	private static final String pesquisaTituloPublico = "[Tt][íi]tulo [Pp][úu]blico";
+	private static final String pesquisaTituloPublico = "[Tt][Iíi][Tt][Uu][Ll][Oo] [Pp][Uúu][Bb][Ll][Ii][Cc][Oo]";
 	
 	private final TipoInstrumentoFinanceiroInputOutput fundoInvestimento = new TipoInstrumentoFinanceiroInputOutput(null, "Fundo de Investimento", "FIV", true);
-	private static final String pesquisaFundoInvestimento = "[Ff]undo de [Ii]nvestimento";
+	private static final String pesquisaFundoInvestimento = "[Ff][Uu][Nn][Dd][Oo] [Dd][Ee] [Ii][Nn][Vv][Ee][Ss][Tt][Ii][Mm][Ee][Nn][Tt][Oo]";
 
 	public Long getCodTituloPrivado() {
 		return execute(TipoInstrumentoFinanceiro.TITULO_PRIVADO).getCodigo();
