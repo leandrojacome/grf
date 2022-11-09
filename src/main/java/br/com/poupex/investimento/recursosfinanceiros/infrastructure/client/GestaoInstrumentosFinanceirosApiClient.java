@@ -35,7 +35,7 @@ public interface GestaoInstrumentosFinanceirosApiClient {
     		Pageable pageable);
 
 	@GetMapping("/instrumento-financeiro/visualizar/{id}")
-	InstrumentoFinanceiroInputOutput getInstrumentoFinanceiro(@PathVariable int id);
+	InstrumentoFinanceiroGifInputOutput getInstrumentoFinanceiro(@PathVariable int id);
 
     @PostMapping("/instrumento-financeiro")
     Long createInstrumentoFinanceiro(InstrumentoFinanceiroGifInputOutput input);
