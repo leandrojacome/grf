@@ -23,7 +23,10 @@ public class ValidaInstituicaoFinanceiraRiscoClassificacaoService {
     );
     if (risco.isPresent()) {
       throw new NegocioException(
-        "Risco já cadastrado", String.format("Já existe agencia/modalidade %s cadastrada na isntituição", input.getAgenciaModalidade()), null, input
+        "Risco já cadastrado",
+        String.format("Já existe a agência/modalidade %s cadastrada nessa instituição", input.getAgenciaModalidade().getLabel()),
+        null,
+        input
       );
     }
     execute(input.getAgenciaModalidade(), input.getClassificacao());
