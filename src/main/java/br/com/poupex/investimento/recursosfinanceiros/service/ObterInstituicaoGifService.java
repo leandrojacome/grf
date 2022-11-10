@@ -15,7 +15,7 @@ public class ObterInstituicaoGifService {
 	
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
-	private final InstituicaoGifInputOutput poupex = new InstituicaoGifInputOutput(null, "Poupex", "PPX", true);
+	private final InstituicaoGifInputOutput poupex = new InstituicaoGifInputOutput(null, "Associação de Poupança e Empréstimo", "POUPEX", true);
 	
 	private static final String pesquisaNome = "[Pp][Oo][Uu][Pp][Ee][Xx]"; //regex
 
@@ -43,7 +43,7 @@ public class ObterInstituicaoGifService {
 	}
 
 	private Optional<InstituicaoGifInputOutput> search(String pesquisaNome) {
-		return gestaoInstrumentosFinanceirosApiClient.getInstituicoes().stream().filter(tipo -> tipo.getDescricao().matches(pesquisaNome)).findFirst();
+		return gestaoInstrumentosFinanceirosApiClient.getInstituicoes().stream().filter(tipo -> tipo.getSigla().matches(pesquisaNome)).findFirst();
 	}
 
 }
