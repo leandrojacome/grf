@@ -3,7 +3,7 @@ CREATE TABLE GESTAO_RECURSOS_FINANCEIROS.OPERACAO_FINANCEIRA
     ID                                  VARCHAR2(36)    NOT NULL,
     CADASTRO                            TIMESTAMP       NOT NULL,
     ATUALIZACAO                         TIMESTAMP       NOT NULL,
-    INSTITUICAO_GIF_CNPJ                VARCHAR(11)     NOT NULL,
+    INSTITUICAO_GIF_CNPJ                VARCHAR(14)     NOT NULL,
     TIPO_MERCADO                        VARCHAR2(20)    NOT NULL, ---- ENUM
     INSTRUMENTO_FINANCEIRO_GIF_CODIGO   NUMBER(9)       NOT NULL,
     INSTRUMENTO_FINANCEIRO_GRF_CODIGO   VARCHAR2(30)    NOT NULL,
@@ -18,12 +18,12 @@ CREATE TABLE GESTAO_RECURSOS_FINANCEIROS.OPERACAO_FINANCEIRA
     CONTRAPARTE                         VARCHAR2(36)    NOT NULL,
     TIPO_TAXA                           VARCHAR(10)     NOT NULL, --- ENUM
     TAXA                                DECIMAL(10,2)   NOT NULL,
-	DIAS_UTEIS                          CHAR(5) CHECK ( DIAS_UTEIS ) IN ('TRUE', 'FALSE')   NOT NULL,
+	DIAS_UTEIS                          NUMBER(1) CHECK ( DIAS_UTEIS ) IN (1, 0)   NOT NULL,
 	QTD_DIAS                            INTEGER         NOT NULL,
 	PU_EMISSAO                          DECIMAL(10,2)   NOT NULL,
 	VALOR_FINANCEIRO                    DECIMAL(10,2)   NOT NULL,
 	VALOR_RESGATE                       DECIMAL(10,2)   NOT NULL,
-    CUPOM                               CHAR(5) CHECK ( CUPOM ) IN ('TRUE', 'FALSE')   NOT NULL,
+    CUPOM                               NUMBER(1) CHECK ( CUPOM ) IN (1, 0)   NOT NULL,
     PERIODO_CUPOM                       VARCHAR(10)     NOT NULL, --- ENUM
     DATA_PRIMEIRO_CUPOM                 TIMESTAMP       NOT NULL,
     OPERADOR_CONTRAPARTE                VARCHAR(100)    NOT NULL,
