@@ -18,6 +18,8 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensurac
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstituicaoGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstrumentoFinanceiroGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.TipoInstrumentoFinanceiroInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.config.FeignSupportConfig;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.exception.GifRequestException;
 
 
 @FeignClient(name = "gestaoInstrumentosFinanceirosApiClient",

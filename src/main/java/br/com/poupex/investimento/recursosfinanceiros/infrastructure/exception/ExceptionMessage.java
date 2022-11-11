@@ -1,4 +1,4 @@
-package br.com.poupex.investimento.recursosfinanceiros.infrastructure.client;
+package br.com.poupex.investimento.recursosfinanceiros.infrastructure.exception;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

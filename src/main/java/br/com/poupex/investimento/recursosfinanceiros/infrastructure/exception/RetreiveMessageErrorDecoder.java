@@ -1,4 +1,4 @@
-package br.com.poupex.investimento.recursosfinanceiros.infrastructure.client;
+package br.com.poupex.investimento.recursosfinanceiros.infrastructure.exception;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,13 +19,10 @@ public class RetreiveMessageErrorDecoder implements ErrorDecoder {
         } catch (IOException e) {
             return new Exception(e.getMessage());
         }
-        switch (response.status()) {
-            case 400:
-                return new BadRequestException(message.getDescription() != null ? message.getDescription() : "Bad Request");
-            case 404:
-                return new NotFoundException(message.getDescription() != null ? message.getDescription() : "Not found");
-            default:
-                return errorDecoder.decode(methodKey, response);
+        if (response.status() > 0) {
+        	return new GifRequestException(message.getDescription() != null ? message.getDescription() : "ERRO no GIF");
+        } else {
+        	return errorDecoder.decode(methodKey, response);
         }
     }
 }
