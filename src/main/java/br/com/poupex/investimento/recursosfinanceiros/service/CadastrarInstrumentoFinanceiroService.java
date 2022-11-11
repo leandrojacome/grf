@@ -33,7 +33,7 @@ public class CadastrarInstrumentoFinanceiroService {
 			instrumentoGif.setCodInstituicao(getCodInstituicao());
 			instrumentoGif.setSemTestesSppj(input.getAtivoFinanceiro());
 			instrumentoGif.setSemPassivos(!input.getAtivoFinanceiro());
-			instrumentoGif.setCodFormaMensuracao(input.getFormaMensuracao().getCodigo());
+			instrumentoGif.setCodFormaMensuracao(input.getCodFormaMensuracao());
 			instrumentoGif.setMantidoVencimento(true);
 		} else if (tipoInstrumento.equals(TipoInstrumentoFinanceiro.TITULO_PUBLICO)) {
 		} else if (tipoInstrumento.equals(TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO)) {
