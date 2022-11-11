@@ -38,14 +38,14 @@ public class AlteraInstrumentoFinanceiroService {
 		} else if (tipoInstrumento.equals(TipoInstrumentoFinanceiro.TITULO_PUBLICO)) {
 		} else if (tipoInstrumento.equals(TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO)) {
 		} else {
-			throw new NegocioException("Cadastrar Instrumento Financeiro", "Tipo de Instrumento Financeiro não existe " + tipoInstrumento);
+			throw new NegocioException("Atualizar Instrumento Financeiro", "Tipo de Instrumento Financeiro não existe " + tipoInstrumento);
 		}
 		
 		gestaoInstrumentosFinanceirosApiClient.updateInstrumentoFinanceiro(codigo, instrumentoGif);
 		
-		return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), "Cadastro realizado com sucesso",
-				String.format("O Instrumento Financeiro %s foi cadastrado com sucesso", input.getNome()),
-				"Instrumento Financeiro cadastrado com sucesso", null, input);
+		return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), "Alteração realizada com sucesso",
+				String.format("O Instrumento Financeiro %s foi atualizado com sucesso", input.getNome()),
+				"Instrumento Financeiro atualizado com sucesso", null, input);
 	}
 	
 	private Long getCodInstituicao() {
