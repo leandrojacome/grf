@@ -2,7 +2,8 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoFinanceiraInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoFinanceiraInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoFinanceiraService;
@@ -45,7 +46,7 @@ public class OperacaoFinanceiraController {
 	@Operation(summary = "Lista todas Operações Financeiras")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Operações Financeiras", content = {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-			@Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = OperacaoFinanceiraInputOutput.class))) }) })
+			@Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = OperacaoFinanceiraOutput.class))) }) })
 	@OpenApiPaginacao
 	@GetMapping
 	public ResponseEntity<ResponseModel> read(
