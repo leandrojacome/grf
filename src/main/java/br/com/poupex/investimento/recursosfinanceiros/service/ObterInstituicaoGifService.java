@@ -15,7 +15,7 @@ public class ObterInstituicaoGifService {
 	
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
-	private final InstituicaoGifInputOutput poupex = new InstituicaoGifInputOutput(null, "Associação de Poupança e Empréstimo", "POUPEX", true);
+	private final InstituicaoGifInputOutput poupex = new InstituicaoGifInputOutput(null, "Associação de Poupança e Empréstimo", "POUPEX", true, "00655522000121");
 	
 	private static final String pesquisaNome = "[Pp][Oo][Uu][Pp][Ee][Xx]"; //regex
 
