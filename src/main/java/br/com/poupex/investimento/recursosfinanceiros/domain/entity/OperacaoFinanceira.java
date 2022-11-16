@@ -1,14 +1,5 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.PeriodoCupom;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
@@ -17,6 +8,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,9 +19,13 @@ import lombok.Setter;
 @Table(name = "OPERACAO_FINANCEIRA", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class OperacaoFinanceira extends AbstractEntidadeBase {
 
-    @Column(name = "INSTITUICAO_GIF_CNPJ", nullable = false, length = 14)
-    private String instituicaoGifCnpj;
-    
+    @Column(name = "NUMERO_OPERACAO", unique = true, nullable = false, updatable = false)
+    private Long numeroOperacao;
+
+    @Column(name = "INSTITUICAO_GIF_CODIGO", nullable = false)
+    private Long instituicaoGifCodigo;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "TIPO_MERCADO", nullable = false)
     private TipoMercado tipoMercado;
     
@@ -38,12 +37,13 @@ public class OperacaoFinanceira extends AbstractEntidadeBase {
     
     @Column(name = "CODIGO_CUSTODIA_BB", nullable = false, length = 30)
     private String codigoCustodiaBB;
-    
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "FORMA_MENSURACAO", nullable = false)
     private FormaMensuracaoEnum formaMensuracao;
     
-    @Column(name = "DATA_ADMISSAO", nullable = false)
-    private LocalDateTime dataAdimissao;
+    @Column(name = "DATA_EMISSAO", nullable = false)
+    private LocalDateTime dataEmissao;
     
     @Column(name = "DATA_LIQUIDACAO", nullable = false)
     private LocalDateTime dataLiquidacao;
@@ -65,6 +65,7 @@ public class OperacaoFinanceira extends AbstractEntidadeBase {
     @JoinColumn(name = "CONTRAPARTE")
     private InstituicaoFinanceira comtraparte;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "TIPO_TAXA", nullable = false)
     private TipoTaxa tipoTaxa;
     
@@ -88,7 +89,8 @@ public class OperacaoFinanceira extends AbstractEntidadeBase {
     
     @Column(name = "CUPOM", nullable = false)
     private Boolean cupom;
-    
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "PERIODO_CUPOM", nullable = false)
     private PeriodoCupom periodoCupom;
     
