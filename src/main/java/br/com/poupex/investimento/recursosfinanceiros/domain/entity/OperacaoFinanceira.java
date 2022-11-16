@@ -63,7 +63,7 @@ public class OperacaoFinanceira extends AbstractEntidadeBase {
     
     @ManyToOne
     @JoinColumn(name = "CONTRAPARTE")
-    private InstituicaoFinanceira comtraparte;
+    private InstituicaoFinanceira contraparte;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TIPO_TAXA", nullable = false)

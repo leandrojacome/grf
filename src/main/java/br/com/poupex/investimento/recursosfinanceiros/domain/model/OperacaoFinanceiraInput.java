@@ -45,7 +45,7 @@ public class OperacaoFinanceiraInput {
 	@NotNull
 	private InstituicaoFinanceira emissor;
 	@NotNull
-	private InstituicaoFinanceira comtraparte;
+	private InstituicaoFinanceira contraparte;
 	@NotNull
 	private TipoTaxa tipoTaxa;
 	@NotNull
