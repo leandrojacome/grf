@@ -20,6 +20,7 @@ public class InstrumentoFinanceiroGifInputOutput {
 	private Boolean semPassivos;
 	private Boolean semTestesSppj;
 	private Boolean mantidoVencimento;
+	private String cnpj;
 	
 	private InstituicaoGifInputOutput instituicao;
 	private TipoInstrumentoFinanceiroInputOutput tipoInstrumentoFinanceiro;
