@@ -1,13 +1,23 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.client;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.*;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
-import java.util.List;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstituicaoGifInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstrumentoFinanceiroGifInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.TipoInstrumentoFinanceiroInputOutput;
 
 
 @FeignClient(name = "gestaoInstrumentosFinanceirosApiClient",
@@ -21,7 +31,9 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	Page<InstrumentoFinanceiroGifInputOutput> getInstrumentosFinanceiros(
 			Pageable pageable,
 			@RequestParam(name = "tipoInstrumentoFinanceiro.codigo") final Long tipoInstrumentoFinanceiro,
-			@RequestParam @Valid FilterInstrumentoFinanceiroInput filter);
+    		@RequestParam final String nome, 
+    		@RequestParam final String sigla, 
+			@RequestParam(name = "formaMensuracao.codigo") Long formaMensuracao);
 
 
 	@GetMapping("/instrumento-financeiro/visualizar/{id}")

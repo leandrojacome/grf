@@ -55,11 +55,11 @@ public class InstrumentosFinanceirosController {
 	public ResponseEntity<ResponseModel> read(
 			@Parameter(name = "tipoInstrumento", description = "Tipo do Instrumento Financeiro") 
 			@RequestParam final TipoInstrumentoFinanceiro tipoInstrumento,
-			@Parameter(name = "formaMensuracao", description = "Forma de Mensuração do Instrumento Financeiro") 
-			@RequestParam(required = false) final String nome,
 			@Parameter(name = "nome", description = "Nome do Instrumento Financeiro") 
-			@RequestParam(required = false) final String sigla,
+			@RequestParam(required = false) final String nome,
 			@Parameter(name = "sigla", description = "Sigla do Instrumento Financeiro") 
+			@RequestParam(required = false) final String sigla,
+			@Parameter(name = "formaMensuracao", description = "Forma de Mensuração do Instrumento Financeiro") 
 			@RequestParam(required = false) final FormaMensuracaoEnum formaMensuracao,
 			@Parameter(hidden = true) final Pageable pageable) {
 		return ResponseEntity.ok(obterListaInstrumentosFinanceriosService.execute(tipoInstrumento, nome, sigla, formaMensuracao, pageable));

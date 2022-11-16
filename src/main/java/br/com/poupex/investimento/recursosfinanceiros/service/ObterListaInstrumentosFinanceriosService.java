@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoInstrumentoFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.FilterInstrumentoFinanceiroInput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +21,7 @@ public class ObterListaInstrumentosFinanceriosService {
 
 	public ResponseModel execute(final TipoInstrumentoFinanceiro tipoInstrumento, final String nome, final String sigla, final FormaMensuracaoEnum formaMensuracao, Pageable pageable) {
 		Long codTipo;
+		Long codMensuracao = null;
 		
 		if (tipoInstrumento.equals(TipoInstrumentoFinanceiro.TITULO_PRIVADO)) {
 			codTipo = obterTipoInstrumentoFinanceiroService.getCodTituloPrivado();
@@ -33,13 +33,14 @@ public class ObterListaInstrumentosFinanceriosService {
 			throw new IllegalArgumentException("Valor não esperado para o Tipo de Instrumento Financeiro: " + tipoInstrumento);
 		}
 
-		FilterInstrumentoFinanceiroInput filter = new FilterInstrumentoFinanceiroInput();
+		if (formaMensuracao != null)
+			codMensuracao = formaMensuracao.getCodigo();
 		
 		return new ResponseModel(
 			LocalDateTime.now(), 
 			HttpStatus.OK.value(), 
 			null, null, null, null,
-			gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(pageable, codTipo, filter));
+			gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(pageable, codTipo, nome, sigla, codMensuracao));
 	}
 
 }
