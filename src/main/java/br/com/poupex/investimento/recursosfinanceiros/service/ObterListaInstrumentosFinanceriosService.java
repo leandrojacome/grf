@@ -1,15 +1,17 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoInstrumentoFinanceiro;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
-import lombok.RequiredArgsConstructor;
+import java.time.LocalDateTime;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoInstrumentoFinanceiro;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.FilterInstrumentoFinanceiroInput;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -31,11 +33,13 @@ public class ObterListaInstrumentosFinanceriosService {
 			throw new IllegalArgumentException("Valor não esperado para o Tipo de Instrumento Financeiro: " + tipoInstrumento);
 		}
 
+		FilterInstrumentoFinanceiroInput filter = new FilterInstrumentoFinanceiroInput();
+		
 		return new ResponseModel(
 			LocalDateTime.now(), 
 			HttpStatus.OK.value(), 
 			null, null, null, null,
-			gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(codTipo, nome, sigla, formaMensuracao, pageable));
+			gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(pageable, codTipo, filter));
 	}
 
 }

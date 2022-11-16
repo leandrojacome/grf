@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.FilterInstrumentoFinanceiroInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstituicaoGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstrumentoFinanceiroGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.TipoInstrumentoFinanceiroInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.config.FeignSupportConfig;
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.exception.GifRequestException;
 
 
 @FeignClient(name = "gestaoInstrumentosFinanceirosApiClient",
@@ -32,11 +31,9 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	
     @GetMapping("/instrumento-financeiro/listar/ativos/paginado")
     Page<InstrumentoFinanceiroGifInputOutput> getInstrumentosFinanceiros(
-    		@RequestParam final Long tipoInstrumentoFinanceiro,
-    		@RequestParam final String nome, 
-    		@RequestParam final String sigla, 
-    		@RequestParam final FormaMensuracaoEnum formaMensuracao, 
-    		Pageable pageable);
+    		@RequestParam Pageable pageable,
+    		@RequestParam(name = "tipoInstrumentoFinanceiro.codigo") final Long tipoInstrumentoFinanceiro, 
+    		@RequestParam @Valid FilterInstrumentoFinanceiroInput filter);
 
 	@GetMapping("/instrumento-financeiro/visualizar/{id}")
 	InstrumentoFinanceiroGifInputOutput getInstrumentoFinanceiro(@PathVariable int id);
