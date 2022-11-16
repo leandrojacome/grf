@@ -14,5 +14,6 @@ public class InstituicaoGifInputOutput {
 	private String descricao;
 	private String sigla;
 	private Boolean habilitado;
+	private String cnpj;
 
 }
