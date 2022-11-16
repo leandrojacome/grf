@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 public class OperacaoFinanceiraController {
 
     private final CadastrarOperacaoFinanceiraService cadastrarOperacaoFinanceiraService;
+	private final ObterListaOperacaoFinanceiraService obterListaOperacaoFinanceiraService;
 
     @Operation(summary = "Cadastra a Operação Financeira")
     @ApiResponses({
@@ -41,7 +42,6 @@ public class OperacaoFinanceiraController {
     public ResponseEntity<ResponseModel> create(@RequestBody final OperacaoFinanceiraInput input) {
         return ResponseEntity.ok(cadastrarOperacaoFinanceiraService.execute(input));
     }
-	private final ObterListaOperacaoFinanceiraService obterListaOperacaoFinanceiraService;
 
 	@Operation(summary = "Lista todas Operações Financeiras")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Operações Financeiras", content = {

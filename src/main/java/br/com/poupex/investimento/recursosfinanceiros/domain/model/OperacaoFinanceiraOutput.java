@@ -26,7 +26,7 @@ public class OperacaoFinanceiraOutput {
 	private Integer prazoDU;
 	private LocalDateTime dataVencimento;
 	private InstituicaoFinanceira emissor;
-	private InstituicaoFinanceira comtraparte;
+	private InstituicaoFinanceira contraparte;
 	private TipoTaxa tipoTaxa;
 	private BigDecimal taxa;
 	private Boolean diasUteis;
