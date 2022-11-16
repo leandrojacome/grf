@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InstituicaoGifInputOutput {
-	
-	private Long codigo;
-	private String descricao;
-	private String sigla;
-	private Boolean habilitado;
-	private String cnpj;
+
+    private Long codigo;
+    private String descricao;
+    private String sigla;
+    private Boolean habilitado;
+    private String cnpj;
 
 }
