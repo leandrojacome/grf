@@ -19,7 +19,7 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 
 	@GetMapping("/instrumento-financeiro/listar/ativos/paginado")
 	Page<InstrumentoFinanceiroGifInputOutput> getInstrumentosFinanceiros(
-			@RequestParam Pageable pageable,
+			Pageable pageable,
 			@RequestParam(name = "tipoInstrumentoFinanceiro.codigo") final Long tipoInstrumentoFinanceiro,
 			@RequestParam @Valid FilterInstrumentoFinanceiroInput filter);
 
@@ -51,7 +51,9 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	@PostMapping("/tipo-instrumento-financeiro")
 	TipoInstrumentoFinanceiroInputOutput createTipoInstrumentoFinanceiro(@RequestBody @Valid TipoInstrumentoFinanceiroInputOutput input);
 
+	
 	// Operações financeiras
+	
 	@PostMapping("/operacoes")
 	void createOperacao(@RequestBody @Valid OperacaoFinanceiraGifInput input);
 }
