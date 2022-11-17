@@ -13,7 +13,7 @@
     GRANT ALL PRIVILEGES TO USER_GESTAO_RECURSOS_FINANCEIROS;
     CREATE TABLESPACE GESTAO_RECURSOS_FINAN_DATA DATAFILE 'tbs_grfd.dbf' SIZE 1024m;
 
-4. Configura o SpringBoot pra aceitar os aprametros:
+4. Configura o SpringBoot pra aceitar os parametros:
   spring.datasource.url=jdbc:oracle:thin:@//localhost:1521/oracle
   spring.datasource.password=docker
   spring.flyway.password=docker

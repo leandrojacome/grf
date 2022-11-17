@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 public class ObterInstituicaoFinanceiraContatosService {
 
   private final ModelMapper mapper;
-
   private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final InstituicaoFinanceiraContatoRepository instituicaoFinanceiraContatoRepository;
 
