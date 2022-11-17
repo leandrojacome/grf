@@ -152,7 +152,7 @@ public class InstituicaoController {
 
   @Operation(summary = "Consulta de Instituições Financeiras")
   @ApiResponses({
-    @ApiResponse(responseCode = "200", description = "Página de reusltado de Instituições Financeiras (Filtradas)", content = {
+    @ApiResponse(responseCode = "200", description = "Página/Resultado de Instituições Financeiras (Filtradas)", content = {
       @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
       @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = InstituicaoFinanceiraOutput.class))),
     }),
