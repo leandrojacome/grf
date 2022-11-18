@@ -14,4 +14,6 @@ public class IndicadorFinanceiroOutput {
   private String sigla;
   private String nome;
   private IndicadorFinanceiroPeriodicidade periodicidade;
+  private String periodicidadeLabel;
+  private IndicadorFinanceiroTaxaOutput taxa;
 }

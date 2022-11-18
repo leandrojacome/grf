@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 public class IndicadorFinanceiroController {
 
   private final RecuperarIndicadorFinanceiroPeriodicidadesService recuperarIndicadorFinanceiroPeriodicidadesService;
+  private final RecuperarIndicadorFinanceiroSiglasService recuperarIndicadorFinanceiroSiglasService;
   private final CadastrarIndicadorFinanceiroService cadastrarIndicadorFinanceiroService;
   private final EditarIndicadorFinanceiro editarIndicadorFinanceiro;
   private final ObterIndicadorFinanceiroService obterIndicadorFinanceiroService;
@@ -42,8 +43,20 @@ public class IndicadorFinanceiroController {
     }),
   })
   @GetMapping("periodicidades")
-  public ResponseEntity<ResponseModel> tipos() {
+  public ResponseEntity<ResponseModel> periodicidades() {
     return ResponseEntity.ok(recuperarIndicadorFinanceiroPeriodicidadesService.execute());
+  }
+
+  @Operation(summary = "Lista de siglas dos indicadores cadastrados")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Lista de ChaveLabelDescricaoOutput com siglas dos indicadores cadastrados", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+      @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ChaveLabelDescricaoOutput.class))),
+    }),
+  })
+  @GetMapping("siglas")
+  public ResponseEntity<ResponseModel> siglas() {
+    return ResponseEntity.ok(recuperarIndicadorFinanceiroSiglasService.execute());
   }
 
   @Operation(summary = "Cadastra Indicador Financeiro")

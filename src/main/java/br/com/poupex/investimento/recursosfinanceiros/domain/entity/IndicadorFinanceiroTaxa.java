@@ -3,13 +3,13 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import javax.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "INDICADOR_FINANCEIRO_TAXA", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class IndicadorFinanceiroTaxa extends AbstractEntidadeBase {
