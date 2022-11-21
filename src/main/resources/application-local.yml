@@ -77,6 +77,7 @@ poupex:
     terceiros:
       endereco-api-url: http://enderecoapihml.hml.cloud.poupex
       gestao-instrumentos-api-url: http://gestaoinstrumentosfinanceirosapihml.hml.cloud.poupex
+      series-temporais-url: https://api.bcb.gov.br
   minio:
     initialPath: LOCAL-${user.name}
     endpoint: https://miniostage.poupex.com.br
