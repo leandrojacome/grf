@@ -6,6 +6,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFina
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.IndicadorFinanceiroTaxaRepository;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAdjusters;
@@ -20,18 +21,20 @@ import org.springframework.stereotype.Service;
 public class ManterIndicadorFinanceiroTaxaService {
 
   private final ObterIndicadorFinanceiroService obterIndicadorFinanceiroService;
+  private final CalculaTaxaDiariaIndicadorService calculaTaxaDiariaIndicadorService;
   private final IndicadorFinanceiroTaxaRepository indicadorFinanceiroTaxaRepository;
   private final ModelMapper mapper;
 
   public ResponseModel execute(final String indicador, final IndicadorFinanceiroTaxaInput input) {
     val indicadorFinanceiro = obterIndicadorFinanceiroService.id(indicador);
-    val referencia = referencia(indicadorFinanceiro, input.getReferencia());
+    val referencia = input.getReferencia();
     val taxa = indicadorFinanceiroTaxaRepository.findOne(
       indicadorFinanceiroTaxaRepository.indicadorFinanceiro(indicadorFinanceiro).and(indicadorFinanceiroTaxaRepository.referencia(referencia))
     ).orElseGet(
       () -> IndicadorFinanceiroTaxa.builder().indicadorFinanceiro(indicadorFinanceiro).referencia(referencia).build()
     );
     taxa.setValor(input.getValor());
+    taxa.setDiario(calculaTaxaDiariaIndicadorService.execute(indicadorFinanceiro.getPeriodicidade(), input.getValor()));
     return new ResponseModel(
       LocalDateTime.now(),
       HttpStatus.OK.value(),
@@ -41,14 +44,6 @@ public class ManterIndicadorFinanceiroTaxaService {
       null,
       mapper.map(indicadorFinanceiroTaxaRepository.save(taxa), IndicadorFinanceiroTaxaOutput.class)
     );
-  }
-
-  private LocalDate referencia(final IndicadorFinanceiro indicadorFinanceiro, final LocalDate referencia) {
-    return switch (indicadorFinanceiro.getPeriodicidade()) {
-      case ANUAL -> referencia.with(TemporalAdjusters.firstDayOfYear());
-      case MENSAL -> referencia.with(TemporalAdjusters.firstDayOfMonth());
-      default -> referencia;
-    };
   }
 
 }

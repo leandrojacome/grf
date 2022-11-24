@@ -1,4 +1,4 @@
-package br.com.poupex.investimento.recursosfinanceiros.infrastructure.config;
+package br.com.poupex.investimento.recursosfinanceiros.infrastructure.feign;
 
 import org.springframework.context.annotation.Bean;
 

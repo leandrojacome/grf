@@ -42,7 +42,7 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.33</version><!--$NO-MVN-MAN-VER$-->
+            <version>1.33</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.woodstox</groupId>

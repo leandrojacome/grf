@@ -3,12 +3,11 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.model.sgs;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -17,9 +16,8 @@ import java.time.LocalDate;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SeriesTemporaisOutput {
 
-//    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE, pattern = "dd/MM/YYYY")
-    @JsonFormat(pattern="dd/MM/yyyy")
-    private LocalDate data;
-    private Double valor;
+  @JsonFormat(pattern = "dd/MM/yyyy")
+  private LocalDate data;
+  private BigDecimal valor;
 
 }

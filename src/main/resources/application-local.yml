@@ -84,6 +84,8 @@ poupex:
     bucket: gestao-recursos-financeiros-hml
     accessKey: user-gestao-recursos-financeiros-hml
     secretKey: fYbMnnEtgehPNZhR
+  scheduler:
+    taxas: 0 5 23 * * *
 ---
 barramento:
   url: http://homologaesb.poupex.com.br

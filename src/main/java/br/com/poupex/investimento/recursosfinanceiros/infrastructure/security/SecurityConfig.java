@@ -31,8 +31,9 @@ public class SecurityConfig {
 //      .antMatchers(HttpMethod.POST).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:POST")
 //      .antMatchers(HttpMethod.PUT).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:PUT")
 //      .antMatchers(HttpMethod.DELETE).hasAuthority("SCOPE_GESTAO-RECURSOS-FINANCEIROS:DELETE")
-      .anyRequest().authenticated()
-      .and().oauth2ResourceServer().jwt();
+//      .anyRequest().authenticated()
+//      .and().oauth2ResourceServer().jwt();
+    ;
     return http.build();
   }
 

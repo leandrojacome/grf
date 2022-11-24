@@ -2,6 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.infrastructure.feign;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.http.AccessTokenRequiredException;
@@ -36,6 +37,8 @@ public class OAuth2FeignRequestInterceptor implements RequestInterceptor {
 
     private final String header;
 
+    private final List<String> exclusions = List.of("/dados/serie/bcdata.sgs");
+
     private AccessTokenProvider accessTokenProvider = new AccessTokenProviderChain(
             Arrays.<AccessTokenProvider>asList(new AuthorizationCodeAccessTokenProvider(),
                     new ImplicitAccessTokenProvider(),
@@ -57,8 +60,10 @@ public class OAuth2FeignRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate template) {
-        template.header(header); // Clears out the header, no "clear" method available.
-        template.header(header, extract(tokenType));
+        if (exclusions.stream().noneMatch(exclusion -> template.url().startsWith(exclusion))) {
+            template.header(header); // Clears out the header, no "clear" method available.
+            template.header(header, extract(tokenType));
+        }
     }
 
     protected String extract(String tokenType) {

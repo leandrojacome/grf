@@ -24,4 +24,7 @@ public class IndicadorFinanceiroTaxa extends AbstractEntidadeBase {
   @Column(name = "VALOR", nullable = false)
   private BigDecimal valor;
 
+  @Column(name = "DIARIO", nullable = false)
+  private BigDecimal diario;
+
 }
