@@ -29,7 +29,8 @@ public class SecurityConfig {
       .authorizeRequests()
       .antMatchers(HttpMethod.OPTIONS).anonymous()
       .antMatchers(HttpMethod.HEAD).anonymous()
-      .antMatchers("/actuator/**", "/v3/api-docs/**", "/webjars/**", "/configuration/**", "/swagger-resources/**", "/util/**", "/swagger-ui/**").anonymous()
+      .antMatchers("/actuator/**", "/v3/api-docs/**", "/webjars/**", "/configuration/**", "/swagger-resources/**", "/util/**", "/swagger-ui/**")
+      .anonymous()
     ;
     if (segurancaHabilitada()) {
       if (usarRoles()) {
