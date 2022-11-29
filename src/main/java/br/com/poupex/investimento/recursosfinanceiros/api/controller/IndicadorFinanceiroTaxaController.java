@@ -1,13 +1,14 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
-import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirIndicadorFinanceiroTaxaService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ManterIndicadorFinanceiroTaxaService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarIndicadorFinanceiroTaxasPeriodoAcumuladoService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,7 +19,6 @@ import java.time.LocalDate;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

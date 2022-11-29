@@ -11,8 +11,6 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class IndicadorFinanceiroTaxaOutput {
   private LocalDate referencia;
-  private LocalDate periodoInicio;
-  private LocalDate periodoFim;
   private BigDecimal valor;
   private BigDecimal diario;
   private BigDecimal acumulado;

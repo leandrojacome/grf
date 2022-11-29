@@ -2,7 +2,6 @@ package br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiroTaxa;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaOutput;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
