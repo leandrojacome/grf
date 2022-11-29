@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 public interface IndicadorFinanceiroTaxaRepository extends JpaRepository<IndicadorFinanceiroTaxa, String>,
   JpaSpecificationExecutor<IndicadorFinanceiroTaxa> {
 
-  default Specification<IndicadorFinanceiro> init() {
+  default Specification<IndicadorFinanceiroTaxa> id() {
     return (root, query, builder) -> builder.isNotNull(root.get("id"));
   }
 
@@ -21,14 +21,28 @@ public interface IndicadorFinanceiroTaxaRepository extends JpaRepository<Indicad
     if (Objects.nonNull(indicadorFinanceiro)) {
       return (root, query, builder) -> builder.equal(root.get("indicadorFinanceiro"), indicadorFinanceiro);
     }
-    return null;
+    return id();
   }
 
   default Specification<IndicadorFinanceiroTaxa> referencia(final LocalDate referencia) {
     if (Objects.nonNull(referencia)) {
       return (root, query, builder) -> builder.equal(root.get("referencia"), referencia);
     }
-    return null;
+    return id();
+  }
+
+  default Specification<IndicadorFinanceiroTaxa> referenciaInicio(final LocalDate referencia) {
+    if (Objects.nonNull(referencia)) {
+      return (root, query, builder) -> builder.greaterThanOrEqualTo(root.get("referencia"), referencia);
+    }
+    return id();
+  }
+
+  default Specification<IndicadorFinanceiroTaxa> referenciaFim(final LocalDate referencia) {
+    if (Objects.nonNull(referencia)) {
+      return (root, query, builder) -> builder.lessThanOrEqualTo(root.get("referencia"), referencia);
+    }
+    return id();
   }
 
   Optional<IndicadorFinanceiroTaxa> findFirstByIndicadorFinanceiroOrderByReferenciaDesc(final IndicadorFinanceiro indicadorFinanceiro);

@@ -23,8 +23,8 @@ public class PesquisarIndicadoresFinanceirosPagedService {
   private final PesquisarIndicadoresFinanceirosService pesquisarIndicadoresFinanceirosService;
   private final ModelMapper mapper;
 
-  public ResponseModel execute(final String sigla, final String nome, final LocalDate inicio, final LocalDate fim, final Pageable pageable) {
-    val resultado = indicadorFinanceiroRepository.findAll(pesquisarIndicadoresFinanceirosService.spec(sigla, nome, inicio, fim), pageable);
+  public ResponseModel execute(final String sigla, final String nome, final Pageable pageable) {
+    val resultado = indicadorFinanceiroRepository.findAll(pesquisarIndicadoresFinanceirosService.spec(sigla, nome), pageable);
     val mensagem = resultado.getTotalElements() == 0 ? "Nenhum registro encontrado" : null;
     val page = new PageImpl<>(
       resultado.getContent().stream().map(r -> mapper.map(r, IndicadorFinanceiroOutput.class)).collect(Collectors.toList()),

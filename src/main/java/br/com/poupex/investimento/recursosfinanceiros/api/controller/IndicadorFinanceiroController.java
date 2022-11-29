@@ -125,19 +125,15 @@ public class IndicadorFinanceiroController {
   @Parameters({
     @Parameter(name = "sigla", description = "Parte ou sigla do Indicador"),
     @Parameter(name = "nome", description = "CNPJ da Instituição Financeira"),
-    @Parameter(name = "inicio", description = "Data início do período"),
-    @Parameter(name = "fim", description = "Data fim do período"),
   })
   @OpenApiPaginacao
   @GetMapping
   public ResponseEntity<ResponseModel> read(
     @RequestParam(required = false) final String sigla,
     @RequestParam(required = false) final String nome,
-    @RequestParam(required = false) final LocalDate inicio,
-    @RequestParam(required = false) final LocalDate fim,
     @Parameter(hidden = true) final Pageable pageable
   ) {
-    return ResponseEntity.ok(pesquisarIndicadoresFinanceirosPagedService.execute(sigla, nome, inicio, fim, pageable));
+    return ResponseEntity.ok(pesquisarIndicadoresFinanceirosPagedService.execute(sigla, nome, pageable));
   }
 
 }
