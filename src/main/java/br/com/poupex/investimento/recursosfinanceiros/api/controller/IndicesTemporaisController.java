@@ -5,15 +5,13 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNa
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarSeriesTemporaisBacenService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 @RequestMapping("series/temporais")

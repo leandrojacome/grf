@@ -1,12 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.client;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.sgs.SeriesTemporaisOutput;
+import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @FeignClient(name = "enderecoApiClient", url = "${poupex.api.terceiros.series-temporais-url}")
 public interface SeriesTemporaisBacenApiClient {

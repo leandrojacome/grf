@@ -2,7 +2,6 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ExportacaoFormato;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraTipo;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
@@ -12,8 +11,6 @@ import br.com.poupex.investimento.recursosfinanceiros.service.ExportaIndicadorFi
 import br.com.poupex.investimento.recursosfinanceiros.service.ManterIndicadorFinanceiroTaxaService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarIndicadorFinanceiroTaxasPeriodoAcumuladoService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

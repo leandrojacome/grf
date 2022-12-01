@@ -1,7 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.StringUtil;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPeriodicidade;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
@@ -22,8 +23,8 @@ public class PesquisarIndicadoresFinanceirosPagedService {
   private final PesquisarIndicadoresFinanceirosService pesquisarIndicadoresFinanceirosService;
   private final ModelMapper mapper;
 
-  public ResponseModel execute(final String sigla, final String nome, final Pageable pageable) {
-    val resultado = indicadorFinanceiroRepository.findAll(pesquisarIndicadoresFinanceirosService.spec(sigla, nome), pageable);
+  public ResponseModel execute(final String nome, final IndicadorFinanceiroPeriodicidade periodicidade, final Pageable pageable) {
+    val resultado = indicadorFinanceiroRepository.findAll(pesquisarIndicadoresFinanceirosService.spec(nome, periodicidade), pageable);
     val mensagem = resultado.getTotalElements() == 0 ? "Nenhum registro encontrado" : null;
     val page = new PageImpl<>(
       resultado.getContent().stream().map(r -> mapper.map(r, IndicadorFinanceiroOutput.class)).collect(Collectors.toList()),

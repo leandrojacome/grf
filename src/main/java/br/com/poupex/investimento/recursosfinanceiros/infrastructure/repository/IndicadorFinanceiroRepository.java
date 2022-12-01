@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiro;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPeriodicidade;
 import java.util.Objects;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,20 @@ public interface IndicadorFinanceiroRepository extends JpaRepository<IndicadorFi
   default Specification<IndicadorFinanceiro> nome(final String nome) {
     if (Objects.nonNull(nome)) {
       return (root, query, builder) -> builder.like(builder.upper(root.get("nome")), String.format("%%%s%%", nome.toUpperCase()));
+    }
+    return id();
+  }
+
+  default Specification<IndicadorFinanceiro> siglaOuNome(final String nome) {
+    if (Objects.nonNull(nome)) {
+      return sigla(nome).or(nome(nome));
+    }
+    return id();
+  }
+
+  default Specification<IndicadorFinanceiro> periodicidade(final IndicadorFinanceiroPeriodicidade periodicidade) {
+    if (Objects.nonNull(periodicidade)) {
+      return (root, query, builder) -> builder.equal(root.get("periodicidade"), periodicidade);
     }
     return id();
   }
