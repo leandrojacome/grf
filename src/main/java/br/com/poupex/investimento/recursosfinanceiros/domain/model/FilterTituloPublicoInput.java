@@ -16,7 +16,6 @@ import lombok.experimental.SuperBuilder;
 // 'filter by Example' só para os campos GRF
 public class FilterTituloPublicoInput {
 	
-	private String siglaGif;
     private String isin;
     private TipoMercado tipo;
     private LocalDateTime dataEmissao;

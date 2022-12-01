@@ -4,6 +4,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
@@ -39,7 +40,7 @@ public class TituloPublicoController {
 	@OpenApiPaginacao
 	@GetMapping
 	public ResponseEntity<ResponseModel> read(
-			final FilterTituloPublicoInput filter,
+			@RequestParam(required = false) final FilterTituloPublicoInput filter,
 			@Parameter(hidden = true) final Pageable pageable) {
 		return ResponseEntity.ok(obterListaTituloPublicoService.execute(filter, pageable));
 	}
