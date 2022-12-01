@@ -18,8 +18,8 @@ import lombok.Setter;
 @Table(name = "TITULO_PUBLICO", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class TituloPublico extends AbstractEntidadeBase {
 
-    @Column(name = "SIGLA_GIF", unique = true, nullable = false, updatable = false)
-	private String siglaGif;
+    @Column(name = "INSTRUMENTO_FINANCEIRO_GIF_CODIGO", unique = true, nullable = false, updatable = false)
+	private Long instrumentoFinanceiroGifCodigo;
     
     @Column(name = "ISIN", nullable = false)
     private String isin;
