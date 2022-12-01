@@ -25,8 +25,8 @@ COMMENT
     ON COLUMN GESTAO_RECURSOS_FINANCEIROS.TITULO_PUBLICO.ATUALIZACAO
     IS 'Data/Hora da última atualização do dado.';
 COMMENT
-    ON COLUMN GESTAO_RECURSOS_FINANCEIROS.TITULO_PUBLICO.SIGLA_GIF
-    IS 'Sigla de relacionamento do titulo publico com o registro do instrumento financeiro no GIF';
+    ON COLUMN GESTAO_RECURSOS_FINANCEIROS.TITULO_PUBLICO.INSTRUMENTO_FINANCEIRO_GIF_CODIGO
+    IS 'Código de relacionamento do titulo publico com o registro do instrumento financeiro no GIF';
 COMMENT
     ON COLUMN GESTAO_RECURSOS_FINANCEIROS.TITULO_PUBLICO.ISIN
     IS 'Sigla isin';
