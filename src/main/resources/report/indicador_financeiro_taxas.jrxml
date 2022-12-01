@@ -136,15 +136,15 @@
 					<pen lineWidth="0.0"/>
 				</graphicElement>
 			</rectangle>
-			<textField pattern="dd/MM/yyyy">
+			<textField>
 				<reportElement x="0" y="0" width="137" height="20" uuid="593ec83e-2d08-4195-86f8-43b3e314d923">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{referencia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{referencia}.format( java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyy") )]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.0000;#,##0.0000 &apos;%&apos;">
+			<textField pattern="#,##0.###&apos;%&apos;;">
 				<reportElement x="137" y="0" width="134" height="20" uuid="edb78d7b-c2b4-40d2-b891-19b662bd973f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -152,7 +152,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.0000%">
+			<textField pattern="#,##0.0000&apos;%&apos;">
 				<reportElement x="271" y="0" width="134" height="20" uuid="9e6b948a-7988-4a12-a519-704df8ebd870">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -160,13 +160,13 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{diario}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.0000%">
+			<textField pattern="#,##0.0000&apos;%&apos;">
 				<reportElement x="405" y="0" width="134" height="20" uuid="f6ad3e7e-0107-4400-9560-b70477cd265c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{diario}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{acumulado}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
