@@ -3,7 +3,7 @@ CREATE TABLE GESTAO_RECURSOS_FINANCEIROS.TITULO_PUBLICO
     ID                                  VARCHAR2(36)    NOT NULL,
     CADASTRO                            TIMESTAMP       NOT NULL,
     ATUALIZACAO                         TIMESTAMP       NOT NULL,
-    SIGLA_GIF                           VARCHAR2(20)    NOT NULL,
+    INSTRUMENTO_FINANCEIRO_GIF_CODIGO   NUMBER          NOT NULL,
     ISIN                                VARCHAR2(12)    NOT NULL,
     TIPO                                VARCHAR2(64)    NOT NULL,
     DATA_EMISSAO                        TIMESTAMP       NOT NULL,
