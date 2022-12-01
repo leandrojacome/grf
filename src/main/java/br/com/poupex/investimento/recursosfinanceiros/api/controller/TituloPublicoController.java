@@ -3,6 +3,8 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +14,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.FilterTituloP
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPublicoInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarTituloPublicoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaTituloPublicoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -30,7 +33,20 @@ import lombok.RequiredArgsConstructor;
 @OpenApiResponsesPadroes
 public class TituloPublicoController {
 	
+	private final CadastrarTituloPublicoService cadastrarTituloPublicoService;
 	private final ObterListaTituloPublicoService obterListaTituloPublicoService;
+
+    @Operation(summary = "Cadastra o Título Público")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = TituloPublicoInputOutput.class))
+            }),
+    })
+    @PostMapping
+    public ResponseEntity<ResponseModel> create(@RequestBody final TituloPublicoInputOutput input) {
+        return ResponseEntity.ok(cadastrarTituloPublicoService.execute(input));
+    }
 
 	@Operation(summary = "Lista todas Títulos Públicos")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Títulos Públicos", content = {
