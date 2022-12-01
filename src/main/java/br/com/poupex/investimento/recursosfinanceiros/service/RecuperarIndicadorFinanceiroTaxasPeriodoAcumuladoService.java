@@ -11,6 +11,7 @@ import java.math.MathContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.modelmapper.ModelMapper;
@@ -30,9 +31,8 @@ public class RecuperarIndicadorFinanceiroTaxasPeriodoAcumuladoService {
   private final static BigDecimal CEM = BigDecimal.valueOf(100);
 
   public ResponseModel execute(final String indicador, final LocalDate inicio, final LocalDate fim) {
-    val indicadorFinanceiro = obterIndicadorFinanceiroService.id(indicador);
-    val resultado = indicadorFinanceiroTaxaRepository.findAll(spec(indicadorFinanceiro, inicio, fim));
-    if (resultado.isEmpty()) {
+    val lista = lista(indicador, inicio, fim);
+    if (lista.isEmpty()) {
       return new ResponseModel(
         LocalDateTime.now(),
         HttpStatus.OK.value(),
@@ -42,11 +42,22 @@ public class RecuperarIndicadorFinanceiroTaxasPeriodoAcumuladoService {
         null, null
       );
     }
-    val output = new ArrayList<IndicadorFinanceiroTaxaOutput>();
+    return new ResponseModel(
+      LocalDateTime.now(),
+      HttpStatus.OK.value(),
+      null, null, null, null,
+      lista
+    );
+  }
+
+  public List<IndicadorFinanceiroTaxaOutput> lista(final String indicador, final LocalDate inicio, final LocalDate fim) {
+    val indicadorFinanceiro = obterIndicadorFinanceiroService.id(indicador);
+    val resultado = indicadorFinanceiroTaxaRepository.findAll(spec(indicadorFinanceiro, inicio, fim));
+    val lista = new ArrayList<IndicadorFinanceiroTaxaOutput>();
     for (IndicadorFinanceiroTaxa taxa : resultado) {
       val atual = mapper.map(taxa, IndicadorFinanceiroTaxaOutput.class);
-      val indice = output.size() - 1;
-      val anterior = indice > -1 ? output.get(indice) : null;
+      val indice = lista.size() - 1;
+      val anterior = indice > -1 ? lista.get(indice) : null;
       if (anterior == null) {
         atual.setAcumulado(atual.getDiario());
       } else {
@@ -60,17 +71,12 @@ public class RecuperarIndicadorFinanceiroTaxasPeriodoAcumuladoService {
           atual.setDiario(null);
         }
       }
-      output.add(atual);
+      lista.add(atual);
     }
-    return new ResponseModel(
-      LocalDateTime.now(),
-      HttpStatus.OK.value(),
-      null, null, null, null,
-      output
-    );
+    return lista;
   }
 
-  private Specification<IndicadorFinanceiroTaxa> spec(final IndicadorFinanceiro indicador, final LocalDate inicio, final LocalDate fim) {
+  public Specification<IndicadorFinanceiroTaxa> spec(final IndicadorFinanceiro indicador, final LocalDate inicio, final LocalDate fim) {
     return indicadorFinanceiroTaxaRepository.indicadorFinanceiro(indicador)
       .and(indicadorFinanceiroTaxaRepository.referenciaInicio(inicio))
       .and(indicadorFinanceiroTaxaRepository.referenciaFim(fim));

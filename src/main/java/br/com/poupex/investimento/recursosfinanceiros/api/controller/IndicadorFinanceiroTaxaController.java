@@ -1,14 +1,19 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ExportacaoFormato;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraTipo;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirIndicadorFinanceiroTaxaService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ExportaIndicadorFinanceiroTaxasPeriodoAcumuladoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ManterIndicadorFinanceiroTaxaService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarIndicadorFinanceiroTaxasPeriodoAcumuladoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -34,6 +39,7 @@ public class IndicadorFinanceiroTaxaController {
   private final ManterIndicadorFinanceiroTaxaService manterIndicadorFinanceiroTaxaService;
   private final ExcluirIndicadorFinanceiroTaxaService excluirIndicadorFinanceiroTaxaService;
   private final RecuperarIndicadorFinanceiroTaxasPeriodoAcumuladoService recuperarIndicadorFinanceiroTaxasPeriodoAcumuladoService;
+  private final ExportaIndicadorFinanceiroTaxasPeriodoAcumuladoService exportaIndicadorFinanceiroTaxasPeriodoAcumuladoService;
 
   @Operation(summary = "Mantem a Taxa do Indicador Financeiro")
   @ApiResponses({
@@ -73,6 +79,22 @@ public class IndicadorFinanceiroTaxaController {
     @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate fim
   ) {
     return ResponseEntity.ok(recuperarIndicadorFinanceiroTaxasPeriodoAcumuladoService.execute(id, inicio, fim));
+  }
+
+  @Operation(summary = "Exportação (Relatório) das taxas por período")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Arquivo com as Taxas (Filtradas)", content = {
+      @Content(schema = @Schema(implementation = byte[].class)),
+    }),
+  })
+  @GetMapping(value = "export", produces = "application/octet-stream;charset=UTF-8")
+  public ResponseEntity<byte[]> export(
+    @PathVariable final String id,
+    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate inicio,
+    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate fim,
+    @RequestParam final ExportacaoFormato formato
+  ) {
+    return ResponseEntity.ok(exportaIndicadorFinanceiroTaxasPeriodoAcumuladoService.execute(id, inicio, fim, formato));
   }
 
 }
