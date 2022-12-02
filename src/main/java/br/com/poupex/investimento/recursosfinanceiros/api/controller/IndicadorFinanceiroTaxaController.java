@@ -84,7 +84,7 @@ public class IndicadorFinanceiroTaxaController {
       @Content(schema = @Schema(implementation = byte[].class)),
     }),
   })
-  @GetMapping(value = "export", produces = "application/octet-stream;charset=UTF-8")
+  @GetMapping(value = "export")
   public ResponseEntity<byte[]> export(
     @PathVariable final String id,
     @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate inicio,
