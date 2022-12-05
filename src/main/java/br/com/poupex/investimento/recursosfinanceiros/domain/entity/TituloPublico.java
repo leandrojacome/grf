@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
@@ -24,6 +26,7 @@ public class TituloPublico extends AbstractEntidadeBase {
     @Column(name = "ISIN", nullable = false)
     private String isin;
     
+    @Enumerated(EnumType.STRING)
     @Column(name = "TIPO", nullable = false)
     private TipoMercado tipo;
     
