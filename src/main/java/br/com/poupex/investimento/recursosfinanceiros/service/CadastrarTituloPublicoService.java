@@ -32,7 +32,7 @@ public class CadastrarTituloPublicoService {
 		// parser de campos faltantes
 		inputGif.setCodTipoInstrumentoFinanceiro(getCodTituloPublico());
 		inputGif.setCodInstituicao(getCodInstituicao());
-		inputGif.setSigla(null); // nok
+		inputGif.setSigla("QUALQUER"); // nok
 		inputGif.setSemPassivos(false);
 		inputGif.setSemTestesSppj(true);
 		inputGif.setMantidoVencimento(true);
@@ -44,6 +44,8 @@ public class CadastrarTituloPublicoService {
 		
 		var dto = mapper.map(tituloPublicoRepository.save(tituloPublico),
 				TituloPublicoInputOutput.class);
+		
+		mapper.map(inputGif, dto);
 		
 		return new ResponseModel(
 				LocalDateTime.now(),
