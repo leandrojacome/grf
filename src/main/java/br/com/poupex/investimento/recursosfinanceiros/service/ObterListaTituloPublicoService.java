@@ -29,7 +29,9 @@ public class ObterListaTituloPublicoService {
 
 	public ResponseModel execute(FilterTituloPublicoInput filter, Pageable pageable) {
 		
+		filter = (filter == null? new FilterTituloPublicoInput(): filter);
 		val tituloPublico = mapper.map(filter, TituloPublico.class);
+		// os campos que vem do gif serao preenchidos se precisar
 		val resultado = tituloPublicoRepository.findAll(Example.of(tituloPublico), pageable);
 		val mensagem = resultado.getTotalElements() == 0 ? "Nenhum registro encontrado" : null;
 		
