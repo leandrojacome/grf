@@ -11,7 +11,6 @@ public class TituloPublicoInputOutput {
 	private String nome; // gif
 	private Long codFormaMensuracao; // gif
 	private Boolean ativoFinanceiro; // gif
-	private String siglaGif;
     private String isin;
     private TipoMercado tipo;
     private LocalDateTime dataEmissao;
