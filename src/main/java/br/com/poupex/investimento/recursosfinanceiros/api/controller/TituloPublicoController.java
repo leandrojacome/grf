@@ -40,7 +40,8 @@ public class TituloPublicoController {
 	@OpenApiPaginacao
 	@GetMapping
 	public ResponseEntity<ResponseModel> read(
-			@RequestParam(required = false) final FilterTituloPublicoInput filter,
+			@Parameter(name = "filter", description = "Filtro de títulos públicos (não obrigatório)", required = false)
+			@RequestBody(required = false) final FilterTituloPublicoInput filter,
 			@Parameter(hidden = true) final Pageable pageable) {
 		return ResponseEntity.ok(obterListaTituloPublicoService.execute(filter, pageable));
 	}
