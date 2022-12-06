@@ -13,6 +13,10 @@ import lombok.Setter;
 @Table(name = "INDICADOR_FINANCEIRO", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class IndicadorFinanceiro extends AbstractEntidadeBase {
 
+  public IndicadorFinanceiro(final String id) {
+    super(id);
+  }
+
   @Column(name = "SIGLA", nullable = false, length = 64)
   private String sigla;
 

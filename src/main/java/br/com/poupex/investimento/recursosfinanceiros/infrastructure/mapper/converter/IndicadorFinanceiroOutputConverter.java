@@ -1,13 +1,9 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiro;
-import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiroTaxa;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroSincronizacaoOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.IndicadorFinanceiroSincronizacaoRepository;
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.IndicadorFinanceiroTaxaRepository;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.val;

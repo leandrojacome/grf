@@ -53,9 +53,11 @@ public class ExportaInstituicaoFinanceiraService {
     }
 
     try (val reportStream = report.getInputStream()) {
-      val jasperPrint = JasperFillManager.fillReport(reportStream, parametros(), new JRBeanCollectionDataSource(instituicoes));
       return switch (formato) {
-        case PDF -> JasperExportManager.exportReportToPdf(jasperPrint);
+        case PDF -> {
+          val jasperPrint = JasperFillManager.fillReport(reportStream, parametros(), new JRBeanCollectionDataSource(instituicoes));
+          yield JasperExportManager.exportReportToPdf(jasperPrint);
+        }
         case CSV -> exportaInstituicaoFinanceiraToCsvService.execute(instituicoes);
       };
     }
