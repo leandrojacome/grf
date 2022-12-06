@@ -2,8 +2,6 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroSincronizacaoSistema;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroSincronizacaoSituacao;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import javax.persistence.*;
 import lombok.*;
 
