@@ -45,6 +45,8 @@ public class CadastrarTituloPublicoService {
 		var dto = mapper.map(tituloPublicoRepository.save(tituloPublico),
 				TituloPublicoInputOutput.class);
 		
+		inputGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif);
+		
 		mapper.map(inputGif, dto);
 		
 		return new ResponseModel(
