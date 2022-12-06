@@ -75,7 +75,7 @@ public class InstrumentosFinanceirosController {
 	@GetMapping("{id}")
 	public ResponseEntity<ResponseModel> read(
 			@Parameter(name = "id", description = "Identificador do Instrumento Financeiro")
-			@PathVariable final int id) {
+			@PathVariable final Long id) {
 		return ResponseEntity.ok(obterInstrumentoFinancerioService.execute(id));
 	}
 
