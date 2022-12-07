@@ -8,14 +8,12 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel
 import br.com.poupex.investimento.recursosfinanceiros.scheduler.CarregaTaxasIndicesScheduler;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCepExternoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCnpjExternoService;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;

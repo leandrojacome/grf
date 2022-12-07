@@ -2,6 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPeriodicidade;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.service.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,7 +14,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.time.LocalDate;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -107,9 +107,6 @@ public class IndicadorFinanceiroController {
       @Content(mediaType = "application/json", schema = @Schema(implementation = IndicadorFinanceiroOutput.class))
     }),
   })
-  @Parameters({
-    @Parameter(name = "id", description = "Identificador do Indicador Financeiro"),
-  })
   @GetMapping("{id}")
   public ResponseEntity<ResponseModel> read(@PathVariable String id) {
     return ResponseEntity.ok(obterIndicadorFinanceiroService.execute(id));
@@ -122,22 +119,14 @@ public class IndicadorFinanceiroController {
       @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = IndicadorFinanceiroOutput.class))),
     }),
   })
-  @Parameters({
-    @Parameter(name = "sigla", description = "Parte ou sigla do Indicador"),
-    @Parameter(name = "nome", description = "CNPJ da Instituição Financeira"),
-    @Parameter(name = "inicio", description = "Data início do período"),
-    @Parameter(name = "fim", description = "Data fim do período"),
-  })
   @OpenApiPaginacao
   @GetMapping
   public ResponseEntity<ResponseModel> read(
-    @RequestParam(required = false) final String sigla,
     @RequestParam(required = false) final String nome,
-    @RequestParam(required = false) final LocalDate inicio,
-    @RequestParam(required = false) final LocalDate fim,
+    @RequestParam(required = false) final IndicadorFinanceiroPeriodicidade periodicidade,
     @Parameter(hidden = true) final Pageable pageable
   ) {
-    return ResponseEntity.ok(pesquisarIndicadoresFinanceirosPagedService.execute(sigla, nome, inicio, fim, pageable));
+    return ResponseEntity.ok(pesquisarIndicadoresFinanceirosPagedService.execute(nome, periodicidade, pageable));
   }
 
 }

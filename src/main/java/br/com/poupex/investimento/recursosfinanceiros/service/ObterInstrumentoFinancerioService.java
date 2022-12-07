@@ -16,7 +16,7 @@ public class ObterInstrumentoFinancerioService {
 
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
-	public ResponseModel execute(final int id) {
+	public ResponseModel execute(final Long id) {
 		try {
 			return new ResponseModel(
 			LocalDateTime.now(), 

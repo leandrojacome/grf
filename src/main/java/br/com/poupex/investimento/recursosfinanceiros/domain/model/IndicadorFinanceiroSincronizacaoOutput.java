@@ -1,6 +1,5 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPeriodicidade;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroSincronizacaoSistema;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroSincronizacaoSituacao;
 import com.fasterxml.jackson.annotation.JsonInclude;

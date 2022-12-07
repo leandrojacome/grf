@@ -13,4 +13,5 @@ public class IndicadorFinanceiroTaxaOutput {
   private LocalDate referencia;
   private BigDecimal valor;
   private BigDecimal diario;
+  private BigDecimal acumulado;
 }
