@@ -30,8 +30,8 @@ public class EditarIndicadorFinanceiro {
       LocalDateTime.now(),
       HttpStatus.OK.value(),
       "Alteração realizada com sucesso",
-      String.format("O Indicador Financeiro %s foi aletrado com sucesso", input.getSigla()),
-      "Indicador Financeiro aletrado com sucesso",
+      String.format("O Indicador Financeiro %s foi alterado com sucesso", input.getSigla()),
+      "Indicador Financeiro alterado com sucesso",
       null,
       mapper.map(indicadorFinanceiroRepository.save(indicador), IndicadorFinanceiroOutput.class
       )
