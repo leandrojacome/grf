@@ -25,9 +25,11 @@ public class InstrumentoFinanceiroGifInputOutput {
 	private TipoInstrumentoFinanceiroInputOutput tipoInstrumentoFinanceiro;
 	private StatusInstrumentoFinanceiroOutput statusInstrumentoFinanceiro;
     private FormaMensuracaoOutput formaMensuracao;
+    private ModeloNegocioOutput modeloNegocio;
 	
 	private Long codTipoInstrumentoFinanceiro;
 	private Long codFormaMensuracao;
 	private Long codInstituicao;
+	private Long codModeloNegocio;
 
 }
