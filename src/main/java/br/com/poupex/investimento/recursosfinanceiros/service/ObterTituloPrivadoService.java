@@ -32,7 +32,7 @@ public class ObterTituloPrivadoService {
 			null, null, null, null,
 			dto);
 		} catch (FeignException.NotFound e){
-			throw new RecursoNaoEncontradoException("Instrumento Financeiro", e.getMessage());
+			throw new RecursoNaoEncontradoException("Título Privado", e.getMessage());
 		}
 	}
 

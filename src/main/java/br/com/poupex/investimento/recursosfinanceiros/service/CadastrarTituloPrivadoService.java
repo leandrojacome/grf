@@ -20,6 +20,7 @@ public class CadastrarTituloPrivadoService {
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 	private final ObterTipoInstrumentoFinanceiroService obterTipoInstrumentoFinanceiroService;
 	private final ObterInstituicaoGifService obterInstituicaoGifService;
+	private final ObterModeloNegocioService obterModeloNegocioService;
 	
 	private final ModelMapper mapper;
 	
@@ -28,6 +29,7 @@ public class CadastrarTituloPrivadoService {
 
 		instrumentoGif.setCodTipoInstrumentoFinanceiro(getCodTituloPrivado());
 		instrumentoGif.setCodInstituicao(getCodInstituicao());
+		instrumentoGif.setCodModeloNegocio(getCodModeloNegocio("M01")); // Mantido até o Vencimento
 		instrumentoGif.setSemTestesSppj(input.getAtivoFinanceiro());
 		instrumentoGif.setSemPassivos(!input.getAtivoFinanceiro());
 		instrumentoGif.setCodFormaMensuracao(input.getCodFormaMensuracao());
@@ -40,8 +42,8 @@ public class CadastrarTituloPrivadoService {
 		val dto = mapper.map(instrumentoGif, TituloPrivadoInputOutput.class);
 
 		return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), "Cadastro realizado com sucesso",
-				String.format("O Instrumento Financeiro %s foi cadastrado com sucesso", input.getNome()),
-				"Instrumento Financeiro cadastrado com sucesso", null, dto);
+				String.format("O Título Privado %s foi cadastrado com sucesso", input.getNome()),
+				"Título Privado cadastrado com sucesso", null, dto);
 	}
 	
 	private Long getCodInstituicao() {
@@ -50,5 +52,9 @@ public class CadastrarTituloPrivadoService {
 	
 	private Long getCodTituloPrivado() {
 		return obterTipoInstrumentoFinanceiroService.getCodTituloPrivado();
+	}
+	
+	private Long getCodModeloNegocio(String sigla) {
+		return obterModeloNegocioService.getCodModeloNegocio(sigla);
 	}
 }

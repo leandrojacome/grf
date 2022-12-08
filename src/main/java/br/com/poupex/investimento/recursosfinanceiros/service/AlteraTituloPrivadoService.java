@@ -41,8 +41,8 @@ public class AlteraTituloPrivadoService {
 		val dto = mapper.map(instrumentoGif, TituloPrivadoInputOutput.class);
 		
 		return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), "Alteração realizada com sucesso",
-				String.format("O Instrumento Financeiro %s foi atualizado com sucesso", input.getNome()),
-				"Instrumento Financeiro atualizado com sucesso", null, dto);
+				String.format("O Título Privado %s foi atualizado com sucesso", input.getNome()),
+				"Título Privado atualizado com sucesso", null, dto);
 	}
 	
 	private Long getCodInstituicao() {
