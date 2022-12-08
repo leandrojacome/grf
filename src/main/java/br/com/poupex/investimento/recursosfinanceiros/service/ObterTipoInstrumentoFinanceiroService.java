@@ -75,7 +75,7 @@ public class ObterTipoInstrumentoFinanceiroService {
 	private Optional<TipoInstrumentoFinanceiroInputOutput> search(String pesquisaNome, String pesquisaSigla) {
 		Optional<TipoInstrumentoFinanceiroInputOutput> foundSigla = gestaoInstrumentosFinanceirosApiClient
 				.getTipoInstrumentosFinanceiros().stream()
-				.filter(tipo -> tipo.getSigla().matches(pesquisaNome)).findFirst();
+				.filter(tipo -> tipo.getSigla().matches(pesquisaSigla)).findFirst();
 		
 		if (foundSigla.isPresent()) {
 			return foundSigla;
