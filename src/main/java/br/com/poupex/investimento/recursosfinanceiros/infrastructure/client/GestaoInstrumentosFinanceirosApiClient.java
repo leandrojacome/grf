@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstituicaoGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstrumentoFinanceiroGifInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.ModeloNegocioOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.TipoInstrumentoFinanceiroInputOutput;
 
@@ -68,4 +69,10 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	
 	@PostMapping("/operacoes")
 	void createOperacao(@RequestBody @Valid OperacaoFinanceiraGifInput input);
+	
+	
+	// Modelo de Negócio
+	
+	@GetMapping("/modelo-negocio/listar/ativos")
+	List<ModeloNegocioOutput> getModelosNegocios();
 }
