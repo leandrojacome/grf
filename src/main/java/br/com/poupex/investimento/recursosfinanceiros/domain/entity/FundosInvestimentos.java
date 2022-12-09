@@ -1,7 +1,9 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Classificacao;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ClassificacaoAnbima;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Cota;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Nivel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,7 +32,7 @@ public class FundosInvestimentos extends AbstractEntidadeBase {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "CLASSIFICACAO", nullable = false)
-    private Classificacao classificacao;
+    private ClassificacaoAnbima classificacaoAnbima;
 
     @Column(name = "DATA_CONSTITUICAO", nullable = false)
     private LocalDate dataConstituicao;
@@ -45,21 +47,35 @@ public class FundosInvestimentos extends AbstractEntidadeBase {
     @Column(name = "COTA", nullable = false)
     private Cota cota;
 
-    @Column(name = "PRAZO_COTIZACAO", nullable = false)
-    private Integer prazoCotizacao;
+    @Column(name = "PRAZO_COTIZACAO_APLICACAO", nullable = false)
+    private Integer prazoCotizacaoAplicacao;
 
-    @Column(name = "PRAZO_COTIZACAO_DIAS_UTEIS", nullable = false)
-    private Boolean prazoCotizacaoDiasUteis;
+    @Column(name = "DIAS_UTEIS_PRAZO_COTIZACAO_APLICACAO", nullable = false)
+    private Boolean diasUteisPrazoCotizacaoAplicacao;
+
+    @Column(name = "PRAZO_COTIZACAO_RESGATE", nullable = false)
+    private Integer prazoCotizacaoResgate;
+
+    @Column(name = "DIAS_UTEIS_PRAZO_COTIZACAO_RESGATE", nullable = false)
+    private Boolean diasUteisPrazoCotizacao;
 
     @Column(name = "PRAZO_LIQ_FINANCEIRA", nullable = false)
     private Integer prazoLiqFinanceira;
 
-    @Column(name = "PRAZO_LIQ_FINANCEIRA_DIAS_UTEIS", nullable = false)
-    private Boolean prazoLiqFinanceiraDiasUteis;
+    @Column(name = "DIAS_UTEIS_PRAZO_LIQ_FINANCEIRA", nullable = false)
+    private Boolean diasUteis_prazoLiqFinanceira;
 
     @Column(name = "INSTRUMENTO_FINANCEIRO_GIF_CODIGO", nullable = false)
     private Long instrumentoFinanceiroGifCodigo;
 
     @Column(name = "ATIVO_FINANCEIRO", nullable = false)
     private Boolean ativoFinanceiro;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "FORMA_MENSURACAO", nullable = false)
+    private FormaMensuracaoEnum formaMensuracao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "NIVEL", nullable = false)
+    private Nivel nivel;
 }

@@ -1,6 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.enums;
 
-public enum Classificacao {
+public enum Nivel {
 
-    CLASSIFICACAO_A, CLASSIFICACAO_B;
+    NIVEL_1, NIVEL_2, NIVEL_3;
 }
