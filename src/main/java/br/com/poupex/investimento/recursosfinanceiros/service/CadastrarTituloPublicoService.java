@@ -21,6 +21,7 @@ public class CadastrarTituloPublicoService {
 	private final TituloPublicoRepository tituloPublicoRepository;
 	private final ObterTipoInstrumentoFinanceiroService obterTipoInstrumentoFinanceiroService;
 	private final ObterInstituicaoGifService obterInstituicaoGifService;
+	private final ObterModeloNegocioService obterModeloNegocioService;
 	
     private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 	
@@ -32,7 +33,7 @@ public class CadastrarTituloPublicoService {
 		// parser de campos faltantes
 		inputGif.setCodTipoInstrumentoFinanceiro(getCodTituloPublico());
 		inputGif.setCodInstituicao(getCodInstituicao());
-		inputGif.setSigla("QUALQUER"); // nok
+		inputGif.setCodModeloNegocio(getCodModeloNegocio());
 		inputGif.setSemPassivos(false);
 		inputGif.setSemTestesSppj(true);
 		inputGif.setMantidoVencimento(true);
@@ -66,5 +67,9 @@ public class CadastrarTituloPublicoService {
 	
 	private Long getCodTituloPublico() {
 		return obterTipoInstrumentoFinanceiroService.getCodTituloPublico();
+	}
+	
+	private Long getCodModeloNegocio() {
+		return obterModeloNegocioService.getCodModeloNegocio();
 	}
 }
