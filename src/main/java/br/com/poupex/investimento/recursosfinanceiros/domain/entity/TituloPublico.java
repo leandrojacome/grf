@@ -26,10 +26,6 @@ public class TituloPublico extends AbstractEntidadeBase {
     @Column(name = "ISIN", nullable = false)
     private String isin;
     
-    @Enumerated(EnumType.STRING)
-    @Column(name = "TIPO", nullable = false)
-    private TipoMercado tipo;
-    
     @Column(name = "DATA_EMISSAO", nullable = false)
     private LocalDateTime dataEmissao;
     
