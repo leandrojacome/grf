@@ -23,6 +23,8 @@ public class CadastrarFundosInvestimentosService {
 
     private final ObterInstituicaoGifService obterInstituicaoGifService;
 
+    private final ObterModeloNegocioService obterModeloNegocioService;
+
     private final FundosInvestimentosRepository fundosInvestimentosRepository;
     private final ModelMapper mapper;
 
@@ -35,6 +37,7 @@ public class CadastrarFundosInvestimentosService {
         inputGif.setSemTestesSppj(false);
         inputGif.setMantidoVencimento(true);
         inputGif.setSigla("QUALQUER");
+        inputGif.setCodModeloNegocio(getCodModeloNegocio("M02"));
 
         FundosInvestimentos fundoInvestimento = mapper.map(input, FundosInvestimentos.class);
 
@@ -54,6 +57,10 @@ public class CadastrarFundosInvestimentosService {
 
     private Long getCodFundoInvestimento() {
         return obterTipoInstrumentoFinanceiroService.getCodTituloFundoInvestimento();
+    }
+
+    private Long getCodModeloNegocio(String sigla) {
+        return obterModeloNegocioService.getCodModeloNegocio(sigla);
     }
 
 }
