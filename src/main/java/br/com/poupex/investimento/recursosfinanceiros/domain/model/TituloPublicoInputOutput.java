@@ -25,7 +25,7 @@ public class TituloPublicoInputOutput {
     private FormaMensuracaoOutput formaMensuracao;
 	private Boolean ativoFinanceiro; // gif
     private String isin;
-    private TipoMercado tipo;
+    private String sigla;
     private LocalDateTime dataEmissao;
     private LocalDateTime dataVencimento;
     private Long codiogSelic;
