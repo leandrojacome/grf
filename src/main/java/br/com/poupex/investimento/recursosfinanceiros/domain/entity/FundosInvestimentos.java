@@ -57,13 +57,13 @@ public class FundosInvestimentos extends AbstractEntidadeBase {
     private Integer prazoCotizacaoResgate;
 
     @Column(name = "DIAS_UTEIS_PRAZO_COTIZACAO_RESGATE", nullable = false)
-    private Boolean diasUteisPrazoCotizacao;
+    private Boolean diasUteisPrazoCotizacaoResgate;
 
     @Column(name = "PRAZO_LIQ_FINANCEIRA", nullable = false)
     private Integer prazoLiqFinanceira;
 
     @Column(name = "DIAS_UTEIS_PRAZO_LIQ_FINANCEIRA", nullable = false)
-    private Boolean diasUteis_prazoLiqFinanceira;
+    private Boolean diasUteisPrazoLiqFinanceira;
 
     @Column(name = "INSTRUMENTO_FINANCEIRO_GIF_CODIGO", nullable = false)
     private Long instrumentoFinanceiroGifCodigo;
