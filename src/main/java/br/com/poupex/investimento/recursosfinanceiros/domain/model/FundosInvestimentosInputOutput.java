@@ -1,7 +1,9 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Classificacao;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ClassificacaoAnbima;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Cota;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Nivel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +34,7 @@ public class FundosInvestimentosInputOutput {
     private String administrador;
 
     @NotNull
-    private Classificacao classificacao;
+    private ClassificacaoAnbima classificacaoAnbima;
 
     @NotNull
     private LocalDate dataConstituicao;
@@ -47,18 +49,30 @@ public class FundosInvestimentosInputOutput {
     private Cota cota;
 
     @NotNull
-    private Integer prazoCotizacao;
+    private Integer prazoCotizacaoAplicacao;
 
     @NotNull
-    private Boolean prazoCotizacaoDiasUteis;
+    private Boolean diasUteisprazoCotizacaoAplicacao;
+
+    @NotNull
+    private Integer prazoCotizacaoResgate;
+
+    @NotNull
+    private Boolean diasUteisprazoCotizacaoResgate;
 
     @NotNull
     private Integer prazoLiqFinanceira;
 
     @NotNull
-    private Boolean prazoLiqFinanceiraDiasUteis;
+    private Boolean diasUteisprazoLiqFinanceira;
 
     @NotNull
     private Boolean ativoFinanceiro;
+
+    @NotNull
+    private FormaMensuracaoEnum formaMensuracao;
+
+    @NotNull
+    private Nivel nivel;
 
 }
