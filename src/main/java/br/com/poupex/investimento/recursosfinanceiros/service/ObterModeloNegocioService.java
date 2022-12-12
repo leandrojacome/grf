@@ -14,19 +14,25 @@ import lombok.RequiredArgsConstructor;
 public class ObterModeloNegocioService {
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
-	private static final String PESQUISA_SIGLA = "M01"; //regex
+	private static final String SIGLA_PADRAO = "M01"; //regex
+	private String pesquisa = SIGLA_PADRAO;
 
 	public Long getCodModeloNegocio() {
 		return execute().getCodigo();
 	}
 	
+	public Long getCodModeloNegocio(String sigla) {
+		pesquisa = sigla;
+		return execute().getCodigo();
+	}
+	
 	public ModeloNegocioOutput execute() {
 		ModeloNegocioOutput retorno;
-		Optional<ModeloNegocioOutput> optionalInstituicao = search(PESQUISA_SIGLA);
+		Optional<ModeloNegocioOutput> optionalInstituicao = search(pesquisa);
 		
 		if (!optionalInstituicao.isPresent()) {
 			throw new NegocioException("Modelo Negócio no GIF",
-					String.format("Não foi possível a sigla '%s' no GIF!", PESQUISA_SIGLA));
+					String.format("Não foi possível a sigla '%s' no GIF!", pesquisa));
 		} else
 			retorno = optionalInstituicao.get();
 
