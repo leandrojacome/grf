@@ -7,6 +7,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.FundosInvesti
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarFundosInvestimentosService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ObterFundoInvestimentoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaFundosInvestimentosService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,6 +35,8 @@ public class FundosInvestimentosController {
 
     private final ObterListaFundosInvestimentosService obterListaFundosInvestimentosService;
 
+    private final ObterFundoInvestimentoService obterFundoInvestimentoService;
+
 
     @Operation(summary = "Cadastra Fundos de Investimentos")
     @ApiResponses({
@@ -55,10 +58,24 @@ public class FundosInvestimentosController {
     @OpenApiPaginacao
     @GetMapping
     public ResponseEntity<ResponseModel> read(
-            @Parameter(name = "filter", description = "Filtro de fundos de investimentos (não obrigatório)", required = false)
+            @Parameter(name = "filter", description = "Filtro de fundos de investimentos (não obrigatório)")
             @RequestBody(required = false) final FilterFundoInvestimentoInput filter,
             @Parameter(hidden = true) final Pageable pageable) {
         return ResponseEntity.ok(obterListaFundosInvestimentosService.execute(filter, pageable));
+    }
+
+    @Operation(summary = "Detalha o Fundo de Investimento")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Fundo de Investimento detalhado", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = FundosInvestimentosInputOutput.class))
+            }),
+    })
+    @GetMapping("{id}")
+    public ResponseEntity<ResponseModel> read(
+            @Parameter(name = "id", description = "Identificador do Fundo de Investimento")
+            @PathVariable final String id) {
+        return ResponseEntity.ok(obterFundoInvestimentoService.execute(id));
     }
 
 }
