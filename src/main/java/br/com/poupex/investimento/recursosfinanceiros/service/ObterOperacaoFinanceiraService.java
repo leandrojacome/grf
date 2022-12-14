@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -37,4 +38,7 @@ public class ObterOperacaoFinanceiraService {
 	    );
 	  }
 
+	  public Boolean existsCodigoGif(Long codigo) {
+		  return operacaoFinanceiraRepository.existsByInstrumentoFinanceiroGifCodigo(codigo);
+	  }
 }
