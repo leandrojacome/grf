@@ -33,7 +33,6 @@ public class CadastrarTituloPrivadoService {
 		instrumentoGif.setSemTestesSppj(input.getAtivoFinanceiro());
 		instrumentoGif.setSemPassivos(!input.getAtivoFinanceiro());
 		instrumentoGif.setCodFormaMensuracao(input.getCodFormaMensuracao());
-		instrumentoGif.setMantidoVencimento(true);
 
 		Long codigoGif = gestaoInstrumentosFinanceirosApiClient.createInstrumentoFinanceiro(instrumentoGif);
 		
