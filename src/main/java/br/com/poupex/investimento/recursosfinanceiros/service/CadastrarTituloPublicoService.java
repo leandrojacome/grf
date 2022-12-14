@@ -36,7 +36,6 @@ public class CadastrarTituloPublicoService {
 		inputGif.setCodModeloNegocio(getCodModeloNegocio());
 		inputGif.setSemPassivos(false);
 		inputGif.setSemTestesSppj(true);
-		inputGif.setMantidoVencimento(true);
 		
 		Long codigoGif = gestaoInstrumentosFinanceirosApiClient.createInstrumentoFinanceiro(inputGif);
 		
