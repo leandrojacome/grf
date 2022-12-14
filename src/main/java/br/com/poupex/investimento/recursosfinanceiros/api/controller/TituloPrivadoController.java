@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPrivadoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.service.AlteraTituloPrivadoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarTituloPrivadoService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirTituloPrivadoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaTitulosPrivadosService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterTituloPrivadoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,6 +46,7 @@ public class TituloPrivadoController {
 	private final ObterTituloPrivadoService obterTituloPrivadoService;
 	private final CadastrarTituloPrivadoService cadastrarTituloPrivadoService;
 	private final AlteraTituloPrivadoService alteraTituloPrivadoService;
+	private final ExcluirTituloPrivadoService excluirTituloPrivadoService;
 
 	@Operation(summary = "Lista todos os Títulos Privados")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "Títulos Privados", content = {
@@ -104,6 +107,19 @@ public class TituloPrivadoController {
 			@RequestBody @Valid TituloPrivadoInputOutput input
 			) {
 		return ResponseEntity.ok(alteraTituloPrivadoService.execute(codigo, input));
+	}
+
+	@Operation(summary = "Exclui o Título Privado")
+	@ApiResponses({
+		@ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class))
+		}) 
+	})
+	@DeleteMapping("{codigo}")
+	public ResponseEntity<ResponseModel> delete(
+			@Parameter(name = "codigo", description = "Codigo GIF do Título Privado") 
+			@PathVariable final Long codigo) {
+		return ResponseEntity.ok(excluirTituloPrivadoService.execute(codigo));
 	}
 
 }

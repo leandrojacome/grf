@@ -7,4 +7,6 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoFina
 
 public interface OperacaoFinanceiraRepository extends JpaRepository<OperacaoFinanceira, String>, JpaSpecificationExecutor<OperacaoFinanceira> {
 
+	Boolean existsByInstrumentoFinanceiroGifCodigo(Long codigo);
+
 }
