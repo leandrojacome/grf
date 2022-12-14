@@ -19,7 +19,6 @@ public class InstrumentoFinanceiroGifInputOutput {
 	private Boolean ativoFinanceiro;
 	private Boolean semPassivos;
 	private Boolean semTestesSppj;
-	private Boolean mantidoVencimento;
 	
 	private InstituicaoGifInputOutput instituicao;
 	private TipoInstrumentoFinanceiroInputOutput tipoInstrumentoFinanceiro;
