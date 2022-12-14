@@ -35,7 +35,6 @@ public class CadastrarFundosInvestimentosService {
         inputGif.setCodInstituicao(getCodInstituicao());
         inputGif.setSemPassivos(false);
         inputGif.setSemTestesSppj(false);
-        inputGif.setMantidoVencimento(true);
         inputGif.setSigla("QUALQUER");
         inputGif.setCodModeloNegocio(getCodModeloNegocio("M02"));
 
