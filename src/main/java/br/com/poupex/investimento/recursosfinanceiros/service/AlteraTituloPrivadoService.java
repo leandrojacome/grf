@@ -32,7 +32,6 @@ public class AlteraTituloPrivadoService {
 		instrumentoGif.setSemTestesSppj(input.getAtivoFinanceiro());
 		instrumentoGif.setSemPassivos(!input.getAtivoFinanceiro());
 		instrumentoGif.setCodFormaMensuracao(input.getCodFormaMensuracao());
-		instrumentoGif.setMantidoVencimento(true);
 
 		gestaoInstrumentosFinanceirosApiClient.updateInstrumentoFinanceiro(codigo, instrumentoGif);
 		
