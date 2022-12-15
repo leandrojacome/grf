@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.FormaMensuracaoOutput;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -25,7 +24,6 @@ public class TituloPublicoInputOutput {
     private FormaMensuracaoOutput formaMensuracao;
 	private Boolean ativoFinanceiro; // gif
     private String isin;
-    private TipoMercado tipo;
     private LocalDateTime dataEmissao;
     private LocalDateTime dataVencimento;
     private Long codiogSelic;
