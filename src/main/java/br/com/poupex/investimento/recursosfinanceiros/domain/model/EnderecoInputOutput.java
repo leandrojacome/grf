@@ -18,7 +18,7 @@ public class EnderecoInputOutput {
   public String cep;
   @NotBlank
   public String logradouro;
-  @Size(max = 6)
+  @Size(max = 10)
   public String numero;
   @Size(max = 256)
   public String complemento;

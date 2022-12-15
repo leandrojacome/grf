@@ -2,7 +2,6 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
 import java.time.LocalDateTime;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,6 @@ import lombok.experimental.SuperBuilder;
 public class FilterTituloPublicoInput {
 	
     private String isin;
-    private TipoMercado tipo;
     private LocalDateTime dataEmissao;
     private LocalDateTime dataVencimento;
     private Long codiogSelic;
