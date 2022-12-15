@@ -22,29 +22,25 @@ public class ObterTituloPublicoService {
 	private final ModelMapper mapper;
 	private final TituloPublicoRepository tituloPublicoRepository;
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
-	  
+
 	public ResponseModel execute(final String id) {
-		
+
 		val titulo = id(id);
 		val dto = mapper.map(titulo, TituloPublicoInputOutput.class);
-		val ifGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(titulo.getInstrumentoFinanceiroGifCodigo());
-		
+		val ifGif = gestaoInstrumentosFinanceirosApiClient
+				.getInstrumentoFinanceiro(titulo.getInstrumentoFinanceiroGifCodigo());
+
 		mapper.map(ifGif, dto);
-		
+
 		dto.setCodFormaMensuracao(ifGif.getFormaMensuracao().getCodigo());
-		
-		return new ResponseModel(
-			LocalDateTime.now(),
-			HttpStatus.OK.value(),
-			null, null, null, null,
-			dto
-		);
+
+		return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), null, null, null, null, dto);
 	}
 
 	public TituloPublico id(final String id) {
-		return tituloPublicoRepository.findById(id).orElseThrow(
-			() -> new RecursoNaoEncontradoException("Título Público", String.format("Não foi encontrado Título Público com id: %s", id))
-		);
+		return tituloPublicoRepository.findById(id)
+				.orElseThrow(() -> new RecursoNaoEncontradoException("Título Público",
+						String.format("Não foi encontrado Título Público com id: %s", id)));
 	}
 
 }
