@@ -21,10 +21,10 @@ public class ContatoInputOutput {
   private String email;
   @Size(max = 256)
   private String cargoSetor;
-  @Size(min= 10, max = 10)
-  @Pattern(regexp="\\d{10}")
+  @Size(min= 10, max = 11)
+  @Pattern(regexp="\\d{10,11}")
   private String telefone1;
-  @Size(min= 10, max = 10)
-  @Pattern(regexp="\\d{10}")
+  @Size(min= 10, max = 11)
+  @Pattern(regexp="\\d{10,11}")
   private String telefone2;
 }
