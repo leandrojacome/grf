@@ -7,6 +7,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.FundosInvesti
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarFundosInvestimentosService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirFundoInvestimentoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterFundoInvestimentoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaFundosInvestimentosService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,6 +37,8 @@ public class FundosInvestimentosController {
     private final ObterListaFundosInvestimentosService obterListaFundosInvestimentosService;
 
     private final ObterFundoInvestimentoService obterFundoInvestimentoService;
+
+    private final ExcluirFundoInvestimentoService excluirFundoInvestimentoService;
 
 
     @Operation(summary = "Cadastra Fundos de Investimentos")
@@ -76,6 +79,19 @@ public class FundosInvestimentosController {
             @Parameter(name = "id", description = "Identificador do Fundo de Investimento")
             @PathVariable final String id) {
         return ResponseEntity.ok(obterFundoInvestimentoService.execute(id));
+    }
+
+    @Operation(summary = "Exclui Fundo de Investimentos")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+            }),
+    })
+    @DeleteMapping("{id}")
+    public ResponseEntity<ResponseModel> delete(
+            @Parameter(name = "id", description = "Identificador do Fundo de Investimentos")
+            @PathVariable String id) {
+        return ResponseEntity.ok(excluirFundoInvestimentoService.execute(id));
     }
 
 }
