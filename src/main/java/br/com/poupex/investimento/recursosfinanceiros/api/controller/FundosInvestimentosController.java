@@ -59,7 +59,7 @@ public class FundosInvestimentosController {
             @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
             @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = FundosInvestimentosInputOutput.class)))})})
     @OpenApiPaginacao
-    @GetMapping
+    @PostMapping("/lista")
     public ResponseEntity<ResponseModel> read(
             @Parameter(name = "filter", description = "Filtro de fundos de investimentos (não obrigatório)")
             @RequestBody(required = false) final FilterFundoInvestimentoInput filter,
