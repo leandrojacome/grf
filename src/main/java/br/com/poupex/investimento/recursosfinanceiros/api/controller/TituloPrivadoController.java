@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.FilterTituloPrivadoInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPrivadoInputOutput;
@@ -53,16 +52,12 @@ public class TituloPrivadoController {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
 			@Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = TituloPrivadoInputOutput.class))) }) })
 	@OpenApiPaginacao
-	@GetMapping
+	@PostMapping("/lista")
 	public ResponseEntity<ResponseModel> read(
-			@Parameter(name = "nome", description = "Nome do Título Privado") 
-			@RequestParam(required = false) final String nome,
-			@Parameter(name = "sigla", description = "Sigla do Título Privado") 
-			@RequestParam(required = false) final String sigla,
-			@Parameter(name = "formaMensuracao", description = "Forma de Mensuração do Título Privado") 
-			@RequestParam(required = false) final FormaMensuracaoEnum formaMensuracao,
+            @Parameter(name = "filter", description = "Filtro de títulos privados (não obrigatório)")
+            @RequestBody(required = false) final FilterTituloPrivadoInput filter,
 			@Parameter(hidden = true) final Pageable pageable) {
-		return ResponseEntity.ok(obterListaTitulosPrivadosService.execute(nome, sigla, formaMensuracao, pageable));
+		return ResponseEntity.ok(obterListaTitulosPrivadosService.execute(filter, pageable));
 	}
 
 	@Operation(summary = "Detalha o Titulo Privado")
