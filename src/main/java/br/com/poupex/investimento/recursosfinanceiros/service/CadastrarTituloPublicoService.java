@@ -3,6 +3,8 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 import java.time.LocalDateTime;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +49,7 @@ public class CadastrarTituloPublicoService {
 		
 		inputGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif);
 		
-		mapper.map(inputGif, dto);
+	    BeanUtils.copyProperties(inputGif, dto);
 		
 		return new ResponseModel(
 				LocalDateTime.now(),
