@@ -54,6 +54,7 @@ security:
         - gestao-instrumentos-financeiros-api:get
         - gestao-instrumentos-financeiros-api:post
         - gestao-instrumentos-financeiros-api:put
+        - gestao-instrumentos-financeiros-api:delete
       access-token-uri: https://hmlsso.poupex.com.br/f5-oauth2/v1/token
       user-authorization-uri: https://hmlsso.poupex.com.br/f5-oauth2/v1/authorize
       grant-type: client_credentials

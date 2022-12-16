@@ -3,6 +3,7 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 import java.time.LocalDateTime;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -27,12 +28,15 @@ public class ObterTituloPublicoService {
 
 		val titulo = id(id);
 		val dto = mapper.map(titulo, TituloPublicoInputOutput.class);
-		val ifGif = gestaoInstrumentosFinanceirosApiClient
-				.getInstrumentoFinanceiro(titulo.getInstrumentoFinanceiroGifCodigo());
 
-		mapper.map(ifGif, dto);
 
-		dto.setCodFormaMensuracao(ifGif.getFormaMensuracao().getCodigo());
+		try {
+			val ifGif = gestaoInstrumentosFinanceirosApiClient
+					.getInstrumentoFinanceiro(titulo.getInstrumentoFinanceiroGifCodigo());
+			BeanUtils.copyProperties(ifGif, dto);
+			dto.setCodFormaMensuracao(ifGif.getFormaMensuracao().getCodigo());
+		} catch (Exception ignore) {
+		}
 
 		return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), null, null, null, null, dto);
 	}

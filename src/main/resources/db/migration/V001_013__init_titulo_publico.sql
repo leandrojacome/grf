@@ -4,6 +4,7 @@ CREATE TABLE GESTAO_RECURSOS_FINANCEIROS.TITULO_PUBLICO
     CADASTRO                            TIMESTAMP       NOT NULL,
     ATUALIZACAO                         TIMESTAMP       NOT NULL,
     INSTRUMENTO_FINANCEIRO_GIF_CODIGO   NUMBER          NOT NULL,
+    SIGLA                               VARCHAR2(20)    NOT NULL,
     ISIN                                VARCHAR2(12)    NOT NULL,
     DATA_EMISSAO                        TIMESTAMP       NOT NULL,
     DATA_VENCIMENTO                     TIMESTAMP       NOT NULL,
@@ -26,6 +27,9 @@ COMMENT
 COMMENT
     ON COLUMN GESTAO_RECURSOS_FINANCEIROS.TITULO_PUBLICO.INSTRUMENTO_FINANCEIRO_GIF_CODIGO
     IS 'Código de relacionamento do titulo publico com o registro do instrumento financeiro no GIF';
+COMMENT
+    ON COLUMN GESTAO_RECURSOS_FINANCEIROS.TITULO_PUBLICO.SIGLA
+    IS 'Sigla do Titulo Publico';
 COMMENT
     ON COLUMN GESTAO_RECURSOS_FINANCEIROS.TITULO_PUBLICO.ISIN
     IS 'Sigla isin';
