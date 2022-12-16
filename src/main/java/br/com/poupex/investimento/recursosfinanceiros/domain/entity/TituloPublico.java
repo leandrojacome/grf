@@ -4,11 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +22,9 @@ public class TituloPublico extends AbstractEntidadeBase {
     
     @Column(name = "ISIN", nullable = false)
     private String isin;
+    
+    @Column(name = "SIGLA", nullable = false)
+    private String sigla;
     
     @Column(name = "DATA_EMISSAO", nullable = false)
     private LocalDateTime dataEmissao;

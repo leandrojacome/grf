@@ -19,6 +19,7 @@ public class FilterTituloPublicoInput {
     private LocalDateTime dataEmissao;
     private LocalDateTime dataVencimento;
     private Long codiogSelic;
+    private String sigla;
     private Boolean cupom;
 
 }

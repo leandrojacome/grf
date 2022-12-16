@@ -53,7 +53,7 @@ public class TituloPublicoController {
             @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
             @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = TituloPublicoInputOutput.class)))})})
     @OpenApiPaginacao
-    @GetMapping
+	@PostMapping("/lista")
     public ResponseEntity<ResponseModel> read(
             @Parameter(name = "filter", description = "Filtro de títulos públicos (não obrigatório)")
             @RequestBody(required = false) final FilterTituloPublicoInput filter,
