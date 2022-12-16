@@ -29,7 +29,6 @@ public class ObterTituloPublicoService {
 		val titulo = id(id);
 		val dto = mapper.map(titulo, TituloPublicoInputOutput.class);
 
-
 		try {
 			val ifGif = gestaoInstrumentosFinanceirosApiClient
 					.getInstrumentoFinanceiro(titulo.getInstrumentoFinanceiroGifCodigo());
