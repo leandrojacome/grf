@@ -16,4 +16,5 @@ public class RiscoOutput {
   private InstituicaoFinanceiraRiscoClassificacao classificacao;
   private String classificacaoLabel;
   private RiscoArquivoOutput arquivo;
+  private String resumo;
 }

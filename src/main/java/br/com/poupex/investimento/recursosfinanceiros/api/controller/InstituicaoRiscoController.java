@@ -5,6 +5,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFi
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInputRisco;
 import br.com.poupex.investimento.recursosfinanceiros.service.AlteraInstituicaoFinanceiraRiscoClassificacaoService;
+import br.com.poupex.investimento.recursosfinanceiros.service.AlteraInstituicaoFinanceiraRiscoResumoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraRiscoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirInstituicaoFinanceiraRiscoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -33,6 +35,7 @@ public class InstituicaoRiscoController {
   private final CadastrarInstituicaoFinanceiraRiscoService cadastrarInstituicaoFinanceiraRiscoService;
   private final AlteraInstituicaoFinanceiraRiscoClassificacaoService alteraInstituicaoFinanceiraRiscoClassificacaoService;
   private final ExcluirInstituicaoFinanceiraRiscoService excluirInstituicaoFinanceiraRiscoService;
+  private final AlteraInstituicaoFinanceiraRiscoResumoService alteraInstituicaoFinanceiraRiscoResumoService;
 
   @Operation(summary = "Adiciona/Altera um Risco da Instituição Financeira")
   @ApiResponses({
@@ -80,6 +83,23 @@ public class InstituicaoRiscoController {
   public ResponseEntity<ResponseModel> delete(@PathVariable final String id, @PathVariable final String risco) {
     log.debug(String.format("Instituição (%s)", id));
     return ResponseEntity.ok(excluirInstituicaoFinanceiraRiscoService.execute(risco));
+  }
+
+  @Operation(summary = "Altera Resumo do risco")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Risco salvo", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInputRisco.class))
+    }),
+  })
+  @Parameters({
+    @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
+  })
+  @PutMapping("{risco}/resumo")
+  public ResponseEntity<ResponseModel> resumo(
+    @PathVariable final String id, @PathVariable final String risco, final String resumo
+  ) {
+    return ResponseEntity.ok(alteraInstituicaoFinanceiraRiscoResumoService.execute(id, risco, resumo));
   }
 
 

@@ -30,6 +30,9 @@ public class InstituicaoFinanceiraRisco extends AbstractEntidadeBase {
   @OneToMany(mappedBy = "instituicaoFinanceiraRisco", cascade = CascadeType.PERSIST)
   private List<InstituicaoFinanceiraRiscoArquivo> arquivos;
 
+  @Column(name = "RESUMO", length = 3000)
+  private String resumo;
+
   @Override
   public void prePersist() {
     try {
