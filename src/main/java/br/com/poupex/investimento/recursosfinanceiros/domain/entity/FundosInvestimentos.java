@@ -78,4 +78,8 @@ public class FundosInvestimentos extends AbstractEntidadeBase {
     @Enumerated(EnumType.STRING)
     @Column(name = "NIVEL", nullable = false)
     private Nivel nivel;
+    
+    @Column(name = "SIGLA", nullable = false)
+    private String sigla;
+
 }

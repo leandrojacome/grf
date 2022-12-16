@@ -37,8 +37,8 @@ public class ObterListaTituloPublicoService {
 		val tituloPublico = mapper.map(filter, TituloPublico.class);
 		
 		ExampleMatcher matcher = ExampleMatcher.matchingAny()
-				.withMatcher("isin", ExampleMatcher.GenericPropertyMatchers.ignoreCase())
-				.withMatcher("sigla", ExampleMatcher.GenericPropertyMatchers.ignoreCase());
+				.withMatcher("isin", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+				.withMatcher("sigla", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
 		
 		val resultado = tituloPublicoRepository.findAll(Example.of(tituloPublico, matcher), pageable);
 		val mensagem = resultado.getTotalElements() == 0 ? "Nenhum registro encontrado" : null;

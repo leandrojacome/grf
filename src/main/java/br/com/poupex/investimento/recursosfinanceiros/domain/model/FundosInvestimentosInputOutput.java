@@ -4,6 +4,8 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Classificacao
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Cota;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Nivel;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +21,9 @@ public class FundosInvestimentosInputOutput {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String id;
+    
+    @JsonIgnore
+    private Long instrumentoFinanceiroGifCodigo;
 
     @NotBlank
     @CNPJ
@@ -74,5 +79,8 @@ public class FundosInvestimentosInputOutput {
 
     @NotNull
     private Nivel nivel;
+    
+    @NotNull
+    private String sigla;
 
 }

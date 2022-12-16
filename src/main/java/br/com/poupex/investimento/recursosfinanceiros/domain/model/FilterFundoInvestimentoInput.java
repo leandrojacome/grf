@@ -17,5 +17,6 @@ public class FilterFundoInvestimentoInput {
     private String gestor;
     private String administrador;
     private ClassificacaoAnbima classificacaoAnbima;
+    private String sigla;
 
 }
