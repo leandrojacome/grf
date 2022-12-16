@@ -1,11 +1,13 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
+import org.springframework.web.bind.annotation.PutMapping;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.FilterTituloPublicoInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPublicoInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.service.AlteraTituloPublicoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarTituloPublicoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirTituloPublicoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaTituloPublicoService;
@@ -33,6 +35,7 @@ public class TituloPublicoController {
     private final CadastrarTituloPublicoService cadastrarTituloPublicoService;
     private final ObterListaTituloPublicoService obterListaTituloPublicoService;
     private final ObterTituloPublicoService obterTituloPublicoService;
+	private final AlteraTituloPublicoService alteraTituloPublicoService;
 
     private final ExcluirTituloPublicoService excluirTituloPublicoService;
 
@@ -59,6 +62,20 @@ public class TituloPublicoController {
             @RequestBody(required = false) final FilterTituloPublicoInput filter,
             @Parameter(hidden = true) final Pageable pageable) {
         return ResponseEntity.ok(obterListaTituloPublicoService.execute(filter, pageable));
+	}
+	
+	@Operation(summary = "Altera o Título Público")
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", description = "Título Público detalhado", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+					@Content(mediaType = "application/json", schema = @Schema(implementation = TituloPublicoInputOutput.class))
+			}),
+	})
+	@PutMapping("{id}")
+	public ResponseEntity<ResponseModel> update(
+			@Parameter(name = "id", description = "Identificador do Título Público")
+			@PathVariable final String id, @RequestBody final TituloPublicoInputOutput input) {
+		return ResponseEntity.ok(alteraTituloPublicoService.execute(id, input));
     }
 
     @Operation(summary = "Detalha o Título Público")
