@@ -16,8 +16,8 @@ import lombok.experimental.SuperBuilder;
 public class FilterTituloPublicoInput {
 	
     private String isin;
-    private LocalDateTime dataEmissao;
-    private LocalDateTime dataVencimento;
+    private LocalDateTime dataVencimentoInicio;
+    private LocalDateTime dataVencimentoFim;
     private Long codiogSelic;
     private String sigla;
     private Boolean cupom;
