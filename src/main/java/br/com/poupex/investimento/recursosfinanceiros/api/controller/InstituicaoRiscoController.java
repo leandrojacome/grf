@@ -95,9 +95,9 @@ public class InstituicaoRiscoController {
   @Parameters({
     @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
   })
-  @PutMapping("{risco}/resumo")
+  @PutMapping(value = "{risco}/resumo", consumes = MediaType.TEXT_PLAIN_VALUE)
   public ResponseEntity<ResponseModel> resumo(
-    @PathVariable final String id, @PathVariable final String risco, final String resumo
+    @PathVariable final String id, @PathVariable final String risco, @RequestBody final String resumo
   ) {
     return ResponseEntity.ok(alteraInstituicaoFinanceiraRiscoResumoService.execute(id, risco, resumo));
   }
