@@ -40,9 +40,7 @@ public class ObterListaTituloPublicoService {
 	public ResponseModel execute(FilterTituloPublicoInput filter, Pageable pageable) {
 		
 		filter = (filter == null? new FilterTituloPublicoInput(): filter);
-		TituloPublico tituloPublico = mapper.map(filter, TituloPublico.class);
-		
-		BeanUtils.copyProperties(filter, tituloPublico);
+		val tituloPublico = mapper.map(filter, TituloPublico.class);
 		
 		ExampleMatcher matcher = ExampleMatcher.matchingAny()
 				.withMatcher("isin", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
