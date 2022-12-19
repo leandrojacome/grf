@@ -22,9 +22,9 @@ public class ObterTituloPrivadoService {
 
 	private final ModelMapper mapper;
 
-	public ResponseModel execute(final Long id) {
+	public ResponseModel execute(final Long codigo) {
 		try {
-			val tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(id);
+			val tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigo);
 			val dto = mapper.map(tituloGif, TituloPrivadoInputOutput.class);
 			return new ResponseModel(
 			LocalDateTime.now(), 

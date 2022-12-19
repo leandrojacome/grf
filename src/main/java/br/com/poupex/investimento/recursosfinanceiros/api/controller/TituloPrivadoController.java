@@ -67,11 +67,11 @@ public class TituloPrivadoController {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = TituloPrivadoInputOutput.class))
 			}),
 	})
-	@GetMapping("{id}")
+	@GetMapping("{codigo}")
 	public ResponseEntity<ResponseModel> read(
-			@Parameter(name = "id", description = "Identificador do Titulo Privado")
-			@PathVariable final Long id) {
-		return ResponseEntity.ok(obterTituloPrivadoService.execute(id));
+			@Parameter(name = "codigo", description = "Codigo GIF do Título Privado")
+			@PathVariable final Long codigo) {
+		return ResponseEntity.ok(obterTituloPrivadoService.execute(codigo));
 	}
 
 	@Operation(summary = "Cadastra o Título Privado")
