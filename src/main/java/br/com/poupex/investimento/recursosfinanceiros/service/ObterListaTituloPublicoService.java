@@ -1,7 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.persistence.criteria.Predicate;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -9,6 +13,8 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.convert.QueryByExamplePredicateBuilder;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +46,9 @@ public class ObterListaTituloPublicoService {
 				.withMatcher("isin", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
 				.withMatcher("sigla", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
 		
-		val resultado = tituloPublicoRepository.findAll(Example.of(tituloPublico, matcher), pageable);
+		val resultado = tituloPublicoRepository.findAll(
+				getVencimentoAndExample(filter.getDataVencimentoInicio(), filter.getDataVencimentoFim(), Example.of(tituloPublico, matcher)), 
+				pageable);
 		val mensagem = resultado.getTotalElements() == 0 ? "Nenhum registro encontrado" : null;
 		
 		val page = new PageImpl<>(resultado.getContent().stream()
@@ -59,5 +67,22 @@ public class ObterListaTituloPublicoService {
 				mapper.map(page, PageOutput.class));
 
 	}
+	
+	private Specification<TituloPublico> getVencimentoAndExample(
+			  LocalDateTime inicio, LocalDateTime fim, Example<TituloPublico> example) {
 
+			    return (Specification<TituloPublico>) (root, query, builder) -> {
+			         final List<Predicate> predicates = new ArrayList<>();
+
+			         if (inicio != null) {
+			            predicates.add(builder.greaterThan(root.get("dataVencimento"), inicio));
+			         }
+			         if (fim != null) {
+			            predicates.add(builder.lessThan(root.get("dataVencimento"), fim));
+			         }
+			         predicates.add(QueryByExamplePredicateBuilder.getPredicate(root, builder, example));
+
+			         return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+			    };
+			};
 }
