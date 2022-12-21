@@ -1,19 +1,16 @@
 package br.com.poupex.investimento.recursosfinanceiros.api;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
-import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidacaoModel;
-import com.fasterxml.jackson.databind.JsonMappingException.Reference;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import lombok.val;
+
+import com.fasterxml.jackson.databind.JsonMappingException.Reference;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.PropertyBindingException;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.TypeMismatchException;
@@ -32,6 +29,15 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
+import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidacaoModel;
+import feign.FeignException;
+import lombok.RequiredArgsConstructor;
+import lombok.val;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ControllerAdvice
@@ -70,6 +76,33 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       new HttpHeaders(),
       ex.getStatus(),
       request
+    );
+  }
+
+  @ExceptionHandler(FeignException.class)
+  public ResponseEntity<?> handleFeignException(final FeignException ex, final WebRequest request) {
+    HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+    String titulo = "Erro não esperado.";
+    String message = "Ocorreu um erro interno inesperado no sistema.";
+
+    Matcher matcher = Pattern.compile("^\\[([^]]*)\\].*\\[([A-Za-z0-9]*)\\#.*")
+                      .matcher(ex.getMessage());
+
+    if (matcher.find()) {
+      status = HttpStatus.valueOf(Integer.valueOf(matcher.group(1)));
+      if (matcher.group(2).equals("GestaoInstrumentosFinanceirosApiClient"))
+        titulo = "Erro no GIF";
+      message = ex.getMessage();
+    }
+
+    return handleExceptionInternal(ex,
+      builder(
+        status,
+        titulo,
+        message,
+        "Tente novamente. Se problema persistir, entre em contato com o administrador do sistema."
+      ),
+      new HttpHeaders(), status, request
     );
   }
 

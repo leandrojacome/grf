@@ -19,15 +19,16 @@ public class InstrumentoFinanceiroGifInputOutput {
 	private Boolean ativoFinanceiro;
 	private Boolean semPassivos;
 	private Boolean semTestesSppj;
-	private Boolean mantidoVencimento;
 	
 	private InstituicaoGifInputOutput instituicao;
 	private TipoInstrumentoFinanceiroInputOutput tipoInstrumentoFinanceiro;
 	private StatusInstrumentoFinanceiroOutput statusInstrumentoFinanceiro;
     private FormaMensuracaoOutput formaMensuracao;
+    private ModeloNegocioOutput modeloNegocio;
 	
 	private Long codTipoInstrumentoFinanceiro;
 	private Long codFormaMensuracao;
 	private Long codInstituicao;
+	private Long codModeloNegocio;
 
 }

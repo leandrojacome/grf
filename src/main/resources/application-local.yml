@@ -5,9 +5,9 @@ spring:
     url: jdbc:oracle:thin:@//dboracledesenv.poupex.com.br:1521/desenv
     username: USER_GESTAO_RECURSOS_FINANCEIROS
     password: 2mGktD3ep$w3GDdgG
-#    url: jdbc:oracle:thin:@//localhost:1521/oracle
-#    username: system
-#    password: system
+  #    url: jdbc:oracle:thin:@//localhost:1521/oracle
+  #    username: system
+  #    password: system
   jpa:
     properties:
       hibernate.format_sql: true
@@ -19,6 +19,9 @@ spring:
     locations:
       - classpath:db/migration
       - classpath:db/callbacks
+  #    baseline-on-migrate: true
+  #    clean-on-validation-error: true
+  #    out-of-order: true
   mvc:
     async:
       request-timeout: -1
@@ -51,6 +54,7 @@ security:
         - gestao-instrumentos-financeiros-api:get
         - gestao-instrumentos-financeiros-api:post
         - gestao-instrumentos-financeiros-api:put
+        - gestao-instrumentos-financeiros-api:delete
       access-token-uri: https://hmlsso.poupex.com.br/f5-oauth2/v1/token
       user-authorization-uri: https://hmlsso.poupex.com.br/f5-oauth2/v1/authorize
       grant-type: client_credentials
@@ -86,6 +90,8 @@ poupex:
     secretKey: fYbMnnEtgehPNZhR
   scheduler:
     taxas: 0 5 23 * * *
+#  seguranca:
+#    habilitado: false
 ---
 barramento:
   url: http://homologaesb.poupex.com.br
