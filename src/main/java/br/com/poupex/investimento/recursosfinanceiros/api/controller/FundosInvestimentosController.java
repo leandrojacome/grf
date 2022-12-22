@@ -6,10 +6,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.FilterFundoIn
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.FundosInvestimentosInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarFundosInvestimentosService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirFundoInvestimentoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterFundoInvestimentoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaFundosInvestimentosService;
+import br.com.poupex.investimento.recursosfinanceiros.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -39,6 +36,8 @@ public class FundosInvestimentosController {
     private final ObterFundoInvestimentoService obterFundoInvestimentoService;
 
     private final ExcluirFundoInvestimentoService excluirFundoInvestimentoService;
+
+    private final AlteraFundoInvestimentoService alteraFundoInvestimentoService;
 
 
     @Operation(summary = "Cadastra Fundos de Investimentos")
@@ -92,6 +91,20 @@ public class FundosInvestimentosController {
             @Parameter(name = "id", description = "Identificador do Fundo de Investimentos")
             @PathVariable String id) {
         return ResponseEntity.ok(excluirFundoInvestimentoService.execute(id));
+    }
+
+    @Operation(summary = "Altera o Fundo de Investimentos")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Fundo de Investimentos", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = FundosInvestimentosInputOutput.class))
+            }),
+    })
+    @PutMapping("{id}")
+    public ResponseEntity<ResponseModel> update(
+            @Parameter(name = "id", description = "Identificador do Fundo de Investimentos")
+            @PathVariable final String id, @RequestBody final FundosInvestimentosInputOutput input) {
+        return ResponseEntity.ok(alteraFundoInvestimentoService.execute(id, input));
     }
 
 }
