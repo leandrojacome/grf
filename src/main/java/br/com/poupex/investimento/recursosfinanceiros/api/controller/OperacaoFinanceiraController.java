@@ -2,6 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoFinan
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoFinanceiraService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirOperacaoFinanceiraService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaOperacaoFinanceiraService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterOperacaoFinanceiraService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,6 +40,7 @@ public class OperacaoFinanceiraController {
     private final CadastrarOperacaoFinanceiraService cadastrarOperacaoFinanceiraService;
 	private final ObterListaOperacaoFinanceiraService obterListaOperacaoFinanceiraService;
 	private final ObterOperacaoFinanceiraService obterOperacaoFinanceiraService;
+	private final ExcluirOperacaoFinanceiraService excluirOperacaoFinanceiraService;
 
     @Operation(summary = "Cadastra a Operação Financeira")
     @ApiResponses({
@@ -74,6 +77,20 @@ public class OperacaoFinanceiraController {
 			@Parameter(name = "id", description = "Identificador da Operação Financeira")
 			@PathVariable final String id) {
 		return ResponseEntity.ok(obterOperacaoFinanceiraService.execute(id));
+	}
+
+	@Operation(summary = "Exclui a Operação Financeira")
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", description = "Operação Financeira excluída", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class))
+
+			}),
+	})
+	@DeleteMapping("{id}")
+	public ResponseEntity<ResponseModel> delete(
+			@Parameter(name = "id", description = "Identificador da Operação Financeira")
+			@PathVariable final String id) {
+		return ResponseEntity.ok(excluirOperacaoFinanceiraService.execute(id));
 	}
 
 }
