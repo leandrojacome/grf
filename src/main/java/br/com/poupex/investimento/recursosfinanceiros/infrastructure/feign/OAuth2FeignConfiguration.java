@@ -11,7 +11,7 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 @Configuration
 public class OAuth2FeignConfiguration {
     @Bean
-    @ConditionalOnProperty(name = "security.oauth2.client.id", havingValue = "")
+    @ConditionalOnProperty(name = "security.oauth2.client.id")
     public RequestInterceptor oauth2RestTemplate(@Qualifier("oauth2ClientContext") OAuth2ClientContext oauth2ClientContext,
                                                  OAuth2ProtectedResourceDetails details) {
         return new OAuth2FeignRequestInterceptor(oauth2ClientContext, details);
