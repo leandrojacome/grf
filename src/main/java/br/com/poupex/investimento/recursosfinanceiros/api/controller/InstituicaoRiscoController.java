@@ -16,13 +16,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @RestController
@@ -32,75 +32,75 @@ import org.springframework.web.bind.annotation.*;
 @OpenApiResponsesPadroes
 public class InstituicaoRiscoController {
 
-  private final CadastrarInstituicaoFinanceiraRiscoService cadastrarInstituicaoFinanceiraRiscoService;
-  private final AlteraInstituicaoFinanceiraRiscoClassificacaoService alteraInstituicaoFinanceiraRiscoClassificacaoService;
-  private final ExcluirInstituicaoFinanceiraRiscoService excluirInstituicaoFinanceiraRiscoService;
-  private final AlteraInstituicaoFinanceiraRiscoResumoService alteraInstituicaoFinanceiraRiscoResumoService;
+    private final CadastrarInstituicaoFinanceiraRiscoService cadastrarInstituicaoFinanceiraRiscoService;
+    private final AlteraInstituicaoFinanceiraRiscoClassificacaoService alteraInstituicaoFinanceiraRiscoClassificacaoService;
+    private final ExcluirInstituicaoFinanceiraRiscoService excluirInstituicaoFinanceiraRiscoService;
+    private final AlteraInstituicaoFinanceiraRiscoResumoService alteraInstituicaoFinanceiraRiscoResumoService;
 
-  @Operation(summary = "Adiciona/Altera um Risco da Instituição Financeira")
-  @ApiResponses({
-    @ApiResponse(responseCode = "200", description = "Risco salvo", content = {
-      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInputRisco.class))
-    }),
-  })
-  @Parameters({
-    @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
-  })
-  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public ResponseEntity<ResponseModel> create(@PathVariable final String id, @Valid @ModelAttribute final RiscoInputRisco input) {
-    return ResponseEntity.ok(cadastrarInstituicaoFinanceiraRiscoService.execute(id, input));
-  }
+    @Operation(summary = "Adiciona/Altera um Risco da Instituição Financeira")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Risco salvo", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInputRisco.class))
+            }),
+    })
+    @Parameters({
+            @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
+    })
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ResponseModel> create(@PathVariable final String id, @Valid @ModelAttribute final RiscoInputRisco input) {
+        return ResponseEntity.ok(cadastrarInstituicaoFinanceiraRiscoService.execute(id, input));
+    }
 
-  @Operation(summary = "Altera Classificacao do Risco da Instituição Financeira")
-  @ApiResponses({
-    @ApiResponse(responseCode = "200", description = "Risco salvo", content = {
-      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInputRisco.class))
-    }),
-  })
-  @Parameters({
-    @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
-  })
-  @PutMapping("{risco}/classificacao/{classificacao}")
-  public ResponseEntity<ResponseModel> classificacao(
-    @PathVariable final String id, @PathVariable final String risco, @PathVariable final InstituicaoFinanceiraRiscoClassificacao classificacao
-  ) {
-    return ResponseEntity.ok(alteraInstituicaoFinanceiraRiscoClassificacaoService.execute(id, risco, classificacao));
-  }
+    @Operation(summary = "Altera Classificacao do Risco da Instituição Financeira")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Risco salvo", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInputRisco.class))
+            }),
+    })
+    @Parameters({
+            @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
+    })
+    @PutMapping("{risco}/classificacao/{classificacao}")
+    public ResponseEntity<ResponseModel> classificacao(
+            @PathVariable final String id, @PathVariable final String risco, @PathVariable final InstituicaoFinanceiraRiscoClassificacao classificacao
+    ) {
+        return ResponseEntity.ok(alteraInstituicaoFinanceiraRiscoClassificacaoService.execute(id, risco, classificacao));
+    }
 
-  @Operation(summary = "Exclui o Risco atual da Instituição Financeira")
-  @ApiResponses({
-    @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
-      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-    }),
-  })
-  @Parameters({
-    @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
-    @Parameter(name = "risco", description = "Identificador do Risco"),
-  })
-  @DeleteMapping("{risco}")
-  public ResponseEntity<ResponseModel> delete(@PathVariable final String id, @PathVariable final String risco) {
-    log.debug(String.format("Instituição (%s)", id));
-    return ResponseEntity.ok(excluirInstituicaoFinanceiraRiscoService.execute(risco));
-  }
+    @Operation(summary = "Exclui o Risco atual da Instituição Financeira")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+            }),
+    })
+    @Parameters({
+            @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
+            @Parameter(name = "risco", description = "Identificador do Risco"),
+    })
+    @DeleteMapping("{risco}")
+    public ResponseEntity<ResponseModel> delete(@PathVariable final String id, @PathVariable final String risco) {
+        log.debug(String.format("Instituição (%s)", id));
+        return ResponseEntity.ok(excluirInstituicaoFinanceiraRiscoService.execute(risco));
+    }
 
-  @Operation(summary = "Altera Resumo do risco")
-  @ApiResponses({
-    @ApiResponse(responseCode = "200", description = "Risco salvo", content = {
-      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInputRisco.class))
-    }),
-  })
-  @Parameters({
-    @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
-  })
-  @PutMapping(value = "{risco}/resumo", consumes = MediaType.TEXT_PLAIN_VALUE)
-  public ResponseEntity<ResponseModel> resumo(
-    @PathVariable final String id, @PathVariable final String risco, @RequestBody final String resumo
-  ) {
-    return ResponseEntity.ok(alteraInstituicaoFinanceiraRiscoResumoService.execute(id, risco, resumo));
-  }
+    @Operation(summary = "Altera Resumo do risco")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Risco salvo", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoInputRisco.class))
+            }),
+    })
+    @Parameters({
+            @Parameter(name = "id", description = "Identificador da Instituição Financeira"),
+    })
+    @PutMapping(value = "{risco}/resumo", consumes = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<ResponseModel> resumo(
+            @PathVariable final String id, @PathVariable final String risco, @RequestBody final String resumo
+    ) {
+        return ResponseEntity.ok(alteraInstituicaoFinanceiraRiscoResumoService.execute(id, risco, resumo));
+    }
 
 
 }
