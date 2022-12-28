@@ -1,6 +1,5 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.PeriodoCupom;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
@@ -41,9 +40,9 @@ public class OperacaoFinanceiraInput {
     @NotNull
     private LocalDateTime dataVencimento;
     @NotNull
-    private InstituicaoFinanceira emissor;
+    private String emissor;
     @NotNull
-    private InstituicaoFinanceira contraparte;
+    private String contraparte;
     @NotNull
     private TipoTaxa tipoTaxa;
     @NotNull
