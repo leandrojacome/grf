@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.SiglaTipoInstrumentoFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoInstrumentoFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.TipoInstrumentoFinanceiroInputOutput;
@@ -16,15 +17,21 @@ public class ObterTipoInstrumentoFinanceiroService {
 
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
-	private final TipoInstrumentoFinanceiroInputOutput tituloPrivado = new TipoInstrumentoFinanceiroInputOutput(null, "Título Privado", "TPV", true);
+	private final TipoInstrumentoFinanceiroInputOutput tituloPrivado = new TipoInstrumentoFinanceiroInputOutput(
+			null, "Título Privado", SiglaTipoInstrumentoFinanceiro.TPV.name(), true
+			);
 	private static final String pesquisaTituloPrivado = "[Tt][Iií][Tt][Uu][Ll][Oo] [Pp][Rr][Ii][Vv][Aa][Dd][Oo]";
 	private static final String pesquisaSiglaTPV = "TPV";
 	
-	private final TipoInstrumentoFinanceiroInputOutput tituloPublico = new TipoInstrumentoFinanceiroInputOutput(null, "Título Público", "TPF", true);
+	private final TipoInstrumentoFinanceiroInputOutput tituloPublico = new TipoInstrumentoFinanceiroInputOutput(
+			null, "Título Público", SiglaTipoInstrumentoFinanceiro.TPF.name(), true
+			);
 	private static final String pesquisaTituloPublico = "[Tt][Iíi][Tt][Uu][Ll][Oo] [Pp][Uúu][Bb][Ll][Ii][Cc][Oo]";
 	private static final String pesquisaSiglaTPF = "TPF";
 	
-	private final TipoInstrumentoFinanceiroInputOutput fundoInvestimento = new TipoInstrumentoFinanceiroInputOutput(null, "Fundo de Investimento", "FIV", true);
+	private final TipoInstrumentoFinanceiroInputOutput fundoInvestimento = new TipoInstrumentoFinanceiroInputOutput(
+			null, "Fundo de Investimento", SiglaTipoInstrumentoFinanceiro.FIV.name(), true
+			);
 	private static final String pesquisaFundoInvestimento = "[Ff][Uu][Nn][Dd][Oo] [Dd][Ee] [Ii][Nn][Vv][Ee][Ss][Tt][Ii][Mm][Ee][Nn][Tt][Oo]";
 	private static final String pesquisaSiglaFIV = "FIV";
 
