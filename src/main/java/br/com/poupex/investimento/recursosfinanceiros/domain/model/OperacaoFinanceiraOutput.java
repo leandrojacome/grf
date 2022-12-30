@@ -1,17 +1,18 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.PeriodoCupom;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoTaxa;
 import lombok.Data;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 @Data
 public class OperacaoFinanceiraOutput {
 
+	private String id;
     private Long numeroOperacao;
     private TipoMercado tipoMercado;
     private Long instrumentoFinanceiroGifCodigo;
