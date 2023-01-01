@@ -1,9 +1,13 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRisco;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRiscoArquivo;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoArquivoInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoArquivoOutput;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.DownloadInstituicaoFinanceiraRiscoArquivoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirInstituicaoFinanceiraRiscoArquivoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ManterInstituicaoFinanceiraRiscoArquivoService;
@@ -34,6 +38,7 @@ public class InstituicaoRiscoArquivoController {
   private final DownloadInstituicaoFinanceiraRiscoArquivoService downloadInstituicaoFinanceiraRiscoArquivoService;
   private final ExcluirInstituicaoFinanceiraRiscoArquivoService excluirInstituicaoFinanceiraRiscoArquivoService;
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraRiscoArquivo.class)
   @Operation(summary = "Substitui o arquivo do Risco da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Arquivo adicionado", content = {
@@ -70,6 +75,7 @@ public class InstituicaoRiscoArquivoController {
     return ResponseEntity.ok(downloadInstituicaoFinanceiraRiscoArquivoService.execute(arquivo));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraRiscoArquivo.class)
   @Operation(summary = "Exclui o arquivo do Risco da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Alteração realizada", content = {

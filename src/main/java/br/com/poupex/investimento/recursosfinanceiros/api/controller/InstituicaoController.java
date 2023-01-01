@@ -2,10 +2,13 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ExportacaoFormato;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoAgenciaModalidade;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraTipo;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -94,6 +97,7 @@ public class InstituicaoController {
     return ResponseEntity.ok(recuperarRiscoClassificacoesPorAgenciaModalidadeService.execute(agencia));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceira.class)
   @Operation(summary = "Cadastra a Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
@@ -106,6 +110,7 @@ public class InstituicaoController {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraService.execute(input));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceira.class)
   @Operation(summary = "Altera a Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Alteração realizada", content = {
@@ -136,6 +141,7 @@ public class InstituicaoController {
     return ResponseEntity.ok(obterInstituicaoFinanceiraService.execute(id));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceira.class)
   @Operation(summary = "Exclui a Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
