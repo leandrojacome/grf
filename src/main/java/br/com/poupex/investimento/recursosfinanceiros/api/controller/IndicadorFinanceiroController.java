@@ -2,8 +2,11 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPeriodicidade;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -59,6 +62,7 @@ public class IndicadorFinanceiroController {
     return ResponseEntity.ok(recuperarIndicadorFinanceiroSiglasService.execute());
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = IndicadorFinanceiro.class)
   @Operation(summary = "Cadastra Indicador Financeiro")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
@@ -71,6 +75,7 @@ public class IndicadorFinanceiroController {
     return ResponseEntity.ok(cadastrarIndicadorFinanceiroService.execute(input));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = IndicadorFinanceiro.class)
   @Operation(summary = "Altera o Indicador Financeiro")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Alteração realizada", content = {
@@ -86,6 +91,7 @@ public class IndicadorFinanceiroController {
     return ResponseEntity.ok(editarIndicadorFinanceiro.execute(id, input));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = IndicadorFinanceiro.class)
   @Operation(summary = "Exclui o Indicador Financeiro")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
