@@ -1,9 +1,12 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRisco;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoClassificacao;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoInputRisco;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.AlteraInstituicaoFinanceiraRiscoClassificacaoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.AlteraInstituicaoFinanceiraRiscoResumoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraRiscoService;
@@ -17,7 +20,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
-import javax.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -37,6 +39,7 @@ public class InstituicaoRiscoController {
   private final ExcluirInstituicaoFinanceiraRiscoService excluirInstituicaoFinanceiraRiscoService;
   private final AlteraInstituicaoFinanceiraRiscoResumoService alteraInstituicaoFinanceiraRiscoResumoService;
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraRisco.class)
   @Operation(summary = "Adiciona/Altera um Risco da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Risco salvo", content = {
@@ -52,6 +55,7 @@ public class InstituicaoRiscoController {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraRiscoService.execute(id, input));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraRisco.class)
   @Operation(summary = "Altera Classificacao do Risco da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Risco salvo", content = {
@@ -69,6 +73,7 @@ public class InstituicaoRiscoController {
     return ResponseEntity.ok(alteraInstituicaoFinanceiraRiscoClassificacaoService.execute(id, risco, classificacao));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraRisco.class)
   @Operation(summary = "Exclui o Risco atual da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
@@ -85,6 +90,7 @@ public class InstituicaoRiscoController {
     return ResponseEntity.ok(excluirInstituicaoFinanceiraRiscoService.execute(risco));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraRisco.class)
   @Operation(summary = "Altera Resumo do risco")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Risco salvo", content = {

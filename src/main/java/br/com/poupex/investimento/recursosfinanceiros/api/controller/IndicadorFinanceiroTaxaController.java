@@ -1,11 +1,14 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiroTaxa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ExportacaoFormato;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroTaxaOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirIndicadorFinanceiroTaxaService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExportaIndicadorFinanceiroTaxasPeriodoAcumuladoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ManterIndicadorFinanceiroTaxaService;
@@ -38,6 +41,7 @@ public class IndicadorFinanceiroTaxaController {
   private final RecuperarIndicadorFinanceiroTaxasPeriodoAcumuladoService recuperarIndicadorFinanceiroTaxasPeriodoAcumuladoService;
   private final ExportaIndicadorFinanceiroTaxasPeriodoAcumuladoService exportaIndicadorFinanceiroTaxasPeriodoAcumuladoService;
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = IndicadorFinanceiroTaxa.class)
   @Operation(summary = "Mantem a Taxa do Indicador Financeiro")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Operação realizada", content = {
@@ -50,6 +54,7 @@ public class IndicadorFinanceiroTaxaController {
     return ResponseEntity.ok(manterIndicadorFinanceiroTaxaService.execute(id, input));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = IndicadorFinanceiroTaxa.class)
   @Operation(summary = "Exclui a taxa do indicador na referencia informada")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Operação realizada", content = {

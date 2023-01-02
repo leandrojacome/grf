@@ -1,8 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraEndereco;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.EnderecoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraEnderecoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.EditarInstituicaoFinanceiraEnderecoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirInstituicaoFinanceiraEnderecoService;
@@ -32,6 +35,7 @@ public class InstituicaoEnderecoController {
   private final ExcluirInstituicaoFinanceiraEnderecoService excluirInstituicaoFinanceiraEnderecoService;
   private final ObterInstituicaoFinanceiraEnderecoService obterInstituicaoFinanceiraEnderecoService;
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraEndereco.class)
   @Operation(summary = "Cadastra o Endereço da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
@@ -47,6 +51,7 @@ public class InstituicaoEnderecoController {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraEnderecoService.execute(id, input));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraEndereco.class)
   @Operation(summary = "Altera o Endereço da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Alteração realizada", content = {
@@ -62,6 +67,7 @@ public class InstituicaoEnderecoController {
     return ResponseEntity.ok(editarInstituicaoFinanceiraEnderecoService.execute(id, input));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraEndereco.class)
   @Operation(summary = "Exclui o Endereço da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {

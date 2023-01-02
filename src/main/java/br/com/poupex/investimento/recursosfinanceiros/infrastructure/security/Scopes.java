@@ -2,12 +2,15 @@ package br.com.poupex.investimento.recursosfinanceiros.infrastructure.security;
 
 public class Scopes {
 
-  public static final String GET = "GESTAO-RECURSOS-FINANCEIROS:GET";
-  public static final String POST = "GESTAO-RECURSOS-FINANCEIROS:POST";
-  public static final String PUT = "GESTAO-RECURSOS-FINANCEIROS:PUT";
-  public static final String DELETE = "GESTAO-RECURSOS-FINANCEIROS:DELETE";
+  private static final String SCOPE = "SCOPE_";
+  public static final String POST = SCOPE.concat("GESTAO-RECURSOS-FINANCEIROS:POST");
+  public static final String GET = SCOPE.concat("GESTAO-RECURSOS-FINANCEIROS:GET");
+  public static final String PUT = SCOPE.concat("GESTAO-RECURSOS-FINANCEIROS:PUT");
+  public static final String DELETE = SCOPE.concat("GESTAO-RECURSOS-FINANCEIROS:DELETE");
 
   public static String toList() {
-    return String.join(",\n", GET, POST, PUT, DELETE);
+    return String.join(",\n",
+      POST.replace(SCOPE, ""), GET.replace(SCOPE, ""), PUT.replace(SCOPE, ""), PUT.replace(DELETE, "")
+    );
   }
 }
