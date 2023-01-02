@@ -1,8 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraContato;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ContatoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraContatoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirInstituicaoFinanceiraContatoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraContatosService;
@@ -31,6 +34,7 @@ public class InstituicaoContatoController {
   private final ObterInstituicaoFinanceiraContatosService obterInstituicaoFinanceiraContatosService;
   private final ExcluirInstituicaoFinanceiraContatoService excluirInstituicaoFinanceiraContatoService;
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraContato.class)
   @Operation(summary = "Cadastra o contato da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
@@ -46,6 +50,7 @@ public class InstituicaoContatoController {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraContatoService.execute(id, input));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraContato.class)
   @Operation(summary = "Cadastra o contato da Instituição Financeira (Lista)")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
@@ -61,6 +66,7 @@ public class InstituicaoContatoController {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraContatoService.execute(id, input));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraContato.class)
   @Operation(summary = "Exclui um Contato da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {

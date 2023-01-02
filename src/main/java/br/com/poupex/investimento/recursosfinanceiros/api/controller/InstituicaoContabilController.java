@@ -1,8 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraContabil;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ContabilInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarInstituicaoFinanceiraContabilService;
 import br.com.poupex.investimento.recursosfinanceiros.service.EditarInstituicaoFinanceiraContabilService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirInstituicaoFinanceiraContabilService;
@@ -32,6 +35,7 @@ public class InstituicaoContabilController {
   private final ExcluirInstituicaoFinanceiraContabilService excluirInstituicaoFinanceiraContabilService;
   private final ObterInstituicaoFinanceiraContabilService obterInstituicaoFinanceiraContabilService;
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraContabil.class)
   @Operation(summary = "Cadastra os Dados Contábeis da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
@@ -47,6 +51,7 @@ public class InstituicaoContabilController {
     return ResponseEntity.ok(cadastrarInstituicaoFinanceiraContabilService.execute(id, input));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraContabil.class)
   @Operation(summary = "Atualiza os Dados Contábeis da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Atualização realizada", content = {
@@ -62,6 +67,7 @@ public class InstituicaoContabilController {
     return ResponseEntity.ok(editarInstituicaoFinanceiraContabilService.execute(id, input));
   }
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraContabil.class)
   @Operation(summary = "Exclui os Dados Contábeis da Instituição Financeira")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
