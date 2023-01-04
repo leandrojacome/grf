@@ -1,6 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,8 +16,8 @@ import lombok.experimental.SuperBuilder;
 public class FilterTituloPublicoInput {
 	
     private String isin;
-    private LocalDateTime dataVencimentoInicio;
-    private LocalDateTime dataVencimentoFim;
+    private LocalDate dataVencimentoInicio;
+    private LocalDate dataVencimentoFim;
     private Long codiogSelic;
     private String sigla;
     private Boolean cupom;
