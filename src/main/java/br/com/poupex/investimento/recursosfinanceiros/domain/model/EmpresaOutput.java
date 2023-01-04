@@ -1,11 +1,8 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Conta;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
-
 import java.util.List;
+import lombok.*;
 
 @Getter
 @Setter
@@ -14,7 +11,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmpresaOutput {
-  private Empresa empresa;
+
+  private String nome;
+  private String sigla;
+  private String cnpj;
   private ContaEmpresaOutput contaPadrao;
   private ContaEmpresaOutput contaSelic;
   private List<ContaEmpresaOutput> contas;

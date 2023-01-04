@@ -1,7 +1,5 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Conta;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
@@ -12,8 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContaEmpresaOutput {
-  private String numero;
-  private String agencia;
   private String tipo;
+  private String agencia;
+  private String numero;
 
 }

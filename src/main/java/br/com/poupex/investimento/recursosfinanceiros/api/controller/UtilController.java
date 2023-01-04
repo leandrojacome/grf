@@ -93,17 +93,16 @@ public class UtilController {
 
   @Operation(summary = "Recupera informações da empresa")
   @ApiResponses({
-          @ApiResponse(
-                  responseCode = "200", description = "Dados da empresa",
-                  content = {
-                          @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-                          @Content(mediaType = "application/json", schema = @Schema(implementation = EmpresaOutput.class))
-                  }),
+    @ApiResponse(
+      responseCode = "200", description = "Dados da empresa",
+      content = {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+        @Content(mediaType = "application/json", schema = @Schema(implementation = EmpresaOutput.class))
+      }),
   })
   @GetMapping("empresa/{empresa}")
-  public ResponseEntity<ResponseModel> empresa(@PathVariable String empresa){
+  public ResponseEntity<ResponseModel> empresa(@PathVariable String empresa) {
     return ResponseEntity.ok(obterEmpresaUtilService.execute(empresa));
   }
-
 
 }
