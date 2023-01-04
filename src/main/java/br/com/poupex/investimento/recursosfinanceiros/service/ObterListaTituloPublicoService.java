@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,16 +70,16 @@ public class ObterListaTituloPublicoService {
 	}
 	
 	private Specification<TituloPublico> getVencimentoAndExample(
-			  LocalDateTime inicio, LocalDateTime fim, Example<TituloPublico> example) {
+			  LocalDate inicio, LocalDate fim, Example<TituloPublico> example) {
 
 			    return (Specification<TituloPublico>) (root, query, builder) -> {
 			         final List<Predicate> predicates = new ArrayList<>();
 
 			         if (inicio != null) {
-			            predicates.add(builder.greaterThan(root.get("dataVencimento"), inicio));
+			            predicates.add(builder.greaterThan(root.get("dataVencimento"), inicio.atStartOfDay()));
 			         }
 			         if (fim != null) {
-			            predicates.add(builder.lessThan(root.get("dataVencimento"), fim));
+			            predicates.add(builder.lessThan(root.get("dataVencimento"), fim.atTime(23, 59, 59)));
 			         }
 			         predicates.add(QueryByExamplePredicateBuilder.getPredicate(root, builder, example));
 
