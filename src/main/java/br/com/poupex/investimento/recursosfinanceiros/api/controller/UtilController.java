@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.EmpresaOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.EnderecoInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstituicaoFinanceiraOutputDetalhe;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoAgenciaModalidade;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.scheduler.CarregaTaxasIndicesScheduler;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterEmpresaUtilService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaEmpresasUtilService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCepExternoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCnpjExternoService;
+import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarFormasMensuracaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,6 +30,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.Arrays;
+import java.util.Comparator;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -44,6 +46,7 @@ public class UtilController {
   private final CarregaTaxasIndicesScheduler carregaTaxasIndicesScheduler;
   private final ObterEmpresaUtilService obterEmpresaUtilService;
   private final ObterListaEmpresasUtilService obterListaEmpresasUtilService;
+  private final RecuperarFormasMensuracaoService recuperarFormasMensuracaoService;
 
   @Operation(summary = "Localiza endereços pelo CEP")
   @ApiResponses({
@@ -122,6 +125,20 @@ public class UtilController {
   @GetMapping("empresa/{empresa}")
   public ResponseEntity<ResponseModel> empresa(@PathVariable String empresa) {
     return ResponseEntity.ok(obterEmpresaUtilService.execute(empresa));
+  }
+
+  @Operation(summary = "Recupera formas de mensuração")
+  @ApiResponses({
+    @ApiResponse(
+      responseCode = "200", description = "Formas de mensuração",
+      content = {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ChaveLabelDescricaoOutput.class))
+      }),
+  })
+  @GetMapping("formas-mensuracao")
+  public ResponseEntity<ResponseModel> formasMensuracao() {
+    return ResponseEntity.ok(recuperarFormasMensuracaoService.execute());
   }
 
 }
