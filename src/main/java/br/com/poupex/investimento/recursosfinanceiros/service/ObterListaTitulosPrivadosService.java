@@ -45,8 +45,11 @@ public class ObterListaTitulosPrivadosService {
                 resultado.getTotalElements());
 
         page.getContent().stream().forEach(titulo -> {
-            var tituloPrivado = tituloPrivadoRepository.findByInstrumentoFinanceiroGifCodigo(titulo.getCodigo());
-            titulo.setId(tituloPrivado.getId());
+            try {
+                var tituloPrivado = tituloPrivadoRepository.findByInstrumentoFinanceiroGifCodigo(titulo.getCodigo());
+                titulo.setId(tituloPrivado.getId());
+            } catch (Exception ignore) {
+            }
         });
 
         return new ResponseModel(
