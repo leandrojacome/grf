@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.SiglaTipoInstrumentoFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.FilterInstrumentoFinanceiroInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.InstrumentoFinanceiroOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPrivadoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -47,7 +47,7 @@ public class ObterListaInstrumentosFinanceirosService {
 		val resultado = gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(pageable, codTipoInstrumentos, null, null, null);
 		
 		val page = new PageImpl<>(resultado.getContent().stream()
-				.map(r -> mapper.map(r, TituloPrivadoInputOutput.class)).collect(Collectors.toList()), pageable,
+				.map(r -> mapper.map(r, InstrumentoFinanceiroOutput.class)).collect(Collectors.toList()), pageable,
 				resultado.getTotalElements());
 
 		return new ResponseModel(

@@ -51,7 +51,7 @@ public class InstrumentoFinanceiroController {
     @Operation(summary = "Lista todos os Instrumentos Financeiros")
     @ApiResponses({@ApiResponse(responseCode = "200", description = "Instrumentos Financeiros", content = {
             @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-            @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = TituloPrivadoInputOutput.class)))})})
+            @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = InstrumentoFinanceiroOutput.class)))})})
     @OpenApiPaginacao
     @PostMapping("/lista")
     public ResponseEntity<ResponseModel> read(
