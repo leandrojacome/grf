@@ -63,20 +63,18 @@ public class InstrumentoFinanceiroController {
     private final CadastrarTituloPrivadoService cadastrarTituloPrivadoService;
     private final AlteraTituloPrivadoService alteraTituloPrivadoService;
     private final ExcluirTituloPrivadoService excluirTituloPrivadoService;
-
     private final CadastrarTituloPublicoService cadastrarTituloPublicoService;
     private final ObterListaTituloPublicoService obterListaTituloPublicoService;
     private final ObterTituloPublicoService obterTituloPublicoService;
     private final AlteraTituloPublicoService alteraTituloPublicoService;
     private final ExcluirTituloPublicoService excluirTituloPublicoService;
-
     private final CadastrarFundosInvestimentosService cadastrarFundosInvestimentosService;
     private final ObterListaFundosInvestimentosService obterListaFundosInvestimentosService;
     private final ObterFundoInvestimentoService obterFundoInvestimentoService;
     private final ExcluirFundoInvestimentoService excluirFundoInvestimentoService;
     private final AlteraFundoInvestimentoService alteraFundoInvestimentoService;
-
     private final ObterListaInstrumentosFinanceirosService obterListaInstrumentosFinanceirosService;
+    private final PesquisarTituloPublicoPorNomeSiglaService pesquisarTituloPublicoPorNomeSiglaService;
 
     // Instrumentos Financeiros
 
@@ -300,6 +298,20 @@ public class InstrumentoFinanceiroController {
             @Parameter(name = "id", description = "Identificador do Fundo de Investimentos")
             @PathVariable final String id, @RequestBody final FundosInvestimentosInputOutput input) {
         return ResponseEntity.ok(alteraFundoInvestimentoService.execute(id, input));
+    }
+
+    @Operation(summary = "Lista todas Títulos Públicos(Filtra Nome/Sigla)")
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "Títulos Públicos", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+      @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class),
+        array = @ArraySchema(schema = @Schema(implementation = TituloPublicoInputOutput.class)))
+    })})
+    @OpenApiPaginacao
+    @GetMapping("/titulos-publicos/por-nome")
+    public ResponseEntity<ResponseModel> nome(
+      @RequestParam(required = false) final String sigla
+    ) {
+        return ResponseEntity.ok(pesquisarTituloPublicoPorNomeSiglaService.execute(sigla));
     }
 
 }

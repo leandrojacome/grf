@@ -34,7 +34,7 @@ public class PesquisarInstituicoesFinanceirasService {
 
   public Specification<InstituicaoFinanceira> spec(String nome, String cnpj, InstituicaoFinanceiraTipo tipo, String grupo) {
     return ExecutionUtil.and(
-      instituicaoFinanceiraRepository.init(),
+      instituicaoFinanceiraRepository.id(),
       new ArrayList<>() {{
         add(instituicaoFinanceiraRepository.nome(nome));
         add(instituicaoFinanceiraRepository.cnpj(cnpj));
