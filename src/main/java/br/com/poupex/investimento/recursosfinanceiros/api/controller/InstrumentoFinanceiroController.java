@@ -307,7 +307,7 @@ public class InstrumentoFinanceiroController {
         array = @ArraySchema(schema = @Schema(implementation = TituloPublicoInputOutput.class)))
     })})
     @OpenApiPaginacao
-    @GetMapping("/titulos-publicos/por-nome")
+    @GetMapping("/titulos-publicos/por-sigla")
     public ResponseEntity<ResponseModel> nome(
       @RequestParam(required = false) final String sigla
     ) {
