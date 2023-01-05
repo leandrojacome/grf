@@ -10,29 +10,29 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.EntidadeEmUsoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.OperacaoFinanceiraRepository;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.OperacaoRendaFixaDefinitivaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 
 @Service
 @RequiredArgsConstructor
-public class ExcluirOperacaoFinanceiraService {
+public class ExcluirOperacaoRendaFixaDefinitivaService {
 
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
-	private final ObterOperacaoFinanceiraService obterOperacaoFinanceiraService;
-	private final OperacaoFinanceiraRepository operacaoFinanceiraRepository;
+	private final ObterOperacaoRendaFixaDefinitivaService obterOperacaoRendaFixaDefinitivaService;
+	private final OperacaoRendaFixaDefinitivaRepository operacaoRendaFixaDefinitivaRepository;
 
 	@Transactional
 	public ResponseModel execute(final String id) {
-		val codigoGif = obterOperacaoFinanceiraService.id(id).getInstrumentoFinanceiro()
+		val codigoGif = obterOperacaoRendaFixaDefinitivaService.id(id).getInstrumentoFinanceiro()
 				.getInstrumentoFinanceiroGifCodigo();
 
 		if (gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif) != null)
 			gestaoInstrumentosFinanceirosApiClient.deteleInstrumentoFinanceiro(codigoGif);
 		
 		try {
-			operacaoFinanceiraRepository.deleteById(id);
-			operacaoFinanceiraRepository.flush();
+			operacaoRendaFixaDefinitivaRepository.deleteById(id);
+			operacaoRendaFixaDefinitivaRepository.flush();
 		} catch (EntidadeEmUsoException | DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException("Operação Financeira");
 		}

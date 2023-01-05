@@ -4,9 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoFinanceira;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaDefinitiva;
 
-public interface OperacaoFinanceiraRepository extends JpaRepository<OperacaoFinanceira, String>, JpaSpecificationExecutor<OperacaoFinanceira> {
+public interface OperacaoRendaFixaDefinitivaRepository extends JpaRepository<OperacaoRendaFixaDefinitiva, String>, JpaSpecificationExecutor<OperacaoRendaFixaDefinitiva> {
 
 	Boolean existsByInstrumentoFinanceiroInstrumentoFinanceiroGifCodigo(Long codigo);
 

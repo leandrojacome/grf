@@ -24,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "OPERACAO_FINANCEIRA", schema = "GESTAO_RECURSOS_FINANCEIROS")
-public class OperacaoFinanceira extends AbstractEntidadeBase {
+public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
 
     @Column(name = "NUMERO_OPERACAO", unique = true, nullable = false, updatable = false)
     private Long numeroOperacao;

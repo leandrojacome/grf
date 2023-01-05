@@ -7,20 +7,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.OperacaoFinanceiraRepository;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.OperacaoRendaFixaDefinitivaRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ObterListaOperacaoFinanceiraService {
+public class ObterListaOperacaoRendaFixaDefinitivaService {
 
-	private final OperacaoFinanceiraRepository operacaoFinanceiraRepository;
+	private final OperacaoRendaFixaDefinitivaRepository operacaoRendaFixaDefinitivaRepository;
 	
 	public ResponseModel execute(Pageable pageable) {
 		return new ResponseModel(
 				LocalDateTime.now(), 
 				HttpStatus.OK.value(), 
 				null, null, null, null,
-				operacaoFinanceiraRepository.findAll(pageable));
+				operacaoRendaFixaDefinitivaRepository.findAll(pageable));
 	}
 }

@@ -1,8 +1,8 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
-import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoFinanceira;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoFinanceiraInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaDefinitiva;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaDefinitivaInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInput;
 import lombok.val;
 import org.modelmapper.ModelMapper;
@@ -12,16 +12,16 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class OperacaoFinanceiraInputConverter {
+public class OperacaoRendaFixaDefinitivaInputConverter {
 
     private final ModelMapper intern = new ModelMapper();
 
-    public OperacaoFinanceiraInputConverter(final ModelMapper mapper) {
-        mapper.createTypeMap(OperacaoFinanceiraInput.class, OperacaoFinanceiraGifInput.class).setConverter(this::converterToInputDTO);
-        mapper.createTypeMap(OperacaoFinanceiraInput.class, OperacaoFinanceira.class).setConverter(this::converterToEntity);
+    public OperacaoRendaFixaDefinitivaInputConverter(final ModelMapper mapper) {
+        mapper.createTypeMap(OperacaoRendaFixaDefinitivaInput.class, OperacaoFinanceiraGifInput.class).setConverter(this::converterToInputDTO);
+        mapper.createTypeMap(OperacaoRendaFixaDefinitivaInput.class, OperacaoRendaFixaDefinitiva.class).setConverter(this::converterToEntity);
     }
 
-    public OperacaoFinanceiraGifInput converterToInputDTO(MappingContext<? extends OperacaoFinanceiraInput, OperacaoFinanceiraGifInput> context) {
+    public OperacaoFinanceiraGifInput converterToInputDTO(MappingContext<? extends OperacaoRendaFixaDefinitivaInput, OperacaoFinanceiraGifInput> context) {
         val input = context.getSource();
         val operacao = intern.map(input, OperacaoFinanceiraGifInput.class);
 
@@ -38,9 +38,9 @@ public class OperacaoFinanceiraInputConverter {
         return operacao;
     }
 
-    public OperacaoFinanceira converterToEntity(MappingContext<? extends OperacaoFinanceiraInput, OperacaoFinanceira> context) {
+    public OperacaoRendaFixaDefinitiva converterToEntity(MappingContext<? extends OperacaoRendaFixaDefinitivaInput, OperacaoRendaFixaDefinitiva> context) {
         var input = context.getSource();
-        var entity = intern.map(input, OperacaoFinanceira.class);
+        var entity = intern.map(input, OperacaoRendaFixaDefinitiva.class);
 
         var instituicaoEmissor = new InstituicaoFinanceira();
         var instituicaoContraparte = new InstituicaoFinanceira();

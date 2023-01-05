@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoFinanceiraInput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoFinanceiraOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaDefinitivaInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaDefinitivaOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.service.AlteraOperacaoFinanceiraService;
-import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoFinanceiraService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirOperacaoFinanceiraService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaOperacaoFinanceiraService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterOperacaoFinanceiraService;
+import br.com.poupex.investimento.recursosfinanceiros.service.AlteraOperacaoRendaFixaDefinitivaService;
+import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoRendaFixaDefinitivaService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirOperacaoRendaFixaDefinitivaService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaOperacaoRendaFixaDefinitivaService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ObterOperacaoRendaFixaDefinitivaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -39,50 +39,50 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Tag(name = "Operações Financeiras")
 @OpenApiResponsesPadroes
-public class OperacaoFinanceiraController {
+public class OperacaoRendaFixaDefinitivaController {
 
-    private final CadastrarOperacaoFinanceiraService cadastrarOperacaoFinanceiraService;
-    private final ObterListaOperacaoFinanceiraService obterListaOperacaoFinanceiraService;
-    private final ObterOperacaoFinanceiraService obterOperacaoFinanceiraService;
-    private final ExcluirOperacaoFinanceiraService excluirOperacaoFinanceiraService;
+    private final CadastrarOperacaoRendaFixaDefinitivaService cadastrarOperacaoRendaFixaDefinitivaService;
+    private final ObterListaOperacaoRendaFixaDefinitivaService obterListaOperacaoRendaFixaDefinitivaService;
+    private final ObterOperacaoRendaFixaDefinitivaService obterOperacaoRendaFixaDefinitivaService;
+    private final ExcluirOperacaoRendaFixaDefinitivaService excluirOperacaoRendaFixaDefinitivaService;
 
-    private final AlteraOperacaoFinanceiraService alteraOperacaoFinanceiraService;
+    private final AlteraOperacaoRendaFixaDefinitivaService alteraOperacaoRendaFixaDefinitivaService;
 
     @Operation(summary = "Cadastra a Operação Financeira")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = OperacaoFinanceiraOutput.class))
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = OperacaoRendaFixaDefinitivaOutput.class))
             }),
     })
     @PostMapping
-    public ResponseEntity<ResponseModel> create(@RequestBody final OperacaoFinanceiraInput input) {
-        return ResponseEntity.ok(cadastrarOperacaoFinanceiraService.execute(input));
+    public ResponseEntity<ResponseModel> create(@RequestBody final OperacaoRendaFixaDefinitivaInput input) {
+        return ResponseEntity.ok(cadastrarOperacaoRendaFixaDefinitivaService.execute(input));
     }
 
     @Operation(summary = "Lista todas Operações Financeiras")
     @ApiResponses({@ApiResponse(responseCode = "200", description = "Operações Financeiras", content = {
             @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-            @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = OperacaoFinanceiraOutput.class)))})})
+            @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class), array = @ArraySchema(schema = @Schema(implementation = OperacaoRendaFixaDefinitivaOutput.class)))})})
     @OpenApiPaginacao
     @GetMapping
     public ResponseEntity<ResponseModel> read(
             @Parameter(hidden = true) final Pageable pageable) {
-        return ResponseEntity.ok(obterListaOperacaoFinanceiraService.execute(pageable));
+        return ResponseEntity.ok(obterListaOperacaoRendaFixaDefinitivaService.execute(pageable));
     }
 
     @Operation(summary = "Detalha a Operação Financeira")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Operação Financeira detalhada", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = OperacaoFinanceiraOutput.class))
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = OperacaoRendaFixaDefinitivaOutput.class))
             }),
     })
     @GetMapping("{id}")
     public ResponseEntity<ResponseModel> read(
             @Parameter(name = "id", description = "Identificador da Operação Financeira")
             @PathVariable final String id) {
-        return ResponseEntity.ok(obterOperacaoFinanceiraService.execute(id));
+        return ResponseEntity.ok(obterOperacaoRendaFixaDefinitivaService.execute(id));
     }
 
     @Operation(summary = "Exclui a Operação Financeira")
@@ -96,23 +96,23 @@ public class OperacaoFinanceiraController {
     public ResponseEntity<ResponseModel> delete(
             @Parameter(name = "id", description = "Identificador da Operação Financeira")
             @PathVariable final String id) {
-        return ResponseEntity.ok(excluirOperacaoFinanceiraService.execute(id));
+        return ResponseEntity.ok(excluirOperacaoRendaFixaDefinitivaService.execute(id));
     }
 
     @Operation(summary = "Atualiza a Operação Financeira")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Atualização realizada", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-                    @Content(mediaType = "application/json", schema = @Schema(implementation = OperacaoFinanceiraOutput.class))
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = OperacaoRendaFixaDefinitivaOutput.class))
             })
     })
     @PutMapping("{id}")
     public ResponseEntity<ResponseModel> update(
             @Parameter(name = "id", description = "Identificador da Operação Financeira")
             @PathVariable final String id,
-            @RequestBody @Valid OperacaoFinanceiraInput input
+            @RequestBody @Valid OperacaoRendaFixaDefinitivaInput input
     ) {
-        return ResponseEntity.ok(alteraOperacaoFinanceiraService.execute(id, input));
+        return ResponseEntity.ok(alteraOperacaoRendaFixaDefinitivaService.execute(id, input));
     }
 
 }

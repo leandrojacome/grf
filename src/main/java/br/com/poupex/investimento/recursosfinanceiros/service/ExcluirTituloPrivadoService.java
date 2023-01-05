@@ -14,11 +14,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ExcluirTituloPrivadoService {
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
-	private final ObterOperacaoFinanceiraService obterOperacaoFinanceiraService;
+	private final ObterOperacaoRendaFixaDefinitivaService obterOperacaoRendaFixaDefinitivaService;
 	
 	public ResponseModel execute(final Long codigo) {
 		
-		if (obterOperacaoFinanceiraService.existsCodigoGif(codigo)) {
+		if (obterOperacaoRendaFixaDefinitivaService.existsCodigoGif(codigo)) {
 			throw new EntidadeEmUsoException("Título Privado");
 		}
 		

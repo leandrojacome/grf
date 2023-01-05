@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CadastrarOperacaoFinanceiraGifService {
+public class CadastrarOperacaoRendaFixaDefinitivaGifService {
 
     private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
