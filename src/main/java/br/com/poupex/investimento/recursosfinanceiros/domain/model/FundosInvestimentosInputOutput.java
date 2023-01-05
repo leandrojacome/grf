@@ -4,9 +4,10 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Classificacao
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Cota;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Nivel;
-
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.StringUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CNPJ;
@@ -15,18 +16,21 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+import static br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.StringUtil.unmask;
+
 @Getter
 @Setter
 public class FundosInvestimentosInputOutput {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String id;
-    
+
     @JsonIgnore
     private Long instrumentoFinanceiroGifCodigo;
 
     @NotBlank
     @CNPJ
+    @Setter(AccessLevel.NONE)
     private String cnpj;
 
     @NotBlank
@@ -79,8 +83,12 @@ public class FundosInvestimentosInputOutput {
 
     @NotNull
     private Nivel nivel;
-    
+
     @NotNull
     private String sigla;
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = unmask(cnpj);
+    }
 
 }

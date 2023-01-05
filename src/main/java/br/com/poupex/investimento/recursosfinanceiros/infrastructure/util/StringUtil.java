@@ -33,4 +33,9 @@ public class StringUtil {
     return null;
   }
 
+  public static String unmask(String value) {
+    if (Objects.isNull(value) || value.isEmpty()) return value;
+    return value.replaceAll("\\D+", "");
+  }
+
 }

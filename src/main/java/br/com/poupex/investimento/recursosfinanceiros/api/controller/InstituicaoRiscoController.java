@@ -26,6 +26,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequestMapping("instituicoes/{id}/riscos")
@@ -34,10 +36,10 @@ import org.springframework.web.bind.annotation.*;
 @OpenApiResponsesPadroes
 public class InstituicaoRiscoController {
 
-  private final CadastrarInstituicaoFinanceiraRiscoService cadastrarInstituicaoFinanceiraRiscoService;
-  private final AlteraInstituicaoFinanceiraRiscoClassificacaoService alteraInstituicaoFinanceiraRiscoClassificacaoService;
-  private final ExcluirInstituicaoFinanceiraRiscoService excluirInstituicaoFinanceiraRiscoService;
-  private final AlteraInstituicaoFinanceiraRiscoResumoService alteraInstituicaoFinanceiraRiscoResumoService;
+    private final CadastrarInstituicaoFinanceiraRiscoService cadastrarInstituicaoFinanceiraRiscoService;
+    private final AlteraInstituicaoFinanceiraRiscoClassificacaoService alteraInstituicaoFinanceiraRiscoClassificacaoService;
+    private final ExcluirInstituicaoFinanceiraRiscoService excluirInstituicaoFinanceiraRiscoService;
+    private final AlteraInstituicaoFinanceiraRiscoResumoService alteraInstituicaoFinanceiraRiscoResumoService;
 
   @AuditarTipo(tipo = AuditoriaTipo.API, recurso = InstituicaoFinanceiraRisco.class)
   @Operation(summary = "Adiciona/Altera um Risco da Instituição Financeira")
