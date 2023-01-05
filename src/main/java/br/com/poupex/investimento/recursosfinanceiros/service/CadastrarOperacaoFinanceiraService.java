@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class CadastrarOperacaoFinanceiraService {
 	private final GerarNumeroOperacaoService gerarNumeroOperacao;
 	private final OperacaoFinanceiraRepository operacaoFinanceiraRepository;
+	private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
 
 	private final CadastrarOperacaoFinanceiraGifService cadastrarOperacaoFinanceiraGifService;
 	private final ModelMapper mapper;
@@ -29,10 +30,18 @@ public class CadastrarOperacaoFinanceiraService {
 		var inputGif = mapper.map(input, OperacaoFinanceiraGifInput.class);
 		inputGif.setNumeroOperacao(numeroOperacao);
 
-		cadastrarOperacaoFinanceiraGifService.cadastrar(inputGif);
+		Long codigoGif = cadastrarOperacaoFinanceiraGifService.cadastrar(inputGif);
+		
+		// enquanto o GIF nao retorna o codigo
+		// quando retornar o codigo, colocar indice unico no OPERACAO_GIF_CODIGO
+		codigoGif = (codigoGif == null? 0 : codigoGif);
 
+		var instrumentoFinanceiro = obterInstrumentoFinanceiroService.id(input.getIdInstrumentoFinanceiro());
 		var operacaoFinanceira = mapper.map(input, OperacaoFinanceira.class);
+		
 		operacaoFinanceira.setNumeroOperacao(numeroOperacao);
+		operacaoFinanceira.setOperacaoGifCodigo(codigoGif);
+		operacaoFinanceira.setInstrumentoFinanceiro(instrumentoFinanceiro);
 
 		var dto = mapper.map(operacaoFinanceiraRepository.save(operacaoFinanceira),
 				OperacaoFinanceiraOutput.class);

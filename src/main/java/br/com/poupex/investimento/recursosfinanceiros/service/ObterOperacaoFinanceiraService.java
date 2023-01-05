@@ -37,6 +37,6 @@ public class ObterOperacaoFinanceiraService {
     }
 
     public Boolean existsCodigoGif(Long codigo) {
-        return operacaoFinanceiraRepository.existsByInstrumentoFinanceiroGifCodigo(codigo);
+        return operacaoFinanceiraRepository.existsByInstrumentoFinanceiroInstrumentoFinanceiroGifCodigo(codigo);
     }
 }

@@ -1,5 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.FilterTituloPrivadoInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPrivadoInputOutput;
@@ -28,17 +30,17 @@ public class ObterListaTitulosPrivadosService {
     private final ModelMapper mapper;
 
     public ResponseModel execute(FilterTituloPrivadoInput filter, Pageable pageable) {
-        Long codTipo;
         Long codMensuracao = null;
+		List<Long> codsTipos = new ArrayList<>();
 
         filter = (filter == null ? new FilterTituloPrivadoInput() : filter);
 
-        codTipo = obterTipoInstrumentoFinanceiroService.getCodTituloPrivado();
+		codsTipos.add(obterTipoInstrumentoFinanceiroService.getCodTituloPrivado());
 
         if (filter.getFormaMensuracao() != null)
             codMensuracao = filter.getFormaMensuracao().getCodigo();
 
-        val resultado = gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(pageable, codTipo, filter.getNome(), filter.getSigla(), codMensuracao);
+		val resultado = gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(pageable, codsTipos, filter.getNome(), filter.getSigla(), codMensuracao);
 
         val page = new PageImpl<>(resultado.getContent().stream()
                 .map(r -> mapper.map(r, TituloPrivadoInputOutput.class)).collect(Collectors.toList()), pageable,

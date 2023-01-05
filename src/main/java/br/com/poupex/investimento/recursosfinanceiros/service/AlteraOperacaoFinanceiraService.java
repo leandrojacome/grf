@@ -26,7 +26,7 @@ public class AlteraOperacaoFinanceiraService {
     public ResponseModel execute(final String id, final OperacaoFinanceiraInput input) {
 
         var operacaoGrf = obterOperacaoFinanceiraService.id(id);
-        var codigoGif = operacaoGrf.getInstrumentoFinanceiroGifCodigo();
+        var codigoGif = operacaoGrf.getInstrumentoFinanceiro().getInstrumentoFinanceiroGifCodigo();
         var operacaoGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif);
 
         BeanUtils.copyProperties(mapper.map(input, OperacaoFinanceira.class), operacaoGrf,

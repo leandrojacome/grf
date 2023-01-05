@@ -24,7 +24,8 @@ public class ExcluirOperacaoFinanceiraService {
 
 	@Transactional
 	public ResponseModel execute(final String id) {
-		val codigoGif = obterOperacaoFinanceiraService.id(id).getInstrumentoFinanceiroGifCodigo();
+		val codigoGif = obterOperacaoFinanceiraService.id(id).getInstrumentoFinanceiro()
+				.getInstrumentoFinanceiroGifCodigo();
 
 		if (gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif) != null)
 			gestaoInstrumentosFinanceirosApiClient.deteleInstrumentoFinanceiro(codigoGif);

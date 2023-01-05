@@ -24,7 +24,7 @@ public class OperacaoFinanceiraInput {
     @NotNull
     private TipoMercado tipoMercado;
     @NotNull
-    private Long instrumentoFinanceiroGifCodigo;
+    private String idInstrumentoFinanceiro;
     @NotBlank
     @Size(max = 30)
     private String instrumentoFinanceiroGrfCodigo;

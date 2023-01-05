@@ -1,5 +1,16 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.PeriodoCupom;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
@@ -7,10 +18,6 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoTaxa;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -25,12 +32,16 @@ public class OperacaoFinanceira extends AbstractEntidadeBase {
     @Column(name = "INSTITUICAO_GIF_CODIGO", nullable = false)
     private Long instituicaoGifCodigo;
 
+    @Column(name = "OPERACAO_GIF_CODIGO", nullable = false)
+    private Long operacaoGifCodigo;
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "TIPO_MERCADO", nullable = false)
     private TipoMercado tipoMercado;
     
-    @Column(name = "INSTRUMENTO_FINANCEIRO_GIF_CODIGO", nullable = false)
-    private Long instrumentoFinanceiroGifCodigo;
+    @ManyToOne
+    @JoinColumn(name = "INSTRUMENTO_FINANCEIRO")
+    private InstrumentoFinanceiro instrumentoFinanceiro;
     
     @Column(name = "INSTRUMENTO_FINANCEIRO_GRF_CODIGO", nullable = false, length = 30)
     private String instrumentoFinanceiroGrfCodigo;

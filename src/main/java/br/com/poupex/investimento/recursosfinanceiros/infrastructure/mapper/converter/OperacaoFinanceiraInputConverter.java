@@ -33,7 +33,7 @@ public class OperacaoFinanceiraInputConverter {
         operacao.setTaxaDias(intern.map(input.getDiasUteis(), Boolean.class));
         operacao.setCodInstituicao(intern.map(input.getInstituicaoGifCodigo(), Long.class));
         operacao.setCodFormaMensuracao(intern.map(input.getFormaMensuracao().getCodigo(), Long.class));
-        operacao.setCodInstrumentoFinanceiro(intern.map(input.getInstrumentoFinanceiroGifCodigo(), Long.class));
+//        operacao.setCodInstrumentoFinanceiro(intern.map(input.getInstrumentoFinanceiroGifCodigo(), Long.class));
 
         return operacao;
     }

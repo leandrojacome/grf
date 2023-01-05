@@ -13,9 +13,9 @@ public class CadastrarOperacaoFinanceiraGifService {
 
     private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
-    public void cadastrar(OperacaoFinanceiraGifInput input){
+    public Long cadastrar(OperacaoFinanceiraGifInput input){
         try {
-            gestaoInstrumentosFinanceirosApiClient.createOperacao(input);
+            return gestaoInstrumentosFinanceirosApiClient.createOperacao(input);
         } catch (FeignException.BadRequest e){
             throw new RecursoNaoEncontradoException("Operacação Financeira", e.getMessage());
         }

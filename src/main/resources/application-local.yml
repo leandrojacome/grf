@@ -2,12 +2,12 @@ spring:
   application:
     name: '@project.artifactId@'
   datasource:
-    url: jdbc:oracle:thin:@//dboracledesenv.poupex.com.br:1521/desenv
-    username: USER_GESTAO_RECURSOS_FINANCEIROS
-    password: 2mGktD3ep$w3GDdgG
-#    url: jdbc:oracle:thin:@//localhost:1521/oracle
-#    username: system
-#    password: system
+#  url: jdbc:oracle:thin:@//dboracledesenv.poupex.com.br:1521/desenv
+#  username: USER_GESTAO_RECURSOS_FINANCEIROS
+#  password: 2mGktD3ep$w3GDdgG
+    url: jdbc:oracle:thin:@//localhost:1521/oracle
+    username: system
+    password: system
   jpa:
     properties:
       hibernate.format_sql: true
@@ -19,9 +19,9 @@ spring:
     locations:
       - classpath:db/migration
       - classpath:db/callbacks
-#    baseline-on-migrate: true
-#    clean-on-validation-error: true
-#    out-of-order: true
+    baseline-on-migrate: true
+    clean-on-validation-error: true
+    out-of-order: true
   mvc:
     async:
       request-timeout: -1
@@ -79,7 +79,7 @@ poupex:
   api:
     terceiros:
       endereco-api-url: http://enderecoapihml.hml.cloud.poupex
-      gestao-instrumentos-api-url: http://gestaoinstrumentosfinanceirosapihml.hml.cloud.poupex
+      gestao-instrumentos-api-url: http://localhost:8080
       series-temporais-url: https://api.bcb.gov.br
   minio:
     initialPath: LOCAL-${user.name}
@@ -89,6 +89,12 @@ poupex:
     secretKey: fYbMnnEtgehPNZhR
   scheduler:
     taxas: 0 5 23 * * *
+  seguranca:
+    habilitado: false
 ---
 barramento:
   url: http://homologaesb.poupex.com.br
+  
+server:
+  port: 8081
+  

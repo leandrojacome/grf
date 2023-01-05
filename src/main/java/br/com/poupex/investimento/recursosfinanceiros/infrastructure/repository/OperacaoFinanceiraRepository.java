@@ -8,7 +8,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoFina
 
 public interface OperacaoFinanceiraRepository extends JpaRepository<OperacaoFinanceira, String>, JpaSpecificationExecutor<OperacaoFinanceira> {
 
-	Boolean existsByInstrumentoFinanceiroGifCodigo(Long codigo);
+	Boolean existsByInstrumentoFinanceiroInstrumentoFinanceiroGifCodigo(Long codigo);
 
 	@Query(value = "SELECT GESTAO_RECURSOS_FINANCEIROS.NUMERO_OPERACAO_SEQ.nextval FROM dual", nativeQuery = true)
 	Long getNextNumeroOperacaoSeq();
