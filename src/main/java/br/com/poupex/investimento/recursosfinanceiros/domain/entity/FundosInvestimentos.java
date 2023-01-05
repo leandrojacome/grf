@@ -1,5 +1,14 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ClassificacaoAnbima;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Cota;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
@@ -8,15 +17,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "FUNDOS_INVESTIMENTOS", schema = "GESTAO_RECURSOS_FINANCEIROS")
-public class FundosInvestimentos extends AbstractEntidadeBase {
+@PrimaryKeyJoinColumn(name = "id")
+public class FundosInvestimentos extends InstrumentoFinanceiro {
 
     @Column(name = "CNPJ", nullable = false, length = 14)
     private String cnpj;
@@ -64,9 +71,6 @@ public class FundosInvestimentos extends AbstractEntidadeBase {
 
     @Column(name = "DIAS_UTEIS_PRAZO_LIQ_FINANCEIRA", nullable = false)
     private Boolean diasUteisPrazoLiqFinanceira;
-
-    @Column(name = "INSTRUMENTO_FINANCEIRO_GIF_CODIGO", nullable = false)
-    private Long instrumentoFinanceiroGifCodigo;
 
     @Column(name = "ATIVO_FINANCEIRO", nullable = false)
     private Boolean ativoFinanceiro;
