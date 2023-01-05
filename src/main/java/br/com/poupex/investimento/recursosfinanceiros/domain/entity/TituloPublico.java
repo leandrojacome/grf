@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -15,11 +16,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "TITULO_PUBLICO", schema = "GESTAO_RECURSOS_FINANCEIROS")
-public class TituloPublico extends AbstractEntidadeBase {
+@PrimaryKeyJoinColumn(name = "id")
+public class TituloPublico extends InstrumentoFinanceiro {
 
-    @Column(name = "INSTRUMENTO_FINANCEIRO_GIF_CODIGO", unique = true, nullable = false, updatable = false)
-	private Long instrumentoFinanceiroGifCodigo;
-    
     @Column(name = "ISIN", nullable = false)
     private String isin;
     
