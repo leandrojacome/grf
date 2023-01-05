@@ -1,0 +1,1 @@
+DELETE FROM GESTAO_RECURSOS_FINANCEIROS."flyway_schema_history" WHERE "version" LIKE '001_015';
