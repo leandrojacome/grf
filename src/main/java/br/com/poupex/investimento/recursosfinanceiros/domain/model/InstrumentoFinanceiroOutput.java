@@ -1,0 +1,24 @@
+package br.com.poupex.investimento.recursosfinanceiros.domain.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.FormaMensuracaoOutput;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Data
+public class InstrumentoFinanceiroOutput {
+	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
+	@JsonProperty(access = Access.READ_ONLY)
+	private Long codigo;
+	private String sigla;
+	private String nome;
+	@Schema(accessMode = Schema.AccessMode.WRITE_ONLY)
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private Long codFormaMensuracao; // gif
+	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
+	@JsonProperty(access = Access.READ_ONLY)
+    private FormaMensuracaoOutput formaMensuracao;
+	private Boolean ativoFinanceiro;
+}
