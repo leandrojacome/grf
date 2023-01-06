@@ -40,7 +40,7 @@ public class CadastrarTituloPrivadoService {
         Long codigoGif = gestaoInstrumentosFinanceirosApiClient.createInstrumentoFinanceiro(instrumentoGif);
 
         var tituloPrivado = mapper.map(input, TituloPrivado.class);
-        tituloPrivado.setInstrumentoFinanceiroGifCodigo(codigoGif);
+        tituloPrivado.setCodigoGif(codigoGif);
 
         var responseTituloPrivado = tituloPrivadoRepository.save(tituloPrivado);
 

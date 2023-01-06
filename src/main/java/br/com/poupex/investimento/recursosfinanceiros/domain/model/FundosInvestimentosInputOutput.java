@@ -26,7 +26,7 @@ public class FundosInvestimentosInputOutput {
     private String id;
 
     @JsonIgnore
-    private Long instrumentoFinanceiroGifCodigo;
+    private Long codigoGif;
 
     @NotBlank
     @CNPJ

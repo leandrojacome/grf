@@ -25,11 +25,11 @@ public class AlteraFundoInvestimentoService {
     public ResponseModel execute(final String id, final FundosInvestimentosInputOutput input) {
 
         var fundoGrf = obterFundoInvestimentoService.getFundoInvestimento(id);
-        var codigoGif = fundoGrf.getInstrumentoFinanceiroGifCodigo();
+        var codigoGif = fundoGrf.getCodigoGif();
         var fundoGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif);
 
         BeanUtils.copyProperties(mapper.map(input, FundosInvestimentos.class), fundoGrf,
-                "id", "cadastro", "atualizacao", "instrumentoFinanceiroGifCodigo"
+                "id", "cadastro", "atualizacao", "codigoGif"
         );
 
         fundoGif.setNome(input.getNome());

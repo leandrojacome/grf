@@ -40,7 +40,7 @@ public class CadastrarFundosInvestimentosService {
 
         FundosInvestimentos fundoInvestimento = mapper.map(input, FundosInvestimentos.class);
 
-        fundoInvestimento.setInstrumentoFinanceiroGifCodigo(gestaoInstrumentosFinanceirosApiClient
+        fundoInvestimento.setCodigoGif(gestaoInstrumentosFinanceirosApiClient
                 .createInstrumentoFinanceiro(inputGif));
 
         var response = mapper.map(fundosInvestimentosRepository.save(fundoInvestimento), FundosInvestimentosInputOutput.class);

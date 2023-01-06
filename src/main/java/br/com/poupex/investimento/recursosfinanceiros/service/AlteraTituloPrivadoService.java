@@ -33,14 +33,14 @@ public class AlteraTituloPrivadoService {
 
         var tituloGif = mapper.map(input, InstrumentoFinanceiroGifInputOutput.class);
 
-        tituloGif.setCodigo(tituloPrivado.getInstrumentoFinanceiroGifCodigo());
+        tituloGif.setCodigo(tituloPrivado.getCodigoGif());
         tituloGif.setCodTipoInstrumentoFinanceiro(getCodTituloPrivado());
         tituloGif.setCodInstituicao(getCodInstituicao());
         tituloGif.setSemTestesSppj(input.getAtivoFinanceiro());
         tituloGif.setSemPassivos(!input.getAtivoFinanceiro());
         tituloGif.setCodFormaMensuracao(input.getCodFormaMensuracao());
 
-        gestaoInstrumentosFinanceirosApiClient.updateInstrumentoFinanceiro(tituloPrivado.getInstrumentoFinanceiroGifCodigo(), tituloGif);
+        gestaoInstrumentosFinanceirosApiClient.updateInstrumentoFinanceiro(tituloPrivado.getCodigoGif(), tituloGif);
 
         tituloPrivado.setSigla(input.getSigla());
 
@@ -49,7 +49,7 @@ public class AlteraTituloPrivadoService {
         val dto = mapper.map(tituloGif, TituloPrivadoInputOutput.class);
         dto.setId(tituloPrivado.getId());
 
-        tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(tituloPrivado.getInstrumentoFinanceiroGifCodigo());
+        tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(tituloPrivado.getCodigoGif());
         BeanUtils.copyProperties(tituloGif, dto);
 
         return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), "Alteração realizada com sucesso",

@@ -19,7 +19,7 @@ public class TituloPublicoInputOutput {
 	
 //	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
 	@JsonIgnore
-	private Long instrumentoFinanceiroGifCodigo;
+	private Long codigoGif;
 	
 	private String nome; // gif
 	

@@ -40,7 +40,7 @@ public class CadastrarTituloPublicoService {
         Long codigoGif = gestaoInstrumentosFinanceirosApiClient.createInstrumentoFinanceiro(inputGif);
 
         var tituloPublico = mapper.map(input, TituloPublico.class);
-        tituloPublico.setInstrumentoFinanceiroGifCodigo(codigoGif);
+        tituloPublico.setCodigoGif(codigoGif);
 
         var dto = mapper.map(tituloPublicoRepository.save(tituloPublico),
                 TituloPublicoInputOutput.class);

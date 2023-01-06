@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface TituloPrivadoRepository extends JpaRepository<TituloPrivado, String>, JpaSpecificationExecutor<TituloPrivado> {
 
-    TituloPrivado findByInstrumentoFinanceiroGifCodigo(Long codigo);
+    TituloPrivado findByCodigoGif(Long codigo);
 }

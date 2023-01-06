@@ -43,8 +43,8 @@ public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
     @JoinColumn(name = "INSTRUMENTO_FINANCEIRO")
     private InstrumentoFinanceiro instrumentoFinanceiro;
     
-    @Column(name = "INSTRUMENTO_FINANCEIRO_GRF_CODIGO", nullable = false, length = 30)
-    private String instrumentoFinanceiroGrfCodigo;
+    @Column(name = "CODIGO_IF_GRF", nullable = false, length = 30)
+    private String codigoIfGrf;
     
     @Column(name = "CODIGO_CUSTODIA_BB", nullable = false, length = 30)
     private String codigoCustodiaBB;

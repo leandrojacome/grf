@@ -8,7 +8,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRend
 
 public interface OperacaoRendaFixaDefinitivaRepository extends JpaRepository<OperacaoRendaFixaDefinitiva, String>, JpaSpecificationExecutor<OperacaoRendaFixaDefinitiva> {
 
-	Boolean existsByInstrumentoFinanceiroInstrumentoFinanceiroGifCodigo(Long codigo);
+	Boolean existsByInstrumentoFinanceiroCodigoGif(Long codigo);
 
 	@Query(value = "SELECT GESTAO_RECURSOS_FINANCEIROS.NUMERO_OPERACAO_SEQ.nextval FROM dual", nativeQuery = true)
 	Long getNextNumeroOperacaoSeq();

@@ -29,11 +29,11 @@ public class AlteraOperacaoRendaFixaDefinitivaService {
     public ResponseModel execute(final String id, final OperacaoRendaFixaDefinitivaInput input) {
 
         var operacaoGrf = obterOperacaoRendaFixaDefinitivaService.id(id);
-        var codigoGif = operacaoGrf.getInstrumentoFinanceiro().getInstrumentoFinanceiroGifCodigo();
+        var codigoGif = operacaoGrf.getInstrumentoFinanceiro().getCodigoGif();
         var operacaoGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif);
 
         BeanUtils.copyProperties(mapper.map(input, OperacaoRendaFixaDefinitiva.class), operacaoGrf,
-                "id", "cadastro", "atualizacao", "instrumentoFinanceiroGifCodigo", "numeroOperacao"
+                "id", "cadastro", "atualizacao", "codigoGif", "numeroOperacao"
         );
 
         gestaoInstrumentosFinanceirosApiClient.updateInstrumentoFinanceiro(codigoGif, operacaoGif);

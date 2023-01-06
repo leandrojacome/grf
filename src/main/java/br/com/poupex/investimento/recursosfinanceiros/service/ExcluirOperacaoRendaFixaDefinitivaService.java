@@ -25,7 +25,7 @@ public class ExcluirOperacaoRendaFixaDefinitivaService {
 	@Transactional
 	public ResponseModel execute(final String id) {
 		val codigoGif = obterOperacaoRendaFixaDefinitivaService.id(id).getInstrumentoFinanceiro()
-				.getInstrumentoFinanceiroGifCodigo();
+				.getCodigoGif();
 
 		if (gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif) != null)
 			gestaoInstrumentosFinanceirosApiClient.deteleInstrumentoFinanceiro(codigoGif);

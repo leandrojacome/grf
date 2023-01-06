@@ -31,7 +31,7 @@ public class ObterTituloPublicoService {
 
 		try {
 			val ifGif = gestaoInstrumentosFinanceirosApiClient
-					.getInstrumentoFinanceiro(titulo.getInstrumentoFinanceiroGifCodigo());
+					.getInstrumentoFinanceiro(titulo.getCodigoGif());
 			BeanUtils.copyProperties(ifGif, dto);
 			dto.setCodFormaMensuracao(ifGif.getFormaMensuracao().getCodigo());
 		} catch (Exception ignore) {

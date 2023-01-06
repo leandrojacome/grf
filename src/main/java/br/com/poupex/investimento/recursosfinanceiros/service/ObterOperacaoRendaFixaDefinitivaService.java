@@ -38,6 +38,6 @@ public class ObterOperacaoRendaFixaDefinitivaService {
     }
 
     public Boolean existsCodigoGif(Long codigo) {
-        return operacaoRendaFixaDefinitivaRepository.existsByInstrumentoFinanceiroInstrumentoFinanceiroGifCodigo(codigo);
+        return operacaoRendaFixaDefinitivaRepository.existsByInstrumentoFinanceiroCodigoGif(codigo);
     }
 }

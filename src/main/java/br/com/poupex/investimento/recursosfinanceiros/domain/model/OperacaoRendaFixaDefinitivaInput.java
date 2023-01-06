@@ -27,7 +27,7 @@ public class OperacaoRendaFixaDefinitivaInput {
     private String idInstrumentoFinanceiro;
     @NotBlank
     @Size(max = 30)
-    private String instrumentoFinanceiroGrfCodigo;
+    private String codigoIfGrf;
     @NotBlank
     @Size(max = 30)
     private String codigoCustodiaBB;

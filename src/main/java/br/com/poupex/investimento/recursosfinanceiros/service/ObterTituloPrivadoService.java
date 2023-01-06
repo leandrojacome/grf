@@ -31,7 +31,7 @@ public class ObterTituloPrivadoService {
         val dto = mapper.map(titulo, TituloPrivadoInputOutput.class);
 
         try {
-            val tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(titulo.getInstrumentoFinanceiroGifCodigo());
+            val tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(titulo.getCodigoGif());
             BeanUtils.copyProperties(tituloGif, dto);
         } catch (FeignException.NotFound e) {
             throw new RecursoNaoEncontradoException("Título Privado", e.getMessage());

@@ -18,7 +18,7 @@ import lombok.Setter;
 @Table(name = "INSTRUMENTO_FINANCEIRO", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class InstrumentoFinanceiro extends AbstractEntidadeBase {
 	
-    @Column(name = "INSTRUMENTO_FINANCEIRO_GIF_CODIGO", unique = true, nullable = false, updatable = false)
-	private Long instrumentoFinanceiroGifCodigo;
+    @Column(name = "CODIGO_GIF", unique = true, nullable = false, updatable = false)
+	private Long codigoGif;
     
 }

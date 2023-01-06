@@ -26,7 +26,7 @@ public class AlteraTituloPublicoService {
 	public ResponseModel execute(final String id, final TituloPublicoInputOutput input) {
 		
 		var tituloGrf = obterTituloPublicoService.id(id);
-		var codigoGif = tituloGrf.getInstrumentoFinanceiroGifCodigo();
+		var codigoGif = tituloGrf.getCodigoGif();
 		var tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif);
 		
 	    BeanUtils.copyProperties(mapper.map(input, TituloPublico.class), tituloGrf,

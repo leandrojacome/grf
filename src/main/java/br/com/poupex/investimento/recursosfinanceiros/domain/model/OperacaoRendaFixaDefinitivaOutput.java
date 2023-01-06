@@ -16,7 +16,7 @@ public class OperacaoRendaFixaDefinitivaOutput {
     private Long numeroOperacao;
     private TipoMercado tipoMercado;
     private String idInstrumentoFinanceiro;
-    private String instrumentoFinanceiroGrfCodigo;
+    private String codigoIfGrf;
     private String codigoCustodiaBB;
     private FormaMensuracaoEnum formaMensuracao;
     private LocalDateTime dataEmissao;

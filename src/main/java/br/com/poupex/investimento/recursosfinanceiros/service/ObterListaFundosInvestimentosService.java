@@ -53,7 +53,7 @@ public class ObterListaFundosInvestimentosService {
 
 		page.getContent().stream().forEach(fundo -> {
 			try {
-				var fundoGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(fundo.getInstrumentoFinanceiroGifCodigo());
+				var fundoGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(fundo.getCodigoGif());
 				BeanUtils.copyProperties(fundoGif, fundo);
 			} catch (Exception ignore) {
 			}

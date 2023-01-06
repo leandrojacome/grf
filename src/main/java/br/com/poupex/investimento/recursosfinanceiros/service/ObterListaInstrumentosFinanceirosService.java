@@ -54,7 +54,7 @@ public class ObterListaInstrumentosFinanceirosService {
 		
 		page.getContent().stream().forEach(instrumento -> {
 			try {
-				InstrumentoFinanceiro instrumentoGrf = instrumentoFinanceiroRepository.findByInstrumentoFinanceiroGifCodigo(instrumento.getCodigo());
+				InstrumentoFinanceiro instrumentoGrf = instrumentoFinanceiroRepository.findBycodigoGif(instrumento.getCodigo());
 				instrumento.setId(instrumentoGrf.getId());
 			} catch (Exception ignore) {
 			}
