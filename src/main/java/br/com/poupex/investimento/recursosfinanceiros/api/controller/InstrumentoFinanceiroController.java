@@ -190,6 +190,20 @@ public class InstrumentoFinanceiroController {
         return ResponseEntity.ok(obterListaTituloPublicoService.execute(filter, pageable));
     }
 
+    @Operation(summary = "Lista todas Títulos Públicos(Filtra Nome/Sigla)")
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "Títulos Públicos", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+      @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class),
+        array = @ArraySchema(schema = @Schema(implementation = TituloPublicoInputOutput.class)))
+    })})
+    @OpenApiPaginacao
+    @GetMapping("/titulos-publicos/por-sigla")
+    public ResponseEntity<ResponseModel> nome(
+      @RequestParam(required = false) final String sigla
+    ) {
+        return ResponseEntity.ok(pesquisarTituloPublicoPorNomeSiglaService.execute(sigla));
+    }
+
     @Operation(summary = "Altera o Título Público")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Título Público detalhado", content = {
@@ -300,18 +314,5 @@ public class InstrumentoFinanceiroController {
         return ResponseEntity.ok(alteraFundoInvestimentoService.execute(id, input));
     }
 
-    @Operation(summary = "Lista todas Títulos Públicos(Filtra Nome/Sigla)")
-    @ApiResponses({@ApiResponse(responseCode = "200", description = "Títulos Públicos", content = {
-      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-      @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class),
-        array = @ArraySchema(schema = @Schema(implementation = TituloPublicoInputOutput.class)))
-    })})
-    @OpenApiPaginacao
-    @GetMapping("/titulos-publicos/por-sigla")
-    public ResponseEntity<ResponseModel> nome(
-      @RequestParam(required = false) final String sigla
-    ) {
-        return ResponseEntity.ok(pesquisarTituloPublicoPorNomeSiglaService.execute(sigla));
-    }
 
 }

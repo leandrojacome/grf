@@ -5,9 +5,6 @@ spring:
     url: jdbc:oracle:thin:@//dboracledesenv.poupex.com.br:1521/desenv
     username: USER_GESTAO_RECURSOS_FINANCEIROS
     password: 2mGktD3ep$w3GDdgG
-#    url: jdbc:oracle:thin:@//localhost:1521/oracle
-#    username: system
-#    password: system
   jpa:
     properties:
       hibernate.format_sql: true
@@ -19,9 +16,6 @@ spring:
     locations:
       - classpath:db/migration
       - classpath:db/callbacks
-#    baseline-on-migrate: true
-#    clean-on-validation-error: true
-#    out-of-order: true
   mvc:
     async:
       request-timeout: -1
