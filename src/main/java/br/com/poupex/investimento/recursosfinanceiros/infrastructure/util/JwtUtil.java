@@ -1,12 +1,14 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.util;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtUtil {
@@ -17,31 +19,32 @@ public class JwtUtil {
   public static final String CLAIM_NOME = "nome";
   public static final String CLAIM_UNIDADE = "uta";
 
-  public String getChave(){
+  public String getChave() {
     return getClaim(CLAIM_CHAVE);
   }
 
-  public String getCliente(){
+  public String getCliente() {
     return getClaim(CLAIM_CLIENTE);
   }
 
-  public String getClaimCpf(){
+  public String getClaimCpf() {
     return getClaim(CLAIM_IDENTIFICADOR);
   }
 
-  public String getClaimNome(){
+  public String getClaimNome() {
     return getClaim(CLAIM_NOME);
   }
 
-  public String getClaimUnidade(){
+  public String getClaimUnidade() {
     return getClaim(CLAIM_UNIDADE);
   }
 
   public String getClaim(final String claim) {
     if (SecurityContextHolder.getContext().getAuthentication().getCredentials() instanceof Jwt userJwt) {
-      val claimValue = userJwt.getClaims().getOrDefault(claim, userJwt.getClaims().get("sub"));
+      val claimValue = userJwt.getClaims().get(claim);
       if (ObjectUtils.isEmpty(claimValue)) {
-        return String.format("Claim [%s] nao localizado: ", userJwt.getClaims().toString());
+        log.error(String.format("Claim [%s] nao localizado", claim));
+        return userJwt.getClaims().get("sub").toString();
       }
       return claimValue.toString();
     }
