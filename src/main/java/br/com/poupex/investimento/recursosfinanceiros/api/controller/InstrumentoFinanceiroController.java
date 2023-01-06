@@ -1,17 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
+import br.com.poupex.investimento.recursosfinanceiros.service.*;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
@@ -25,22 +19,6 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPrivadoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPublicoInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.service.AlteraFundoInvestimentoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.AlteraTituloPrivadoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.AlteraTituloPublicoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarFundosInvestimentosService;
-import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarTituloPrivadoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarTituloPublicoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirFundoInvestimentoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirTituloPrivadoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirTituloPublicoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterFundoInvestimentoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaFundosInvestimentosService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaInstrumentosFinanceirosService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaTituloPublicoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaTitulosPrivadosService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterTituloPrivadoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterTituloPublicoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -198,9 +176,7 @@ public class InstrumentoFinanceiroController {
     })})
     @OpenApiPaginacao
     @GetMapping("/titulos-publicos/por-sigla")
-    public ResponseEntity<ResponseModel> nome(
-      @RequestParam(required = false) final String sigla
-    ) {
+    public ResponseEntity<ResponseModel> nome(@RequestParam(required = false) final String sigla) {
         return ResponseEntity.ok(pesquisarTituloPublicoPorNomeSiglaService.execute(sigla));
     }
 

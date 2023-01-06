@@ -23,7 +23,7 @@ public class PesquisarTituloPublicoPorNomeSiglaService {
   public ResponseModel execute(final String sigla) {
     val titulos = tituloPublicoRepository.findAll(tituloPublicoRepository.sigla(sigla)).stream().map(titulo -> {
       val output = mapper.map(titulo, TituloPublicoInputOutput.class);
-      val tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(titulo.getInstrumentoFinanceiroGifCodigo());
+      val tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(titulo.getCodigoGif());
       BeanUtils.copyProperties(tituloGif, output);
       return output;
     }).toList();
