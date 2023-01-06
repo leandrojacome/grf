@@ -126,11 +126,11 @@ public class InstrumentoFinanceiroController {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class))
             })
     })
-    @DeleteMapping("/titulos-privados/{codigo}")
-    public ResponseEntity<ResponseModel> delete(
-            @Parameter(name = "codigo", description = "Codigo GIF do Título Privado")
-            @PathVariable final Long codigo) {
-        return ResponseEntity.ok(excluirTituloPrivadoService.execute(codigo));
+    @DeleteMapping("/titulos-privados/{id}")
+    public ResponseEntity<ResponseModel> deleteInstrumento(
+            @Parameter(name = "id", description = "Identificador do Título Privado")
+            @PathVariable final String id) {
+        return ResponseEntity.ok(excluirTituloPrivadoService.execute(id));
     }
 
     // Titulos Publicos

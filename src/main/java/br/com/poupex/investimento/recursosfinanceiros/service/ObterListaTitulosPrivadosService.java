@@ -48,7 +48,9 @@ public class ObterListaTitulosPrivadosService {
 
         page.getContent().stream().forEach(titulo -> {
             var tituloPrivado = tituloPrivadoRepository.findByCodigoGif(titulo.getCodigo());
-            titulo.setId(tituloPrivado.getId());
+                titulo.setId(tituloPrivado.getId());
+            } catch (Exception ignore) {
+            }
         });
 
         return new ResponseModel(
