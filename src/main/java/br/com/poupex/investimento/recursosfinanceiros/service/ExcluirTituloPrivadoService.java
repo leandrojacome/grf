@@ -1,21 +1,21 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import java.time.LocalDateTime;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.TituloPrivadoRepository;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
 public class ExcluirTituloPrivadoService {
     private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
-	private final ObterOperacaoRendaFixaDefinitivaService obterOperacaoRendaFixaDefinitivaService;
     private final TituloPrivadoRepository tituloPrivadoRepository;
 
     private final ObterTituloPrivadoService obterTituloPrivadoService;
@@ -24,9 +24,9 @@ public class ExcluirTituloPrivadoService {
         var tituloPrivado = obterTituloPrivadoService.id(id);
 
         try {
-            gestaoInstrumentosFinanceirosApiClient.deteleInstrumentoFinanceiro(tituloPrivado.getInstrumentoFinanceiroGifCodigo());
+            gestaoInstrumentosFinanceirosApiClient.deteleInstrumentoFinanceiro(tituloPrivado.getCodigoGif());
         } catch (FeignException.NotFound e) {
-            throw new RecursoNaoEncontradoException("Título Privado", String.format("Não foi encontrado, no GIF, o Título Privado com código: %s", tituloPrivado.getInstrumentoFinanceiroGifCodigo()));
+            throw new RecursoNaoEncontradoException("Título Privado", String.format("Não foi encontrado, no GIF, o Título Privado com código: %s", tituloPrivado.getCodigoGif()));
         }
 
         tituloPrivadoRepository.delete(tituloPrivado);

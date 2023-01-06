@@ -1,7 +1,16 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.FilterTituloPrivadoInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPrivadoInputOutput;
@@ -9,14 +18,6 @@ import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.Gest
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.TituloPrivadoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +48,8 @@ public class ObterListaTitulosPrivadosService {
                 resultado.getTotalElements());
 
         page.getContent().stream().forEach(titulo -> {
-            var tituloPrivado = tituloPrivadoRepository.findByCodigoGif(titulo.getCodigo());
+        	try {
+        		var tituloPrivado = tituloPrivadoRepository.findByCodigoGif(titulo.getCodigo());
                 titulo.setId(tituloPrivado.getId());
             } catch (Exception ignore) {
             }
