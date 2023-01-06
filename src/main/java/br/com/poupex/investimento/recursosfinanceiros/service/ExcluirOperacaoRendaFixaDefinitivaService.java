@@ -34,11 +34,11 @@ public class ExcluirOperacaoRendaFixaDefinitivaService {
 			operacaoRendaFixaDefinitivaRepository.deleteById(id);
 			operacaoRendaFixaDefinitivaRepository.flush();
 		} catch (EntidadeEmUsoException | DataIntegrityViolationException e) {
-			throw new EntidadeEmUsoException("Operação Financeira");
+			throw new EntidadeEmUsoException("Operação Renda Fixa Definitiva");
 		}
 
 		return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), "Exclusão",
-				String.format("Operação Financeira %s excluida com sucesso", id), "Operação Financeira com sucesso",
+				String.format("Operação Renda Fixa Definitiva %s excluida com sucesso", id), "Operação Renda Fixa Definitiva com sucesso",
 				null, id);
 	}
 

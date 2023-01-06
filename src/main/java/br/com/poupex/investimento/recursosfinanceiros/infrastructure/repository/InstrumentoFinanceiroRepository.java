@@ -7,4 +7,5 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstrumentoF
 
 public interface InstrumentoFinanceiroRepository extends JpaRepository<InstrumentoFinanceiro, String>, JpaSpecificationExecutor<InstrumentoFinanceiro> {
 
+	InstrumentoFinanceiro findByInstrumentoFinanceiroGifCodigo(Long codigo);
 }

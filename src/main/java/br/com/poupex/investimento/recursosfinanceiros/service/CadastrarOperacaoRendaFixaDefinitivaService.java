@@ -20,6 +20,7 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
 	private final GerarNumeroOperacaoService gerarNumeroOperacao;
 	private final OperacaoRendaFixaDefinitivaRepository operacaoRendaFixaDefinitivaRepository;
 	private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
+	private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
 
 	private final CadastrarOperacaoRendaFixaDefinitivaGifService cadastrarOperacaoRendaFixaDefinitivaGifService;
 	private final ModelMapper mapper;
@@ -38,11 +39,15 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
 		codigoGif = (codigoGif == null? 0 : codigoGif);
 
 		var instrumentoFinanceiro = obterInstrumentoFinanceiroService.id(input.getIdInstrumentoFinanceiro());
+		var emissor = obterInstituicaoFinanceiraService.id(input.getIdEmissor());
+		var contraparte = obterInstituicaoFinanceiraService.id(input.getIdContraparte());
 		var operacaoFinanceira = mapper.map(input, OperacaoRendaFixaDefinitiva.class);
 		
 		operacaoFinanceira.setNumeroOperacao(numeroOperacao);
 		operacaoFinanceira.setOperacaoGifCodigo(codigoGif);
 		operacaoFinanceira.setInstrumentoFinanceiro(instrumentoFinanceiro);
+		operacaoFinanceira.setEmissor(emissor);
+		operacaoFinanceira.setContraparte(contraparte);
 
 		var dto = mapper.map(operacaoRendaFixaDefinitivaRepository.save(operacaoFinanceira),
 				OperacaoRendaFixaDefinitivaOutput.class);
@@ -51,7 +56,7 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
 				LocalDateTime.now(),
 				HttpStatus.OK.value(),
 				"Cadastro realizado com sucesso",
-				String.format("A operação financeiro nº %s foi cadastrada com sucesso", dto.getNumeroOperacao()),
+				String.format("A operação Renda Fixa Definitiva nº %s foi cadastrada com sucesso", dto.getNumeroOperacao()),
 				"Instituição cadastrada com sucesso",
 				null,
 				dto

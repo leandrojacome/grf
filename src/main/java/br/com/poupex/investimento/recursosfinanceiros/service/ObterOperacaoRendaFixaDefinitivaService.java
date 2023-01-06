@@ -33,7 +33,7 @@ public class ObterOperacaoRendaFixaDefinitivaService {
 
     public OperacaoRendaFixaDefinitiva id(final String id) {
         return operacaoRendaFixaDefinitivaRepository.findById(id).orElseThrow(
-                () -> new RecursoNaoEncontradoException("Operação Financeira", String.format("Não foi encontrado Operação Financeira com id: %s", id))
+                () -> new RecursoNaoEncontradoException("Operação Renda Fixa Definitiva", String.format("Não foi encontrado Operação Renda Fixa Definitiva com id: %s", id))
         );
     }
 

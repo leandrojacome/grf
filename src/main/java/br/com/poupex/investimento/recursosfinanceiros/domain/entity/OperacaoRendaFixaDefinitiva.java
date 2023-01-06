@@ -23,7 +23,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "OPERACAO_FINANCEIRA", schema = "GESTAO_RECURSOS_FINANCEIROS")
+@Table(name = "OPERACAO_RENDA_FIXA_DEFINITIVA", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
 
     @Column(name = "NUMERO_OPERACAO", unique = true, nullable = false, updatable = false)

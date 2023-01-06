@@ -44,9 +44,9 @@ public class OperacaoRendaFixaDefinitivaInput {
     @NotNull
     private LocalDateTime dataVencimento;
     @NotNull
-    private String emissor;
+    private String idEmissor;
     @NotNull
-    private String contraparte;
+    private String idContraparte;
     @NotNull
     private TipoTaxa tipoTaxa;
     @NotNull

@@ -15,7 +15,7 @@ public class OperacaoRendaFixaDefinitivaOutput {
 	private String id;
     private Long numeroOperacao;
     private TipoMercado tipoMercado;
-    private Long instrumentoFinanceiroGifCodigo;
+    private String idInstrumentoFinanceiro;
     private String instrumentoFinanceiroGrfCodigo;
     private String codigoCustodiaBB;
     private FormaMensuracaoEnum formaMensuracao;
@@ -24,8 +24,8 @@ public class OperacaoRendaFixaDefinitivaOutput {
     private Integer prazoDC;
     private Integer prazoDU;
     private LocalDateTime dataVencimento;
-    private String emissor;
-    private String contraparte;
+    private String idEmissor;
+    private String idContraparte;
     private TipoTaxa tipoTaxa;
     private BigDecimal taxa;
     private Boolean diasUteis;

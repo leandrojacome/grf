@@ -76,13 +76,13 @@ ON COLUMN GESTAO_RECURSOS_FINANCEIROS.OPERACAO_RENDA_FIXA_DEFINITIVA.CODIGO_CUST
     IS 'Código de custódia do Banco do Brasil';
 COMMENT
 ON COLUMN GESTAO_RECURSOS_FINANCEIROS.OPERACAO_RENDA_FIXA_DEFINITIVA.FORMA_MENSURACAO
-    IS 'Forma de mensuração da operação financeira';
+    IS 'Forma de mensuração da Operação Renda Fixa Definitiva';
 COMMENT
 ON COLUMN GESTAO_RECURSOS_FINANCEIROS.OPERACAO_RENDA_FIXA_DEFINITIVA.DATA_EMISSAO
-    IS 'Data da Emissão da operação financeira';
+    IS 'Data da Emissão da Operação Renda Fixa Definitiva';
 COMMENT
 ON COLUMN GESTAO_RECURSOS_FINANCEIROS.OPERACAO_RENDA_FIXA_DEFINITIVA.DATA_LIQUIDACAO
-    IS 'Data da liquidação da operação financeira';
+    IS 'Data da liquidação da Operação Renda Fixa Definitiva';
 COMMENT
 ON COLUMN GESTAO_RECURSOS_FINANCEIROS.OPERACAO_RENDA_FIXA_DEFINITIVA.PRAZO_DC
     IS 'Prazo DC';

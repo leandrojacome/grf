@@ -20,8 +20,9 @@ public class OperacaoRendaFixaDefinitivaConverter {
         val input = context.getSource();
         val operacao = intern.map(input, OperacaoRendaFixaDefinitivaOutput.class);
 
-        operacao.setEmissor(input.getEmissor().getId());
-        operacao.setContraparte(input.getContraparte().getId());
+        operacao.setIdEmissor(input.getEmissor().getId());
+        operacao.setIdContraparte(input.getContraparte().getId());
+        operacao.setIdInstrumentoFinanceiro(input.getInstrumentoFinanceiro().getId());
 
         return operacao;
     }

@@ -11,6 +11,9 @@ import lombok.Data;
 public class InstrumentoFinanceiroOutput {
 	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
 	@JsonProperty(access = Access.READ_ONLY)
+	private String id;
+	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
+	@JsonProperty(access = Access.READ_ONLY)
 	private Long codigo;
 	private String sigla;
 	private String nome;

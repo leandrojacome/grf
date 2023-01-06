@@ -48,7 +48,7 @@ public class OperacaoRendaFixaDefinitivaController {
 
     private final AlteraOperacaoRendaFixaDefinitivaService alteraOperacaoRendaFixaDefinitivaService;
 
-    @Operation(summary = "Cadastra a Operação Financeira")
+    @Operation(summary = "Cadastra a Operação Renda Fixa Definitiva")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
@@ -71,35 +71,35 @@ public class OperacaoRendaFixaDefinitivaController {
         return ResponseEntity.ok(obterListaOperacaoRendaFixaDefinitivaService.execute(pageable));
     }
 
-    @Operation(summary = "Detalha a Operação Financeira")
+    @Operation(summary = "Detalha a Operação Renda Fixa Definitiva")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Operação Financeira detalhada", content = {
+            @ApiResponse(responseCode = "200", description = "Operação Renda Fixa Definitiva detalhada", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
                     @Content(mediaType = "application/json", schema = @Schema(implementation = OperacaoRendaFixaDefinitivaOutput.class))
             }),
     })
     @GetMapping("{id}")
     public ResponseEntity<ResponseModel> read(
-            @Parameter(name = "id", description = "Identificador da Operação Financeira")
+            @Parameter(name = "id", description = "Identificador da Operação Renda Fixa Definitiva")
             @PathVariable final String id) {
         return ResponseEntity.ok(obterOperacaoRendaFixaDefinitivaService.execute(id));
     }
 
-    @Operation(summary = "Exclui a Operação Financeira")
+    @Operation(summary = "Exclui a Operação Renda Fixa Definitiva")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Operação Financeira excluída", content = {
+            @ApiResponse(responseCode = "200", description = "Operação Renda Fixa Definitiva excluída", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class))
 
             }),
     })
     @DeleteMapping("{id}")
     public ResponseEntity<ResponseModel> delete(
-            @Parameter(name = "id", description = "Identificador da Operação Financeira")
+            @Parameter(name = "id", description = "Identificador da Operação Renda Fixa Definitiva")
             @PathVariable final String id) {
         return ResponseEntity.ok(excluirOperacaoRendaFixaDefinitivaService.execute(id));
     }
 
-    @Operation(summary = "Atualiza a Operação Financeira")
+    @Operation(summary = "Atualiza a Operação Renda Fixa Definitiva")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Atualização realizada", content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
@@ -108,7 +108,7 @@ public class OperacaoRendaFixaDefinitivaController {
     })
     @PutMapping("{id}")
     public ResponseEntity<ResponseModel> update(
-            @Parameter(name = "id", description = "Identificador da Operação Financeira")
+            @Parameter(name = "id", description = "Identificador da Operação Renda Fixa Definitiva")
             @PathVariable final String id,
             @RequestBody @Valid OperacaoRendaFixaDefinitivaInput input
     ) {
