@@ -45,7 +45,6 @@ public class OperacaoRendaFixaDefinitivaController {
     private final ObterListaOperacaoRendaFixaDefinitivaService obterListaOperacaoRendaFixaDefinitivaService;
     private final ObterOperacaoRendaFixaDefinitivaService obterOperacaoRendaFixaDefinitivaService;
     private final ExcluirOperacaoRendaFixaDefinitivaService excluirOperacaoRendaFixaDefinitivaService;
-
     private final AlteraOperacaoRendaFixaDefinitivaService alteraOperacaoRendaFixaDefinitivaService;
 
     @Operation(summary = "Cadastra a Operação Renda Fixa Definitiva")

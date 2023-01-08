@@ -1,5 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.FundosInvestimentos;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiro;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.TituloPrivado;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.TituloPublico;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.*;
 import javax.validation.Valid;
 
@@ -98,6 +104,7 @@ public class InstrumentoFinanceiroController {
         return ResponseEntity.ok(obterTituloPrivadoService.execute(id));
     }
 
+    @AuditarTipo(tipo = AuditoriaTipo.API, recurso = TituloPrivado.class)
     @Operation(summary = "Cadastra o Título Privado")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
@@ -112,6 +119,7 @@ public class InstrumentoFinanceiroController {
         return ResponseEntity.ok(cadastrarTituloPrivadoService.execute(input));
     }
 
+    @AuditarTipo(tipo = AuditoriaTipo.API, recurso = TituloPrivado.class)
     @Operation(summary = "Atualiza o Título Privado")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Atualização realizada", content = {
@@ -128,6 +136,7 @@ public class InstrumentoFinanceiroController {
         return ResponseEntity.ok(alteraTituloPrivadoService.execute(id, input));
     }
 
+    @AuditarTipo(tipo = AuditoriaTipo.API, recurso = TituloPrivado.class)
     @Operation(summary = "Exclui o Título Privado")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
@@ -142,7 +151,7 @@ public class InstrumentoFinanceiroController {
     }
 
     // Titulos Publicos
-
+    @AuditarTipo(tipo = AuditoriaTipo.API, recurso = TituloPublico.class)
     @Operation(summary = "Cadastra o Título Público")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
@@ -180,6 +189,7 @@ public class InstrumentoFinanceiroController {
         return ResponseEntity.ok(pesquisarTituloPublicoPorNomeSiglaService.execute(sigla));
     }
 
+    @AuditarTipo(tipo = AuditoriaTipo.API, recurso = TituloPublico.class)
     @Operation(summary = "Altera o Título Público")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Título Público detalhado", content = {
@@ -208,6 +218,7 @@ public class InstrumentoFinanceiroController {
         return ResponseEntity.ok(obterTituloPublicoService.execute(id));
     }
 
+    @AuditarTipo(tipo = AuditoriaTipo.API, recurso = TituloPublico.class)
     @Operation(summary = "Exclui Título Público")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
@@ -223,6 +234,7 @@ public class InstrumentoFinanceiroController {
 
     // Fundos de Investimentos
 
+    @AuditarTipo(tipo = AuditoriaTipo.API, recurso = FundosInvestimentos.class)
     @Operation(summary = "Cadastra Fundos de Investimentos")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
@@ -263,6 +275,7 @@ public class InstrumentoFinanceiroController {
         return ResponseEntity.ok(obterFundoInvestimentoService.execute(id));
     }
 
+    @AuditarTipo(tipo = AuditoriaTipo.API, recurso = FundosInvestimentos.class)
     @Operation(summary = "Exclui Fundo de Investimentos")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Exclusão realizada", content = {
@@ -276,6 +289,7 @@ public class InstrumentoFinanceiroController {
         return ResponseEntity.ok(excluirFundoInvestimentoService.execute(id));
     }
 
+    @AuditarTipo(tipo = AuditoriaTipo.API, recurso = FundosInvestimentos.class)
     @Operation(summary = "Altera o Fundo de Investimentos")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Fundo de Investimentos", content = {
@@ -289,6 +303,5 @@ public class InstrumentoFinanceiroController {
             @PathVariable final String id, @RequestBody final FundosInvestimentosInputOutput input) {
         return ResponseEntity.ok(alteraFundoInvestimentoService.execute(id, input));
     }
-
 
 }

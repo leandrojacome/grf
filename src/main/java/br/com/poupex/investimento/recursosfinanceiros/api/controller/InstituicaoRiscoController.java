@@ -110,5 +110,4 @@ public class InstituicaoRiscoController {
     return ResponseEntity.ok(alteraInstituicaoFinanceiraRiscoResumoService.execute(id, risco, resumo));
   }
 
-
 }
