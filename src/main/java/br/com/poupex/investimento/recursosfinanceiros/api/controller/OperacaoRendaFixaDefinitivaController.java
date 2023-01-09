@@ -35,9 +35,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("operacoes-financeiras")
+@RequestMapping("operacoes-renda-fixa-definitiva")
 @RequiredArgsConstructor
-@Tag(name = "Operações Financeiras")
+@Tag(name = "Operações de Renda Fixa Definitiva")
 @OpenApiResponsesPadroes
 public class OperacaoRendaFixaDefinitivaController {
 
