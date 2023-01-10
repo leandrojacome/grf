@@ -8,4 +8,7 @@ import lombok.Setter;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class OperacaoRendaFixaCompromissadaOutput {
+
+  private String numero;
+
 }

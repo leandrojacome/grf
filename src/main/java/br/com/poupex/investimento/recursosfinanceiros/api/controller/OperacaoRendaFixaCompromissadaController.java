@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +36,7 @@ public class OperacaoRendaFixaCompromissadaController {
     }),
   })
   @PostMapping
-  public ResponseEntity<ResponseModel> create(@RequestBody final OperacaoRendaFixaCompromissadaInput input) {
+  public ResponseEntity<ResponseModel> create(@Valid @RequestBody final OperacaoRendaFixaCompromissadaInput input) {
     return ResponseEntity.ok(cadastrarOperacaoRendaFixaCompromissadaService.execute(input));
   }
 

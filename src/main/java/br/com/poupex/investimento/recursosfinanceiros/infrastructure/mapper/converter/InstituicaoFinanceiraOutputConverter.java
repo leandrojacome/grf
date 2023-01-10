@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceira;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoAgenciaModalidade;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraContabilService;
@@ -30,6 +31,7 @@ public class InstituicaoFinanceiraOutputConverter {
     final ObterInstituicaoFinanceiraRiscoService obterInstituicaoFinanceiraRiscoService
   ) {
     mapper.createTypeMap(InstituicaoFinanceira.class, InstituicaoFinanceiraOutputDetalhe.class).setConverter(this::converterDetalhe);
+    mapper.createTypeMap(InstituicaoFinanceira.class, InstituicaoFinanceiraOutput.class).setConverter(this::converter);
     this.global = mapper;
     this.obterInstituicaoFinanceiraEnderecoService = obterInstituicaoFinanceiraEnderecoService;
     this.obterInstituicaoFinanceiraContatosService = obterInstituicaoFinanceiraContatosService;
@@ -57,5 +59,13 @@ public class InstituicaoFinanceiraOutputConverter {
     return output;
   }
 
+  public InstituicaoFinanceiraOutput converter(MappingContext<InstituicaoFinanceira, InstituicaoFinanceiraOutput> context) {
+    val input = context.getSource();
+    val output = intern.map(input, InstituicaoFinanceiraOutput.class);
+    obterInstituicaoFinanceiraRiscoService.lista(input.getId()).stream().filter(
+      risco -> InstituicaoFinanceiraRiscoAgenciaModalidade.CLASSIFICACAO.equals(risco.getAgenciaModalidade())
+    ).findFirst().ifPresent(risco -> output.setResumo(risco.getResumo()));
+    return output;
+  }
 
 }

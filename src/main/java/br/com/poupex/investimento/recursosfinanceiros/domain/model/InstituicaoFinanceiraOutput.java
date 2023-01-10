@@ -19,4 +19,5 @@ public class InstituicaoFinanceiraOutput {
   private Boolean matriz;
   private String cetip;
   private String selic;
+  private String resumo;
 }
