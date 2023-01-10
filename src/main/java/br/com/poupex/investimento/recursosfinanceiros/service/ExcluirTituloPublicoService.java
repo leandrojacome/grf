@@ -23,14 +23,16 @@ public class ExcluirTituloPublicoService {
 
 
     public ResponseModel execute(String id) {
-        val tituloPublico = obterTituloPublicoService.id(id);
+        
+    	val tituloPublico = obterTituloPublicoService.id(id);
+
+        tituloPublicoRepository.delete(tituloPublico);
+
         try {
             gestaoInstrumentosFinanceirosApiClient.deteleInstrumentoFinanceiro(tituloPublico.getCodigoGif());
         } catch (FeignException.NotFound e) {
             throw new RecursoNaoEncontradoException("Título Público", String.format("Não foi encontrado, no GIF, o Título Público com código: %s", tituloPublico.getCodigoGif()));
         }
-
-        tituloPublicoRepository.delete(tituloPublico);
 
         return new ResponseModel(
                 LocalDateTime.now(),
