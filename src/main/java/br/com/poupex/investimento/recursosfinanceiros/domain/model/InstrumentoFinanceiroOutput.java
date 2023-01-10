@@ -14,7 +14,7 @@ public class InstrumentoFinanceiroOutput {
 	private String id;
 	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
 	@JsonProperty(access = Access.READ_ONLY)
-	private Long codigo;
+	private Long codigoGif;
 	private String sigla;
 	private String nome;
 	@Schema(accessMode = Schema.AccessMode.WRITE_ONLY)
