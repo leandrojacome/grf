@@ -20,19 +20,16 @@ public class ObterTipoInstrumentoFinanceiroService {
 			null, TipoInstrumentoFinanceiro.TITULO_PRIVADO.getNome(), 
 			TipoInstrumentoFinanceiro.TITULO_PRIVADO.getSigla(), true
 			);
-	private static final String pesquisaSiglaTPV = TipoInstrumentoFinanceiro.TITULO_PRIVADO.getSigla();
-	
+
 	private final TipoInstrumentoFinanceiroInputOutput tituloPublico = new TipoInstrumentoFinanceiroInputOutput(
 			null, TipoInstrumentoFinanceiro.TITULO_PUBLICO.getNome(), 
 			TipoInstrumentoFinanceiro.TITULO_PUBLICO.getSigla(), true
 			);
-	private static final String pesquisaSiglaTPF = TipoInstrumentoFinanceiro.TITULO_PUBLICO.getSigla();
 	
 	private final TipoInstrumentoFinanceiroInputOutput fundoInvestimento = new TipoInstrumentoFinanceiroInputOutput(
 			null, TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO.getNome(), 
 			TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO.getSigla(), true
 			);
-	private static final String pesquisaSiglaFIV = TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO.getSigla();
 
 	public Long getCodTituloPrivado() {
 		return execute(TipoInstrumentoFinanceiro.TITULO_PRIVADO).getCodigo();
@@ -52,13 +49,13 @@ public class ObterTipoInstrumentoFinanceiroService {
 		TipoInstrumentoFinanceiroInputOutput retorno;
 		
 		if (tipo.equals(TipoInstrumentoFinanceiro.TITULO_PRIVADO)) {
-			pesquisaSigla = pesquisaSiglaTPV;
+			pesquisaSigla = TipoInstrumentoFinanceiro.TITULO_PRIVADO.getSigla();
 			tipoInstrumento = tituloPrivado;
 		} else if (tipo.equals(TipoInstrumentoFinanceiro.TITULO_PUBLICO)) {
-			pesquisaSigla = pesquisaSiglaTPF;
+			pesquisaSigla = TipoInstrumentoFinanceiro.TITULO_PUBLICO.getSigla();
 			tipoInstrumento = tituloPublico;
 		} else if (tipo.equals(TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO)) {
-			pesquisaSigla = pesquisaSiglaFIV;
+			pesquisaSigla = TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO.getSigla();
 			tipoInstrumento = fundoInvestimento;
 		} else {
 			throw new NegocioException("Pesquisa Tipo Instrumento Financeiro GIF", "Não foi possível pesquisa o Tipo de Instrumento Financeiro no GIF");

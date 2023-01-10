@@ -36,8 +36,8 @@ public class ObterListaInstrumentosFinanceirosService {
 		
 		filter = (filter == null? new FilterInstrumentoFinanceiroInput() : filter);
 		
-		if (filter.getSiglaTipoInstrumentoFinanceiro() != null) {
-			filter.getSiglaTipoInstrumentoFinanceiro().forEach(elem -> {
+		if (filter.getTipoInstrumentoFinanceiro() != null) {
+			filter.getTipoInstrumentoFinanceiro().forEach(elem -> {
 				if (elem.equals(TipoInstrumentoFinanceiro.TITULO_PRIVADO))
 					tipoInstrumentos.add(TituloPrivado.class);
 				else if (elem.equals(TipoInstrumentoFinanceiro.TITULO_PUBLICO))
