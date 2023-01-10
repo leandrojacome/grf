@@ -85,5 +85,5 @@ public class ObterListaTituloPublicoService {
 
 			         return builder.and(predicates.toArray(new Predicate[predicates.size()]));
 			    };
-			};
+			}
 }
