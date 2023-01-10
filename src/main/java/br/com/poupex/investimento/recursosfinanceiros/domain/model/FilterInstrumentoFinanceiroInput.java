@@ -7,5 +7,5 @@ import lombok.Data;
 
 @Data
 public class FilterInstrumentoFinanceiroInput {
-	private List<TipoInstrumentoFinanceiro> siglaTipoInstrumentoFinanceiro;
+	private List<TipoInstrumentoFinanceiro> tipoInstrumentoFinanceiro;
 }
