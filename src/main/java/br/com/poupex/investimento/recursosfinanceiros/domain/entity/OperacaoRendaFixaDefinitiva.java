@@ -80,8 +80,17 @@ public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
     @Column(name = "TIPO_TAXA", nullable = false)
     private TipoTaxa tipoTaxa;
     
-    @Column(name = "TAXA", nullable = false)
+    @Column(name = "TAXA", nullable = true)
     private BigDecimal taxa;
+    
+    @Column(name = "TAXA_EFETIVA", nullable = true)
+    private BigDecimal taxaEfetiva;
+    
+    @Column(name = "INDICE", nullable = true)
+    private BigDecimal indice;
+    
+    @Column(name = "PERCENTUAL_INDICE", nullable = true)
+    private BigDecimal percentualIndice;
     
     @Column(name = "DIAS_UTEIS", nullable = false)
     private Boolean diasUteis;

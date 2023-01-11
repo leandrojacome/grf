@@ -3,6 +3,7 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -49,8 +50,10 @@ public class OperacaoRendaFixaDefinitivaInput {
     private String idContraparte;
     @NotNull
     private TipoTaxa tipoTaxa;
-    @NotNull
     private BigDecimal taxa;
+    private BigDecimal taxaEfetiva;
+    private BigDecimal indice;
+    private BigDecimal percentualIndice;
     @NotNull
     private Boolean diasUteis;
     @NotNull
