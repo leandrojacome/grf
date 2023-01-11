@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.SiglaTipoInstrumentoFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoInstrumentoFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.TipoInstrumentoFinanceiroInputOutput;
@@ -18,22 +17,19 @@ public class ObterTipoInstrumentoFinanceiroService {
 	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
 	private final TipoInstrumentoFinanceiroInputOutput tituloPrivado = new TipoInstrumentoFinanceiroInputOutput(
-			null, "Título Privado", SiglaTipoInstrumentoFinanceiro.TPV.name(), true
+			null, TipoInstrumentoFinanceiro.TITULO_PRIVADO.getNome(), 
+			TipoInstrumentoFinanceiro.TITULO_PRIVADO.getSigla(), true
 			);
-	private static final String pesquisaTituloPrivado = "[Tt][Iií][Tt][Uu][Ll][Oo] [Pp][Rr][Ii][Vv][Aa][Dd][Oo]";
-	private static final String pesquisaSiglaTPV = "TPV";
-	
+
 	private final TipoInstrumentoFinanceiroInputOutput tituloPublico = new TipoInstrumentoFinanceiroInputOutput(
-			null, "Título Público", SiglaTipoInstrumentoFinanceiro.TPF.name(), true
+			null, TipoInstrumentoFinanceiro.TITULO_PUBLICO.getNome(), 
+			TipoInstrumentoFinanceiro.TITULO_PUBLICO.getSigla(), true
 			);
-	private static final String pesquisaTituloPublico = "[Tt][Iíi][Tt][Uu][Ll][Oo] [Pp][Uúu][Bb][Ll][Ii][Cc][Oo]";
-	private static final String pesquisaSiglaTPF = "TPF";
 	
 	private final TipoInstrumentoFinanceiroInputOutput fundoInvestimento = new TipoInstrumentoFinanceiroInputOutput(
-			null, "Fundo de Investimento", SiglaTipoInstrumentoFinanceiro.FIV.name(), true
+			null, TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO.getNome(), 
+			TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO.getSigla(), true
 			);
-	private static final String pesquisaFundoInvestimento = "[Ff][Uu][Nn][Dd][Oo] [Dd][Ee] [Ii][Nn][Vv][Ee][Ss][Tt][Ii][Mm][Ee][Nn][Tt][Oo]";
-	private static final String pesquisaSiglaFIV = "FIV";
 
 	public Long getCodTituloPrivado() {
 		return execute(TipoInstrumentoFinanceiro.TITULO_PRIVADO).getCodigo();
@@ -48,28 +44,24 @@ public class ObterTipoInstrumentoFinanceiroService {
 	}
 	
 	public TipoInstrumentoFinanceiroInputOutput execute(final TipoInstrumentoFinanceiro tipo) {
-		String pesquisaNome = null;
 		String pesquisaSigla = null;
 		TipoInstrumentoFinanceiroInputOutput tipoInstrumento = null;
 		TipoInstrumentoFinanceiroInputOutput retorno;
 		
 		if (tipo.equals(TipoInstrumentoFinanceiro.TITULO_PRIVADO)) {
-			pesquisaNome = pesquisaTituloPrivado;
-			pesquisaSigla = pesquisaSiglaTPV;
+			pesquisaSigla = TipoInstrumentoFinanceiro.TITULO_PRIVADO.getSigla();
 			tipoInstrumento = tituloPrivado;
 		} else if (tipo.equals(TipoInstrumentoFinanceiro.TITULO_PUBLICO)) {
-			pesquisaNome = pesquisaTituloPublico;
-			pesquisaSigla = pesquisaSiglaTPF;
+			pesquisaSigla = TipoInstrumentoFinanceiro.TITULO_PUBLICO.getSigla();
 			tipoInstrumento = tituloPublico;
 		} else if (tipo.equals(TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO)) {
-			pesquisaNome = pesquisaFundoInvestimento;
-			pesquisaSigla = pesquisaSiglaFIV;
+			pesquisaSigla = TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO.getSigla();
 			tipoInstrumento = fundoInvestimento;
 		} else {
 			throw new NegocioException("Pesquisa Tipo Instrumento Financeiro GIF", "Não foi possível pesquisa o Tipo de Instrumento Financeiro no GIF");
 		}
 			
-		Optional<TipoInstrumentoFinanceiroInputOutput> optionalTipo = search(pesquisaNome, pesquisaSigla);
+		Optional<TipoInstrumentoFinanceiroInputOutput> optionalTipo = search(pesquisaSigla);
 		
 		if (! optionalTipo.isPresent()) {
 			retorno = gestaoInstrumentosFinanceirosApiClient.createTipoInstrumentoFinanceiro(tipoInstrumento);
@@ -79,17 +71,12 @@ public class ObterTipoInstrumentoFinanceiroService {
 		return retorno;
 	}
 
-	private Optional<TipoInstrumentoFinanceiroInputOutput> search(String pesquisaNome, String pesquisaSigla) {
-		Optional<TipoInstrumentoFinanceiroInputOutput> foundSigla = gestaoInstrumentosFinanceirosApiClient
+	private Optional<TipoInstrumentoFinanceiroInputOutput> search(String pesquisaSigla) {
+		
+		return gestaoInstrumentosFinanceirosApiClient
 				.getTipoInstrumentosFinanceiros().stream()
 				.filter(tipo -> tipo.getSigla().matches(pesquisaSigla)).findFirst();
 		
-		if (foundSigla.isPresent()) {
-			return foundSigla;
-		} else {
-			return gestaoInstrumentosFinanceirosApiClient.getTipoInstrumentosFinanceiros()
-					.stream().filter(tipo -> tipo.getNome().matches(pesquisaNome)).findFirst();
-		}
 	}
 
 }

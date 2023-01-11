@@ -21,15 +21,16 @@ public class ExcluirTituloPrivadoService {
     private final ObterTituloPrivadoService obterTituloPrivadoService;
 
     public ResponseModel execute(final String id) {
-        var tituloPrivado = obterTituloPrivadoService.id(id);
+
+    	var tituloPrivado = obterTituloPrivadoService.id(id);
+
+        tituloPrivadoRepository.delete(tituloPrivado);
 
         try {
             gestaoInstrumentosFinanceirosApiClient.deteleInstrumentoFinanceiro(tituloPrivado.getCodigoGif());
         } catch (FeignException.NotFound e) {
             throw new RecursoNaoEncontradoException("Título Privado", String.format("Não foi encontrado, no GIF, o Título Privado com código: %s", tituloPrivado.getCodigoGif()));
         }
-
-        tituloPrivadoRepository.delete(tituloPrivado);
 
         return new ResponseModel(
                 LocalDateTime.now(),
