@@ -28,6 +28,9 @@ public class OperacaoRendaFixaDefinitivaOutput {
     private String idContraparte;
     private TipoTaxa tipoTaxa;
     private BigDecimal taxa;
+    private BigDecimal taxaEfetiva;
+    private BigDecimal indice;
+    private BigDecimal percentualIndice;
     private Boolean diasUteis;
     private Integer qtdDias;
     private BigDecimal puEmissao;
