@@ -5,7 +5,7 @@ CREATE TABLE GESTAO_RECURSOS_FINANCEIROS.OPERACAO_RENDA_FIXA_DEFINITIVA
     CADASTRO                            TIMESTAMP           NOT NULL,
     ATUALIZACAO                         TIMESTAMP           NOT NULL,
     NUMERO_OPERACAO                     NUMBER              NOT NULL,
-    INSTITUICAO_GIF_CODIGO              NUMBER              NOT NULL,
+    EMPRESA                             VARCHAR2(30)        NOT NULL,
     OPERACAO_GIF_CODIGO                 NUMBER              NOT NULL,
     TIPO_MERCADO                        VARCHAR2(20)        NOT NULL,
     INSTRUMENTO_FINANCEIRO              VARCHAR2(36)        NOT NULL,
@@ -57,8 +57,8 @@ COMMENT
 ON COLUMN GESTAO_RECURSOS_FINANCEIROS.OPERACAO_RENDA_FIXA_DEFINITIVA.NUMERO_OPERACAO
     IS 'Número da operação.';
 COMMENT
-ON COLUMN GESTAO_RECURSOS_FINANCEIROS.OPERACAO_RENDA_FIXA_DEFINITIVA.INSTITUICAO_GIF_CODIGO
-    IS 'Código do registro da instituição na aplicação Gestão de Instrumentos Financeiros.';
+ON COLUMN GESTAO_RECURSOS_FINANCEIROS.OPERACAO_RENDA_FIXA_DEFINITIVA.EMPRESA
+    IS 'Empresa responsável pela operação.';
 COMMENT
 ON COLUMN GESTAO_RECURSOS_FINANCEIROS.OPERACAO_RENDA_FIXA_DEFINITIVA.OPERACAO_GIF_CODIGO
     IS 'Código do registro da operação na aplicação Gestão de Instrumentos Financeiros.';

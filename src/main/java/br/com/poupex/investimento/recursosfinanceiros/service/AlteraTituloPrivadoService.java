@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+import static br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa.POUPEX;
+
 @Service
 @RequiredArgsConstructor
 public class AlteraTituloPrivadoService {
@@ -58,7 +60,7 @@ public class AlteraTituloPrivadoService {
     }
 
     private Long getCodInstituicao() {
-        return obterInstituicaoGifService.getCodInstituicao();
+        return obterInstituicaoGifService.getCodInstituicao(POUPEX.getCnpj());
     }
 
     private Long getCodTituloPrivado() {

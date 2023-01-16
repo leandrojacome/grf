@@ -1,27 +1,21 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.PeriodoCupom;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoTaxa;
-import lombok.Data;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OperacaoRendaFixaDefinitivaInput {
 
     @NotNull
-    private Long instituicaoGifCodigo;
+    private Empresa empresa;
     @NotNull
     private TipoMercado tipoMercado;
     @NotNull
