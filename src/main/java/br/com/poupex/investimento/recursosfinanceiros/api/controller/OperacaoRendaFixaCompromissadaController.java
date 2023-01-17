@@ -3,14 +3,12 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRisco;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissada;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.CalculoPrecoUnitarioVoltaInput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaCompromissadaInput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaCompromissadaOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoRendaFixaCompromissadaService;
 import br.com.poupex.investimento.recursosfinanceiros.service.CalculaPrecoUnitarioVoltaService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ValidaOperacaoRendaFixaCompromissadaLastroService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,6 +33,7 @@ public class OperacaoRendaFixaCompromissadaController {
 
   private final CadastrarOperacaoRendaFixaCompromissadaService cadastrarOperacaoRendaFixaCompromissadaService;
   private final CalculaPrecoUnitarioVoltaService calculaPrecoUnitarioVoltaService;
+  private final ValidaOperacaoRendaFixaCompromissadaLastroService validaOperacaoRendaFixaCompromissadaLastroService;
 
   @AuditarTipo(tipo = AuditoriaTipo.API, recurso = OperacaoRendaFixaCompromissada.class)
   @Operation(summary = "Cadastra a Operação (Renda Fixa Comprimissada)")
@@ -59,6 +58,19 @@ public class OperacaoRendaFixaCompromissadaController {
   @PostMapping("calculo-preco-unitario-volta")
   public ResponseEntity<ResponseModel> calculaPrecoUnitarioVolta(@Valid @RequestBody final CalculoPrecoUnitarioVoltaInput input) {
     return ResponseEntity.ok(calculaPrecoUnitarioVoltaService.execute(input));
+  }
+
+  @Operation(summary = "Valida Lista de lastros")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Valor do calculo realizado", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+      @Content(mediaType = "application/json", schema = @Schema(implementation = BigDecimal.class))
+    }),
+  })
+  @PostMapping("valida-adiciona-lastro")
+  public ResponseEntity<ResponseModel> validaLastros(@Valid @RequestBody final ValidaLastroInput input) {
+    validaOperacaoRendaFixaCompromissadaLastroService.execute(input);
+    return ResponseEntity.ok(new ResponseModel(input.getLastro()));
   }
 
 }
