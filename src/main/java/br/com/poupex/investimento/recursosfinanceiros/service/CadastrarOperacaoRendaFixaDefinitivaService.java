@@ -25,6 +25,7 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
 	private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
 	private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
 	private final CadastrarOperacaoRendaFixaDefinitivaGifService cadastrarOperacaoRendaFixaDefinitivaGifService;
+  private final ObterInstituicaoGifService obterInstituicaoGifService;
 	private final ModelMapper mapper;
 
         var codInstituicaoGif = obterInstituicaoGifService.getCodInstituicao(input.getEmpresa().getCnpj());
