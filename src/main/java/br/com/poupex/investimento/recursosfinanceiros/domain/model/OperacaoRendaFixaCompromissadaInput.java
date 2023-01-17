@@ -2,13 +2,13 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,4 +48,11 @@ public class OperacaoRendaFixaCompromissadaInput {
   private BigDecimal custosValorCorretagem;
   @NotEmpty
   private String custosIndicadorFinanceiro;
+  @Valid
+  @NotEmpty
+  private List<OperacaoRendaFixaCompromissadaLastroInput> lastros;
+  @JsonIgnore
+  private BigDecimal valorFinanceiroIda = BigDecimal.ZERO;
+  @JsonIgnore
+  private BigDecimal valorFinanceiroVolta = BigDecimal.ZERO;
 }

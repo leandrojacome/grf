@@ -21,6 +21,8 @@ public class CadastrarOperacaoRendaFixaCompromissadaService {
   private final ValidaOperacaoRendaFixaCompromissadaService validaOperacaoRendaFixaCompromissadaService;
 
   public ResponseModel execute(final OperacaoRendaFixaCompromissadaInput input) {
+    validaOperacaoRendaFixaCompromissadaService.execute(input);
+
     val output = mapper.map(input, OperacaoRendaFixaCompromissadaOutput.class);
     output.setBoleta(String.format("%s%04d", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), 1));
     return new ResponseModel("Operação cadastrada com sucesso.", output);
