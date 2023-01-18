@@ -12,7 +12,10 @@ public class CalculaPrecoUnitarioVoltaService {
   private final CalculaTaxaDiariaIndicadorService calculaTaxaDiariaIndicadorService;
 
   public ResponseModel execute(final CalculoPrecoUnitarioVoltaInput input) {
-    return new ResponseModel(calculaTaxaDiariaIndicadorService.execute(input.getTaxaAnual()).multiply(input.getPrecoUnitarioIda()));
+    return new ResponseModel(calculaTaxaDiariaIndicadorService.execute(input.getTaxaAnual())
+      .multiply(input.getPrecoUnitarioIda())
+      .add(input.getPrecoUnitarioIda())
+    );
   }
 
 }
