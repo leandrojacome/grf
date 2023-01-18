@@ -3,12 +3,13 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.PeriodoCupom;
@@ -52,17 +53,20 @@ public class OperacaoRendaFixaDefinitivaInput {
     private TipoTaxa tipoTaxa;
     private BigDecimal taxa;
     private BigDecimal taxaEfetiva;
-    private BigDecimal indice;
+	private String idIndice;
+	private String idIndiceEmissao;
+	private String idIndiceNegociacao;
     private BigDecimal percentualIndice;
+    @NotNull
+	private BigDecimal taxaEmissao;
+    @NotNull
+	private BigDecimal taxaNegociacao;
     @NotNull
     private Boolean diasUteis;
     @NotNull
     private Integer qtdDias;
-    @NotNull
     private BigDecimal puEmissao;
-    @NotNull
     private BigDecimal valorFinanceiro;
-    @NotNull
     private BigDecimal valorResgate;
     @NotNull
     private Boolean cupom;
@@ -75,5 +79,13 @@ public class OperacaoRendaFixaDefinitivaInput {
     private String operadorContraparte;
     @NotNull
     private BigDecimal valorCorretagem;
+    private BigDecimal puAtual;
+    private BigDecimal puNegociado;
+    private BigDecimal puPoupex;
+    private BigDecimal puContraparte;
+    private BigDecimal valorFinanceiroAtual;
+    private BigDecimal valorFinanceiroNegociado;
+    private BigDecimal valorFinanceiroPoupex;
+    private BigDecimal valorFinanceiroContraparte;
 
 }
