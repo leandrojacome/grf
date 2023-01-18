@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.TituloPrivado;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPrivadoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstrumentoFinanceiroGifInputOutput;
@@ -13,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+
+import static br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa.POUPEX;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +35,7 @@ public class CadastrarTituloPrivadoService {
 
         instrumentoGif.setCodTipoInstrumentoFinanceiro(getCodTituloPrivado());
         instrumentoGif.setCodInstituicao(getCodInstituicao());
-        instrumentoGif.setCodModeloNegocio(getCodModeloNegocio("M01")); // Mantido até o Vencimento
+        instrumentoGif.setCodModeloNegocio(getCodModeloNegocio());
         instrumentoGif.setSemTestesSppj(input.getAtivoFinanceiro());
         instrumentoGif.setSemPassivos(!input.getAtivoFinanceiro());
         instrumentoGif.setCodFormaMensuracao(input.getCodFormaMensuracao());
@@ -40,6 +43,7 @@ public class CadastrarTituloPrivadoService {
         Long codigoGif = gestaoInstrumentosFinanceirosApiClient.createInstrumentoFinanceiro(instrumentoGif);
 
         var tituloPrivado = mapper.map(input, TituloPrivado.class);
+        tituloPrivado.setFormaMensuracao(FormaMensuracaoEnum.valueOf(input.getCodFormaMensuracao()));
         tituloPrivado.setCodigoGif(codigoGif);
 
         var responseTituloPrivado = tituloPrivadoRepository.save(tituloPrivado);
@@ -56,14 +60,14 @@ public class CadastrarTituloPrivadoService {
     }
 
     private Long getCodInstituicao() {
-        return obterInstituicaoGifService.getCodInstituicao();
+        return obterInstituicaoGifService.getCodInstituicao(POUPEX.getCnpj());
     }
 
     private Long getCodTituloPrivado() {
         return obterTipoInstrumentoFinanceiroService.getCodTituloPrivado();
     }
 
-    private Long getCodModeloNegocio(String sigla) {
-        return obterModeloNegocioService.getCodModeloNegocio(sigla);
+    private Long getCodModeloNegocio() {
+        return obterModeloNegocioService.getCodModeloNegocio("M01"); // Mantido até o Vencimento
     }
 }

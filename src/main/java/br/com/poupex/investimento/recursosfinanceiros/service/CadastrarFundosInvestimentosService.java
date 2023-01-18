@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+import static br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa.POUPEX;
+
 @Service
 @RequiredArgsConstructor
 public class CadastrarFundosInvestimentosService {
@@ -36,7 +38,7 @@ public class CadastrarFundosInvestimentosService {
         inputGif.setSemPassivos(false);
         inputGif.setSemTestesSppj(false);
         inputGif.setSigla(input.getSigla());
-        inputGif.setCodModeloNegocio(getCodModeloNegocio("M02"));
+        inputGif.setCodModeloNegocio(getCodModeloNegocio());
 
         FundosInvestimentos fundoInvestimento = mapper.map(input, FundosInvestimentos.class);
 
@@ -51,15 +53,15 @@ public class CadastrarFundosInvestimentosService {
     }
 
     private Long getCodInstituicao() {
-        return obterInstituicaoGifService.getCodInstituicao();
+        return obterInstituicaoGifService.getCodInstituicao(POUPEX.getCnpj());
     }
 
     private Long getCodFundoInvestimento() {
         return obterTipoInstrumentoFinanceiroService.getCodTituloFundoInvestimento();
     }
 
-    private Long getCodModeloNegocio(String sigla) {
-        return obterModeloNegocioService.getCodModeloNegocio(sigla);
+    private Long getCodModeloNegocio() {
+        return obterModeloNegocioService.getCodModeloNegocio("M02");
     }
 
 }

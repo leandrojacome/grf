@@ -1,23 +1,13 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.PeriodoCupom;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoTaxa;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -29,8 +19,9 @@ public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
 	@Column(name = "NUMERO_OPERACAO", unique = true, nullable = false, updatable = false)
 	private Long numeroOperacao;
 
-	@Column(name = "INSTITUICAO_GIF_CODIGO", nullable = false)
-	private Long instituicaoGifCodigo;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EMPRESA", nullable = false)
+    private Empresa empresa;
 
 	@Column(name = "OPERACAO_GIF_CODIGO", nullable = false)
 	private Long operacaoGifCodigo;

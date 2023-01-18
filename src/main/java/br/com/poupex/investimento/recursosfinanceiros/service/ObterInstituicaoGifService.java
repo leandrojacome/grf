@@ -1,49 +1,40 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import java.util.Optional;
-
+import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstituicaoGifInputOutput;
-import org.springframework.stereotype.Service;
-
-import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+import static br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.StringUtil.unmask;
 
 @Service
 @RequiredArgsConstructor
 public class ObterInstituicaoGifService {
-	
-	private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
-	private final InstituicaoGifInputOutput poupex = new InstituicaoGifInputOutput(null, "Associação de Poupança e Empréstimo", "POUPEX", true, "00655522000121");
-	
-	private static final String pesquisaNome = "[Pp][Oo][Uu][Pp][Ee][Xx]"; //regex
+    private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
 
-	public Long getCodInstituicao() {
-		return execute().getCodigo();
-	}
-	
-	public InstituicaoGifInputOutput execute() {
-		InstituicaoGifInputOutput retorno;
-		Optional<InstituicaoGifInputOutput> optionalInstituicao = search(pesquisaNome);
-		
-		if (! optionalInstituicao.isPresent()) {
-			gestaoInstrumentosFinanceirosApiClient.createInstituicao(poupex);
-			optionalInstituicao = search(pesquisaNome);
-			
-			if (! optionalInstituicao.isPresent()) {
-				throw new NegocioException("Instituição no GIF", 
-						String.format("Não foi possível criar instituição '%s' no GIF!", poupex.getDescricao()));
-			} else
-				retorno = optionalInstituicao.get();
-		} else
-			retorno = optionalInstituicao.get();
-		
-		return retorno;
-	}
+    public Long getCodInstituicao(String cnpj) {
+        return execute(unmask(cnpj)).getCodigo();
+    }
 
-	private Optional<InstituicaoGifInputOutput> search(String pesquisaNome) {
-		return gestaoInstrumentosFinanceirosApiClient.getInstituicoes().stream().filter(tipo -> tipo.getSigla().matches(pesquisaNome)).findFirst();
-	}
+    public InstituicaoGifInputOutput execute(String cnpj) {
+        Optional<InstituicaoGifInputOutput> optionalInstituicao = search(cnpj);
+
+        if (optionalInstituicao.isEmpty()) {
+            throw new RecursoNaoEncontradoException("Instituição no GIF",
+                    String.format("Instituição com CNPJ nº '%s' não encontrado no GIF!", cnpj));
+        }
+        return optionalInstituicao.get();
+    }
+
+    private Optional<InstituicaoGifInputOutput> search(String cnpj) {
+        return gestaoInstrumentosFinanceirosApiClient.getInstituicoes().stream()
+                .filter(instituicao -> instituicao.getCnpj()
+                        .matches(cnpj))
+                .findFirst();
+    }
 
 }

@@ -5,14 +5,12 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.spi.MappingContext;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Component;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaDefinitiva;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoTaxa;
-import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaDefinitivaInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInput;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterIndicadorFinanceiroService;
@@ -46,14 +44,14 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
             @Override
             protected void configure() {
                 skip(destination.getContraparte());
+                skip(destination.getCodInstituicao());
                 map().setDtEmissao(source.getDataEmissao());
                 map().setDtLiquidacao(source.getDataLiquidacao());
                 map().setPrazoDiasCorridos(source.getPrazoDC());
                 map().setPrazoDiasUteis(source.getPrazoDU());
                 map().setDtVencimento(source.getDataVencimento());
                 map().setTaxaDias(source.getDiasUteis());
-                map().setCodInstituicao(source.getInstituicaoGifCodigo());
-                
+
                 Converter<FormaMensuracaoEnum, Long> enumConverter = ctx -> ctx.getSource() == null ? null : ctx.getSource().getCodigo();
                 using(enumConverter).map(source.getFormaMensuracao()).setCodFormaMensuracao(null);
             }
