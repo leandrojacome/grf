@@ -23,6 +23,7 @@ public class InstrumentoFinanceiroGifInputOutpoutConverter {
         output.setTipoInstrumentoFinanceiro(TipoInstrumentoFinanceiro.getBySigla(input.getTipoInstrumentoFinanceiro().getSigla()));
         output.setFormaMensuracao(input.getFormaMensuracao());
         output.setAtivoFinanceiro(input.getAtivoFinanceiro());
+        output.setNome(input.getNome());
         return output;
     }
 
