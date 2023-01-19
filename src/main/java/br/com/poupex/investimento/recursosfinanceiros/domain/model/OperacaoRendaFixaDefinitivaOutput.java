@@ -27,6 +27,7 @@ public class OperacaoRendaFixaDefinitivaOutput {
     private FormaMensuracaoEnum formaMensuracao;
     private LocalDateTime dataEmissao;
     private LocalDateTime dataLiquidacao;
+    private LocalDateTime dataCompra;
     private Integer prazoDC;
     private Integer prazoDU;
     private LocalDateTime dataVencimento;
@@ -36,11 +37,7 @@ public class OperacaoRendaFixaDefinitivaOutput {
     private BigDecimal taxa;
     private BigDecimal taxaEfetiva;
 	private IndicadorFinanceiro indice;
-	private IndicadorFinanceiro indiceEmissao;
-	private IndicadorFinanceiro indiceNegociacao;
     private BigDecimal percentualIndice;
-	private BigDecimal taxaEmissao;
-	private BigDecimal taxaNegociacao;
     private Boolean diasUteis;
     private Integer qtdDias;
     private BigDecimal puEmissao;
@@ -51,13 +48,6 @@ public class OperacaoRendaFixaDefinitivaOutput {
     private LocalDateTime dataPrimeiroCupom;
     private String operadorContraparte;
     private BigDecimal valorCorretagem;
-    private BigDecimal puAtual;
-    private BigDecimal puNegociado;
-    private BigDecimal puPoupex;
-    private BigDecimal puContraparte;
-    private BigDecimal valorFinanceiroAtual;
-    private BigDecimal valorFinanceiroNegociado;
-    private BigDecimal valorFinanceiroPoupex;
-    private BigDecimal valorFinanceiroContraparte;
+	private IndicadorFinanceiro custoOperacao;
 
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaDefinitiva;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoTaxa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaDefinitivaInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInput;
@@ -70,32 +69,16 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
 		output.setInstrumentoFinanceiro(obterInstrumentoFinanceiroService.id(input.getIdInstrumentoFinanceiro()));
 		output.setEmissor(obterInstituicaoFinanceiraService.id(input.getIdEmissor()));
 		output.setContraparte(obterInstituicaoFinanceiraService.id(input.getIdContraparte()));
+		output.setCustoOperacao(obterIndicadorFinanceiroService.id(input.getIdCustoOperacao()));
 		
 		if (input.getTipoTaxa().equals(TipoTaxa.POS)) {
 			output.setIndice(obterIndicadorFinanceiroService.id(input.getIdIndice()));
-			output.setIndiceEmissao(obterIndicadorFinanceiroService.id(input.getIdIndiceEmissao()));
-			output.setIndiceNegociacao(obterIndicadorFinanceiroService.id(input.getIdIndiceNegociacao()));
 			output.setTaxa(null);
 			output.setTaxaEfetiva(null);
 			
 		} else if (input.getTipoTaxa().equals(TipoTaxa.PRE)){
 			output.setIndice(null);
 			output.setPercentualIndice(null);
-		}
-		if (input.getTipoMercado().equals(TipoMercado.MERCADO_PRIMARIO)) {
-			output.setPuAtual(null);
-			output.setPuContraparte(null);
-			output.setPuNegociado(null);
-			output.setPuPoupex(null);
-			output.setValorFinanceiroAtual(null);
-			output.setValorFinanceiroContraparte(null);
-			output.setValorFinanceiroNegociado(null);
-			output.setValorFinanceiroPoupex(null);
-			
-		} else { // TipoMercado.MERCADO_SECUNDARIO
-			output.setPuEmissao(null);
-			output.setValorFinanceiro(null);
-			output.setValorResgate(null);
 		}
     
         return output;

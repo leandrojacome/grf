@@ -50,6 +50,9 @@ public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
 	@Column(name = "DATA_LIQUIDACAO", nullable = false)
 	private LocalDateTime dataLiquidacao;
 
+	@Column(name = "DATA_COMPRA", nullable = false)
+	private LocalDateTime dataCompra;
+
 	@Column(name = "PRAZO_DC", nullable = false)
 	private Integer prazoDC;
 
@@ -81,22 +84,8 @@ public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
 	@JoinColumn(name = "INDICE")
 	private IndicadorFinanceiro indice;
 
-	@ManyToOne
-	@JoinColumn(name = "INDICE_EMISSAO")
-	private IndicadorFinanceiro indiceEmissao;
-
-	@ManyToOne
-	@JoinColumn(name = "INDICE_NEGOCIACAO")
-	private IndicadorFinanceiro indiceNegociacao;
-
 	@Column(name = "PERCENTUAL_INDICE", nullable = true)
 	private BigDecimal percentualIndice;
-
-	@Column(name = "TAXA_EMISSAO", nullable = false)
-	private BigDecimal taxaEmissao;
-
-	@Column(name = "TAXA_NEGOCIACAO", nullable = false)
-	private BigDecimal taxaNegociacao;
 
 	@Column(name = "DIAS_UTEIS", nullable = false)
 	private Boolean diasUteis;
@@ -128,29 +117,11 @@ public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
 
 	@Column(name = "VALOR_CORRETAGEM", nullable = false)
 	private BigDecimal valorCorretagem;
+	
+	@ManyToOne
+	@JoinColumn(name = "CUSTO_OPERACAO")
+	private IndicadorFinanceiro custoOperacao;
 
-	@Column(name = "PU_ATUAL", nullable = true)
-	private BigDecimal puAtual;
 
-	@Column(name = "PU_NEGOCIADO", nullable = true)
-	private BigDecimal puNegociado;
-
-	@Column(name = "PU_POUPEX", nullable = true)
-	private BigDecimal puPoupex;
-
-	@Column(name = "PU_CONTRAPARTE", nullable = true)
-	private BigDecimal puContraparte;
-
-	@Column(name = "VALOR_FINANCEIRO_ATUAL", nullable = true)
-	private BigDecimal valorFinanceiroAtual;
-
-	@Column(name = "VALOR_FINANCEIRO_NEGOCIADO", nullable = true)
-	private BigDecimal valorFinanceiroNegociado;
-
-	@Column(name = "VALOR_FINANCEIRO_POUPEX", nullable = true)
-	private BigDecimal valorFinanceiroPoupex;
-
-	@Column(name = "VALOR_FINANCEIRO_CONTRAPARTE", nullable = true)
-	private BigDecimal valorFinanceiroContraparte;
 
 }
