@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoInstrumentoFinanceiro;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -24,4 +25,6 @@ public class InstrumentoFinanceiroOutput {
 	@JsonProperty(access = Access.READ_ONLY)
     private FormaMensuracaoOutput formaMensuracao;
 	private Boolean ativoFinanceiro;
+	private TipoInstrumentoFinanceiro tipoInstrumentoFinanceiro;
+	private String siglaVencimento;
 }
