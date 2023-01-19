@@ -16,102 +16,141 @@ import java.time.LocalDateTime;
 @Table(name = "OPERACAO_RENDA_FIXA_DEFINITIVA", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
 
-    @Column(name = "NUMERO_OPERACAO", unique = true, nullable = false, updatable = false)
-    private Long numeroOperacao;
+	@Column(name = "NUMERO_OPERACAO", unique = true, nullable = false, updatable = false)
+	private Long numeroOperacao;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "EMPRESA", nullable = false)
     private Empresa empresa;
 
-    @Column(name = "OPERACAO_GIF_CODIGO", nullable = false)
-    private Long operacaoGifCodigo;
+	@Column(name = "OPERACAO_GIF_CODIGO", nullable = false)
+	private Long operacaoGifCodigo;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "TIPO_MERCADO", nullable = false)
-    private TipoMercado tipoMercado;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TIPO_MERCADO", nullable = false)
+	private TipoMercado tipoMercado;
 
-    @ManyToOne
-    @JoinColumn(name = "INSTRUMENTO_FINANCEIRO")
-    private InstrumentoFinanceiro instrumentoFinanceiro;
+	@ManyToOne
+	@JoinColumn(name = "INSTRUMENTO_FINANCEIRO")
+	private InstrumentoFinanceiro instrumentoFinanceiro;
 
-    @Column(name = "CODIGO_IF_GRF", nullable = false, length = 30)
-    private String codigoIfGrf;
+	@Column(name = "CODIGO_IF_GRF", nullable = false, length = 30)
+	private String codigoIfGrf;
 
-    @Column(name = "CODIGO_CUSTODIA_BB", nullable = false, length = 30)
-    private String codigoCustodiaBB;
+	@Column(name = "CODIGO_CUSTODIA_BB", nullable = false, length = 30)
+	private String codigoCustodiaBB;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "FORMA_MENSURACAO", nullable = false)
-    private FormaMensuracaoEnum formaMensuracao;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "FORMA_MENSURACAO", nullable = false)
+	private FormaMensuracaoEnum formaMensuracao;
 
-    @Column(name = "DATA_EMISSAO", nullable = false)
-    private LocalDateTime dataEmissao;
+	@Column(name = "DATA_EMISSAO", nullable = false)
+	private LocalDateTime dataEmissao;
 
-    @Column(name = "DATA_LIQUIDACAO", nullable = false)
-    private LocalDateTime dataLiquidacao;
+	@Column(name = "DATA_LIQUIDACAO", nullable = false)
+	private LocalDateTime dataLiquidacao;
 
-    @Column(name = "PRAZO_DC", nullable = false)
-    private Integer prazoDC;
+	@Column(name = "PRAZO_DC", nullable = false)
+	private Integer prazoDC;
 
-    @Column(name = "PRAZO_DU", nullable = false)
-    private Integer prazoDU;
+	@Column(name = "PRAZO_DU", nullable = false)
+	private Integer prazoDU;
 
-    @Column(name = "DATA_VENCIMENTO", nullable = false)
-    private LocalDateTime dataVencimento;
+	@Column(name = "DATA_VENCIMENTO", nullable = false)
+	private LocalDateTime dataVencimento;
 
-    @ManyToOne
-    @JoinColumn(name = "EMISSOR")
-    private InstituicaoFinanceira emissor;
+	@ManyToOne
+	@JoinColumn(name = "EMISSOR")
+	private InstituicaoFinanceira emissor;
 
-    @ManyToOne
-    @JoinColumn(name = "CONTRAPARTE")
-    private InstituicaoFinanceira contraparte;
+	@ManyToOne
+	@JoinColumn(name = "CONTRAPARTE")
+	private InstituicaoFinanceira contraparte;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "TIPO_TAXA", nullable = false)
-    private TipoTaxa tipoTaxa;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TIPO_TAXA", nullable = false)
+	private TipoTaxa tipoTaxa;
 
-    @Column(name = "TAXA", nullable = true)
-    private BigDecimal taxa;
+	@Column(name = "TAXA", nullable = true)
+	private BigDecimal taxa;
 
-    @Column(name = "TAXA_EFETIVA", nullable = true)
-    private BigDecimal taxaEfetiva;
+	@Column(name = "TAXA_EFETIVA", nullable = true)
+	private BigDecimal taxaEfetiva;
 
-    @Column(name = "INDICE", nullable = true)
-    private BigDecimal indice;
+	@ManyToOne
+	@JoinColumn(name = "INDICE")
+	private IndicadorFinanceiro indice;
 
-    @Column(name = "PERCENTUAL_INDICE", nullable = true)
-    private BigDecimal percentualIndice;
+	@ManyToOne
+	@JoinColumn(name = "INDICE_EMISSAO")
+	private IndicadorFinanceiro indiceEmissao;
 
-    @Column(name = "DIAS_UTEIS", nullable = false)
-    private Boolean diasUteis;
+	@ManyToOne
+	@JoinColumn(name = "INDICE_NEGOCIACAO")
+	private IndicadorFinanceiro indiceNegociacao;
 
-    @Column(name = "QTD_DIAS", nullable = false)
-    private Integer qtdDias;
+	@Column(name = "PERCENTUAL_INDICE", nullable = true)
+	private BigDecimal percentualIndice;
 
-    @Column(name = "PU_EMISSAO", nullable = false)
-    private BigDecimal puEmissao;
+	@Column(name = "TAXA_EMISSAO", nullable = false)
+	private BigDecimal taxaEmissao;
 
-    @Column(name = "VALOR_FINANCEIRO", nullable = false)
-    private BigDecimal valorFinanceiro;
+	@Column(name = "TAXA_NEGOCIACAO", nullable = false)
+	private BigDecimal taxaNegociacao;
 
-    @Column(name = "VALOR_RESGATE", nullable = false)
-    private BigDecimal valorResgate;
+	@Column(name = "DIAS_UTEIS", nullable = false)
+	private Boolean diasUteis;
 
-    @Column(name = "CUPOM", nullable = false)
-    private Boolean cupom;
+	@Column(name = "QTD_DIAS", nullable = false)
+	private Integer qtdDias;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "PERIODO_CUPOM", nullable = false)
-    private PeriodoCupom periodoCupom;
+	@Column(name = "PU_EMISSAO", nullable = false)
+	private BigDecimal puEmissao;
 
-    @Column(name = "DATA_PRIMEIRO_CUPOM", nullable = false)
-    private LocalDateTime dataPrimeiroCupom;
+	@Column(name = "VALOR_FINANCEIRO", nullable = false)
+	private BigDecimal valorFinanceiro;
 
-    @Column(name = "OPERADOR_CONTRAPARTE", nullable = false, length = 100)
-    private String operadorContraparte;
+	@Column(name = "VALOR_RESGATE", nullable = false)
+	private BigDecimal valorResgate;
 
-    @Column(name = "VALOR_CORRETAGEM", nullable = false)
-    private BigDecimal valorCorretagem;
+	@Column(name = "CUPOM", nullable = false)
+	private Boolean cupom;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "PERIODO_CUPOM", nullable = false)
+	private PeriodoCupom periodoCupom;
+
+	@Column(name = "DATA_PRIMEIRO_CUPOM", nullable = false)
+	private LocalDateTime dataPrimeiroCupom;
+
+	@Column(name = "OPERADOR_CONTRAPARTE", nullable = false, length = 100)
+	private String operadorContraparte;
+
+	@Column(name = "VALOR_CORRETAGEM", nullable = false)
+	private BigDecimal valorCorretagem;
+
+	@Column(name = "PU_ATUAL", nullable = true)
+	private BigDecimal puAtual;
+
+	@Column(name = "PU_NEGOCIADO", nullable = true)
+	private BigDecimal puNegociado;
+
+	@Column(name = "PU_POUPEX", nullable = true)
+	private BigDecimal puPoupex;
+
+	@Column(name = "PU_CONTRAPARTE", nullable = true)
+	private BigDecimal puContraparte;
+
+	@Column(name = "VALOR_FINANCEIRO_ATUAL", nullable = true)
+	private BigDecimal valorFinanceiroAtual;
+
+	@Column(name = "VALOR_FINANCEIRO_NEGOCIADO", nullable = true)
+	private BigDecimal valorFinanceiroNegociado;
+
+	@Column(name = "VALOR_FINANCEIRO_POUPEX", nullable = true)
+	private BigDecimal valorFinanceiroPoupex;
+
+	@Column(name = "VALOR_FINANCEIRO_CONTRAPARTE", nullable = true)
+	private BigDecimal valorFinanceiroContraparte;
 
 }

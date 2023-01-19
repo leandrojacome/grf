@@ -56,7 +56,7 @@ public class OperacaoRendaFixaDefinitivaController {
             }),
     })
     @PostMapping
-    public ResponseEntity<ResponseModel> create(@RequestBody final OperacaoRendaFixaDefinitivaInput input) {
+    public ResponseEntity<ResponseModel> create(@Valid @RequestBody final OperacaoRendaFixaDefinitivaInput input) {
         return ResponseEntity.ok(cadastrarOperacaoRendaFixaDefinitivaService.execute(input));
     }
 

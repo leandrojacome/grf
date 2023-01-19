@@ -24,8 +24,6 @@ public class AlteraOperacaoRendaFixaDefinitivaService {
     private final OperacaoRendaFixaDefinitivaRepository operacaoRendaFixaDefinitivaRepository;
     private final ObterOperacaoRendaFixaDefinitivaService obterOperacaoRendaFixaDefinitivaService;
     private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
-    private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
-    private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
 
     private final ModelMapper mapper;
 
@@ -41,13 +39,6 @@ public class AlteraOperacaoRendaFixaDefinitivaService {
 
         gestaoInstrumentosFinanceirosApiClient.updateInstrumentoFinanceiro(codigoGif, operacaoGif);
 
-        var instrumentoFinanceiro = obterInstrumentoFinanceiroService.id(input.getIdInstrumentoFinanceiro());
-        var emissor = obterInstituicaoFinanceiraService.id(input.getIdEmissor());
-        var contraparte = obterInstituicaoFinanceiraService.id(input.getIdContraparte());
-
-        operacaoGrf.setInstrumentoFinanceiro(instrumentoFinanceiro);
-        operacaoGrf.setEmissor(emissor);
-        operacaoGrf.setContraparte(contraparte);
         OperacaoRendaFixaDefinitiva operacao = null;
 
         try {
