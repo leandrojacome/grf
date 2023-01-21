@@ -1,28 +1,30 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
+import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRisco;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissada;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraTipo;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
-import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoRendaFixaCompromissadaService;
-import br.com.poupex.investimento.recursosfinanceiros.service.CalculaPrecoUnitarioVoltaService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ValidaOperacaoRendaFixaCompromissadaLastroService;
+import br.com.poupex.investimento.recursosfinanceiros.service.*;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("operacoes-financeiras/renda-fixa/compromissadas")
@@ -32,6 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class OperacaoRendaFixaCompromissadaController {
 
   private final CadastrarOperacaoRendaFixaCompromissadaService cadastrarOperacaoRendaFixaCompromissadaService;
+  private final PesquisarOperacaoRendaFixaCompromissadaPagedService pesquisarOperacaoRendaFixaCompromissadaPagedService;
+  private final ObterOperacaoRendaFixaCompromissadaService obterOperacaoRendaFixaCompromissadaService;
   private final CalculaPrecoUnitarioVoltaService calculaPrecoUnitarioVoltaService;
   private final ValidaOperacaoRendaFixaCompromissadaLastroService validaOperacaoRendaFixaCompromissadaLastroService;
 
@@ -40,12 +44,48 @@ public class OperacaoRendaFixaCompromissadaController {
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
       @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-      @Content(mediaType = "application/json", schema = @Schema(implementation = OperacaoRendaFixaCompromissadaOutput.class))
+      @Content(mediaType = "application/json", schema = @Schema(implementation = OperacaoRendaFixaCompromissadaOutputDetalhe.class))
     }),
   })
   @PostMapping
-  public ResponseEntity<ResponseModel> create(@Valid @RequestBody final OperacaoRendaFixaCompromissadaInput input) {
+  public ResponseEntity<ResponseModel> create(@Valid @RequestBody final OperacaoRendaFixaCompromissadaInputCadastrar input) {
     return ResponseEntity.ok(cadastrarOperacaoRendaFixaCompromissadaService.execute(input));
+  }
+
+  @Operation(summary = "Consulta Operações (Renda fixa compromissada)")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Página/Resultado de Operações (Filtradas)", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+      @Content(mediaType = "application/json", schema = @Schema(implementation = PageOutput.class),
+        array = @ArraySchema(schema = @Schema(implementation = OperacaoRendaFixaCompromissadaOutput.class))
+      ),
+    }),
+  })
+  @OpenApiPaginacao
+  @GetMapping
+  public ResponseEntity<ResponseModel> read(
+    @RequestParam(required = false) final String boleta,
+    @RequestParam(required = false) final BigDecimal valorIdaInicio,
+    @RequestParam(required = false) final BigDecimal valorIdaFim,
+    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate cadastroInicio,
+    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate cadastroFim,
+    @Parameter(hidden = true) final Pageable pageable
+  ) {
+    return ResponseEntity.ok(pesquisarOperacaoRendaFixaCompromissadaPagedService.execute(
+      boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim, pageable
+    ));
+  }
+
+  @Operation(summary = "Recuperar a Operação (Renda Fixa Comprimissada)")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Detalhe operação", content = {
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+      @Content(mediaType = "application/json", schema = @Schema(implementation = OperacaoRendaFixaCompromissadaOutputDetalhe.class))
+    }),
+  })
+  @GetMapping("{id}")
+  public ResponseEntity<ResponseModel> read(@PathVariable String id) {
+    return ResponseEntity.ok(obterOperacaoRendaFixaCompromissadaService.execute(id));
   }
 
   @Operation(summary = "Calculo do preço unitário de volta")

@@ -1,8 +1,9 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissadaLastro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaCompromissadaInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaCompromissadaInputCadastrar;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaCompromissadaLastroInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidaLastroInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidacaoModel;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,8 +24,9 @@ public class ValidaOperacaoRendaFixaCompromissadaLastroService {
   private final static MathContext context = new MathContext(8);
   private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
   private final StringUtil stringUtil;
+  private final ModelMapper mapper;
 
-  public void execute(final List<OperacaoRendaFixaCompromissadaLastroInput> lastros, final OperacaoRendaFixaCompromissadaInput input) {
+  public List<OperacaoRendaFixaCompromissadaLastro> execute(final List<OperacaoRendaFixaCompromissadaLastroInput> lastros, final OperacaoRendaFixaCompromissadaInputCadastrar input) {
     if (lastros.size() > 3) {
       throw new NegocioException(
         "Lista de lastros",
@@ -33,9 +36,10 @@ public class ValidaOperacaoRendaFixaCompromissadaLastroService {
       );
     }
     val count = new AtomicInteger();
-    lastros.forEach(lastro -> {
+    val lastrosEntity = lastros.stream().map(lastro -> {
+      val lastroOutput = mapper.map(lastro, OperacaoRendaFixaCompromissadaLastro.class);
       try {
-        obterInstrumentoFinanceiroService.id(lastro.getInstrumentoFinanceiro());
+        lastroOutput.setInstrumentoFinanceiro(obterInstrumentoFinanceiroService.id(lastro.getInstrumentoFinanceiro()));
         count.incrementAndGet();
       } catch (final RecursoNaoEncontradoException e) {
         throw new NegocioException(
@@ -47,7 +51,8 @@ public class ValidaOperacaoRendaFixaCompromissadaLastroService {
       }
       input.setValorFinanceiroIda(input.getValorFinanceiroIda().add(lastro.getValorFinanceiroIda()));
       input.setValorFinanceiroVolta(input.getValorFinanceiroVolta().add(lastro.getValorFinanceiroVolta()));
-    });
+      return lastroOutput;
+    }).toList();
     val variacao = input.getValorAlvo().multiply(BigDecimal.valueOf(0.1), context);
     val limiteIda = input.getValorAlvo().subtract(variacao, context);
     val limiteVolta = input.getValorAlvo().add(variacao, context);
@@ -71,10 +76,11 @@ public class ValidaOperacaoRendaFixaCompromissadaLastroService {
         input
       );
     }
+    return lastrosEntity;
   }
 
   public void execute(ValidaLastroInput input) {
-    val operacao = new OperacaoRendaFixaCompromissadaInput();
+    val operacao = new OperacaoRendaFixaCompromissadaInputCadastrar();
     operacao.setValorAlvo(input.getValorAlvo());
     operacao.setLastros(new ArrayList<>() {{
       if (input.getLastros() != null) {

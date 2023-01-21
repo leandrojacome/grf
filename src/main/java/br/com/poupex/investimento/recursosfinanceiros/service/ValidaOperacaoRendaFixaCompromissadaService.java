@@ -1,11 +1,14 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissada;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaCompromissadaInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaCompromissadaInputCadastrar;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ValidacaoModel;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,10 +17,12 @@ public class ValidaOperacaoRendaFixaCompromissadaService {
   private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final ObterIndicadorFinanceiroService obterIndicadorFinanceiroService;
   private final ValidaOperacaoRendaFixaCompromissadaLastroService validaOperacaoRendaFixaCompromissadaLastroService;
+  private final ModelMapper mapper;
 
-  public void execute(final OperacaoRendaFixaCompromissadaInput input) {
+  public OperacaoRendaFixaCompromissada execute(final OperacaoRendaFixaCompromissadaInputCadastrar input) {
+    val operacao = mapper.map(input, OperacaoRendaFixaCompromissada.class);
     try {
-      obterInstituicaoFinanceiraService.id(input.getContraparteInstituicaoFinanceira());
+      operacao.setContraparteInstituicaoFinanceira(obterInstituicaoFinanceiraService.id(input.getContraparteInstituicaoFinanceira()));
     } catch (final RecursoNaoEncontradoException e) {
       throw new NegocioException(
         "Instituição não encontrada",
@@ -42,9 +47,9 @@ public class ValidaOperacaoRendaFixaCompromissadaService {
         input
       );
     }
-    validaOperacaoRendaFixaCompromissadaLastroService.execute(input.getLastros(), input);
+    operacao.setLastros(validaOperacaoRendaFixaCompromissadaLastroService.execute(input.getLastros(), input));
     try {
-      obterIndicadorFinanceiroService.id(input.getCustosIndicadorFinanceiro());
+      operacao.setCustosIndicadorFinanceiro(obterIndicadorFinanceiroService.id(input.getCustosIndicadorFinanceiro()));
     } catch (final RecursoNaoEncontradoException e) {
       throw new NegocioException(
         "Indicador não encontrado",
@@ -53,6 +58,7 @@ public class ValidaOperacaoRendaFixaCompromissadaService {
         input
       );
     }
+    return operacao;
   }
 
 }

@@ -2,13 +2,18 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.OperacaoRendaFixaCompromissadaRepository;
+import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoRendaFixaCompromissadaService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.function.Supplier;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.val;
 
 @Getter
 @Setter
@@ -16,6 +21,9 @@ import lombok.Setter;
 @Entity
 @Table(name = "OPERACAO_RENDA_FIXA_COMPROMISSADA", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class OperacaoRendaFixaCompromissada extends AbstractEntidadeBase {
+
+  @Column(name = "NUMERO_BOLETA", nullable = false)
+  private String boleta;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "EMPRESA", nullable = false)
@@ -49,9 +57,6 @@ public class OperacaoRendaFixaCompromissada extends AbstractEntidadeBase {
   @Column(name = "VALOR_ALVO", nullable = false)
   private BigDecimal valorAlvo;
 
-  @Column(name = "NUMERO_BOLETA")
-  private String boleta;
-
   @Enumerated(EnumType.STRING)
   @Column(name = "FORMA_MENSURACAO", nullable = false)
   private FormaMensuracaoEnum formaMensuracao;
@@ -70,6 +75,10 @@ public class OperacaoRendaFixaCompromissada extends AbstractEntidadeBase {
   public void prePersist() {
     try {
       lastros.forEach(l -> l.setOperacaoRendaFixaCompromissada(this));
+      val count = CadastrarOperacaoRendaFixaCompromissadaService.singleton.count(
+        CadastrarOperacaoRendaFixaCompromissadaService.singleton.cadastro(LocalDate.now())
+      ) + 1;
+      boleta = String.format("%s%04d", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), count);
     } catch (final NullPointerException ignored) {
     }
   }

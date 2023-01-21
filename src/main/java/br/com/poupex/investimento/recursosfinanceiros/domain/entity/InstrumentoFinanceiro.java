@@ -17,6 +17,10 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "INSTRUMENTO_FINANCEIRO", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class InstrumentoFinanceiro extends AbstractEntidadeBase {
+
+  public InstrumentoFinanceiro(final String id) {
+    super(id);
+  }
 	
     @Column(name = "CODIGO_GIF", unique = true, nullable = false, updatable = false)
 	private Long codigoGif;

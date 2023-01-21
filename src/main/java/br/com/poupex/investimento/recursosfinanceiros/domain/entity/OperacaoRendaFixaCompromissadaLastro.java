@@ -25,10 +25,10 @@ public class OperacaoRendaFixaCompromissadaLastro extends AbstractEntidadeBase {
   private Long quantidade;
 
   @Column(name = "PRECO_UNITARIO_IDA", nullable = false)
-  private BigDecimal precoUnidadeIda;
+  private BigDecimal precoUnitarioIda;
 
   @Column(name = "PRECO_UNITARIO_VOLTA", nullable = false)
-  private BigDecimal precoUnidadeVolta;
+  private BigDecimal precoUnitarioVolta;
 
   @Column(name = "VALOR_FINANCEIRO_IDA", nullable = false)
   private BigDecimal valorFinanceiroIda;

@@ -13,7 +13,7 @@ CREATE TABLE GESTAO_RECURSOS_FINANCEIROS.OPERACAO_RENDA_FIXA_COMPROMISSADA
     TAXA_PRE                            NUMBER(30,8)    NOT NULL,
     TAXA_EFETIVA                        NUMBER(30,8)    NOT NULL,
     VALOR_ALVO                          NUMBER(30,8)    NOT NULL,
-    NUMERO_BOLETA                       VARCHAR(32),
+    NUMERO_BOLETA                       VARCHAR(32)     NOT NULL,
     FORMA_MENSURACAO                    VARCHAR(64)     NOT NULL,
     CUSTOS_VALOR_CORRETAGEM             NUMBER(30,8)    NOT NULL,
     CUSTOS_INDICADOR_FINANCEIRO         VARCHAR(36)     NOT NULL,
