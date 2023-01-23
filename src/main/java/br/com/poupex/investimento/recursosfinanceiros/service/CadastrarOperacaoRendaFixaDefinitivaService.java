@@ -20,13 +20,17 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class CadastrarOperacaoRendaFixaDefinitivaService {
-    private final GerarNumeroOperacaoService gerarNumeroOperacao;
-    private final OperacaoRendaFixaDefinitivaRepository operacaoRendaFixaDefinitivaRepository;
-	private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
-	private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
-	private final CadastrarOperacaoRendaFixaDefinitivaGifService cadastrarOperacaoRendaFixaDefinitivaGifService;
+  private final GerarNumeroOperacaoService gerarNumeroOperacao;
+  private final OperacaoRendaFixaDefinitivaRepository operacaoRendaFixaDefinitivaRepository;
+  private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
+  private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
+  private final CadastrarOperacaoRendaFixaDefinitivaGifService cadastrarOperacaoRendaFixaDefinitivaGifService;
   private final ObterInstituicaoGifService obterInstituicaoGifService;
-	private final ModelMapper mapper;
+  private final ModelMapper mapper;
+
+  public ResponseModel execute(final OperacaoRendaFixaDefinitivaInput input) {
+
+    Long numeroOperacao = gerarNumeroOperacao.generateValue();
 
         var codInstituicaoGif = obterInstituicaoGifService.getCodInstituicao(input.getEmpresa().getCnpj());
 
@@ -43,12 +47,12 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
         // quando retornar o codigo, colocar indice unico no OPERACAO_GIF_CODIGO
         codigoGif = (codigoGif == null ? 0 : codigoGif);
 		OperacaoRendaFixaDefinitiva operacaoFinanceira = null;
-		
+
 		operacaoFinanceira = mapper.map(input, OperacaoRendaFixaDefinitiva.class);
 
         operacaoFinanceira.setNumeroOperacao(numeroOperacao);
         operacaoFinanceira.setOperacaoGifCodigo(codigoGif);
-		
+
         OperacaoRendaFixaDefinitiva operacao = null;
         try {
             operacao = operacaoRendaFixaDefinitivaRepository.save(operacaoFinanceira);
