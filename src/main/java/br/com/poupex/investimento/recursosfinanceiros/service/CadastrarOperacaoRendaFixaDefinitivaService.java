@@ -22,14 +22,11 @@ import java.time.LocalDateTime;
 public class CadastrarOperacaoRendaFixaDefinitivaService {
     private final GerarNumeroOperacaoService gerarNumeroOperacao;
     private final OperacaoRendaFixaDefinitivaRepository operacaoRendaFixaDefinitivaRepository;
-    private final CadastrarOperacaoRendaFixaDefinitivaGifService cadastrarOperacaoRendaFixaDefinitivaGifService;
-    private final ObterInstituicaoGifService obterInstituicaoGifService;
-    private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
-    private final ModelMapper mapper;
-
-    public ResponseModel execute(final OperacaoRendaFixaDefinitivaInput input) {
-        // Solução temporária para atender o MVP com a integração do GRF e GIF
-        Long numeroOperacao = gerarNumeroOperacao.generateValue();
+	private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
+	private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
+	private final CadastrarOperacaoRendaFixaDefinitivaGifService cadastrarOperacaoRendaFixaDefinitivaGifService;
+  private final ObterInstituicaoGifService obterInstituicaoGifService;
+	private final ModelMapper mapper;
 
         var codInstituicaoGif = obterInstituicaoGifService.getCodInstituicao(input.getEmpresa().getCnpj());
 

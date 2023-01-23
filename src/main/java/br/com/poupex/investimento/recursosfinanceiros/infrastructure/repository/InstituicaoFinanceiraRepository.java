@@ -13,7 +13,7 @@ public interface InstituicaoFinanceiraRepository extends JpaRepository<Instituic
 
   boolean existsByGrupo(final InstituicaoFinanceira instituicaoFinanceira);
 
-  default Specification<InstituicaoFinanceira> init() {
+  default Specification<InstituicaoFinanceira> id() {
     return (root, query, builder) -> builder.isNotNull(root.get("id"));
   }
 
@@ -21,35 +21,35 @@ public interface InstituicaoFinanceiraRepository extends JpaRepository<Instituic
     if (Objects.nonNull(nome)) {
       return (root, query, builder) -> builder.like(builder.upper(root.get("nome")), String.format("%%%s%%", nome.toUpperCase()));
     }
-    return null;
+    return id();
   }
 
   default Specification<InstituicaoFinanceira> cnpj(final String cnpj) {
     if (Objects.nonNull(cnpj)) {
       return (root, query, builder) -> builder.like(root.get("cnpj"), cnpj.replaceAll("[^0-9]", ""));
     }
-    return null;
+    return id();
   }
 
   default Specification<InstituicaoFinanceira> tipo(final InstituicaoFinanceiraTipo tipo) {
     if (Objects.nonNull(tipo)) {
       return (root, query, builder) -> builder.equal(root.get("tipo"), tipo);
     }
-    return null;
+    return id();
   }
 
   default Specification<InstituicaoFinanceira> grupo(final String grupo) {
     if (Objects.nonNull(grupo)) {
       return (root, query, builder) -> builder.equal(root.get("grupo"), new InstituicaoFinanceira(grupo));
     }
-    return null;
+    return id();
   }
 
   default Specification<InstituicaoFinanceira> matriz(final Boolean matriz) {
     if (Objects.nonNull(matriz)) {
       return (root, query, builder) -> builder.equal(root.get("matriz"), matriz);
     }
-    return null;
+    return id();
   }
 
 }

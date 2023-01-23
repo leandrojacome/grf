@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.util;
 
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -36,6 +37,11 @@ public class StringUtil {
   public static String unmask(String value) {
     if (Objects.isNull(value) || value.isEmpty()) return value;
     return value.replaceAll("\\D+", "");
+  }
+
+  public String modeda(final BigDecimal valor) {
+    val mascara = "R$ %.".concat(String.format("%sf", 8));
+    return String.format(mascara, valor).replace(".", ",");
   }
 
 }

@@ -3,6 +3,7 @@ package br.com.poupex.investimento.recursosfinanceiros.infrastructure.util;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,8 @@ import org.springframework.util.ObjectUtils;
 @Component
 @RequiredArgsConstructor
 public class JwtUtil {
+
+  private final Environment environment;
 
   public static final String CLAIM_CHAVE = "client-id";
   public static final String CLAIM_CLIENTE = "client-name";
@@ -48,7 +51,7 @@ public class JwtUtil {
       }
       return claimValue.toString();
     }
-    return null;
+    return environment.getProperty("user.name");
   }
 
 }

@@ -17,12 +17,15 @@ public class CalculaTaxaDiariaIndicadorService {
 
   public BigDecimal execute(final IndicadorFinanceiroPeriodicidade periodicidade, final BigDecimal valor) {
     if (IndicadorFinanceiroPeriodicidade.ANUAL.equals(periodicidade)) {
-      val fatorial = valor.divide(CEM, context).add(BigDecimal.ONE);
-      val calculo = BigDecimal.valueOf(Math.pow(fatorial.doubleValue(), ANO.doubleValue()));
-      return calculo.subtract(BigDecimal.ONE).multiply(CEM, context);
+      return execute(valor);
     }
     return valor;
   }
 
+  public BigDecimal execute(final BigDecimal valor) {
+    val fatorial = valor.divide(CEM, context).add(BigDecimal.ONE);
+    val calculo = BigDecimal.valueOf(Math.pow(fatorial.doubleValue(), ANO.doubleValue()));
+    return calculo.subtract(BigDecimal.ONE).multiply(CEM, context);
+  }
 
 }
