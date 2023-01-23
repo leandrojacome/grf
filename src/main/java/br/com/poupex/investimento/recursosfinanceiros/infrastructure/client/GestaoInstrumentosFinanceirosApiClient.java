@@ -41,7 +41,7 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	@GetMapping("/instrumento-financeiro/visualizar/{id}")
 	InstrumentoFinanceiroGifInputOutput getInstrumentoFinanceiro(@PathVariable Long id);
 
-	@PostMapping("/instrumento-financeiro")
+	@PostMapping("/instrumento-financeiro/externo/")
 	Long createInstrumentoFinanceiro(InstrumentoFinanceiroGifInputOutput input);
 
 	@PutMapping("/instrumento-financeiro/alterar/{codigo}")

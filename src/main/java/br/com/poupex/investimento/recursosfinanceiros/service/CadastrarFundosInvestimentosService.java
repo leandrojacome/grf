@@ -39,6 +39,7 @@ public class CadastrarFundosInvestimentosService {
         inputGif.setSemTestesSppj(false);
         inputGif.setSigla(input.getSigla());
         inputGif.setCodModeloNegocio(getCodModeloNegocio());
+        inputGif.setCodFormaMensuracao(input.getFormaMensuracao().getCodigo());
 
         FundosInvestimentos fundoInvestimento = mapper.map(input, FundosInvestimentos.class);
 

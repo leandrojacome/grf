@@ -23,7 +23,6 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
   private final GerarNumeroOperacaoService gerarNumeroOperacao;
   private final OperacaoRendaFixaDefinitivaRepository operacaoRendaFixaDefinitivaRepository;
   private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
-  private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final CadastrarOperacaoRendaFixaDefinitivaGifService cadastrarOperacaoRendaFixaDefinitivaGifService;
   private final ObterInstituicaoGifService obterInstituicaoGifService;
   private final ModelMapper mapper;

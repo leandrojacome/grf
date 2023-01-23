@@ -35,10 +35,6 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
 		this.obterInstrumentoFinanceiroService = obterInstrumentoFinanceiroService;
 		this.obterInstituicaoFinanceiraService = obterInstituicaoFinanceiraService;
     	
-    	// evitar resolução de nome de atributo semelhante
-		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-		
-    	
 		modelMapper.addMappings(new PropertyMap<OperacaoRendaFixaDefinitivaInput, OperacaoFinanceiraGifInput>() {
             @Override
             protected void configure() {
@@ -55,8 +51,16 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
                 using(enumConverter).map(source.getFormaMensuracao()).setCodFormaMensuracao(null);
             }
         });
+		
+		modelMapper.addMappings(new PropertyMap<OperacaoRendaFixaDefinitivaInput, OperacaoRendaFixaDefinitiva>() {
+            @Override
+            protected void configure() {
+                skip(destination.getId());
+            }
+        });
 
-		modelMapper.createTypeMap(OperacaoRendaFixaDefinitivaInput.class, OperacaoRendaFixaDefinitiva.class).setConverter(this::convertInputToEntity);
+		var type = modelMapper.getTypeMap(OperacaoRendaFixaDefinitivaInput.class, OperacaoRendaFixaDefinitiva.class);
+		type.setConverter(this::convertInputToEntity);
     }
     
     public OperacaoRendaFixaDefinitiva convertInputToEntity(MappingContext<OperacaoRendaFixaDefinitivaInput, OperacaoRendaFixaDefinitiva> context) {
