@@ -56,8 +56,11 @@ public class OperacaoRendaFixaDefinitivaInput {
     @NotNull
     private Integer qtdDias;
     private BigDecimal taxaEfetiva;
+    @NotNull
     private BigDecimal puEmissao;
+    @NotNull
     private BigDecimal valorFinanceiro;
+    @NotNull
     private BigDecimal valorResgate;
     @NotNull
     private BigDecimal valorCorretagem;

@@ -1,6 +1,8 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,9 +23,14 @@ public class TituloPrivadoInputOutput {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @JsonProperty(access = Access.READ_ONLY)
     private Long codigo;
+	@NotBlank
+	@Size(max = 20)
     private String sigla;
+	@NotBlank
+	@Size(max = 256)
     private String nome;
     @NotNull
     private FormaMensuracaoEnum formaMensuracao;
-    private Boolean ativoFinanceiro;
+    @NotNull
+   private Boolean ativoFinanceiro;
 }
