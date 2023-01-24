@@ -25,7 +25,7 @@ public class OperacaoRendaFixaCompromissadaInputCadastrar {
   private Integer contraparteContaSelic;
   @NotNull
   @Positive
-  private Integer contraparteNumeroBoleta;
+  private Long contraparteNumeroBoleta;
   @NotEmpty
   private String contraparteOperador;
   @NotNull

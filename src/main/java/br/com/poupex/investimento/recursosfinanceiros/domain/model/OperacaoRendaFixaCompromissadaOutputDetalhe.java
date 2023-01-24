@@ -16,7 +16,7 @@ public class OperacaoRendaFixaCompromissadaOutputDetalhe extends OperacaoRendaFi
   private Empresa empresa;
   private InstituicaoFinanceiraOutput contraparteInstituicaoFinanceira;
   private Integer contraparteContaSelic;
-  private Integer contraparteNumeroBoleta;
+  private Long contraparteNumeroBoleta;
   private String contraparteOperador;
   private LocalDate dataIda;
   private LocalDate dataVolta;
