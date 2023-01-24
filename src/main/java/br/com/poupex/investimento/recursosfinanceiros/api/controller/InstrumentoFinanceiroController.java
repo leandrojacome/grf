@@ -160,7 +160,7 @@ public class InstrumentoFinanceiroController {
             }),
     })
     @PostMapping("/titulos-publicos")
-    public ResponseEntity<ResponseModel> create(@RequestBody final TituloPublicoInputOutput input) {
+    public ResponseEntity<ResponseModel> create(@Valid @RequestBody final TituloPublicoInputOutput input) {
         return ResponseEntity.ok(cadastrarTituloPublicoService.execute(input));
     }
 
@@ -200,7 +200,7 @@ public class InstrumentoFinanceiroController {
     @PutMapping("/titulos-publicos/{id}")
     public ResponseEntity<ResponseModel> update(
             @Parameter(name = "id", description = "Identificador do Título Público")
-            @PathVariable final String id, @RequestBody final TituloPublicoInputOutput input) {
+            @PathVariable final String id, @Valid @RequestBody final TituloPublicoInputOutput input) {
         return ResponseEntity.ok(alteraTituloPublicoService.execute(id, input));
     }
 
@@ -300,7 +300,7 @@ public class InstrumentoFinanceiroController {
     @PutMapping("/fundos-investimentos/{id}")
     public ResponseEntity<ResponseModel> update(
             @Parameter(name = "id", description = "Identificador do Fundo de Investimentos")
-            @PathVariable final String id, @RequestBody final FundosInvestimentosInputOutput input) {
+            @PathVariable final String id, @Valid @RequestBody final FundosInvestimentosInputOutput input) {
         return ResponseEntity.ok(alteraFundoInvestimentoService.execute(id, input));
     }
 
