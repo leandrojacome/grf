@@ -40,7 +40,7 @@ public class AlteraTituloPrivadoService {
         tituloGif.setCodInstituicao(getCodInstituicao());
         tituloGif.setSemTestesSppj(input.getAtivoFinanceiro());
         tituloGif.setSemPassivos(!input.getAtivoFinanceiro());
-        tituloGif.setCodFormaMensuracao(input.getCodFormaMensuracao());
+        tituloGif.setCodFormaMensuracao(input.getFormaMensuracao().getCodigo());
 
         gestaoInstrumentosFinanceirosApiClient.updateInstrumentoFinanceiro(tituloPrivado.getCodigoGif(), tituloGif);
 
