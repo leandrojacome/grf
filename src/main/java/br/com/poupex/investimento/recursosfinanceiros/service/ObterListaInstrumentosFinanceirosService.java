@@ -64,7 +64,7 @@ public class ObterListaInstrumentosFinanceirosService {
                 mapper.map(instrumentoGif, instrumento);
             } catch (Exception ignore) {
             }
-            if (instrumentoGif.getTipoInstrumentoFinanceiro().getSigla().equals(TITULO_PUBLICO.getSigla())) {
+            if (instrumento.getSigla().equals(TITULO_PUBLICO.getSigla())) {
                 resultado.getContent().forEach(r -> {
                     if (instrumento.getId().equals(r.getId())) {
                         instrumento.setSiglaVencimento(instrumento.getSigla() + " - " + ((TituloPublico) r).getDataVencimento().format(ofPattern("dd/MM/yyyy")));
