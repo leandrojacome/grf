@@ -10,6 +10,7 @@ import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -46,13 +47,15 @@ public class CadastrarTituloPrivadoService {
         tituloPrivado.setFormaMensuracao(input.getFormaMensuracao());
         tituloPrivado.setCodigoGif(codigoGif);
 
-        var responseTituloPrivado = tituloPrivadoRepository.save(tituloPrivado);
+        var dto = tituloPrivadoRepository.save(tituloPrivado);
 
         instrumentoGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif);
 
-        val dto = mapper.map(instrumentoGif, TituloPrivadoInputOutput.class);
+        BeanUtils.copyProperties(instrumentoGif, dto, "formaMensuracao");
+        
+        dto.setFormaMensuracao(FormaMensuracaoEnum.valueOf(instrumentoGif.getFormaMensuracao().getCodigo()));
 
-        dto.setId(responseTituloPrivado.getId());
+//        dto.setId(responseTituloPrivado.getId());
 
         return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), "Cadastro realizado com sucesso",
                 String.format("O Título Privado %s foi cadastrado com sucesso", input.getNome()),
