@@ -65,7 +65,7 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
                 else if (msg.contains("CHECK_TAXA"))
                     msg = "Para tipo de taxa 'pre' ou 'pre+pos' a 'taxa' é obrigatória!";
                 else if (msg.contains("CHECK_INDICE"))
-                    msg = "Para tipo de taxa 'pos' ou 'pre+pos' o 'indice' é obrigatório!";
+                    msg = "Para tipo de taxa 'pos' ou 'pre+pos' o 'idIndice' é obrigatório!";
                 else if (msg.contains("CHECK_PERCENTUAL_INDICE"))
                     msg = "Para tipo de taxa 'pos' ou 'pre+pos' o 'percentual indice' é obrigatório!";
                 else
