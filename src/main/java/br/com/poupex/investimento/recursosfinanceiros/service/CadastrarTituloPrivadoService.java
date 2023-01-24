@@ -38,12 +38,12 @@ public class CadastrarTituloPrivadoService {
         instrumentoGif.setCodModeloNegocio(getCodModeloNegocio());
         instrumentoGif.setSemTestesSppj(input.getAtivoFinanceiro());
         instrumentoGif.setSemPassivos(!input.getAtivoFinanceiro());
-        instrumentoGif.setCodFormaMensuracao(input.getCodFormaMensuracao());
+        instrumentoGif.setCodFormaMensuracao(input.getFormaMensuracao().getCodigo());
 
         Long codigoGif = gestaoInstrumentosFinanceirosApiClient.createInstrumentoFinanceiro(instrumentoGif);
 
         var tituloPrivado = mapper.map(input, TituloPrivado.class);
-        tituloPrivado.setFormaMensuracao(FormaMensuracaoEnum.valueOf(input.getCodFormaMensuracao()));
+        tituloPrivado.setFormaMensuracao(input.getFormaMensuracao());
         tituloPrivado.setCodigoGif(codigoGif);
 
         var responseTituloPrivado = tituloPrivadoRepository.save(tituloPrivado);
