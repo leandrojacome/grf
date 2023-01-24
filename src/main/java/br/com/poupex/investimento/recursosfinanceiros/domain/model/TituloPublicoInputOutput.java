@@ -2,7 +2,9 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,17 +25,29 @@ public class TituloPublicoInputOutput {
 	@JsonIgnore
 	private Long codigoGif;
 	
+	@NotBlank
+	@Size(max = 256)
 	private String nome; // gif
 	
     @NotNull
     private FormaMensuracaoEnum formaMensuracao;
 	
+    @NotNull
 	private Boolean ativoFinanceiro; // gif
+	
+	@NotBlank
+	@Size(max = 12)
     private String isin;
+	@NotBlank
+	@Size(max = 20)
     private String sigla;
+    @NotNull
     private LocalDateTime dataEmissao;
+    @NotNull
     private LocalDateTime dataVencimento;
+    @NotNull
     private Long codiogSelic;
+    @NotNull
     private Boolean cupom;
 
 }
