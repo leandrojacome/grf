@@ -83,6 +83,8 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
 		} else if (input.getTipoTaxa().equals(TipoTaxa.PRE)){
 			output.setIndice(null);
 			output.setPercentualIndice(null);
+		} else { //TipoTaxa.PRE_POS
+			output.setIndice(obterIndicadorFinanceiroService.id(input.getIdIndice()));
 		}
     
         return output;
