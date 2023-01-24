@@ -44,7 +44,7 @@ public class PesquisarOperacaoRendaFixaCompromissadaPagedService {
     return new ResponseModel(resultado.getTotalElements() == 0 ? "Nenhum registro encontrado" : null, mapper.map(page, PageOutput.class));
   }
 
-  private Specification<OperacaoRendaFixaCompromissada> spec(
+  public Specification<OperacaoRendaFixaCompromissada> spec(
     final String boleta, final BigDecimal valorIdaInicio, final BigDecimal valorIdaFim, final LocalDate cadastroInicio, final LocalDate cadastroFim
   ) {
     return ExecutionUtil.and(operacaoRendaFixaCompromissadaRepository.boleta(boleta),

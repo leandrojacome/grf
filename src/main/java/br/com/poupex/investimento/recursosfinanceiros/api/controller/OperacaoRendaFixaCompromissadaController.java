@@ -3,6 +3,7 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissada;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ExportacaoFormato;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraTipo;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
@@ -38,6 +39,7 @@ public class OperacaoRendaFixaCompromissadaController {
   private final ObterOperacaoRendaFixaCompromissadaService obterOperacaoRendaFixaCompromissadaService;
   private final CalculaPrecoUnitarioVoltaService calculaPrecoUnitarioVoltaService;
   private final ValidaOperacaoRendaFixaCompromissadaLastroService validaOperacaoRendaFixaCompromissadaLastroService;
+  private final ExportaOperacaoRendaFixaCompromissadaService exportaOperacaoRendaFixaCompromissadaService;
 
   @AuditarTipo(tipo = AuditoriaTipo.API, recurso = OperacaoRendaFixaCompromissada.class)
   @Operation(summary = "Cadastra a Operação (Renda Fixa Comprimissada)")
@@ -111,6 +113,27 @@ public class OperacaoRendaFixaCompromissadaController {
   public ResponseEntity<ResponseModel> validaLastros(@Valid @RequestBody final ValidaLastroInput input) {
     validaOperacaoRendaFixaCompromissadaLastroService.execute(input);
     return ResponseEntity.ok(new ResponseModel(input.getLastro()));
+  }
+
+  @Operation(summary = "Exportação (Relatório) das operações de renda fixa compromissadas")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "Arquivo com as Taxas (Filtradas)", content = {
+      @Content(schema = @Schema(implementation = byte[].class)),
+    }),
+  })
+  @GetMapping("export")
+  public ResponseEntity<byte[]> export(
+    @RequestParam(required = false) final String boleta,
+    @RequestParam(required = false) final BigDecimal valorIdaInicio,
+    @RequestParam(required = false) final BigDecimal valorIdaFim,
+    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate cadastroInicio,
+    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate cadastroFim,
+    @RequestParam final ExportacaoFormato formato
+  ) {
+
+    return ResponseEntity.ok(exportaOperacaoRendaFixaCompromissadaService.execute(
+      boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim, formato
+    ));
   }
 
 }
