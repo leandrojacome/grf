@@ -1,5 +1,5 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.enums;
 
 public enum PeriodoCupom {
-	MESSES_6, MESSES_12, MESSES_18;
+	MESES_6, MESES_12, MESES_18;
 }
