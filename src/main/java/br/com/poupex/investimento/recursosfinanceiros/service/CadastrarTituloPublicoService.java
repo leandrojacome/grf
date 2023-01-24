@@ -1,20 +1,22 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import static br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa.POUPEX;
+
+import java.time.LocalDateTime;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.TituloPublico;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPublicoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstrumentoFinanceiroGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.TituloPublicoRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-
-import static br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa.POUPEX;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +52,9 @@ public class CadastrarTituloPublicoService {
 
         inputGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif);
 
-        BeanUtils.copyProperties(inputGif, dto);
+        BeanUtils.copyProperties(inputGif, dto, "formaMensuracao");
+        
+        dto.setFormaMensuracao(FormaMensuracaoEnum.valueOf(inputGif.getFormaMensuracao().getCodigo()));
 
         return new ResponseModel(
                 LocalDateTime.now(),
