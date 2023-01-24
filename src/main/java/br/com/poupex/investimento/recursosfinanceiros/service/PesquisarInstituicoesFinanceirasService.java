@@ -28,7 +28,7 @@ public class PesquisarInstituicoesFinanceirasService {
     val mensagem = resultado.size() == 0 ? "Nenhum registro encontrado" : null;
     return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), "Instituições Financeiras", null, mensagem, null,
       resultado.stream().map(r -> mapper.map(r, InstituicaoFinanceiraOutput.class))
-        .sorted(Comparator.comparing(InstituicaoFinanceiraOutput::getNome)).toList()
+        .sorted((i1, i2) -> i1.getNome().compareToIgnoreCase(i2.getNome())).toList()
     );
   }
 
