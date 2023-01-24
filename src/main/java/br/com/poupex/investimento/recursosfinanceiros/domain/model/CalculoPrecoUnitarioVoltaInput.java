@@ -13,10 +13,7 @@ import lombok.Setter;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class CalculoPrecoUnitarioVoltaInput {
-  @NotNull
   private LocalDate dataIda;
-  @NotNull
-  @Future
   private LocalDate dataVolta;
   @NotNull
   @Positive
@@ -24,4 +21,19 @@ public class CalculoPrecoUnitarioVoltaInput {
   @NotNull
   @Positive
   private BigDecimal taxaAnual;
+
+  public LocalDate getDataIda() {
+    if (dataIda == null) {
+      dataIda = LocalDate.now();
+    }
+    return this.dataIda;
+  }
+
+  public LocalDate getDataVolta() {
+    if (dataVolta == null) {
+      dataVolta = getDataIda().plusDays(1);
+    }
+    return this.dataVolta;
+  }
+
 }
