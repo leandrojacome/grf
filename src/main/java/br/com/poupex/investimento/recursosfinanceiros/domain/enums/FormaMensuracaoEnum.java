@@ -10,8 +10,8 @@ public enum FormaMensuracaoEnum {
 	VALOR_RESUTADO(2L, "Valor Justo por meio do Resultado (VJR)"),
 	VALOR_OUTROS_RESULTADOS_ABRANGENTES(3L, "Valor Justo por meio de Outros Resultados Abrangentes (VJORA)");
 	
-	private Long codigo;
-	private String label;
+	private final Long codigo;
+	private final String label;
 	
 	public static FormaMensuracaoEnum valueOf(Long codigo) {
 		for(var e : values())

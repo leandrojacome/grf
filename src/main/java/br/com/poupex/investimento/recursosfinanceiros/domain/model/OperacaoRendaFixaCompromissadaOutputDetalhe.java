@@ -24,6 +24,7 @@ public class OperacaoRendaFixaCompromissadaOutputDetalhe extends OperacaoRendaFi
   private BigDecimal taxaEfetiva;
   private BigDecimal valorAlvo;
   private FormaMensuracaoEnum formaMensuracao;
+  private String formaMensuracaoLabel;
   private BigDecimal custosValorCorretagem;
   private IndicadorFinanceiroOutput custosIndicadorFinanceiro;
   private List<OperacaoRendaFixaCompromissadaLastroOutput> lastros;
