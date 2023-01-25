@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ValidaOperacaoRendaFixaCompromissadaLastroService {
   private final static MathContext context = new MathContext(8);
-  private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
+  private final ObterTituloPublicoService obterTituloPublicoService;
   private final StringUtil stringUtil;
   private final ModelMapper mapper;
 
@@ -39,12 +39,12 @@ public class ValidaOperacaoRendaFixaCompromissadaLastroService {
     val lastrosEntity = lastros.stream().map(lastro -> {
       val lastroOutput = mapper.map(lastro, OperacaoRendaFixaCompromissadaLastro.class);
       try {
-        lastroOutput.setInstrumentoFinanceiro(obterInstrumentoFinanceiroService.id(lastro.getInstrumentoFinanceiro()));
+        lastroOutput.setInstrumentoFinanceiro(obterTituloPublicoService.id(lastro.getInstrumentoFinanceiro()));
         count.incrementAndGet();
       } catch (final RecursoNaoEncontradoException e) {
         throw new NegocioException(
-          "Instrumento Financeiro",
-          String.format("Não foi encontrado Instrumento Financeiro com id: %s", lastro.getInstrumentoFinanceiro()),
+          "Instrumento Financeiro (Título Público)",
+          String.format("Não foi encontrado Instrumento Financeiro (Título Público) com id: %s", lastro.getInstrumentoFinanceiro()),
           List.of(new ValidacaoModel(String.format("lastros.[%d].instrumentoFinanceiro", count.get()), "valor inválido")),
           input
         );

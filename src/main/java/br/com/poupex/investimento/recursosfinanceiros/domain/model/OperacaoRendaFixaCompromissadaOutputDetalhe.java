@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class OperacaoRendaFixaCompromissadaOutputDetalhe extends OperacaoRendaFixaCompromissadaOutput{
+public class OperacaoRendaFixaCompromissadaOutputDetalhe extends OperacaoRendaFixaCompromissadaOutput {
   private Empresa empresa;
   private InstituicaoFinanceiraOutput contraparteInstituicaoFinanceira;
   private Integer contraparteContaSelic;
