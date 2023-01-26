@@ -23,7 +23,7 @@ public class InstrumentoFinanceiroOutput {
 	private Long codFormaMensuracao; // gif
 	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
 	@JsonProperty(access = Access.READ_ONLY)
-    private FormaMensuracaoOutput formaMensuracao;
+	private FormaMensuracaoOutput formaMensuracao;
 	private Boolean ativoFinanceiro;
 	private TipoInstrumentoFinanceiro tipoInstrumentoFinanceiro;
 	private String siglaVencimento;

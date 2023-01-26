@@ -1,9 +1,10 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.entity.*;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoAgenciaModalidade;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissada;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.OperacaoRendaFixaCompromissadaLastroRepository;
+import br.com.poupex.investimento.recursosfinanceiros.service.ObterTituloPublicoService;
+import java.time.format.DateTimeFormatter;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -18,6 +19,7 @@ public class OperacaorendaFixaCompromissadaOutputConverter {
   private final ModelMapper mapper;
   private final ModelMapper intern = new ModelMapper();
   private final OperacaoRendaFixaCompromissadaLastroRepository operacaoRendaFixaCompromissadaLastroRepository;
+  private final ObterTituloPublicoService obterTituloPublicoService;
 
   @PostConstruct
   public void init() {
@@ -51,7 +53,12 @@ public class OperacaorendaFixaCompromissadaOutputConverter {
     try {
       output.setLastros(input.getLastros().stream().map(lastroInput -> {
         val lastroOutput = mapper.map(lastroInput, OperacaoRendaFixaCompromissadaLastroOutput.class);
-        lastroOutput.setInstrumentoFinanceiro(mapper.map(lastroInput.getInstrumentoFinanceiro(), InstrumentoFinanceiroOutput.class));
+        val instrumentoFinanceiro = mapper.map(lastroInput.getInstrumentoFinanceiro(), InstrumentoFinanceiroOutput.class);
+        val tituloPublico = obterTituloPublicoService.id(instrumentoFinanceiro.getId());
+        instrumentoFinanceiro.setSiglaVencimento(
+          String.format("%s - %s", tituloPublico.getSigla(), tituloPublico.getDataVencimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+        );
+        lastroOutput.setInstrumentoFinanceiro(instrumentoFinanceiro);
         output.setValorFinanceiroIda(output.getValorFinanceiroIda().add(lastroInput.getValorFinanceiroIda()));
         output.setValorFinanceiroVolta(output.getValorFinanceiroVolta().add(lastroInput.getValorFinanceiroVolta()));
         return lastroOutput;
