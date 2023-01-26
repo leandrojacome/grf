@@ -20,7 +20,7 @@ public class CadastrarOperacaoRendaFixaCompromissadaService {
 
   public ResponseModel execute(final OperacaoRendaFixaCompromissadaInputCadastrar input) {
     val operacao = operacaoRendaFixaCompromissadaRepository.save(validaOperacaoRendaFixaCompromissadaService.execute(input));
-    return new ResponseModel("Operação cadastrada com sucesso.",
+    return new ResponseModel(String.format("Renda fixa compromissada cadastrada com sucesso! Boleta número: %s.", operacao.getBoleta()),
       mapper.map(operacao, OperacaoRendaFixaCompromissadaOutputDetalhe.class)
     );
   }
