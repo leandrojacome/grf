@@ -1,9 +1,11 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissada;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissadaLastro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.OperacaoRendaFixaCompromissadaLastroRepository;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterTituloPublicoService;
+import java.math.RoundingMode;
 import java.time.format.DateTimeFormatter;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +37,7 @@ public class OperacaorendaFixaCompromissadaOutputConverter {
     val output = intern.map(input, OperacaoRendaFixaCompromissadaOutput.class);
     try {
       input.getLastros().forEach(lastroInput -> {
-        output.setValorFinanceiroIda(output.getValorFinanceiroIda().add(lastroInput.getValorFinanceiroIda()));
-        output.setValorFinanceiroVolta(output.getValorFinanceiroVolta().add(lastroInput.getValorFinanceiroVolta()));
+        valoresFinanceiros(output, lastroInput);
       });
     } catch (final NullPointerException ignored) {
     }
@@ -59,13 +60,23 @@ public class OperacaorendaFixaCompromissadaOutputConverter {
           String.format("%s - %s", tituloPublico.getSigla(), tituloPublico.getDataVencimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
         );
         lastroOutput.setInstrumentoFinanceiro(instrumentoFinanceiro);
-        output.setValorFinanceiroIda(output.getValorFinanceiroIda().add(lastroInput.getValorFinanceiroIda()));
-        output.setValorFinanceiroVolta(output.getValorFinanceiroVolta().add(lastroInput.getValorFinanceiroVolta()));
+        valoresFinanceiros(output, lastroInput);
         return lastroOutput;
       }).toList());
     } catch (final NullPointerException ignored) {
     }
     return output;
+  }
+
+  private void valoresFinanceiros(final OperacaoRendaFixaCompromissadaOutput output, final OperacaoRendaFixaCompromissadaLastro lastroInput) {
+    output.setValorFinanceiroIda(output.getValorFinanceiroIda().add(lastroInput.getValorFinanceiroIda()));
+    output.setValorFinanceiroVolta(output.getValorFinanceiroVolta().add(lastroInput.getValorFinanceiroVolta()));
+    output.setValorFinanceiroIdaTruncate(
+      output.getValorFinanceiroIdaTruncate().add(lastroInput.getValorFinanceiroIda().setScale(2, RoundingMode.DOWN))
+    );
+    output.setValorFinanceiroVoltaTruncate(
+      output.getValorFinanceiroVoltaTruncate().add(lastroInput.getValorFinanceiroVolta().setScale(2, RoundingMode.DOWN))
+    );
   }
 
 }

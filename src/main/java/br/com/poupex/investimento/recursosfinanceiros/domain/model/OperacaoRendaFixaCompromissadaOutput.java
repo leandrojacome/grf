@@ -15,4 +15,6 @@ public class OperacaoRendaFixaCompromissadaOutput {
   private LocalDateTime cadastro;
   private BigDecimal valorFinanceiroIda = BigDecimal.ZERO;
   private BigDecimal valorFinanceiroVolta = BigDecimal.ZERO;
+  private BigDecimal valorFinanceiroIdaTruncate = BigDecimal.ZERO;
+  private BigDecimal valorFinanceiroVoltaTruncate = BigDecimal.ZERO;
 }
