@@ -20,10 +20,7 @@ import lombok.val;
 @NoArgsConstructor
 @Entity
 @Table(name = "OPERACAO_RENDA_FIXA_COMPROMISSADA", schema = "GESTAO_RECURSOS_FINANCEIROS")
-public class OperacaoRendaFixaCompromissada extends AbstractEntidadeBase {
-
-  @Column(name = "NUMERO_BOLETA", nullable = false)
-  private String boleta;
+public class OperacaoRendaFixaCompromissada extends Operacao {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "EMPRESA", nullable = false)
@@ -75,10 +72,7 @@ public class OperacaoRendaFixaCompromissada extends AbstractEntidadeBase {
   public void prePersist() {
     try {
       lastros.forEach(l -> l.setOperacaoRendaFixaCompromissada(this));
-      val count = CadastrarOperacaoRendaFixaCompromissadaService.singleton.count(
-        CadastrarOperacaoRendaFixaCompromissadaService.singleton.cadastro(LocalDate.now())
-      ) + 1;
-      boleta = String.format("%s%04d", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), count);
+      super.prePersist();
     } catch (final NullPointerException ignored) {
     }
   }
