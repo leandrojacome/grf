@@ -27,10 +27,10 @@ public class ExportaOperacaoRendaFixaCompromissadaService {
 
   public byte[] execute(
     final String boleta, final BigDecimal valorIdaInicio, final BigDecimal valorIdaFim, final LocalDate cadastroInicio,
-    final LocalDate cadastroFim, final ExportacaoFormato formato,
-    Sort sort) {
+    final LocalDate cadastroFim, final ExportacaoFormato formato, final Sort sort
+  ) {
     val spec = pesquisarOperacaoRendaFixaCompromissadaPagedService.spec(boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim);
-    val operacoes = operacaoRendaFixaCompromissadaRepository.findAll(spec).stream()
+    val operacoes = operacaoRendaFixaCompromissadaRepository.findAll(spec, sort.isUnsorted() ? Sort.by(Sort.Order.desc("boleta")) : sort).stream()
       .map(operacao -> mapper.map(operacao, OperacaoRendaFixaCompromissadaOutput.class)).toList();
     if (operacoes.isEmpty()) {
       throw new RecursoNaoEncontradoException(
