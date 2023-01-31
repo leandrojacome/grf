@@ -11,6 +11,7 @@ import lombok.val;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,8 +27,8 @@ public class ExportaOperacaoRendaFixaCompromissadaService {
 
   public byte[] execute(
     final String boleta, final BigDecimal valorIdaInicio, final BigDecimal valorIdaFim, final LocalDate cadastroInicio,
-    final LocalDate cadastroFim, final ExportacaoFormato formato
-  ) {
+    final LocalDate cadastroFim, final ExportacaoFormato formato,
+    Sort sort) {
     val spec = pesquisarOperacaoRendaFixaCompromissadaPagedService.spec(boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim);
     val operacoes = operacaoRendaFixaCompromissadaRepository.findAll(spec).stream()
       .map(operacao -> mapper.map(operacao, OperacaoRendaFixaCompromissadaOutput.class)).toList();
