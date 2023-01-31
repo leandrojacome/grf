@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -128,11 +129,11 @@ public class OperacaoRendaFixaCompromissadaController {
     @RequestParam(required = false) final BigDecimal valorIdaFim,
     @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate cadastroInicio,
     @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate cadastroFim,
-    @RequestParam final ExportacaoFormato formato
+    @RequestParam final ExportacaoFormato formato,
+    @Parameter(hidden = true) Sort sort
   ) {
-
     return ResponseEntity.ok(exportaOperacaoRendaFixaCompromissadaService.execute(
-      boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim, formato
+      boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim, formato, sort
     ));
   }
 
