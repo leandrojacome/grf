@@ -11,8 +11,6 @@ import lombok.Setter;
 public class InstituicaoFinanceiraOutputDetalhe extends InstituicaoFinanceiraOutput {
   private Boolean matriz;
   private String site;
-  private String cetip;
-  private String selic;
   private EnderecoInputOutput endereco;
   private List<ContatoInputOutput> contatos;
   private ContabilInputOutput contabil;

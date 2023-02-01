@@ -1,18 +1,22 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import static br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa.POUPEX;
+
+import java.time.LocalDateTime;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.TituloPublico;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPublicoInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstrumentoFinanceiroGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.TituloPublicoRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -36,18 +40,21 @@ public class CadastrarTituloPublicoService {
         inputGif.setCodModeloNegocio(getCodModeloNegocio());
         inputGif.setSemPassivos(false);
         inputGif.setSemTestesSppj(true);
+        inputGif.setCodFormaMensuracao(input.getFormaMensuracao().getCodigo());
 
         Long codigoGif = gestaoInstrumentosFinanceirosApiClient.createInstrumentoFinanceiro(inputGif);
 
         var tituloPublico = mapper.map(input, TituloPublico.class);
-        tituloPublico.setInstrumentoFinanceiroGifCodigo(codigoGif);
+        tituloPublico.setCodigoGif(codigoGif);
 
         var dto = mapper.map(tituloPublicoRepository.save(tituloPublico),
                 TituloPublicoInputOutput.class);
 
         inputGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif);
 
-        BeanUtils.copyProperties(inputGif, dto);
+        BeanUtils.copyProperties(inputGif, dto, "formaMensuracao");
+        
+        dto.setFormaMensuracao(FormaMensuracaoEnum.valueOf(inputGif.getFormaMensuracao().getCodigo()));
 
         return new ResponseModel(
                 LocalDateTime.now(),
@@ -61,7 +68,7 @@ public class CadastrarTituloPublicoService {
     }
 
     private Long getCodInstituicao() {
-        return obterInstituicaoGifService.getCodInstituicao();
+        return obterInstituicaoGifService.getCodInstituicao(POUPEX.getCnpj());
     }
 
     private Long getCodTituloPublico() {

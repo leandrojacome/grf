@@ -32,7 +32,7 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	@GetMapping("/instrumento-financeiro/listar/ativos/paginado")
 	Page<InstrumentoFinanceiroGifInputOutput> getInstrumentosFinanceiros(
 			Pageable pageable,
-			@RequestParam(name = "tipoInstrumentoFinanceiro.codigo") final Long tipoInstrumentoFinanceiro,
+			@RequestParam(name = "codigosTiposInstrumento") final List<Long> tiposInstrumentoFinanceiro,
     		@RequestParam final String nome, 
     		@RequestParam final String sigla, 
 			@RequestParam(name = "formaMensuracao.codigo") Long formaMensuracao);
@@ -41,7 +41,7 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	@GetMapping("/instrumento-financeiro/visualizar/{id}")
 	InstrumentoFinanceiroGifInputOutput getInstrumentoFinanceiro(@PathVariable Long id);
 
-	@PostMapping("/instrumento-financeiro")
+	@PostMapping("/instrumento-financeiro/externo/")
 	Long createInstrumentoFinanceiro(InstrumentoFinanceiroGifInputOutput input);
 
 	@PutMapping("/instrumento-financeiro/alterar/{codigo}")
@@ -71,7 +71,7 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	// Operações financeiras
 	
 	@PostMapping("/operacoes")
-	void createOperacao(@RequestBody @Valid OperacaoFinanceiraGifInput input);
+	Long createOperacao(@RequestBody @Valid OperacaoFinanceiraGifInput input);
 	
 	
 	// Modelo de Negócio

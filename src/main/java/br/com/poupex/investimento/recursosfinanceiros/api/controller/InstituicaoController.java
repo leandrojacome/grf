@@ -238,8 +238,8 @@ public class InstituicaoController {
   @Parameters({
     @Parameter(name = "nome", description = "Parte ou nome da Instituição Financeira")
   })
-  @GetMapping("por-nome/{nome}")
-  public ResponseEntity<ResponseModel> readPorNome(@PathVariable String nome) {
+  @GetMapping("consulta/por-nome")
+  public ResponseEntity<ResponseModel> readPorNome(@RequestParam(required = false) String nome) {
     return ResponseEntity.ok(pesquisarInstituicoesFinanceirasService.execute(nome, null, null, null));
   }
 

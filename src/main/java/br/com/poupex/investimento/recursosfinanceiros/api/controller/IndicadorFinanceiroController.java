@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.*;
 public class IndicadorFinanceiroController {
 
   private final RecuperarIndicadorFinanceiroPeriodicidadesService recuperarIndicadorFinanceiroPeriodicidadesService;
-  private final RecuperarIndicadorFinanceiroSiglasService recuperarIndicadorFinanceiroSiglasService;
+  private final PesquisarIndicadoresFinanceirosService pesquisarIndicadoresFinanceirosService;
   private final CadastrarIndicadorFinanceiroService cadastrarIndicadorFinanceiroService;
   private final EditarIndicadorFinanceiro editarIndicadorFinanceiro;
   private final ObterIndicadorFinanceiroService obterIndicadorFinanceiroService;
@@ -58,8 +58,8 @@ public class IndicadorFinanceiroController {
     }),
   })
   @GetMapping("siglas")
-  public ResponseEntity<ResponseModel> siglas() {
-    return ResponseEntity.ok(recuperarIndicadorFinanceiroSiglasService.execute());
+  public ResponseEntity<ResponseModel> siglas(@RequestParam(required = false) String entrada) {
+    return ResponseEntity.ok(pesquisarIndicadoresFinanceirosService.execute(entrada));
   }
 
   @AuditarTipo(tipo = AuditoriaTipo.API, recurso = IndicadorFinanceiro.class)

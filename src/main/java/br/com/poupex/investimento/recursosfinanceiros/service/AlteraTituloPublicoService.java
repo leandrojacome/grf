@@ -26,7 +26,7 @@ public class AlteraTituloPublicoService {
 	public ResponseModel execute(final String id, final TituloPublicoInputOutput input) {
 		
 		var tituloGrf = obterTituloPublicoService.id(id);
-		var codigoGif = tituloGrf.getInstrumentoFinanceiroGifCodigo();
+		var codigoGif = tituloGrf.getCodigoGif();
 		var tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif);
 		
 	    BeanUtils.copyProperties(mapper.map(input, TituloPublico.class), tituloGrf,
@@ -36,9 +36,9 @@ public class AlteraTituloPublicoService {
 	    tituloGif.setNome(input.getNome());
 	    tituloGif.setSigla(input.getSigla());
 	    tituloGif.setAtivoFinanceiro(input.getAtivoFinanceiro());
-	    tituloGif.setCodFormaMensuracao(input.getCodFormaMensuracao() == null? 
+	    tituloGif.setCodFormaMensuracao(input.getFormaMensuracao() == null? 
 	    		tituloGif.getFormaMensuracao().getCodigo() :
-	    		input.getCodFormaMensuracao());
+	    		input.getFormaMensuracao().getCodigo());
 
 	    tituloGif.setCodInstituicao(tituloGif.getInstituicao().getCodigo());
 	    tituloGif.setCodModeloNegocio(tituloGif.getModeloNegocio().getCodigo());

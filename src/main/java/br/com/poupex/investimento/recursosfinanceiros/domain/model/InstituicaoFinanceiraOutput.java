@@ -17,4 +17,7 @@ public class InstituicaoFinanceiraOutput {
   private String tipoLabel;
   private InstituicaoFinanceiraOutput grupo;
   private Boolean matriz;
+  private String cetip;
+  private String selic;
+  private String resumo;
 }

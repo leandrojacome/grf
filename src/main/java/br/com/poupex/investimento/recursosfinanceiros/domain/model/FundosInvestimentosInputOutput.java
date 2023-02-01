@@ -14,6 +14,8 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 import static br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.StringUtil.unmask;
@@ -26,7 +28,7 @@ public class FundosInvestimentosInputOutput {
     private String id;
 
     @JsonIgnore
-    private Long instrumentoFinanceiroGifCodigo;
+    private Long codigoGif;
 
     @NotBlank
     @CNPJ
@@ -34,12 +36,15 @@ public class FundosInvestimentosInputOutput {
     private String cnpj;
 
     @NotBlank
+    @Size(max = 256)
     private String nome;
 
     @NotBlank
+    @Size(max = 256)
     private String gestor;
 
     @NotBlank
+    @Size(max = 256)
     private String administrador;
 
     @NotNull
@@ -84,7 +89,8 @@ public class FundosInvestimentosInputOutput {
     @NotNull
     private Nivel nivel;
 
-    @NotNull
+    @NotBlank
+    @Size(max = 20)
     private String sigla;
 
     public void setCnpj(String cnpj) {

@@ -58,7 +58,7 @@ public class ObterListaTituloPublicoService {
 		
 		page.getContent().stream().forEach(titulo -> {
 			try {
-				var tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(titulo.getInstrumentoFinanceiroGifCodigo());
+				var tituloGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(titulo.getCodigoGif());
 				BeanUtils.copyProperties(tituloGif, titulo);
 			} catch (Exception ignore) {
 			}
@@ -85,5 +85,5 @@ public class ObterListaTituloPublicoService {
 
 			         return builder.and(predicates.toArray(new Predicate[predicates.size()]));
 			    };
-			};
+			}
 }

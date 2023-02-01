@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.TituloPublico;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.TituloPublicoInputOutput;
@@ -31,9 +32,9 @@ public class ObterTituloPublicoService {
 
 		try {
 			val ifGif = gestaoInstrumentosFinanceirosApiClient
-					.getInstrumentoFinanceiro(titulo.getInstrumentoFinanceiroGifCodigo());
+					.getInstrumentoFinanceiro(titulo.getCodigoGif());
 			BeanUtils.copyProperties(ifGif, dto);
-			dto.setCodFormaMensuracao(ifGif.getFormaMensuracao().getCodigo());
+			dto.setFormaMensuracao(FormaMensuracaoEnum.valueOf(ifGif.getFormaMensuracao().getCodigo()));
 		} catch (Exception ignore) {
 		}
 

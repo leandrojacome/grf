@@ -5,9 +5,6 @@ spring:
     url: jdbc:oracle:thin:@//dboracledesenv.poupex.com.br:1521/desenv
     username: USER_GESTAO_RECURSOS_FINANCEIROS
     password: 2mGktD3ep$w3GDdgG
-  #    url: jdbc:oracle:thin:@//localhost:1521/oracle
-  #    username: system
-  #    password: system
   jpa:
     properties:
       hibernate.format_sql: true
@@ -19,9 +16,6 @@ spring:
     locations:
       - classpath:db/migration
       - classpath:db/callbacks
-  #    baseline-on-migrate: true
-  #    clean-on-validation-error: true
-  #    out-of-order: true
   mvc:
     async:
       request-timeout: -1
@@ -46,16 +40,16 @@ security:
   oauth2:
     client:
       id: f5
-      client-id: d974a758f623c0fb97af568a0a210094a15bdef885b01063
-      client-secret: f14fe88814bf4169fe00beb2e4ab9eddf461e0b488a40094a15bdef885b01063
+      client-id: 30c3797b9d770f228cc5a8ee56640094a17efcf81e6e9063
+      client-secret: 64ba69f98d9905aa94a19cd6b3613329b40afcacbe920094a17efcf81e6e9063
       scope:
         - endereco-api:get
         - gestao-instrumentos-financeiros-api:get
         - gestao-instrumentos-financeiros-api:post
         - gestao-instrumentos-financeiros-api:put
         - gestao-instrumentos-financeiros-api:delete
-      access-token-uri: https://hmlsso.poupex.com.br/f5-oauth2/v1/token
-      user-authorization-uri: https://hmlsso.poupex.com.br/f5-oauth2/v1/authorize
+      access-token-uri: https://testesso.poupex.com.br/f5-oauth2/v1/token
+      user-authorization-uri: https://testesso.poupex.com.br/f5-oauth2/v1/authorize
       grant-type: client_credentials
 ---
 logging:
@@ -79,7 +73,7 @@ poupex:
   api:
     terceiros:
       endereco-api-url: http://enderecoapihml.hml.cloud.poupex
-      gestao-instrumentos-api-url: http://gestaoinstrumentosfinanceirosapihml.hml.cloud.poupex
+      gestao-instrumentos-api-url: http://gestaoinstrumentosfinanceirosapiteste.hml.cloud.poupex
       series-temporais-url: https://api.bcb.gov.br
   minio:
     initialPath: LOCAL-${user.name}

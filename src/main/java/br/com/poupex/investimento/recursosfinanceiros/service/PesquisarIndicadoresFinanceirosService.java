@@ -28,6 +28,10 @@ public class PesquisarIndicadoresFinanceirosService {
     );
   }
 
+  public ResponseModel execute(final String entrada) {
+    return execute(entrada, null);
+  }
+
   public Specification<IndicadorFinanceiro> spec(final String nome, final IndicadorFinanceiroPeriodicidade periodicidade) {
     return indicadorFinanceiroRepository.siglaOuNome(nome).and(indicadorFinanceiroRepository.periodicidade(periodicidade));
   }

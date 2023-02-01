@@ -22,14 +22,16 @@ public class ExcluirFundoInvestimentoService {
 
 
     public ResponseModel execute(String id) {
+    	
         val fundoInvestimento = obterFundoInvestimentoService.getFundoInvestimento(id);
-        try {
-            gestaoInstrumentosFinanceirosApiClient.deteleInstrumentoFinanceiro(fundoInvestimento.getInstrumentoFinanceiroGifCodigo());
-        } catch (FeignException.NotFound e) {
-            throw new RecursoNaoEncontradoException("Fundo de Investimentos", String.format("Não foi encontrado, no GIF, o Fundo de Investimentos com código: %s", fundoInvestimento.getInstrumentoFinanceiroGifCodigo()));
-        }
-
+        
         fundosInvestimentosRepository.delete(fundoInvestimento);
+
+        try {
+            gestaoInstrumentosFinanceirosApiClient.deteleInstrumentoFinanceiro(fundoInvestimento.getCodigoGif());
+        } catch (FeignException.NotFound e) {
+            throw new RecursoNaoEncontradoException("Fundo de Investimentos", String.format("Não foi encontrado, no GIF, o Fundo de Investimentos com código: %s", fundoInvestimento.getCodigoGif()));
+        }
 
         return new ResponseModel(
                 LocalDateTime.now(),
