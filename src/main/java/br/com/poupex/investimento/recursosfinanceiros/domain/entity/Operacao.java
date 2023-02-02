@@ -1,14 +1,10 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.*;
-import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoRendaFixaCompromissadaService;
-import java.math.BigDecimal;
+import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoService;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.val;
 
@@ -22,13 +18,17 @@ public class Operacao extends AbstractEntidadeBase {
   @Column(name = "NUMERO_BOLETA", nullable = false)
   private String boleta;
 
+  @Column(name = "TIPO", nullable = false)
+  private String tipo;
+
   @Override
   public void prePersist() {
     try {
-      val count = CadastrarOperacaoRendaFixaCompromissadaService.singleton.count(
-        CadastrarOperacaoRendaFixaCompromissadaService.singleton.cadastro(LocalDate.now())
+      val count = CadastrarOperacaoService.singleton.count(
+        CadastrarOperacaoService.singleton.cadastro(LocalDate.now())
       ) + 1;
       setBoleta(String.format("%s%04d", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), count));
+      setTipo(this.getClass().getSimpleName());
     } catch (final NullPointerException ignored) {
     }
   }
