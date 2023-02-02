@@ -25,11 +25,4 @@ public class CadastrarOperacaoRendaFixaCompromissadaService {
     );
   }
 
-  public static OperacaoRendaFixaCompromissadaRepository singleton;
-
-  @PostConstruct
-  public void init(){
-    singleton = operacaoRendaFixaCompromissadaRepository;
-  }
-
 }
