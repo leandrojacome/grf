@@ -23,6 +23,7 @@ import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaEmpresas
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCepExternoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCnpjExternoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarFormasMensuracaoService;
+import br.com.poupex.investimento.recursosfinanceiros.service.obterListaPeriodoCupomUtilService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -47,6 +48,7 @@ public class UtilController {
   private final ObterEmpresaUtilService obterEmpresaUtilService;
   private final ObterListaEmpresasUtilService obterListaEmpresasUtilService;
   private final RecuperarFormasMensuracaoService recuperarFormasMensuracaoService;
+  private final obterListaPeriodoCupomUtilService obterListaPeriodoCupomUtilService;
 
   @Operation(summary = "Localiza endereços pelo CEP")
   @ApiResponses({
@@ -141,4 +143,18 @@ public class UtilController {
     return ResponseEntity.ok(recuperarFormasMensuracaoService.execute());
   }
 
+  @Operation(summary = "Lista de período cupom")
+  @ApiResponses({
+    @ApiResponse(
+      responseCode = "200", description = "Lista dados de período cupom",
+      content = {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+        @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = EmpresaOutput.class)))
+      }),
+  })
+  @GetMapping("periodo-cupom")
+  public ResponseEntity<ResponseModel> periodoCupomLista() {
+    return ResponseEntity.ok(obterListaPeriodoCupomUtilService.execute());
+  }
+  
 }
