@@ -28,6 +28,9 @@ public class InstituicaoFinanceiraEndereco extends AbstractEntidadeBase {
   @Column(name = "COMPLEMENTO", length = 256)
   private String complemento;
 
+  @Column(name = "BAIRRO", nullable = false, length = 30)
+  public String bairro;
+
   @Column(name = "CIDADE", nullable = false, length = 32)
   private String cidade;
 
