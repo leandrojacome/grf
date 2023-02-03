@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstituicaoGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstrumentoFinanceiroGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.ModeloNegocioOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.TipoInstrumentoFinanceiroInputOutput;
 
 
@@ -71,7 +71,13 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	// Operações financeiras
 	
 	@PostMapping("/operacoes")
-	Long createOperacao(@RequestBody @Valid OperacaoFinanceiraGifInput input);
+	Long createOperacao(@RequestBody @Valid OperacaoFinanceiraGifInputOutput input);
+	
+	@PutMapping("/operacoes/alterar/{codigo}")
+	Long updateOperacaoFinanceira(@PathVariable Long codigo, OperacaoFinanceiraGifInputOutput input);
+	
+	@GetMapping("/operacoes/visualizar/{codigo}")
+	OperacaoFinanceiraGifInputOutput getOperacao(@PathVariable Long codigo);
 	
 	
 	// Modelo de Negócio
