@@ -11,7 +11,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRend
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoTaxa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaDefinitivaInput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterIndicadorFinanceiroService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstrumentoFinanceiroService;
@@ -35,9 +35,10 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
 		this.obterInstrumentoFinanceiroService = obterInstrumentoFinanceiroService;
 		this.obterInstituicaoFinanceiraService = obterInstituicaoFinanceiraService;
     	
-		modelMapper.addMappings(new PropertyMap<OperacaoRendaFixaDefinitivaInput, OperacaoFinanceiraGifInput>() {
+		modelMapper.addMappings(new PropertyMap<OperacaoRendaFixaDefinitivaInput, OperacaoFinanceiraGifInputOutput>() {
             @Override
             protected void configure() {
+            	skip(destination.getCodigo());
                 skip(destination.getContraparte());
                 skip(destination.getCodInstituicao());
                 map().setDtEmissao(source.getDataEmissao());
@@ -56,6 +57,7 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
             @Override
             protected void configure() {
                 skip(destination.getId());
+                skip(destination.getTipo());
             }
         });
 
