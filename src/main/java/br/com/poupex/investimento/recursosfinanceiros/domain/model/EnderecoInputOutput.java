@@ -23,6 +23,9 @@ public class EnderecoInputOutput {
   @Size(max = 256)
   public String complemento;
   @NotBlank
+  @Size(max = 30)
+  public String bairro;
+  @NotBlank
   public String cidade;
   @NotBlank
   public String uf;

@@ -16,6 +16,7 @@ spring:
     locations:
       - classpath:db/migration
       - classpath:db/callbacks
+    out-of-order: true
   mvc:
     async:
       request-timeout: -1
