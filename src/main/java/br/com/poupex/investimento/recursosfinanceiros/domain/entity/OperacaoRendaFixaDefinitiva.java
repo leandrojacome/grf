@@ -14,10 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "OPERACAO_RENDA_FIXA_DEFINITIVA", schema = "GESTAO_RECURSOS_FINANCEIROS")
-public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
-
-	@Column(name = "NUMERO_OPERACAO", unique = true, nullable = false, updatable = false)
-	private Long numeroOperacao;
+public class OperacaoRendaFixaDefinitiva extends Operacao {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "EMPRESA", nullable = false)

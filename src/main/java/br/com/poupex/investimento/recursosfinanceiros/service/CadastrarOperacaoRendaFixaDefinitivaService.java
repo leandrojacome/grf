@@ -2,12 +2,16 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaDefinitiva;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
+import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaDefinitivaInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaDefinitivaOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInputOutput;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.OperacaoRendaFixaDefinitivaRepository;
 import lombok.RequiredArgsConstructor;
+
+import org.hibernate.boot.MappingException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,23 +24,20 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class CadastrarOperacaoRendaFixaDefinitivaService {
-  private final GerarNumeroOperacaoService gerarNumeroOperacao;
   private final OperacaoRendaFixaDefinitivaRepository operacaoRendaFixaDefinitivaRepository;
   private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
   private final CadastrarOperacaoRendaFixaDefinitivaGifService cadastrarOperacaoRendaFixaDefinitivaGifService;
+  private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
   private final ObterInstituicaoGifService obterInstituicaoGifService;
   private final ModelMapper mapper;
 
   public ResponseModel execute(final OperacaoRendaFixaDefinitivaInput input) {
 
-    Long numeroOperacao = gerarNumeroOperacao.generateValue();
-
         var codInstituicaoGif = obterInstituicaoGifService.getCodInstituicao(input.getEmpresa().getCnpj());
 
         var instrumentoFinanceiro = obterInstrumentoFinanceiroService.id(input.getIdInstrumentoFinanceiro());
 
-        var inputGif = mapper.map(input, OperacaoFinanceiraGifInput.class);
-        inputGif.setNumeroOperacao(numeroOperacao);
+        var inputGif = mapper.map(input, OperacaoFinanceiraGifInputOutput.class);
         inputGif.setCodInstituicao(codInstituicaoGif);
         inputGif.setCodInstrumentoFinanceiro(instrumentoFinanceiro.getCodigoGif());
 
@@ -47,14 +48,22 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
         codigoGif = (codigoGif == null ? 0 : codigoGif);
 		OperacaoRendaFixaDefinitiva operacaoFinanceira = null;
 
-		operacaoFinanceira = mapper.map(input, OperacaoRendaFixaDefinitiva.class);
+		try {
+			operacaoFinanceira = mapper.map(input, OperacaoRendaFixaDefinitiva.class);
+		}catch (Exception e) {
+			if (e.getCause() instanceof RecursoNaoEncontradoException) {
+				NegocioException ne = ((NegocioException) e.getCause());
+				throw new NegocioException(ne.getStatus(), ne.getTitulo(), ne.getMensagem());
+			}
+		}
 
-        operacaoFinanceira.setNumeroOperacao(numeroOperacao);
         operacaoFinanceira.setOperacaoGifCodigo(codigoGif);
 
         OperacaoRendaFixaDefinitiva operacao = null;
         try {
             operacao = operacaoRendaFixaDefinitivaRepository.save(operacaoFinanceira);
+            
+
         } catch (DataIntegrityViolationException e) {
             if (e.getCause() instanceof ConstraintViolationException
                     && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
@@ -76,6 +85,13 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
                 throw new NegocioException("Cadastrar Operação Renda Fixa Definitiva", "Não foi possível cadastrar a operação");
             }
         }
+        
+        try {
+        	inputGif.setNumeroOperacao(Long.valueOf(operacao.getBoleta()));
+        	gestaoInstrumentosFinanceirosApiClient.updateOperacaoFinanceira(codigoGif, inputGif);
+        	
+        }catch (NumberFormatException ignore) {
+		}
         var dto = mapper.map(operacao,
                 OperacaoRendaFixaDefinitivaOutput.class);
 
