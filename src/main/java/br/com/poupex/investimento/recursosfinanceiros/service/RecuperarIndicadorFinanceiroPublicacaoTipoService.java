@@ -1,6 +1,5 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPublicacao;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ChaveLabelDescricaoOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
@@ -9,7 +8,7 @@ import java.util.Comparator;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RecuperarIndicadorPublicacaoTipoService {
+public class RecuperarIndicadorFinanceiroPublicacaoTipoService {
 
   public ResponseModel execute() {
     return new ResponseModel(

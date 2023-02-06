@@ -25,11 +25,11 @@ public class IndicadorFinanceiro extends AbstractEntidadeBase {
   private String nome;
 
   @Enumerated(EnumType.STRING)
-  @Column(name = "PUBLICACAO", nullable = false, length = 64)
-  private IndicadorFinanceiroPublicacao publicacao;
-
-  @Enumerated(EnumType.STRING)
   @Column(name = "PERIODICIDADE", nullable = false)
   private IndicadorFinanceiroPeriodicidade periodicidade;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "PUBLICACAO", nullable = false, length = 64)
+  private IndicadorFinanceiroPublicacao publicacao;
 
 }
