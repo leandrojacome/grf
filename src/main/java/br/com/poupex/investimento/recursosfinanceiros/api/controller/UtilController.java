@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 
+import br.com.poupex.investimento.recursosfinanceiros.service.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,11 +19,6 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensurac
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoAgenciaModalidade;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.scheduler.CarregaTaxasIndicesScheduler;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterEmpresaUtilService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaEmpresasUtilService;
-import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCepExternoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCnpjExternoService;
-import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarFormasMensuracaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -47,6 +43,7 @@ public class UtilController {
   private final ObterEmpresaUtilService obterEmpresaUtilService;
   private final ObterListaEmpresasUtilService obterListaEmpresasUtilService;
   private final RecuperarFormasMensuracaoService recuperarFormasMensuracaoService;
+  private final RecuperarIndicadorPublicacaoTipoService recuperarIndicadorPublicacaoTipoService;
 
   @Operation(summary = "Localiza endereços pelo CEP")
   @ApiResponses({
@@ -139,6 +136,20 @@ public class UtilController {
   @GetMapping("formas-mensuracao")
   public ResponseEntity<ResponseModel> formasMensuracao() {
     return ResponseEntity.ok(recuperarFormasMensuracaoService.execute());
+  }
+
+  @Operation(summary = "Recupera formas de mensuração")
+  @ApiResponses({
+    @ApiResponse(
+      responseCode = "200", description = "Formas de mensuração",
+      content = {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ChaveLabelDescricaoOutput.class))
+      }),
+  })
+  @GetMapping("indicador-publicacao")
+  public ResponseEntity<ResponseModel> indicadorPublicacao() {
+    return ResponseEntity.ok(recuperarIndicadorPublicacaoTipoService.execute());
   }
 
 }

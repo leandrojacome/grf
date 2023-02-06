@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPublicacao;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import javax.validation.constraints.NotNull;
@@ -14,4 +15,6 @@ public class IndicadorFinanceiroTaxaInput {
   private LocalDate referencia;
   @NotNull
   private BigDecimal valor;
+  @NotNull
+  private IndicadorFinanceiroPublicacao publicacao;
 }
