@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ExportacaoFormato;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaCompromissadaOutput;
@@ -27,10 +28,10 @@ public class ExportaOperacaoRendaFixaCompromissadaService {
 
   public byte[] execute(
     final String boleta, final BigDecimal valorIdaInicio, final BigDecimal valorIdaFim, final LocalDate cadastroInicio,
-    final LocalDate cadastroFim, final ExportacaoFormato formato, final Sort sort
+    final LocalDate cadastroFim, Empresa empresa, final ExportacaoFormato formato, final Sort sort
   ) {
-    val spec = pesquisarOperacaoRendaFixaCompromissadaPagedService.spec(boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim);
-    val operacoes = operacaoRendaFixaCompromissadaRepository.findAll(spec, sort.isUnsorted() ? Sort.by(Sort.Order.desc("boleta")) : sort).stream()
+    val spec = pesquisarOperacaoRendaFixaCompromissadaPagedService.spec(boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim, empresa);
+    val operacoes = operacaoRendaFixaCompromissadaRepository.findAll(spec, sort).stream()
       .map(operacao -> mapper.map(operacao, OperacaoRendaFixaCompromissadaOutput.class)).toList();
     if (operacoes.isEmpty()) {
       throw new RecursoNaoEncontradoException(

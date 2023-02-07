@@ -3,6 +3,7 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissada;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.ExportacaoFormato;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraTipo;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
@@ -34,7 +35,6 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Operações Financeiras")
 @OpenApiResponsesPadroes
 public class OperacaoRendaFixaCompromissadaController {
-
   private final CadastrarOperacaoRendaFixaCompromissadaService cadastrarOperacaoRendaFixaCompromissadaService;
   private final PesquisarOperacaoRendaFixaCompromissadaPagedService pesquisarOperacaoRendaFixaCompromissadaPagedService;
   private final ObterOperacaoRendaFixaCompromissadaService obterOperacaoRendaFixaCompromissadaService;
@@ -72,10 +72,11 @@ public class OperacaoRendaFixaCompromissadaController {
     @RequestParam(required = false) final BigDecimal valorIdaFim,
     @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate cadastroInicio,
     @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate cadastroFim,
+    @RequestParam(required = false) final Empresa empresa,
     @Parameter(hidden = true) final Pageable pageable
   ) {
     return ResponseEntity.ok(pesquisarOperacaoRendaFixaCompromissadaPagedService.execute(
-      boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim, pageable
+      boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim, empresa, pageable
     ));
   }
 
@@ -129,11 +130,12 @@ public class OperacaoRendaFixaCompromissadaController {
     @RequestParam(required = false) final BigDecimal valorIdaFim,
     @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate cadastroInicio,
     @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate cadastroFim,
+    @RequestParam(required = false) final Empresa empresa,
     @RequestParam final ExportacaoFormato formato,
     @Parameter(hidden = true) Sort sort
   ) {
     return ResponseEntity.ok(exportaOperacaoRendaFixaCompromissadaService.execute(
-      boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim, formato, sort
+      boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim, empresa, formato, sort
     ));
   }
 
