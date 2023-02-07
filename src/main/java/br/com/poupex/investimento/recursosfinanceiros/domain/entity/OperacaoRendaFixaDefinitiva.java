@@ -77,12 +77,31 @@ public class OperacaoRendaFixaDefinitiva extends Operacao {
 	@Column(name = "TAXA_EFETIVA", nullable = true)
 	private BigDecimal taxaEfetiva;
 
+	@Column(name = "TAXA_PRE", nullable = true)
+	private BigDecimal taxaPre;
+
+	@Column(name = "TAXA_NEGOCIACAO", nullable = true)
+	private BigDecimal taxaNegociacao;
+
+	@Column(name = "TAXA_EFETIVA_NEGOCIACAO", nullable = true)
+	private BigDecimal taxaEfetivaNegociacao;
+
+	@Column(name = "TAXA_PRE_NEGOCIACAO", nullable = true)
+	private BigDecimal taxaPreNegociacao;
+
 	@ManyToOne
 	@JoinColumn(name = "INDICE")
 	private IndicadorFinanceiro indice;
 
+	@ManyToOne
+	@JoinColumn(name = "INDICE_NEGOCIACAO")
+	private IndicadorFinanceiro indiceNegociacao;
+
 	@Column(name = "PERCENTUAL_INDICE", nullable = true)
 	private BigDecimal percentualIndice;
+
+	@Column(name = "PERCENTUAL_NEGOCIACAO", nullable = true)
+	private BigDecimal percentualNegociacao;
 
 	@Column(name = "DIAS_UTEIS", nullable = false)
 	private Boolean diasUteis;
@@ -93,8 +112,17 @@ public class OperacaoRendaFixaDefinitiva extends Operacao {
 	@Column(name = "PU_EMISSAO", nullable = false)
 	private BigDecimal puEmissao;
 
+	@Column(name = "PU_AGIO_DESAGIO", nullable = true)
+	private BigDecimal puAgioDesagio;
+
 	@Column(name = "VALOR_FINANCEIRO", nullable = false)
 	private BigDecimal valorFinanceiro;
+
+	@Column(name = "VALOR_FINANCEIRO_AGIO_DESAGIO", nullable = true)
+	private BigDecimal valorFinanceiroAgioDesagio;
+
+	@Column(name = "VALOR_FINANCEIRO_NEGOCIACAO", nullable = true)
+	private BigDecimal valorFinanceiroNegociacao;
 
 	@Column(name = "VALOR_RESGATE", nullable = false)
 	private BigDecimal valorResgate;

@@ -21,7 +21,7 @@ public class OperacaoRendaFixaDefinitivaOutput {
     private Empresa empresa;
     private Long operacaoGifCodigo;
     private TipoMercado tipoMercado;
-    private InstrumentoFinanceiro instrumentoFinanceiro;
+    private InstrumentoFinanceiroOutput instrumentoFinanceiro;
     private String codigoIfGrf;
     private String codigoCustodiaBB;
     private FormaMensuracaoEnum formaMensuracao;
@@ -31,23 +31,32 @@ public class OperacaoRendaFixaDefinitivaOutput {
     private Integer prazoDC;
     private Integer prazoDU;
     private LocalDateTime dataVencimento;
-    private InstituicaoFinanceira emissor;
-    private InstituicaoFinanceira contraparte;
+    private InstituicaoFinanceiraOutput emissor;
+    private InstituicaoFinanceiraOutput contraparte;
     private TipoTaxa tipoTaxa;
     private BigDecimal taxa;
     private BigDecimal taxaEfetiva;
-	private IndicadorFinanceiro indice;
+	private BigDecimal taxaPre;
+	private BigDecimal taxaNegociacao;
+	private BigDecimal taxaEfetivaNegociacao;
+	private BigDecimal taxaPreNegociacao;
+	private IndicadorFinanceiroOutput indice;
+	private IndicadorFinanceiroOutput idIndiceNegociacao;
     private BigDecimal percentualIndice;
+	private BigDecimal percentualNegociacao;
     private Boolean diasUteis;
     private Integer qtdDias;
     private BigDecimal puEmissao;
+	private BigDecimal puAgioDesagio;
     private BigDecimal valorFinanceiro;
+	private BigDecimal valorFinanceiroAgioDesagio;
+	private BigDecimal valorFinanceiroNegociacao;
     private BigDecimal valorResgate;
     private Boolean cupom;
     private PeriodoCupom periodoCupom;
     private LocalDateTime dataPrimeiroCupom;
     private String operadorContraparte;
     private BigDecimal valorCorretagem;
-	private IndicadorFinanceiro custoOperacao;
+	private IndicadorFinanceiroOutput custoOperacao;
 
 }

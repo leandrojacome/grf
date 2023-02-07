@@ -3,12 +3,14 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.PeriodoCupom;
@@ -49,17 +51,26 @@ public class OperacaoRendaFixaDefinitivaInput {
     @NotNull
     private TipoTaxa tipoTaxa;
     private BigDecimal taxa;
+    private BigDecimal taxaEfetiva;
+	private BigDecimal taxaPre;
+	private BigDecimal taxaNegociacao;
+	private BigDecimal taxaEfetivaNegociacao;
+	private BigDecimal taxaPreNegociacao;
 	private String idIndice;
+	private String idIndiceNegociacao;
     private BigDecimal percentualIndice;
+	private BigDecimal percentualNegociacao;
     @NotNull
     private Boolean diasUteis;
     @NotNull
     private Integer qtdDias;
-    private BigDecimal taxaEfetiva;
     @NotNull
     private BigDecimal puEmissao;
+	private BigDecimal puAgioDesagio;
     @NotNull
     private BigDecimal valorFinanceiro;
+	private BigDecimal valorFinanceiroAgioDesagio;
+	private BigDecimal valorFinanceiroNegociacao;
     @NotNull
     private BigDecimal valorResgate;
     @NotNull
