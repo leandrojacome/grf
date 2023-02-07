@@ -17,6 +17,7 @@ public class ValidaOperacaoRendaFixaCompromissadaService {
   private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
   private final ObterIndicadorFinanceiroService obterIndicadorFinanceiroService;
   private final ValidaOperacaoRendaFixaCompromissadaLastroService validaOperacaoRendaFixaCompromissadaLastroService;
+  private final VerificaDiaUtilService verificaDiaUtilService;
   private final ModelMapper mapper;
 
   public OperacaoRendaFixaCompromissada execute(final OperacaoRendaFixaCompromissadaInputCadastrar input) {
@@ -28,6 +29,22 @@ public class ValidaOperacaoRendaFixaCompromissadaService {
         "Instituição não encontrada",
         String.format("Não foi encontrado Instituição Financeira com id: %s", input.getContraparteInstituicaoFinanceira()),
         List.of(new ValidacaoModel("contraparteInstituicaoFinanceira", "valor inválido")),
+        input
+      );
+    }
+    if (!verificaDiaUtilService.execute(input.getDataIda())) {
+      throw new NegocioException(
+        "Data inválida",
+        "A data de Ida deve ser um dia útil",
+        List.of(new ValidacaoModel("dataIda", "Deve ser um dia útil")),
+        input
+      );
+    }
+    if (!verificaDiaUtilService.execute(input.getDataVolta())) {
+      throw new NegocioException(
+        "Data inválida",
+        "A data de Volta deve ser um dia útil",
+        List.of(new ValidacaoModel("datVolta", "Deve ser um dia útil")),
         input
       );
     }

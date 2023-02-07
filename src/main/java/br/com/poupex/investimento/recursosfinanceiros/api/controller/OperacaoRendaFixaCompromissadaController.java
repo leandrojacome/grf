@@ -104,19 +104,6 @@ public class OperacaoRendaFixaCompromissadaController {
     return ResponseEntity.ok(calculaPrecoUnitarioVoltaService.execute(input));
   }
 
-  @Operation(summary = "Valida Lista de lastros")
-  @ApiResponses({
-    @ApiResponse(responseCode = "200", description = "Valor do calculo realizado", content = {
-      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-      @Content(mediaType = "application/json", schema = @Schema(implementation = BigDecimal.class))
-    }),
-  })
-  @PostMapping("valida-adiciona-lastro")
-  public ResponseEntity<ResponseModel> validaLastros(@Valid @RequestBody final ValidaLastroInput input) {
-    validaOperacaoRendaFixaCompromissadaLastroService.execute(input);
-    return ResponseEntity.ok(new ResponseModel(input.getLastro()));
-  }
-
   @Operation(summary = "Exportação (Relatório) das operações de renda fixa compromissadas")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Arquivo com as Taxas (Filtradas)", content = {
