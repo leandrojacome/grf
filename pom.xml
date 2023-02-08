@@ -193,6 +193,17 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--FERIADO-->
+        <dependency>
+            <groupId>br.com.poupex</groupId>
+            <artifactId>saf-ws-client</artifactId>
+            <version>3.1.26</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>rt</artifactId>
+            <version>2.3.5</version>
+        </dependency>
         <!-- TESTE -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

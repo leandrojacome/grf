@@ -2,6 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaCompromissadaOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.util.StringUtil;
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
@@ -21,7 +22,16 @@ public class ExportaOperacaoRendaFixaCompromissadaToCsvService {
       operacao.getValorFinanceiroVolta(),
       operacao.getCadastro()
     )));
+    csv.append(String.format("%s,%s,%s\n", "Totais", somaValorFinanceiroIda(operacoes), somaValorFinanceiroVolta(operacoes)));
     return stringUtil.decodeToUtf8(csv.toString()).getBytes();
+  }
+
+  private BigDecimal somaValorFinanceiroIda(final List<OperacaoRendaFixaCompromissadaOutput> operacoes) {
+    return operacoes.stream().map(OperacaoRendaFixaCompromissadaOutput::getValorFinanceiroIda).reduce(BigDecimal.ZERO, BigDecimal::add);
+  }
+
+  private BigDecimal somaValorFinanceiroVolta(final List<OperacaoRendaFixaCompromissadaOutput> operacoes) {
+    return operacoes.stream().map(OperacaoRendaFixaCompromissadaOutput::getValorFinanceiroVolta).reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 
 }
