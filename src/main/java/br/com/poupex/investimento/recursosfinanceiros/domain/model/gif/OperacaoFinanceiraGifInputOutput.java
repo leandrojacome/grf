@@ -1,7 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model.gif;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,23 +10,20 @@ import lombok.Setter;
 public class OperacaoFinanceiraGifInputOutput {
 
 	private Long codigo;
-	private LocalDateTime dtEmissao;
-	private LocalDateTime dtLiquidacao;
-	private Integer prazoDiasCorridos;
-	private Integer prazoDiasUteis;
-	private LocalDateTime dtVencimento;
+	private String numero;
+	private String cnpjOrigem;
+	private LocalDate dtCarga;
 	private String contraparte;
-	private BigDecimal taxa;
-	private Boolean taxaDias;
-	private BigDecimal valorFinanceiro;
-	private BigDecimal valorResgate;
-	private Long numeroOperacao;
+	private Integer diasAtraso;
+	private Integer idadeMutuario;
+	private Integer estadoCivil;
+	private Integer estadoResidencia;
+	private Long codTipoInstrumentoFinanceiro;
 	private Long codInstituicao;
-	private Long codInstrumentoFinanceiro;
 	private Long codFormaMensuracao;
-	private BigDecimal corretagem;
+	private Long codCategoriaTransacao;
 	private InstituicaoGifInputOutput instituicao;
-	private InstrumentoFinanceiroGifInputOutput instrumentoFinanceiro;
+	private TipoInstrumentoFinanceiroInputOutput tipoInstrumentoFinanceiro;
 	private FormaMensuracaoOutput formaMensuracao;
 	    
 }

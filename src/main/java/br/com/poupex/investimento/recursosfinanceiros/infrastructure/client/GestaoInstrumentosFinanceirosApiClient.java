@@ -70,13 +70,13 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	
 	// Operações financeiras
 	
-	@PostMapping("/operacoes")
+	@PostMapping("/operacao")
 	Long createOperacao(@RequestBody @Valid OperacaoFinanceiraGifInputOutput input);
 	
-	@PutMapping("/operacoes/alterar/{codigo}")
+	@PutMapping("/operacao/alterar/{codigo}")
 	Long updateOperacaoFinanceira(@PathVariable Long codigo, OperacaoFinanceiraGifInputOutput input);
 	
-	@GetMapping("/operacoes/visualizar/{codigo}")
+	@GetMapping("/operacao/visualizar/{codigo}")
 	OperacaoFinanceiraGifInputOutput getOperacao(@PathVariable Long codigo);
 	
 	
