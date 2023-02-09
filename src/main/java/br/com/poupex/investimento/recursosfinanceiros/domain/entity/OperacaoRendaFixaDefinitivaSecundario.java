@@ -64,9 +64,6 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 	@Column(name = "DIAS_UTEIS_INDICE_NEGOCIACAO", nullable = false)
 	private Boolean diasUteisIndiceNegociacao;
 
-	@Column(name = "PU_AGIO_DESAGIO", nullable = true)
-	private BigDecimal puAgioDesagio;
-
 	@Column(name = "PU_ATUAL", nullable = true)
 	private BigDecimal puAtual;
 

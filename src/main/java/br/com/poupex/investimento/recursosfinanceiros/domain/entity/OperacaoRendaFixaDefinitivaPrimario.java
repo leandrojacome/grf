@@ -39,9 +39,8 @@ public class OperacaoRendaFixaDefinitivaPrimario extends OperacaoRendaFixaDefini
 	@JoinColumn(name = "INDICE")
 	private IndicadorFinanceiro indice;
 
-	@ManyToOne
-	@JoinColumn(name = "INDICE_NEGOCIACAO")
-	private IndicadorFinanceiro indiceNegociacao;
+	@Column(name = "PERCENTUAL_INDICE", nullable = true)
+	private BigDecimal percentualIndice;
 
 	@Column(name = "PU_EMISSAO", nullable = false)
 	private BigDecimal puEmissao;

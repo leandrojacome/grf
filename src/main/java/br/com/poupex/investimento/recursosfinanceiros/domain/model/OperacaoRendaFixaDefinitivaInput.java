@@ -3,14 +3,12 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.PeriodoCupom;
@@ -39,9 +37,9 @@ public class OperacaoRendaFixaDefinitivaInput {
     @NotNull
     private LocalDateTime dataEmissao;
     @NotNull
-    private LocalDateTime dataCompra;
-    @NotNull
     private LocalDateTime dataLiquidacao;
+    @NotNull
+    private LocalDateTime dataCompra;
     @NotNull
     private Integer prazoDC;
     @NotNull
@@ -49,36 +47,13 @@ public class OperacaoRendaFixaDefinitivaInput {
     @NotNull
     private LocalDateTime dataVencimento;
     @NotNull
-    private TipoTaxa tipoTaxa;
-    private BigDecimal taxa;
-    private BigDecimal taxaEfetiva;
-	private BigDecimal taxaPre;
-	private BigDecimal taxaNegociacao;
-	private BigDecimal taxaEfetivaNegociacao;
-	private BigDecimal taxaPreNegociacao;
-	private String idIndice;
-	private String idIndiceNegociacao;
-    private BigDecimal percentualIndice;
-	private BigDecimal percentualNegociacao;
-    @NotNull
-    private Boolean diasUteis;
-    @NotNull
-    private Integer qtdDias;
-    @NotNull
-    private BigDecimal puEmissao;
-	private BigDecimal puAgioDesagio;
-    @NotNull
-    private BigDecimal valorFinanceiro;
-	private BigDecimal valorFinanceiroAgioDesagio;
-	private BigDecimal valorFinanceiroNegociacao;
-    @NotNull
-    private BigDecimal valorResgate;
-    @NotNull
-    private BigDecimal valorCorretagem;
-    @NotNull
     private String idEmissor;
     @NotNull
     private String idContraparte;
+    @NotNull
+    private Integer qtdDias;
+    @NotNull
+    private BigDecimal valorFinanceiro;
     @NotNull
     private Boolean cupom;
     @NotNull
@@ -89,6 +64,33 @@ public class OperacaoRendaFixaDefinitivaInput {
     @Size(max = 100)
     private String operadorContraparte;
     @NotNull
+    private BigDecimal valorCorretagem;
+    @NotNull
 	private String idCustoOperacao;
+    @NotNull
+    private TipoTaxa tipoTaxa;				//primario/secundario
+    private BigDecimal taxaPre;				//primario/secundario
+    private Boolean diasUteis;				//primario
+	private Boolean diasUteisTaxaPre;		//secundario
+    private BigDecimal taxaEfetiva;			//primario/secundario
+	private BigDecimal taxaNegociacao;		//secundario
+	private BigDecimal taxaPreNegociacao;	//secundario
+	private Boolean diasUteisTaxaPreNegociacao; //secundario
+	private String idIndice;				//primario/secundario
+    private BigDecimal percentualIndice;	//primario/secundario
+	private Boolean diasUteisIndice;		//secundario
+    private BigDecimal puEmissao;			//primario
+    private BigDecimal valorResgate;		//primario
+	private String idIndiceNegociacao;		//secundario
+	private BigDecimal percentualNegociacao; //secundario
+	private Boolean diasUteisIndiceNegociacao; //secundario
+	private BigDecimal puAtual;				//secundario
+	private BigDecimal puNegociado;			//secundario
+	private BigDecimal puPoupex;			//secundario
+	private BigDecimal puContraparte;		//secundario
+	private BigDecimal valorFinanceiroAtual; //secundario
+	private BigDecimal valorFinanceiroNegociacao; //secundario
+	private BigDecimal valorFinanceiroPoupex; //secundario
+	private BigDecimal valorFinanceiroContraparte; //secundario
 
 }
