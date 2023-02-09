@@ -58,7 +58,7 @@ public class CadastrarFundosInvestimentosService {
     }
 
     private Long getCodFundoInvestimento() {
-        return obterTipoInstrumentoFinanceiroService.getCodTituloFundoInvestimento();
+        return obterTipoInstrumentoFinanceiroService.getCodFundoInvestimento();
     }
 
     private Long getCodModeloNegocio() {
