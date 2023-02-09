@@ -9,6 +9,8 @@ import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Component;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaDefinitiva;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaDefinitivaPrimario;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaDefinitivaSecundario;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoTaxa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaDefinitivaInput;
@@ -102,28 +104,30 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
         
         intern.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         
-        val output = intern.map(input, OperacaoRendaFixaDefinitiva.class);
+        val secundario = (input.getTipoMercado().equals(TipoMercado.MERCADO_SECUNDARIO));
+        OperacaoRendaFixaDefinitiva output;
         
+		if (secundario) {
+	        output = intern.map(input, OperacaoRendaFixaDefinitivaSecundario.class);
+	        
+			if (!input.getTipoTaxa().equals(TipoTaxa.PRE)) { //TipoTaxa.PRE || TipoTaxa.PRE_POS
+				((OperacaoRendaFixaDefinitivaSecundario) output).setIndice(obterIndicadorFinanceiroService.id(input.getIdIndice()));
+				((OperacaoRendaFixaDefinitivaSecundario) output).setIndiceNegociacao(obterIndicadorFinanceiroService.id(input.getIdIndiceNegociacao()));
+			}
+		} else {
+	        output = intern.map(input, OperacaoRendaFixaDefinitivaPrimario.class);
+	        
+			if (!input.getTipoTaxa().equals(TipoTaxa.PRE)) { //TipoTaxa.PRE || TipoTaxa.PRE_POS
+				((OperacaoRendaFixaDefinitivaPrimario) output).setIndice(obterIndicadorFinanceiroService.id(input.getIdIndice()));
+			}
+		}
+		
 		output.setInstrumentoFinanceiro(obterInstrumentoFinanceiroService.id(input.getIdInstrumentoFinanceiro()));
 		output.setEmissor(obterInstituicaoFinanceiraService.id(input.getIdEmissor()));
 		output.setContraparte(obterInstituicaoFinanceiraService.id(input.getIdContraparte()));
 		output.setCustoOperacao(obterIndicadorFinanceiroService.id(input.getIdCustoOperacao()));
 		
-		if (input.getTipoTaxa().equals(TipoTaxa.POS)) {
-			output.setIndice(obterIndicadorFinanceiroService.id(input.getIdIndice()));
-			output.setTaxa(null);
-			output.setTaxaEfetiva(null);
 			
-		} else if (input.getTipoTaxa().equals(TipoTaxa.PRE)){
-			output.setIndice(null);
-			output.setPercentualIndice(null);
-		} else { //TipoTaxa.PRE_POS
-			output.setIndice(obterIndicadorFinanceiroService.id(input.getIdIndice()));
-		}
-    
-		if (input.getTipoMercado().equals(TipoMercado.MERCADO_SECUNDARIO)) {
-			output.setIndiceNegociacao(obterIndicadorFinanceiroService.id(input.getIdIndiceNegociacao()));
-		}
         return output;
     }
 

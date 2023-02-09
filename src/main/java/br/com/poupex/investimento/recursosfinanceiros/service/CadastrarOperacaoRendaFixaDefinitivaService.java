@@ -74,7 +74,7 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
                 LocalDateTime.now(),
                 HttpStatus.OK.value(),
                 "Cadastro realizado com sucesso",
-                String.format("A operação Renda Fixa Definitiva nº %s foi cadastrada com sucesso", dto.getNumeroOperacao()),
+                String.format("A operação Renda Fixa Definitiva nº %s foi cadastrada com sucesso", dto.getBoleta()),
                 "Instituição cadastrada com sucesso",
                 null,
                 dto
