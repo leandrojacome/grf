@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "OPERACAO_RENDA_FIXA_DEFINITIVA", schema = "GESTAO_RECURSOS_FINANCEIROS")
+@Table(name = "OPERACAO_RENDA_FIXA_DEFINITIVA_SECUNDARIO", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefinitiva {
 
 	@Enumerated(EnumType.STRING)
@@ -29,7 +29,7 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 	@Column(name = "TAXA_PRE", nullable = true)
 	private BigDecimal taxaPre;
 
-	@Column(name = "DIAS_UTEIS_TAXA_PRE", nullable = false)
+	@Column(name = "DIAS_UTEIS_TAXA_PRE", nullable = true)
 	private Boolean diasUteisTaxaPre;
 
 	@Column(name = "TAXA_EFETIVA", nullable = true)
@@ -41,7 +41,7 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 	@Column(name = "TAXA_PRE_NEGOCIACAO", nullable = true)
 	private BigDecimal taxaPreNegociacao;
 
-	@Column(name = "DIAS_UTEIS_TAXA_PRE_NEGOCIACAO", nullable = false)
+	@Column(name = "DIAS_UTEIS_TAXA_PRE_NEGOCIACAO", nullable = true)
 	private Boolean diasUteisTaxaPreNegociacao;
 
 	@ManyToOne
@@ -51,7 +51,7 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 	@Column(name = "PERCENTUAL_INDICE", nullable = true)
 	private BigDecimal percentualIndice;
 
-	@Column(name = "DIAS_UTEIS_INDICE", nullable = false)
+	@Column(name = "DIAS_UTEIS_INDICE", nullable = true)
 	private Boolean diasUteisIndice;
 
 	@ManyToOne
@@ -61,7 +61,7 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 	@Column(name = "PERCENTUAL_NEGOCIACAO", nullable = true)
 	private BigDecimal percentualNegociacao;
 
-	@Column(name = "DIAS_UTEIS_INDICE_NEGOCIACAO", nullable = false)
+	@Column(name = "DIAS_UTEIS_INDICE_NEGOCIACAO", nullable = true)
 	private Boolean diasUteisIndiceNegociacao;
 
 	@Column(name = "PU_ATUAL", nullable = true)
