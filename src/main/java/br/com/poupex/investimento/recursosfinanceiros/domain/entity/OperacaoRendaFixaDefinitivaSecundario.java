@@ -79,8 +79,8 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 	@Column(name = "VALOR_FINANCEIRO_ATUAL", nullable = true)
 	private BigDecimal valorFinanceiroAtual;
 
-	@Column(name = "VALOR_FINANCEIRO_NEGOCIACAO", nullable = true)
-	private BigDecimal valorFinanceiroNegociacao;
+	@Column(name = "VALOR_FINANCEIRO_NEGOCIADO", nullable = true)
+	private BigDecimal valorFinanceiroNegociado;
 
 	@Column(name = "VALOR_FINANCEIRO_POUPEX", nullable = true)
 	private BigDecimal valorFinanceiroPoupex;
