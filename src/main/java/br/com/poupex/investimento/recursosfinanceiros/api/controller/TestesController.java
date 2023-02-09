@@ -1,15 +1,13 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
+import br.com.poupex.investimento.recursosfinanceiros.scheduler.CarregaTaxasIndicesScheduler;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("testes")
@@ -17,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TestesController {
   private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
+
+  private final CarregaTaxasIndicesScheduler carregaTaxasIndicesScheduler;
 
   @GetMapping("instrumentos/tipos")
   public ResponseEntity<?> instrumentosTipos() {
@@ -34,6 +34,13 @@ public class TestesController {
     return ResponseEntity.ok(gestaoInstrumentosFinanceirosApiClient.getInstrumentosFinanceiros(
       pageable, tiposInstrumentoFinanceiro, nome, sigla, formaMensuracao
     ));
+  }
+
+  @PutMapping("taxas/schedule")
+  public ResponseEntity<?> taxas(
+  ) {
+    carregaTaxasIndicesScheduler.execute();
+    return ResponseEntity.ok().build();
   }
 
 }
