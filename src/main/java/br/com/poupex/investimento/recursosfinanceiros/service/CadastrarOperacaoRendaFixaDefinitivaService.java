@@ -15,7 +15,6 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRenda
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaDefinitivaOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.infrastructure.client.GestaoInstrumentosFinanceirosApiClient;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.OperacaoRendaFixaDefinitivaRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -23,11 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CadastrarOperacaoRendaFixaDefinitivaService {
   private final OperacaoRendaFixaDefinitivaRepository operacaoRendaFixaDefinitivaRepository;
-  private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
-  private final ObterTipoInstrumentoFinanceiroService obterTipoInstrumentoFinanceiroService;
   private final CadastrarOperacaoRendaFixaDefinitivaGifService cadastrarOperacaoRendaFixaDefinitivaGifService;
-  private final GestaoInstrumentosFinanceirosApiClient gestaoInstrumentosFinanceirosApiClient;
-  private final ObterInstituicaoGifService obterInstituicaoGifService;
   private final ModelMapper mapper;
 
   public ResponseModel execute(final OperacaoRendaFixaDefinitivaInput input) {
