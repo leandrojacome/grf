@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "OPERACAO_RENDA_FIXA_DEFINITIVA", schema = "GESTAO_RECURSOS_FINANCEIROS")
+@Table(name = "OPERACAO_RENDA_FIXA_DEFINITIVA_SECUNDARIO", schema = "GESTAO_RECURSOS_FINANCEIROS")
 public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefinitiva {
 
 	@Enumerated(EnumType.STRING)
