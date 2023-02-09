@@ -52,6 +52,7 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
             	skip(destination.getCodigo());
                 skip(destination.getContraparte());
                 skip(destination.getCodInstituicao());
+                skip(destination.getValor());
             }
         });
 		
@@ -83,18 +84,21 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
         var tipoInstrumento = obterTipoInstrumentoFinanceiroService.getCodigo(
         		obterInstrumentoFinanceiroService.id(input.getIdInstrumentoFinanceiro()));
         var codInstituicaoGif = obterInstituicaoGifService.getCodInstituicao(input.getEmpresa().getCnpj());
+        var contraparte = obterInstituicaoFinanceiraService.id(input.getIdContraparte());
 
-        output.setCnpjOrigem(null);  // ver de onde vem
-        output.setCodCategoriaTransacao(null); // ver de onde vem
+        //output.setNumero(); // incluido em outro momento
+        output.setCnpjOrigem(input.getEmpresa().getCnpj().replaceAll("[./-]", "")); 
+        output.setCodCategoriaTransacao(null);
         output.setCodFormaMensuracao(input.getFormaMensuracao().getCodigo());
         output.setCodInstituicao(codInstituicaoGif);
         output.setCodTipoInstrumentoFinanceiro(tipoInstrumento);
-        output.setContraparte(null); // ver de onde vem
+        output.setContraparte(contraparte.getCnpj());
         output.setDiasAtraso(input.getQtdDias()); // confirmar
-        output.setDtCarga(LocalDate.now()); // confirmar
-        output.setEstadoCivil(null); // ver de onde vem
-        output.setEstadoResidencia(null); // ver de onde vem
-        output.setIdadeMutuario(null); // ver de onde vem
+        output.setDtCarga(input.getDataEmissao().toLocalDate());
+        output.setEstadoCivil(null);
+        output.setEstadoResidencia(null);
+        output.setIdadeMutuario(null);
+        output.setValor(input.getValorFinanceiro());
 
         return output;
     }
