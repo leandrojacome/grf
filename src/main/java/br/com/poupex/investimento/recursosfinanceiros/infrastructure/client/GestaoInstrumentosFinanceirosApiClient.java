@@ -79,6 +79,8 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	@GetMapping("/operacao/visualizar/{codigo}")
 	OperacaoFinanceiraGifInputOutput getOperacao(@PathVariable Long codigo);
 	
+	@DeleteMapping("/operacao/{codigo}")
+	OperacaoFinanceiraGifInputOutput deleteOperacao(@PathVariable Long codigo);
 	
 	// Modelo de Negócio
 	
