@@ -11,6 +11,8 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class OperacaoRendaFixaCompromissadaOutput {
   private String id;
+  private EmpresaOutput empresa;
+  private String empresaSigla;
   private String boleta;
   private LocalDateTime cadastro;
   private BigDecimal valorFinanceiroIda = BigDecimal.ZERO;

@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPeriodicidade;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPublicacao;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,9 @@ public class IndicadorFinanceiro extends AbstractEntidadeBase {
   @Enumerated(EnumType.STRING)
   @Column(name = "PERIODICIDADE", nullable = false)
   private IndicadorFinanceiroPeriodicidade periodicidade;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "PUBLICACAO", nullable = false, length = 64)
+  private IndicadorFinanceiroPublicacao publicacao;
 
 }

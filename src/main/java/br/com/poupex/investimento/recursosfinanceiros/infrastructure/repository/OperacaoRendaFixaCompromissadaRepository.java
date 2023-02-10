@@ -2,6 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissada;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissadaLastro;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -71,4 +72,12 @@ public interface OperacaoRendaFixaCompromissadaRepository extends JpaRepository<
     }
     return id;
   }
+
+  default Specification<OperacaoRendaFixaCompromissada> empresa(final Empresa empresa) {
+    if (Objects.nonNull(empresa)) {
+      return (root, query, builder) -> builder.equal(root.get("empresa"), empresa);
+    }
+    return id();
+  }
+
 }

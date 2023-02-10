@@ -1,25 +1,13 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.client;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstituicaoGifInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstrumentoFinanceiroGifInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.ModeloNegocioOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInputOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.TipoInstrumentoFinanceiroInputOutput;
+import javax.validation.Valid;
+import java.util.List;
 
 
 @FeignClient(name = "gestaoInstrumentosFinanceirosApiClient",
@@ -29,13 +17,10 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 
 	// Instrumento Financeiro
 
-	@GetMapping("/instrumento-financeiro/listar/ativos/paginado")
+	@PostMapping("/instrumento-financeiro/listar/ativos/paginado")
 	Page<InstrumentoFinanceiroGifInputOutput> getInstrumentosFinanceiros(
-			Pageable pageable,
-			@RequestParam(name = "codigosTiposInstrumento") final List<Long> tiposInstrumentoFinanceiro,
-    		@RequestParam final String nome, 
-    		@RequestParam final String sigla, 
-			@RequestParam(name = "formaMensuracao.codigo") Long formaMensuracao);
+			@RequestBody FilterInstrumentoFinanceiroGifInput filter,
+			@RequestParam Pageable pageable);
 
 
 	@GetMapping("/instrumento-financeiro/visualizar/{id}")
@@ -67,21 +52,21 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	@PostMapping("/tipo-instrumento-financeiro")
 	TipoInstrumentoFinanceiroInputOutput createTipoInstrumentoFinanceiro(@RequestBody @Valid TipoInstrumentoFinanceiroInputOutput input);
 
-	
+
 	// Operações financeiras
-	
+
 	@PostMapping("/operacoes")
 	Long createOperacao(@RequestBody @Valid OperacaoFinanceiraGifInputOutput input);
-	
+
 	@PutMapping("/operacoes/alterar/{codigo}")
 	Long updateOperacaoFinanceira(@PathVariable Long codigo, OperacaoFinanceiraGifInputOutput input);
-	
+
 	@GetMapping("/operacoes/visualizar/{codigo}")
 	OperacaoFinanceiraGifInputOutput getOperacao(@PathVariable Long codigo);
-	
-	
+
+
 	// Modelo de Negócio
-	
+
 	@GetMapping("/modelo-negocio/listar/ativos")
 	List<ModeloNegocioOutput> getModelosNegocios();
 }
