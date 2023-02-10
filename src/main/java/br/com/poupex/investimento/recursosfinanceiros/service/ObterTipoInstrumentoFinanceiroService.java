@@ -4,6 +4,10 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.FundosInvestimentos;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstrumentoFinanceiro;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.TituloPrivado;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.TituloPublico;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoInstrumentoFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.NegocioException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.TipoInstrumentoFinanceiroInputOutput;
@@ -39,8 +43,19 @@ public class ObterTipoInstrumentoFinanceiroService {
 		return execute(TipoInstrumentoFinanceiro.TITULO_PUBLICO).getCodigo();
 	}
 	
-	public Long getCodTituloFundoInvestimento() {
+	public Long getCodFundoInvestimento() {
 		return execute(TipoInstrumentoFinanceiro.FUNDO_INVESTIMENTO).getCodigo();
+	}
+	
+	public Long getCodigo(InstrumentoFinanceiro instrumento) {
+		
+		if (instrumento instanceof TituloPrivado)
+			return getCodTituloPrivado();
+		else if (instrumento instanceof TituloPublico)
+			return getCodTituloPublico();
+		else if (instrumento instanceof FundosInvestimentos)
+			return getCodFundoInvestimento();
+		return null;
 	}
 	
 	public TipoInstrumentoFinanceiroInputOutput execute(final TipoInstrumentoFinanceiro tipo) {
