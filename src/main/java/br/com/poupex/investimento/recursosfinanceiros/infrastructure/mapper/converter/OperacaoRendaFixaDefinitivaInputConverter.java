@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
-import org.modelmapper.Converter;
+import java.time.LocalDate;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
@@ -8,13 +9,17 @@ import org.modelmapper.spi.MappingContext;
 import org.springframework.stereotype.Component;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaDefinitiva;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaDefinitivaPrimario;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaDefinitivaSecundario;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoMercado;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoTaxa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaDefinitivaInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterIndicadorFinanceiroService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoGifService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstrumentoFinanceiroService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ObterTipoInstrumentoFinanceiroService;
 import lombok.val;
 
 @Component
@@ -24,16 +29,22 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
 	private final ObterIndicadorFinanceiroService obterIndicadorFinanceiroService;
 	private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
 	private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
+	private final ObterTipoInstrumentoFinanceiroService obterTipoInstrumentoFinanceiroService;
+	private final ObterInstituicaoGifService obterInstituicaoGifService;
 
     public OperacaoRendaFixaDefinitivaInputConverter(
     	final ModelMapper modelMapper, 
     	final ObterIndicadorFinanceiroService obterIndicadorFinanceiroService, 
     	final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService, 
-    	final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService) {
+    	final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService,
+    	final ObterTipoInstrumentoFinanceiroService obterTipoInstrumentoFinanceiroService,
+    	final ObterInstituicaoGifService obterInstituicaoGifService) {
     	
     	this.obterIndicadorFinanceiroService = obterIndicadorFinanceiroService;
 		this.obterInstrumentoFinanceiroService = obterInstrumentoFinanceiroService;
 		this.obterInstituicaoFinanceiraService = obterInstituicaoFinanceiraService;
+		this.obterTipoInstrumentoFinanceiroService = obterTipoInstrumentoFinanceiroService;
+		this.obterInstituicaoGifService = obterInstituicaoGifService;
     	
 		modelMapper.addMappings(new PropertyMap<OperacaoRendaFixaDefinitivaInput, OperacaoFinanceiraGifInputOutput>() {
             @Override
@@ -41,17 +52,11 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
             	skip(destination.getCodigo());
                 skip(destination.getContraparte());
                 skip(destination.getCodInstituicao());
-                map().setDtEmissao(source.getDataEmissao());
-                map().setDtLiquidacao(source.getDataLiquidacao());
-                map().setPrazoDiasCorridos(source.getPrazoDC());
-                map().setPrazoDiasUteis(source.getPrazoDU());
-                map().setDtVencimento(source.getDataVencimento());
-                map().setTaxaDias(source.getDiasUteis());
-
-                Converter<FormaMensuracaoEnum, Long> enumConverter = ctx -> ctx.getSource() == null ? null : ctx.getSource().getCodigo();
-                using(enumConverter).map(source.getFormaMensuracao()).setCodFormaMensuracao(null);
             }
         });
+		
+		var typeGif = modelMapper.getTypeMap(OperacaoRendaFixaDefinitivaInput.class, OperacaoFinanceiraGifInputOutput.class);
+		typeGif.setConverter(this::convertInputToGif);
 		
 		modelMapper.addMappings(new PropertyMap<OperacaoRendaFixaDefinitivaInput, OperacaoRendaFixaDefinitiva>() {
             @Override
@@ -61,8 +66,37 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
             }
         });
 
-		var type = modelMapper.getTypeMap(OperacaoRendaFixaDefinitivaInput.class, OperacaoRendaFixaDefinitiva.class);
-		type.setConverter(this::convertInputToEntity);
+		var typeGrf = modelMapper.getTypeMap(OperacaoRendaFixaDefinitivaInput.class, OperacaoRendaFixaDefinitiva.class);
+		typeGrf.setConverter(this::convertInputToEntity);
+    }
+    
+    public OperacaoFinanceiraGifInputOutput convertInputToGif(MappingContext<OperacaoRendaFixaDefinitivaInput, OperacaoFinanceiraGifInputOutput> context) {
+    	val input = context.getSource();
+    	var output = context.getDestination();
+    	
+    	if (output == null) {
+    		intern.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        
+    		output = intern.map(input, OperacaoFinanceiraGifInputOutput.class);
+    	}
+        
+        var tipoInstrumento = obterTipoInstrumentoFinanceiroService.getCodigo(
+        		obterInstrumentoFinanceiroService.id(input.getIdInstrumentoFinanceiro()));
+        var codInstituicaoGif = obterInstituicaoGifService.getCodInstituicao(input.getEmpresa().getCnpj());
+
+        output.setCnpjOrigem(null);  // ver de onde vem
+        output.setCodCategoriaTransacao(null); // ver de onde vem
+        output.setCodFormaMensuracao(input.getFormaMensuracao().getCodigo());
+        output.setCodInstituicao(codInstituicaoGif);
+        output.setCodTipoInstrumentoFinanceiro(tipoInstrumento);
+        output.setContraparte(null); // ver de onde vem
+        output.setDiasAtraso(input.getQtdDias()); // confirmar
+        output.setDtCarga(LocalDate.now()); // confirmar
+        output.setEstadoCivil(null); // ver de onde vem
+        output.setEstadoResidencia(null); // ver de onde vem
+        output.setIdadeMutuario(null); // ver de onde vem
+
+        return output;
     }
     
     public OperacaoRendaFixaDefinitiva convertInputToEntity(MappingContext<OperacaoRendaFixaDefinitivaInput, OperacaoRendaFixaDefinitiva> context) {
@@ -70,25 +104,30 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
         
         intern.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         
-        val output = intern.map(input, OperacaoRendaFixaDefinitiva.class);
+        val secundario = (input.getTipoMercado().equals(TipoMercado.MERCADO_SECUNDARIO));
+        OperacaoRendaFixaDefinitiva output;
         
+		if (secundario) {
+	        output = intern.map(input, OperacaoRendaFixaDefinitivaSecundario.class);
+	        
+			if (!input.getTipoTaxa().equals(TipoTaxa.PRE)) { //TipoTaxa.PRE || TipoTaxa.PRE_POS
+				((OperacaoRendaFixaDefinitivaSecundario) output).setIndice(obterIndicadorFinanceiroService.id(input.getIdIndice()));
+				((OperacaoRendaFixaDefinitivaSecundario) output).setIndiceNegociacao(obterIndicadorFinanceiroService.id(input.getIdIndiceNegociacao()));
+			}
+		} else {
+	        output = intern.map(input, OperacaoRendaFixaDefinitivaPrimario.class);
+	        
+			if (!input.getTipoTaxa().equals(TipoTaxa.PRE)) { //TipoTaxa.PRE || TipoTaxa.PRE_POS
+				((OperacaoRendaFixaDefinitivaPrimario) output).setIndice(obterIndicadorFinanceiroService.id(input.getIdIndice()));
+			}
+		}
+		
 		output.setInstrumentoFinanceiro(obterInstrumentoFinanceiroService.id(input.getIdInstrumentoFinanceiro()));
 		output.setEmissor(obterInstituicaoFinanceiraService.id(input.getIdEmissor()));
 		output.setContraparte(obterInstituicaoFinanceiraService.id(input.getIdContraparte()));
 		output.setCustoOperacao(obterIndicadorFinanceiroService.id(input.getIdCustoOperacao()));
 		
-		if (input.getTipoTaxa().equals(TipoTaxa.POS)) {
-			output.setIndice(obterIndicadorFinanceiroService.id(input.getIdIndice()));
-			output.setTaxa(null);
-			output.setTaxaEfetiva(null);
 			
-		} else if (input.getTipoTaxa().equals(TipoTaxa.PRE)){
-			output.setIndice(null);
-			output.setPercentualIndice(null);
-		} else { //TipoTaxa.PRE_POS
-			output.setIndice(obterIndicadorFinanceiroService.id(input.getIdIndice()));
-		}
-    
         return output;
     }
 

@@ -74,7 +74,7 @@ public class AlteraOperacaoRendaFixaDefinitivaService {
                 LocalDateTime.now(),
                 HttpStatus.OK.value(),
                 "Atualização realizada com sucesso",
-                String.format("A Operação Renda Fixa Definitiva nº %s foi atualizada com sucesso", dto.getNumeroOperacao()),
+                String.format("A Operação Renda Fixa Definitiva nº %s foi atualizada com sucesso", dto.getBoleta()),
                 "Operação Renda Fixa Definitiva atualizada com sucesso",
                 null,
                 dto
