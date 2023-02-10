@@ -24,12 +24,16 @@ public class ExcluirOperacaoRendaFixaDefinitivaService {
 
 	@Transactional
 	public ResponseModel execute(final String id) {
-		val codigoGif = obterOperacaoRendaFixaDefinitivaService.id(id).getInstrumentoFinanceiro()
-				.getCodigoGif();
+		val codigoGif = obterOperacaoRendaFixaDefinitivaService.id(id).getOperacaoGifCodigo();
 
-		if (gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(codigoGif) != null)
-			gestaoInstrumentosFinanceirosApiClient.deteleInstrumentoFinanceiro(codigoGif);
-		
+		try {
+			gestaoInstrumentosFinanceirosApiClient.deleteOperacao(codigoGif);
+		} catch (Exception ex) {
+			// ignorar erro se o registro ja nao existe no gif
+			if (!ex.getMessage().startsWith("[403]"))
+				throw ex;
+		}
+
 		try {
 			operacaoRendaFixaDefinitivaRepository.deleteById(id);
 			operacaoRendaFixaDefinitivaRepository.flush();

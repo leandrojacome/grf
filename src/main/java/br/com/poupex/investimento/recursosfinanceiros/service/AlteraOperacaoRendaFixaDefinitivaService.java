@@ -50,21 +50,11 @@ public class AlteraOperacaoRendaFixaDefinitivaService {
                     && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
                 var msg = e.getCause().getCause().getMessage();
 
-                if (msg.contains("CHECK_TAXA_EFETIVA"))
-                    msg = "Para tipo de taxa 'pre' ou 'pre+pos' a 'taxa efetiva' é obrigatória!";
-                else if (msg.contains("CHECK_TAXA"))
-                    msg = "Para tipo de taxa 'pre' ou 'pre+pos' a 'taxa' é obrigatória!";
-                else if (msg.contains("CHECK_INDICE"))
-                    msg = "Para tipo de taxa 'pos' ou 'pre+pos' o 'indice' é obrigatório!";
-                else if (msg.contains("CHECK_PERCENTUAL_INDICE"))
-                    msg = "Para tipo de taxa 'pos' ou 'pre+pos' o 'percentual indice' é obrigatório!";
-                else
-                    msg = "Não foi possível alterar a operação";
-
-                throw new NegocioException("Cadastrar Operação Renda Fixa Definitiva", msg);
+                throw new NegocioException("Alterar Operação Renda Fixa Definitiva", msg);
             } else {
-                throw new NegocioException("Cadastrar Operação Renda Fixa Definitiva", "Não foi possível alterar a operação");
+                throw new NegocioException("Alterar Operação Renda Fixa Definitiva", "Não foi possível alterar a operação");
             }
+            
         }
 
         var dto = mapper.map(operacao,

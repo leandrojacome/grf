@@ -48,8 +48,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   private static final String ERRO_GENERICO_USUARIO = "Tente novamente. Se o problema persistir entre em contato com a área técnica.";
 
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<Object> handleUncaught(final Exception ex, final WebRequest request) {
+  public ResponseEntity<?> handleUncaught(final Exception ex, final WebRequest request) {
     log.error("Ocorreu um erro não esperado", ex);
+    
+    if (ex.getCause() instanceof NegocioException negocioException) {
+    	return handleNegocio(negocioException, request);
+    }
+    
     return handleExceptionInternal(ex,
       builder(
         HttpStatus.INTERNAL_SERVER_ERROR,
