@@ -72,7 +72,6 @@ public class OperacaoRendaFixaDefinitivaInput {
     private BigDecimal taxaPre;				//primario/secundario
 	private Boolean diasUteisTaxaPre;		//secundario
     private BigDecimal taxaEfetiva;			//primario/secundario
-	private BigDecimal taxaNegociacao;		//secundario
 	private BigDecimal taxaPreNegociacao;	//secundario
 	private Boolean diasUteisTaxaPreNegociacao; //secundario
 	private String idIndice;				//primario/secundario
