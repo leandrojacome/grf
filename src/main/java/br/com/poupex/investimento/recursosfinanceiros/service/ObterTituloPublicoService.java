@@ -35,6 +35,7 @@ public class ObterTituloPublicoService {
 					.getInstrumentoFinanceiro(titulo.getCodigoGif());
 			BeanUtils.copyProperties(ifGif, dto);
 			dto.setFormaMensuracao(FormaMensuracaoEnum.valueOf(ifGif.getFormaMensuracao().getCodigo()));
+			dto.setMensuracaoDescricao(dto.getFormaMensuracao().getLabel());
 		} catch (Exception ignore) {
 		}
 
