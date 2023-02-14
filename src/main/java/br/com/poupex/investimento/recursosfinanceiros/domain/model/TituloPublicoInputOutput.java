@@ -31,7 +31,6 @@ public class TituloPublicoInputOutput {
     @NotNull
     private FormaMensuracaoEnum formaMensuracao;
 
-	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
 	@JsonProperty(access = Access.READ_ONLY)
 	private String mensuracaoDescricao;
 	
