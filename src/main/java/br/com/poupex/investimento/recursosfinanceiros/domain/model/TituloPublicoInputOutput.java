@@ -20,8 +20,7 @@ public class TituloPublicoInputOutput {
 	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
 	@JsonProperty(access = Access.READ_ONLY)
 	private String id;
-	
-//	@Schema(accessMode = Schema.AccessMode.READ_ONLY)
+
 	@JsonIgnore
 	private Long codigoGif;
 	
@@ -31,6 +30,9 @@ public class TituloPublicoInputOutput {
 	
     @NotNull
     private FormaMensuracaoEnum formaMensuracao;
+
+	@JsonProperty(access = Access.READ_ONLY)
+	private String mensuracaoDescricao;
 	
     @NotNull
 	private Boolean ativoFinanceiro; // gif
