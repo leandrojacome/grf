@@ -35,9 +35,6 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 	@Column(name = "TAXA_EFETIVA", nullable = true)
 	private BigDecimal taxaEfetiva;
 
-	@Column(name = "TAXA_NEGOCIACAO", nullable = true)
-	private BigDecimal taxaNegociacao;
-
 	@Column(name = "TAXA_PRE_NEGOCIACAO", nullable = true)
 	private BigDecimal taxaPreNegociacao;
 
