@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPeriodicidade;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPublicacao;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
@@ -23,15 +24,17 @@ public class PesquisarIndicadoresFinanceirosPagedService {
   private final PesquisarIndicadoresFinanceirosService pesquisarIndicadoresFinanceirosService;
   private final ModelMapper mapper;
 
-  public ResponseModel execute(final String nome, final IndicadorFinanceiroPeriodicidade periodicidade, final Pageable pageable) {
-    val resultado = indicadorFinanceiroRepository.findAll(pesquisarIndicadoresFinanceirosService.spec(nome, periodicidade), pageable);
+  public ResponseModel execute(
+    final String nome, final IndicadorFinanceiroPeriodicidade periodicidade, final IndicadorFinanceiroPublicacao publicacao, final Pageable pageable
+  ) {
+    val resultado = indicadorFinanceiroRepository.findAll(pesquisarIndicadoresFinanceirosService.spec(nome, periodicidade, publicacao), pageable);
     val mensagem = resultado.getTotalElements() == 0 ? "Nenhum registro encontrado" : null;
     val page = new PageImpl<>(
       resultado.getContent().stream().map(r -> mapper.map(r, IndicadorFinanceiroOutput.class)).collect(Collectors.toList()),
       pageable,
       resultado.getTotalElements()
     );
-    return new ResponseModel(LocalDateTime.now(), HttpStatus.OK.value(), null, null, mensagem, null, mapper.map(page, PageOutput.class));
+    return new ResponseModel(mapper.map(page, PageOutput.class));
   }
 
 }

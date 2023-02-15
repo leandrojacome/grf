@@ -29,6 +29,7 @@ public class OperacaoRendaFixaCompromissadaInputCadastrar {
   @NotEmpty
   private String contraparteOperador;
   @NotNull
+  @FutureOrPresent
   private LocalDate dataIda;
   @NotNull
   @Future

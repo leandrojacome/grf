@@ -4,6 +4,7 @@ import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginaca
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPeriodicidade;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPublicacao;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 public class IndicadorFinanceiroController {
 
   private final RecuperarIndicadorFinanceiroPeriodicidadesService recuperarIndicadorFinanceiroPeriodicidadesService;
+  private final RecuperarIndicadorFinanceiroPublicacaoTipoService recuperarIndicadorFinanceiroPublicacaoTipoService;
   private final PesquisarIndicadoresFinanceirosService pesquisarIndicadoresFinanceirosService;
   private final CadastrarIndicadorFinanceiroService cadastrarIndicadorFinanceiroService;
   private final EditarIndicadorFinanceiro editarIndicadorFinanceiro;
@@ -48,6 +50,20 @@ public class IndicadorFinanceiroController {
   @GetMapping("periodicidades")
   public ResponseEntity<ResponseModel> periodicidades() {
     return ResponseEntity.ok(recuperarIndicadorFinanceiroPeriodicidadesService.execute());
+  }
+
+  @Operation(summary = "Recupera tipo de publicação do indicador")
+  @ApiResponses({
+    @ApiResponse(
+      responseCode = "200", description = "Tipo da Publicação do Indicador",
+      content = {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ChaveLabelDescricaoOutput.class))
+      }),
+  })
+  @GetMapping("publicacoes")
+  public ResponseEntity<ResponseModel> indicadorPublicacao() {
+    return ResponseEntity.ok(recuperarIndicadorFinanceiroPublicacaoTipoService.execute());
   }
 
   @Operation(summary = "Lista de siglas dos indicadores cadastrados")
@@ -130,9 +146,10 @@ public class IndicadorFinanceiroController {
   public ResponseEntity<ResponseModel> read(
     @RequestParam(required = false) final String nome,
     @RequestParam(required = false) final IndicadorFinanceiroPeriodicidade periodicidade,
+    @RequestParam(required = false) final IndicadorFinanceiroPublicacao publicacao,
     @Parameter(hidden = true) final Pageable pageable
   ) {
-    return ResponseEntity.ok(pesquisarIndicadoresFinanceirosPagedService.execute(nome, periodicidade, pageable));
+    return ResponseEntity.ok(pesquisarIndicadoresFinanceirosPagedService.execute(nome, periodicidade, publicacao, pageable));
   }
 
 }

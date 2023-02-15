@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.FilterInstrumentoFinanceiroGifInput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstituicaoGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.InstrumentoFinanceiroGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.ModeloNegocioOutput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.OperacaoFinanceiraGifInputOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.gif.TipoInstrumentoFinanceiroInputOutput;
 
 
@@ -29,13 +30,10 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 
 	// Instrumento Financeiro
 
-	@GetMapping("/instrumento-financeiro/listar/ativos/paginado")
+	@PostMapping("/instrumento-financeiro/listar/ativos/paginado")
 	Page<InstrumentoFinanceiroGifInputOutput> getInstrumentosFinanceiros(
-			Pageable pageable,
-			@RequestParam(name = "codigosTiposInstrumento") final List<Long> tiposInstrumentoFinanceiro,
-    		@RequestParam final String nome, 
-    		@RequestParam final String sigla, 
-			@RequestParam(name = "formaMensuracao.codigo") Long formaMensuracao);
+			@RequestBody FilterInstrumentoFinanceiroGifInput filter,
+			@RequestParam Pageable pageable);
 
 
 	@GetMapping("/instrumento-financeiro/visualizar/{id}")
@@ -70,9 +68,17 @@ public interface GestaoInstrumentosFinanceirosApiClient {
 	
 	// Operações financeiras
 	
-	@PostMapping("/operacoes")
-	Long createOperacao(@RequestBody @Valid OperacaoFinanceiraGifInput input);
+	@PostMapping("/operacao")
+	Long createOperacao(@RequestBody @Valid OperacaoFinanceiraGifInputOutput input);
 	
+	@PutMapping("/operacao/alterar/{codigo}")
+	Long updateOperacaoFinanceira(@PathVariable Long codigo, OperacaoFinanceiraGifInputOutput input);
+	
+	@GetMapping("/operacao/visualizar/{codigo}")
+	OperacaoFinanceiraGifInputOutput getOperacao(@PathVariable Long codigo);
+	
+	@DeleteMapping("/operacao/{codigo}")
+	OperacaoFinanceiraGifInputOutput deleteOperacao(@PathVariable Long codigo);
 	
 	// Modelo de Negócio
 	

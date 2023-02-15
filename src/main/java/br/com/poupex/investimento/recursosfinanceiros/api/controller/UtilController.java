@@ -1,21 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.FormaMensuracaoEnum;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.InstituicaoFinanceiraRiscoAgenciaModalidade;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.scheduler.CarregaTaxasIndicesScheduler;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterEmpresaUtilService;
@@ -23,6 +9,7 @@ import br.com.poupex.investimento.recursosfinanceiros.service.ObterListaEmpresas
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCepExternoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarCnpjExternoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.RecuperarFormasMensuracaoService;
+import br.com.poupex.investimento.recursosfinanceiros.service.obterListaPeriodoCupomUtilService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,9 +17,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("uteis")
@@ -47,6 +41,7 @@ public class UtilController {
   private final ObterEmpresaUtilService obterEmpresaUtilService;
   private final ObterListaEmpresasUtilService obterListaEmpresasUtilService;
   private final RecuperarFormasMensuracaoService recuperarFormasMensuracaoService;
+  private final obterListaPeriodoCupomUtilService obterListaPeriodoCupomUtilService;
 
   @Operation(summary = "Localiza endereços pelo CEP")
   @ApiResponses({
@@ -141,4 +136,18 @@ public class UtilController {
     return ResponseEntity.ok(recuperarFormasMensuracaoService.execute());
   }
 
+  @Operation(summary = "Lista de período cupom")
+  @ApiResponses({
+    @ApiResponse(
+      responseCode = "200", description = "Lista dados de período cupom",
+      content = {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+        @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = EmpresaOutput.class)))
+      }),
+  })
+  @GetMapping("periodo-cupom")
+  public ResponseEntity<ResponseModel> periodoCupomLista() {
+    return ResponseEntity.ok(obterListaPeriodoCupomUtilService.execute());
+  }
+  
 }

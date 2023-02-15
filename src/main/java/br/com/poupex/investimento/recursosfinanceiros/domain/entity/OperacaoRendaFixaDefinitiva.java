@@ -14,10 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "OPERACAO_RENDA_FIXA_DEFINITIVA", schema = "GESTAO_RECURSOS_FINANCEIROS")
-public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
-
-	@Column(name = "NUMERO_OPERACAO", unique = true, nullable = false, updatable = false)
-	private Long numeroOperacao;
+public class OperacaoRendaFixaDefinitiva extends Operacao {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "EMPRESA", nullable = false)
@@ -70,37 +67,11 @@ public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
 	@JoinColumn(name = "CONTRAPARTE")
 	private InstituicaoFinanceira contraparte;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "TIPO_TAXA", nullable = false)
-	private TipoTaxa tipoTaxa;
-
-	@Column(name = "TAXA", nullable = true)
-	private BigDecimal taxa;
-
-	@Column(name = "TAXA_EFETIVA", nullable = true)
-	private BigDecimal taxaEfetiva;
-
-	@ManyToOne
-	@JoinColumn(name = "INDICE")
-	private IndicadorFinanceiro indice;
-
-	@Column(name = "PERCENTUAL_INDICE", nullable = true)
-	private BigDecimal percentualIndice;
-
-	@Column(name = "DIAS_UTEIS", nullable = false)
-	private Boolean diasUteis;
-
 	@Column(name = "QTD_DIAS", nullable = false)
 	private Integer qtdDias;
 
-	@Column(name = "PU_EMISSAO", nullable = false)
-	private BigDecimal puEmissao;
-
 	@Column(name = "VALOR_FINANCEIRO", nullable = false)
 	private BigDecimal valorFinanceiro;
-
-	@Column(name = "VALOR_RESGATE", nullable = false)
-	private BigDecimal valorResgate;
 
 	@Column(name = "CUPOM", nullable = false)
 	private Boolean cupom;
@@ -121,7 +92,5 @@ public class OperacaoRendaFixaDefinitiva extends AbstractEntidadeBase {
 	@ManyToOne
 	@JoinColumn(name = "CUSTO_OPERACAO")
 	private IndicadorFinanceiro custoOperacao;
-
-
 
 }

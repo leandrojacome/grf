@@ -35,10 +35,20 @@ public class ValidaOperacaoRendaFixaCompromissadaLastroService {
         input
       );
     }
+    val instrumentosUsados = new ArrayList<String>();
     val count = new AtomicInteger();
     val lastrosEntity = lastros.stream().map(lastro -> {
       val lastroOutput = mapper.map(lastro, OperacaoRendaFixaCompromissadaLastro.class);
       try {
+        if(instrumentosUsados.contains(lastro.getInstrumentoFinanceiro())){
+          throw new NegocioException(
+            "Instrumento Financeiro (Título Público) já adicionado",
+            String.format("O Título Público %s já foi adicionado nessa operação", lastro.getInstrumentoFinanceiro()),
+            List.of(new ValidacaoModel(String.format("lastros.[%d].instrumentoFinanceiro", count.get()), "valor inválido")),
+            input
+          );
+        }
+        instrumentosUsados.add(lastro.getInstrumentoFinanceiro());
         lastroOutput.setInstrumentoFinanceiro(obterTituloPublicoService.id(lastro.getInstrumentoFinanceiro()));
         count.incrementAndGet();
       } catch (final RecursoNaoEncontradoException e) {

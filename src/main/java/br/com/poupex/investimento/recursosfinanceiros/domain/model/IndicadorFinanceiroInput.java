@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPeriodicidade;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.IndicadorFinanceiroPublicacao;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -15,4 +16,6 @@ public class IndicadorFinanceiroInput {
   private String nome;
   @NotNull
   private IndicadorFinanceiroPeriodicidade periodicidade;
+  @NotNull
+  private IndicadorFinanceiroPublicacao publicacao;
 }

@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoRendaFixaCompromissada;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoRendaFixaCompromissadaOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.PageOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
@@ -31,10 +32,11 @@ public class PesquisarOperacaoRendaFixaCompromissadaPagedService {
     final BigDecimal valorIdaFim,
     final LocalDate cadastroInicio,
     final LocalDate cadastroFim,
+    final Empresa empresa,
     final Pageable pageable
   ) {
     val resultado = operacaoRendaFixaCompromissadaRepository.findAll(
-      spec(boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim), pageable
+      spec(boleta, valorIdaInicio, valorIdaFim, cadastroInicio, cadastroFim, empresa), pageable
     );
     val page = new PageImpl<>(
       resultado.getContent().stream().map(r -> mapper.map(r, OperacaoRendaFixaCompromissadaOutput.class)).collect(Collectors.toList()),
@@ -45,12 +47,14 @@ public class PesquisarOperacaoRendaFixaCompromissadaPagedService {
   }
 
   public Specification<OperacaoRendaFixaCompromissada> spec(
-    final String boleta, final BigDecimal valorIdaInicio, final BigDecimal valorIdaFim, final LocalDate cadastroInicio, final LocalDate cadastroFim
+    final String boleta, final BigDecimal valorIdaInicio, final BigDecimal valorIdaFim, final LocalDate cadastroInicio, final LocalDate cadastroFim,
+    final Empresa empresa
   ) {
     return ExecutionUtil.and(operacaoRendaFixaCompromissadaRepository.boleta(boleta),
       new ArrayList<>() {{
         add(operacaoRendaFixaCompromissadaRepository.valorFinanceiroIdaEntre(valorIdaInicio, valorIdaFim));
         add(operacaoRendaFixaCompromissadaRepository.cadastroEntre(cadastroInicio, cadastroFim));
+        add(operacaoRendaFixaCompromissadaRepository.empresa(empresa));
       }}
     );
   }

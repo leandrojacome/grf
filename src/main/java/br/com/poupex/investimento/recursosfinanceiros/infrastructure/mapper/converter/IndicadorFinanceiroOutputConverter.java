@@ -1,15 +1,17 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
+import javax.annotation.PostConstruct;
+
+import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
+import org.springframework.stereotype.Component;
+
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.IndicadorFinanceiro;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.IndicadorFinanceiroSincronizacaoOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.IndicadorFinanceiroSincronizacaoRepository;
-import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.spi.MappingContext;
-import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
@@ -26,6 +28,7 @@ public class IndicadorFinanceiroOutputConverter {
 
   public IndicadorFinanceiroOutput converter(MappingContext<IndicadorFinanceiro, IndicadorFinanceiroOutput> context) {
     val input = context.getSource();
+    if (input == null) return null;
     val output = intern.map(input, IndicadorFinanceiroOutput.class);
     indicadorFinanceiroSincronizacaoRepository.findOne(
       indicadorFinanceiroSincronizacaoRepository.indicadorFinanceiro(input)
