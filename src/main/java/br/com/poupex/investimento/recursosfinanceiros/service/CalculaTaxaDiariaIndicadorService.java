@@ -17,7 +17,7 @@ public class CalculaTaxaDiariaIndicadorService {
 
   public BigDecimal execute(final IndicadorFinanceiroPeriodicidade periodicidade, final BigDecimal valor) {
     if (IndicadorFinanceiroPeriodicidade.ANUAL.equals(periodicidade)) {
-      return execute(valor, BigDecimal.ONE);
+      return execute(valor, BigDecimal.ONE).multiply(CEM, MathContext.DECIMAL128);
     }
     return valor;
   }
