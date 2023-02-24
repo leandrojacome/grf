@@ -63,6 +63,16 @@ public class ValidaOperacaoRendaFixaCompromissadaLastroService {
       input.setValorFinanceiroVolta(input.getValorFinanceiroVolta().add(lastro.getValorFinanceiroVolta()));
       return lastroOutput;
     }).toList();
+    if(input.getValorFinanceiroIda().compareTo(input.getValorAlvo()) > 0){
+      throw new NegocioException("Valor financeiro de Ida é inválido",
+        String.format("O Valor Financeiro de Ida (%s) não pode ser superior ao valor alvo (%s)",
+          stringUtil.modeda(input.getValorFinanceiroIda()),
+          stringUtil.modeda(input.getValorAlvo())
+        ),
+        List.of(new ValidacaoModel("lastros.[*].valorFinanceiroIda", "valor inválido")),
+        input
+      );
+    }
     val variacao = input.getValorAlvo().multiply(BigDecimal.valueOf(0.1), context);
     val limiteIda = input.getValorAlvo().subtract(variacao, context);
     val limiteVolta = input.getValorAlvo().add(variacao, context);

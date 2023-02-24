@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum InstituicaoFinanceiraRiscoAgenciaModalidade {
-  CLASSIFICACAO("Classificação"),
+  CLASSIFICACAO("Classificação e Resumo Poupex"),
   MOODYS("Moody's"),
   S_P("S&P"), FITCH("FITCH"),
   RISK_BANK("RiskBank"),
