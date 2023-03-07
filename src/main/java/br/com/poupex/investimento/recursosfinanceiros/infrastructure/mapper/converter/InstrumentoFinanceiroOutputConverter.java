@@ -53,7 +53,7 @@ public class InstrumentoFinanceiroOutputConverter {
 			mapper.map(source, destination);
 		}
 		
-		destination.setTipoInstrumentoFinanceiro(TipoInstrumentoFinanceiro.getClassName(source.getClass().getSimpleName()));
+		destination.setTipoInstrumentoFinanceiro(TipoInstrumentoFinanceiro.getByClassName(source.getClass().getSimpleName()));
 		
 		try {
 			var instrumentoGif = gestaoInstrumentosFinanceirosApiClient.getInstrumentoFinanceiro(source.getCodigoGif());
