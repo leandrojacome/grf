@@ -25,7 +25,7 @@ public enum TipoInstrumentoFinanceiro {
 		return Arrays.stream(values()).filter(tipoInstrumentoFinanceiro -> tipoInstrumentoFinanceiro.getSigla().equalsIgnoreCase(sigla))
 				.findAny().orElseThrow(() -> new RecursoNaoEncontradoException("Tipo de Instrumento", String.format("Tipo de Instrumento não encontrado com sigla: %s", sigla)));
 	}
-	public static TipoInstrumentoFinanceiro getClassName(final String className) {
+	public static TipoInstrumentoFinanceiro getByClassName(final String className) {
 		return Arrays.stream(values()).filter(tipoInstrumentoFinanceiro -> tipoInstrumentoFinanceiro.getClassName().equalsIgnoreCase(className))
 				.findAny().orElseThrow(() -> new RecursoNaoEncontradoException("Tipo de Instrumento", String.format("Tipo de Instrumento não encontrado com className: %s", className)));
 	}
