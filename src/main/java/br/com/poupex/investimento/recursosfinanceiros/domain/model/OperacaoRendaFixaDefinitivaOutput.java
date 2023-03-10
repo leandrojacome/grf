@@ -41,19 +41,17 @@ public class OperacaoRendaFixaDefinitivaOutput {
 
     private TipoTaxa tipoTaxa;
     private BigDecimal taxaPre;
-	private Boolean diasUteisTaxaPre;		//secundario
+	private Boolean diasUteisEmissao;		//secundario
     private BigDecimal taxaEfetiva;
 	private BigDecimal taxaNegociacao;
 	private BigDecimal taxaPreNegociacao;
-	private Boolean diasUteisTaxaPreNegociacao; //secundario
+	private Boolean diasUteisNegociacao; //secundario
 	private IndicadorFinanceiroOutput indice;
     private BigDecimal percentualIndice;
-	private Boolean diasUteisIndice;		//secundario
     private BigDecimal puEmissao;
     private BigDecimal valorResgate;
 	private IndicadorFinanceiroOutput indiceNegociacao;
 	private BigDecimal percentualNegociacao;
-	private Boolean diasUteisIndiceNegociacao; //secundario
 	private BigDecimal puAtual;				//secundario
 	private BigDecimal puNegociado;			//secundario
 	private BigDecimal puPoupex;			//secundario
