@@ -29,8 +29,8 @@ public class OperacaoRendaFixaDefinitivaPrimario extends OperacaoRendaFixaDefini
 	@Column(name = "TAXA_PRE", nullable = true)
 	private BigDecimal taxaPre;
 
-	@Column(name = "DIAS_UTEIS_TAXA_PRE", nullable = true)
-	private Boolean diasUteisTaxaPre;
+	@Column(name = "DIAS_UTEIS_EMISSAO", nullable = true)
+	private Boolean diasUteisEmissao;
 
 	@Column(name = "TAXA_EFETIVA", nullable = true)
 	private BigDecimal taxaEfetiva;
@@ -41,9 +41,6 @@ public class OperacaoRendaFixaDefinitivaPrimario extends OperacaoRendaFixaDefini
 
 	@Column(name = "PERCENTUAL_INDICE", nullable = true)
 	private BigDecimal percentualIndice;
-
-	@Column(name = "DIAS_UTEIS_INDICE", nullable = true)
-	private Boolean diasUteisIndice;
 
 	@Column(name = "PU_EMISSAO", nullable = false)
 	private BigDecimal puEmissao;

@@ -29,8 +29,8 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 	@Column(name = "TAXA_PRE", nullable = true)
 	private BigDecimal taxaPre;
 
-	@Column(name = "DIAS_UTEIS_TAXA_PRE", nullable = true)
-	private Boolean diasUteisTaxaPre;
+	@Column(name = "DIAS_UTEIS_EMISSAO", nullable = true)
+	private Boolean diasUteisEmissao;
 
 	@Column(name = "TAXA_EFETIVA", nullable = true)
 	private BigDecimal taxaEfetiva;
@@ -38,8 +38,8 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 	@Column(name = "TAXA_PRE_NEGOCIACAO", nullable = true)
 	private BigDecimal taxaPreNegociacao;
 
-	@Column(name = "DIAS_UTEIS_TAXA_PRE_NEGOCIACAO", nullable = true)
-	private Boolean diasUteisTaxaPreNegociacao;
+	@Column(name = "DIAS_UTEIS_NEGOCIACAO", nullable = true)
+	private Boolean diasUteisNegociacao;
 
 	@ManyToOne
 	@JoinColumn(name = "INDICE")
@@ -48,18 +48,12 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 	@Column(name = "PERCENTUAL_INDICE", nullable = true)
 	private BigDecimal percentualIndice;
 
-	@Column(name = "DIAS_UTEIS_INDICE", nullable = true)
-	private Boolean diasUteisIndice;
-
 	@ManyToOne
 	@JoinColumn(name = "INDICE_NEGOCIACAO")
 	private IndicadorFinanceiro indiceNegociacao;
 
 	@Column(name = "PERCENTUAL_NEGOCIACAO", nullable = true)
 	private BigDecimal percentualNegociacao;
-
-	@Column(name = "DIAS_UTEIS_INDICE_NEGOCIACAO", nullable = true)
-	private Boolean diasUteisIndiceNegociacao;
 
 	@Column(name = "PU_ATUAL", nullable = true)
 	private BigDecimal puAtual;

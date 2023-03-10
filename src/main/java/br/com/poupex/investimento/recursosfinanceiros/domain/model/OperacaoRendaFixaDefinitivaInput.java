@@ -70,18 +70,16 @@ public class OperacaoRendaFixaDefinitivaInput {
     @NotNull
     private TipoTaxa tipoTaxa;				//primario/secundario
     private BigDecimal taxaPre;				//primario/secundario
-	private Boolean diasUteisTaxaPre;		//secundario
+	private Boolean diasUteisEmissao;		//secundario
     private BigDecimal taxaEfetiva;			//primario/secundario
 	private BigDecimal taxaPreNegociacao;	//secundario
-	private Boolean diasUteisTaxaPreNegociacao; //secundario
+	private Boolean diasUteisNegociacao; //secundario
 	private String idIndice;				//primario/secundario
     private BigDecimal percentualIndice;	//primario/secundario
-	private Boolean diasUteisIndice;		//secundario
     private BigDecimal puEmissao;			//primario
     private BigDecimal valorResgate;		//primario
 	private String idIndiceNegociacao;		//secundario
 	private BigDecimal percentualNegociacao; //secundario
-	private Boolean diasUteisIndiceNegociacao; //secundario
 	private BigDecimal puAtual;				//secundario
 	private BigDecimal puNegociado;			//secundario
 	private BigDecimal puPoupex;			//secundario
