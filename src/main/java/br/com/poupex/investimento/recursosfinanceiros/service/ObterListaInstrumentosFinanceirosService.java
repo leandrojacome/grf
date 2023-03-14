@@ -68,6 +68,7 @@ public class ObterListaInstrumentosFinanceirosService {
                 resultado.getContent().forEach(r -> {
                     if (instrumento.getId().equals(r.getId())) {
                         instrumento.setSiglaVencimento(instrumento.getSigla() + " - " + ((TituloPublico) r).getDataVencimento().format(ofPattern("dd/MM/yyyy")));
+                        instrumento.setCodiogSelic(((TituloPublico) r).getCodiogSelic());
                     }
                 });
             }

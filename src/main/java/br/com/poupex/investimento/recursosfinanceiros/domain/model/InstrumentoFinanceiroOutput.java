@@ -27,4 +27,5 @@ public class InstrumentoFinanceiroOutput {
 	private Boolean ativoFinanceiro;
 	private TipoInstrumentoFinanceiro tipoInstrumentoFinanceiro;
 	private String siglaVencimento;
+    private Long codiogSelic;
 }
