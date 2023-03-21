@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,6 +18,10 @@ import lombok.Setter;
 public class OperacaoFundoInvestimento extends Operacao {
 
   @Enumerated(EnumType.STRING)
+  @Column(name = "TIPO_OPERACAO", nullable = false)
+  private TipoOperacaoFundoInvestimento tipoOperacao;
+
+  @Enumerated(EnumType.STRING)
   @Column(name = "EMPRESA", nullable = false)
   private Empresa empresa;
 
@@ -30,8 +35,8 @@ public class OperacaoFundoInvestimento extends Operacao {
   @JoinColumn(name = "FUNDO_INVESTIMENTO", nullable = false)
   private FundosInvestimentos fundoInvestimento;
 
-  @Column(name = "DATA_APLICACAO", nullable = false)
-  private LocalDate dataAplicacao;
+  @Column(name = "DATA", nullable = false)
+  private LocalDate data;
 
   @Column(name = "DATA_COTIZACAO", nullable = false)
   private LocalDate dataCotatizacao;
