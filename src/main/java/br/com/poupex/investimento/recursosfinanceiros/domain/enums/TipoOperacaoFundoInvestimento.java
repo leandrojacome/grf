@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum TipoOperacao {
+public enum TipoOperacaoFundoInvestimento {
 
     RESGATE("Resgate"),
     APLICACAO("Aplicação");

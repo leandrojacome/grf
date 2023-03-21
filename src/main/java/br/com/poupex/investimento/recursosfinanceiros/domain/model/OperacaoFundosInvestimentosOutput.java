@@ -1,6 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.model;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacao;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class OperacaoFundosInvestimentosOutput {
     private String id;
     private EmpresaOutput empresa;
-    private TipoOperacao operacao;
+    private TipoOperacaoFundoInvestimento operacao;
     private LocalDate dataOperacao;
     private FundosInvestimentosInputOutput fundo;
     private BigDecimal valorFinanceiro = BigDecimal.ZERO;

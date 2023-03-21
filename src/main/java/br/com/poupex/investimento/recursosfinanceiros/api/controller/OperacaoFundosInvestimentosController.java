@@ -2,7 +2,7 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacao;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -53,7 +53,7 @@ public class OperacaoFundosInvestimentosController {
   @OpenApiPaginacao
   @GetMapping
   public ResponseEntity<ResponseModel> read(
-    @RequestParam(required = false) final TipoOperacao tipoOperacao,
+    @RequestParam(required = false) final TipoOperacaoFundoInvestimento tipoOperacao,
     @RequestParam(required = false) final String numeroOperacao,
     @RequestParam(required = false) final BigDecimal valorInicio,
     @RequestParam(required = false) final BigDecimal valorFim,
