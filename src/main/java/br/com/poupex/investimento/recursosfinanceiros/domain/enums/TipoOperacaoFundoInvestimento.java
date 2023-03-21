@@ -10,5 +10,5 @@ public enum TipoOperacaoFundoInvestimento {
     RESGATE("Resgate"),
     APLICACAO("Aplicação");
 
-    private String descricao;
+    private final String descricao;
 }
