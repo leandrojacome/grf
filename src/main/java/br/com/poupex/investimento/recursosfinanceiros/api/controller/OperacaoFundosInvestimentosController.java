@@ -2,9 +2,11 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoFundoInvestimentoService;
+import br.com.poupex.investimento.recursosfinanceiros.service.PesquisarOperacaoFundoInvestimentoPagedService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -31,6 +33,7 @@ import java.time.LocalDate;
 public class OperacaoFundosInvestimentosController {
 
   private final CadastrarOperacaoFundoInvestimentoService cadastrarOperacaoFundoInvestimentoService;
+  private final PesquisarOperacaoFundoInvestimentoPagedService pesquisarOperacaoFundoInvestimentoPagedService;
 
   @Operation(summary = "Cadastra a Operação (Fundo Investimentos)")
   @ApiResponses({
@@ -57,15 +60,18 @@ public class OperacaoFundosInvestimentosController {
   @GetMapping
   public ResponseEntity<ResponseModel> read(
     @RequestParam(required = false) final TipoOperacaoFundoInvestimento tipoOperacao,
-    @RequestParam(required = false) final String numeroOperacao,
-    @RequestParam(required = false) final BigDecimal valorInicio,
-    @RequestParam(required = false) final BigDecimal valorFim,
-    @RequestParam(required = false) final String fundo,
-    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate periodoEmissaoInicio,
-    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate periodoEmissaoFim,
+    @RequestParam(required = false) final Empresa empresa,
+    @RequestParam(required = false) final String boleta,
+    @RequestParam(required = false) final BigDecimal valorFinanceiroInicio,
+    @RequestParam(required = false) final BigDecimal valorFinanceiroFim,
+    @RequestParam(required = false) final String fundoInvestimento,
+    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate dataOperacaoInicio,
+    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate dataOperacaoFim,
     @Parameter(hidden = true) final Pageable pageable
   ) {
-    return ResponseEntity.ok(null);
+    return ResponseEntity.ok(pesquisarOperacaoFundoInvestimentoPagedService.execute(
+      tipoOperacao, empresa, boleta, valorFinanceiroInicio, valorFinanceiroFim, fundoInvestimento, dataOperacaoInicio, dataOperacaoFim, pageable
+    ));
   }
 
   @Operation(summary = "Recuperar a Operação (Fundo Investimentos)")

@@ -25,6 +25,10 @@ import lombok.Setter;
 @PrimaryKeyJoinColumn(name = "id")
 public class FundosInvestimentos extends InstrumentoFinanceiro {
 
+    public FundosInvestimentos(final String id) {
+        setId(id);
+    }
+
     @Column(name = "CNPJ", nullable = false, length = 14)
     private String cnpj;
 
