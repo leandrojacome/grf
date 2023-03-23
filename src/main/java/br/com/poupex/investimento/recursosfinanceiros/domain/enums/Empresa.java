@@ -1,12 +1,10 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.enums;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.ContaEmpresaOutput;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
 import java.util.Arrays;
 import java.util.List;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor

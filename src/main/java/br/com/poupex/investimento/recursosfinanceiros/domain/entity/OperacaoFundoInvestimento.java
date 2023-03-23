@@ -1,5 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
+import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Conta;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
 import java.math.BigDecimal;
@@ -25,21 +26,19 @@ public class OperacaoFundoInvestimento extends Operacao {
   @Column(name = "EMPRESA", nullable = false)
   private Empresa empresa;
 
-  @Column(name = "EMPRESA_AGENCIA", nullable = false)
-  private String empresaAgencia;
-
+  @Enumerated(EnumType.STRING)
   @Column(name = "EMPRESA_CONTA", nullable = false)
-  private String empresaConta;
+  private Conta empresaConta;
 
   @ManyToOne
   @JoinColumn(name = "FUNDO_INVESTIMENTO", nullable = false)
   private FundosInvestimentos fundoInvestimento;
 
-  @Column(name = "DATA", nullable = false)
-  private LocalDate data;
+  @Column(name = "DATA_OPERACAO", nullable = false)
+  private LocalDate dataOperacao;
 
   @Column(name = "DATA_COTIZACAO", nullable = false)
-  private LocalDate dataCotatizacao;
+  private LocalDate dataCotizacao;
 
   @Column(name = "DATA_LIQUIDACAO", nullable = false)
   private LocalDate dataLiquidacao;
@@ -52,6 +51,7 @@ public class OperacaoFundoInvestimento extends Operacao {
 
   @Column(name = "QUANTIDADE", nullable = false)
   private BigDecimal quantidade;
+
   @Column(name = "CUSTOS_VALOR_CORRETAGEM", nullable = false)
   private BigDecimal custosValorCorretagem;
 
@@ -61,17 +61,5 @@ public class OperacaoFundoInvestimento extends Operacao {
 
   @Column(name = "CONTRAPARTE_OPERADOR", nullable = false)
   private String contraparteOperador;
-
-  @OneToMany(mappedBy = "operacaoFundoInvestimento", cascade = CascadeType.PERSIST, orphanRemoval = true)
-  private List<OperacaoFundoInvestimentoArquivo> arquivos;
-
-  @Override
-  public void prePersist() {
-    try {
-      arquivos.forEach(l -> l.setOperacaoFundoInvestimento(this));
-      super.prePersist();
-    } catch (final NullPointerException ignored) {
-    }
-  }
 
 }

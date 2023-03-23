@@ -21,7 +21,7 @@ public class OperacaoFundosInvestimentosInputCadastrar {
   private TipoOperacaoFundoInvestimento tipoOperacao;
   @NotNull
   private Empresa empresa;
-  @NotEmpty
+  @NotNull
   private Conta empresaConta;
   @NotEmpty
   private String fundoInvestimento;
@@ -41,7 +41,6 @@ public class OperacaoFundosInvestimentosInputCadastrar {
   @Positive
   private BigDecimal quantidade;
   @NotNull
-  @Positive
   private BigDecimal custosValorCorretagem;
   @NotEmpty
   private String custosIndicadorFinanceiro;

@@ -4,6 +4,7 @@ import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginaca
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
+import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoFundoInvestimentoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -29,6 +30,8 @@ import java.time.LocalDate;
 @OpenApiResponsesPadroes
 public class OperacaoFundosInvestimentosController {
 
+  private final CadastrarOperacaoFundoInvestimentoService cadastrarOperacaoFundoInvestimentoService;
+
   @Operation(summary = "Cadastra a Operação (Fundo Investimentos)")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
@@ -38,7 +41,7 @@ public class OperacaoFundosInvestimentosController {
   })
   @PostMapping
   public ResponseEntity<ResponseModel> create(@Valid @RequestBody final OperacaoFundosInvestimentosInputCadastrar input) {
-    return ResponseEntity.ok(new ResponseModel(input));
+    return ResponseEntity.ok(cadastrarOperacaoFundoInvestimentoService.execute(input));
   }
 
   @Operation(summary = "Consulta Operações (Fundo Investimentos)")
