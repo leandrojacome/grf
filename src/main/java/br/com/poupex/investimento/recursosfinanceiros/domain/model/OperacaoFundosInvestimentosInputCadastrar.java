@@ -4,16 +4,14 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Conta;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import javax.persistence.Column;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -28,9 +26,9 @@ public class OperacaoFundosInvestimentosInputCadastrar {
   @NotEmpty
   private String fundoInvestimento;
   @NotNull
-  private LocalDate data;
+  private LocalDate dataOperacao;
   @NotNull
-  private LocalDate dataCotatizacao;
+  private LocalDate dataCotizacao;
   @NotNull
   private LocalDate dataLiquidacao;
   @NotNull
