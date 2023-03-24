@@ -1,7 +1,5 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
-import java.time.LocalDate;
-
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
@@ -19,7 +17,6 @@ import br.com.poupex.investimento.recursosfinanceiros.service.ObterIndicadorFina
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoGifService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstrumentoFinanceiroService;
-import br.com.poupex.investimento.recursosfinanceiros.service.ObterTipoInstrumentoFinanceiroService;
 import lombok.val;
 
 @Component
@@ -29,7 +26,6 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
 	private final ObterIndicadorFinanceiroService obterIndicadorFinanceiroService;
 	private final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService;
 	private final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService;
-	private final ObterTipoInstrumentoFinanceiroService obterTipoInstrumentoFinanceiroService;
 	private final ObterInstituicaoGifService obterInstituicaoGifService;
 
     public OperacaoRendaFixaDefinitivaInputConverter(
@@ -37,22 +33,18 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
     	final ObterIndicadorFinanceiroService obterIndicadorFinanceiroService, 
     	final ObterInstrumentoFinanceiroService obterInstrumentoFinanceiroService, 
     	final ObterInstituicaoFinanceiraService obterInstituicaoFinanceiraService,
-    	final ObterTipoInstrumentoFinanceiroService obterTipoInstrumentoFinanceiroService,
     	final ObterInstituicaoGifService obterInstituicaoGifService) {
     	
     	this.obterIndicadorFinanceiroService = obterIndicadorFinanceiroService;
 		this.obterInstrumentoFinanceiroService = obterInstrumentoFinanceiroService;
 		this.obterInstituicaoFinanceiraService = obterInstituicaoFinanceiraService;
-		this.obterTipoInstrumentoFinanceiroService = obterTipoInstrumentoFinanceiroService;
 		this.obterInstituicaoGifService = obterInstituicaoGifService;
     	
 		modelMapper.addMappings(new PropertyMap<OperacaoRendaFixaDefinitivaInput, OperacaoFinanceiraGifInputOutput>() {
             @Override
             protected void configure() {
             	skip(destination.getCodigo());
-                skip(destination.getContraparte());
                 skip(destination.getCodInstituicao());
-                skip(destination.getValor());
             }
         });
 		
@@ -81,24 +73,20 @@ public class OperacaoRendaFixaDefinitivaInputConverter {
     		output = intern.map(input, OperacaoFinanceiraGifInputOutput.class);
     	}
         
-        var tipoInstrumento = obterTipoInstrumentoFinanceiroService.getCodigo(
-        		obterInstrumentoFinanceiroService.id(input.getIdInstrumentoFinanceiro()));
+        var codInstrumento = obterInstrumentoFinanceiroService.id(input.getIdInstrumentoFinanceiro()).getCodigoGif();
         var codInstituicaoGif = obterInstituicaoGifService.getCodInstituicao(input.getEmpresa().getCnpj());
         var contraparte = obterInstituicaoFinanceiraService.id(input.getIdContraparte());
 
         //output.setNumero(); // incluido em outro momento
-        output.setCnpjOrigem(input.getEmpresa().getCnpj().replaceAll("[./-]", "")); 
-        output.setCodCategoriaTransacao(null);
         output.setCodFormaMensuracao(input.getFormaMensuracao().getCodigo());
         output.setCodInstituicao(codInstituicaoGif);
-        output.setCodTipoInstrumentoFinanceiro(tipoInstrumento);
-        output.setContraparte(contraparte.getCnpj());
-        output.setDiasAtraso(input.getQtdDias()); // confirmar
-        output.setDtCarga(input.getDataEmissao().toLocalDate());
-        output.setEstadoCivil(null);
-        output.setEstadoResidencia(null);
-        output.setIdadeMutuario(null);
-        output.setValor(input.getValorFinanceiro());
+        output.setCodInstrumentoFinanceiro(codInstrumento);
+        output.setCpfCnpjContraparte(contraparte.getCnpj());
+        output.setNomeContraparte(contraparte.getNome());
+        output.setDtEmissao(input.getDataEmissao().toLocalDate());
+        //output.setDtCompetencia // definido no servico de inclusao ou alteracao
+        output.setValorFinanceiro(input.getValorFinanceiro()); //?????
+        output.setCnpjUta(input.getEmpresa().getCnpj().replaceAll("./-", ""));
 
         return output;
     }

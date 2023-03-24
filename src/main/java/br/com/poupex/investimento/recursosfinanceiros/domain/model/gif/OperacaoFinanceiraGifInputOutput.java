@@ -13,22 +13,19 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OperacaoFinanceiraGifInputOutput {
 
-	private Long codigo;
-	private String numero;
-	private String cnpjOrigem;
-	private LocalDate dtCarga;
-	private String contraparte;
-	private Integer diasAtraso;
-	private Integer idadeMutuario;
-	private Integer estadoCivil;
-	private Integer estadoResidencia;
-	private BigDecimal valor;
-	private Long codTipoInstrumentoFinanceiro;
-	private Long codInstituicao;
-	private Long codFormaMensuracao;
-	private Long codCategoriaTransacao;
-	private InstituicaoGifInputOutput instituicao;
-	private TipoInstrumentoFinanceiroInputOutput tipoInstrumentoFinanceiro;
-	private FormaMensuracaoOutput formaMensuracao;
+	private Long codigo; //ok
+	private String numero; //ok
+	private String cnpjUta; //ok
+	private String cpfCnpjContraparte; //ok
+	private String nomeContraparte; //ok
+	private LocalDate dtCompetencia; //ok - insercao grf
+	private LocalDate dtEmissao; //ok
+	private BigDecimal valorFinanceiro;//ok
+	private Long codInstrumentoFinanceiro;//ok 
+	private Long codInstituicao;//ok
+	private Long codFormaMensuracao;//ok
+	private InstituicaoGifInputOutput instituicao;//ok
+	private InstrumentoFinanceiroGifInputOutput instrumentoFinanceiro;//ok
+	private FormaMensuracaoOutput formaMensuracao;//ok
 	    
 }

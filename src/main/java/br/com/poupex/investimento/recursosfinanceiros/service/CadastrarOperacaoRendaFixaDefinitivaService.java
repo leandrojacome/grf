@@ -55,10 +55,6 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
     	inputGif.setNumero(operacao.getBoleta());
         Long codigoGif = cadastrarOperacaoRendaFixaDefinitivaGifService.cadastrar(inputGif);
 
-        // enquanto o GIF nao retorna o codigo
-        // quando retornar o codigo, colocar indice unico no OPERACAO_GIF_CODIGO
-        codigoGif = (codigoGif == null ? 0 : codigoGif);
-
        	operacao.setOperacaoGifCodigo(codigoGif);
         operacao = operacaoRendaFixaDefinitivaRepository.save(operacao);
 
