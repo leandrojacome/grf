@@ -36,7 +36,7 @@ public class OperacaoFundosInvestimentosInputCadastrar {
   private BigDecimal valorFinanceiro;
   @NotNull
   @Positive
-  private BigDecimal valorQuota;
+  private BigDecimal valorCota;
   @NotNull
   @Positive
   private BigDecimal quantidade;
