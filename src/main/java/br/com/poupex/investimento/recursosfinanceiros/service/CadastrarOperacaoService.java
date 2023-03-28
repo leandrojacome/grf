@@ -12,10 +12,11 @@ public class CadastrarOperacaoService {
 
   private final OperacaoRepository operacaoRepository;
 
-  public static OperacaoRepository singleton;
+  public static OperacaoRepository operacaoRepositorySingleton;
 
   @PostConstruct
   public void init() {
-    singleton = operacaoRepository;
+    operacaoRepositorySingleton = operacaoRepository;
   }
+
 }

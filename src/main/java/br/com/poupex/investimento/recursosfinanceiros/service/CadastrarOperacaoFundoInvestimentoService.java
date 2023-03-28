@@ -26,11 +26,11 @@ public class CadastrarOperacaoFundoInvestimentoService {
     );
   }
 
-  public static ManterSaldoFundoInvestimentoService singleton;
+  public static ManterSaldoFundoInvestimentoService manterSaldoFundoInvestimentoServiceSingleton;
 
   @PostConstruct
   public void init() {
-    singleton = manterSaldoFundoInvestimentoService;
+    manterSaldoFundoInvestimentoServiceSingleton = manterSaldoFundoInvestimentoService;
   }
 
 }

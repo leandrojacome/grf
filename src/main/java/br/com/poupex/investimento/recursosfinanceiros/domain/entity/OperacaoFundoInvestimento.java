@@ -63,16 +63,19 @@ public class OperacaoFundoInvestimento extends Operacao {
   @Column(name = "CONTRAPARTE_OPERADOR", nullable = false)
   private String contraparteOperador;
 
-  /**
-   * Fluxo somente pra novos ao atulizar é necessário chamar removendo a diferença e inserir uma nova entrada
-   */
   @Override
   public void prePersist() {
-    try {
-      CadastrarOperacaoFundoInvestimentoService.singleton.execute(fundoInvestimento.getId(), tipoOperacao, valorFinanceiro, valorCota);
-      super.prePersist();
-    } catch (final NullPointerException ignored) {
-    }
+    super.prePersist();
+    CadastrarOperacaoFundoInvestimentoService.manterSaldoFundoInvestimentoServiceSingleton.execute(
+      fundoInvestimento.getId(), tipoOperacao, valorFinanceiro, valorCota, null
+    );
   }
 
+  @Override
+  public void preUpdate() {
+    super.preUpdate();
+    CadastrarOperacaoFundoInvestimentoService.manterSaldoFundoInvestimentoServiceSingleton.execute(
+      fundoInvestimento.getId(), tipoOperacao, valorFinanceiro, valorCota, getId()
+    );
+  }
 }
