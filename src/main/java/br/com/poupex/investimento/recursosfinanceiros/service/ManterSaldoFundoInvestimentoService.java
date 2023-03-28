@@ -26,7 +26,7 @@ public class ManterSaldoFundoInvestimentoService {
     final BigDecimal valorCota,
     final String id
   ) {
-    val saldo = obterSaldoFundoInvestimentoPorFundoInvestimentoService.execute(fundoInvestimento);
+    val saldo = obterSaldoFundoInvestimentoPorFundoInvestimentoService.fundo(fundoInvestimento);
     val multiply = TipoOperacaoFundoInvestimento.RESGATE.equals(tipoOperacao) ? BigDecimal.ONE : BigDecimal.ONE.negate();
     saldo.setSaldoFinanceiro(saldo.getSaldoFinanceiro().add(valorFinanceiro.multiply(multiply)));
     saldo.setSaldoCota(saldo.getSaldoCota().add(valorCota.multiply(multiply)));
