@@ -2,9 +2,13 @@ package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiPaginacao;
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.FundosInvestimentos;
+import br.com.poupex.investimento.recursosfinanceiros.domain.entity.OperacaoFundoInvestimento;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
+import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoFundoInvestimentoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterOperacaoFundoInvestimentoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.PesquisarOperacaoFundoInvestimentoPagedService;
@@ -37,6 +41,7 @@ public class OperacaoFundosInvestimentosController {
   private final PesquisarOperacaoFundoInvestimentoPagedService pesquisarOperacaoFundoInvestimentoPagedService;
   private final ObterOperacaoFundoInvestimentoService obterOperacaoFundoInvestimentoService;
 
+  @AuditarTipo(tipo = AuditoriaTipo.API, recurso = OperacaoFundoInvestimento.class)
   @Operation(summary = "Cadastra a Operação (Fundo Investimentos)")
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Cadastro realizado", content = {
