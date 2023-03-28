@@ -3,6 +3,7 @@ package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Conta;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
+import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoFundoInvestimentoService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -61,5 +62,17 @@ public class OperacaoFundoInvestimento extends Operacao {
 
   @Column(name = "CONTRAPARTE_OPERADOR", nullable = false)
   private String contraparteOperador;
+
+  /**
+   * Fluxo somente pra novos ao atulizar é necessário chamar removendo a diferença e inserir uma nova entrada
+   */
+  @Override
+  public void prePersist() {
+    try {
+      CadastrarOperacaoFundoInvestimentoService.singleton.execute(fundoInvestimento.getId(), tipoOperacao, valorFinanceiro, valorCota);
+      super.prePersist();
+    } catch (final NullPointerException ignored) {
+    }
+  }
 
 }

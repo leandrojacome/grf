@@ -1,0 +1,21 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="GestaoRecursosFinanceirosApiApplication (DESENV)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="local" />
+    <additionalParameters>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="poupex.seguranca.habilitado" />
+        <option name="value" value="false" />
+      </param>
+      <param>
+        <option name="name" value="spring.flyway.enabled" />
+        <option name="value" value="false" />
+      </param>
+    </additionalParameters>
+    <module name="gestao-recursos-financeiros-api" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.poupex.investimento.recursosfinanceiros.GestaoRecursosFinanceirosApiApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

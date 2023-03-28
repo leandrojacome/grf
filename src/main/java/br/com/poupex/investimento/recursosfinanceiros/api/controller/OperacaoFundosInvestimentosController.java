@@ -6,6 +6,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.*;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoFundoInvestimentoService;
+import br.com.poupex.investimento.recursosfinanceiros.service.ObterOperacaoFundoInvestimentoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.PesquisarOperacaoFundoInvestimentoPagedService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,6 +35,7 @@ public class OperacaoFundosInvestimentosController {
 
   private final CadastrarOperacaoFundoInvestimentoService cadastrarOperacaoFundoInvestimentoService;
   private final PesquisarOperacaoFundoInvestimentoPagedService pesquisarOperacaoFundoInvestimentoPagedService;
+  private final ObterOperacaoFundoInvestimentoService obterOperacaoFundoInvestimentoService;
 
   @Operation(summary = "Cadastra a Operação (Fundo Investimentos)")
   @ApiResponses({
@@ -83,7 +85,7 @@ public class OperacaoFundosInvestimentosController {
   })
   @GetMapping("{id}")
   public ResponseEntity<ResponseModel> read(@PathVariable String id) {
-    return ResponseEntity.ok(null);
+    return ResponseEntity.ok(obterOperacaoFundoInvestimentoService.execute(id));
   }
 
 }
