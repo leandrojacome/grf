@@ -5,6 +5,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.SaldoFundosInvestimentosOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.SaldoFundoInvestimentoRepository;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.modelmapper.ModelMapper;
@@ -25,7 +26,8 @@ public class ObterSaldoFundoInvestimentoPorFundoInvestimentoService {
         val saldo = new SaldoFundoInvestimento();
         saldo.setFundoInvestimento(fundoInvestimento);
         saldo.setSaldoFinanceiro(BigDecimal.ZERO);
-        saldo.setSaldoFinanceiro(BigDecimal.ZERO);
+        saldo.setSaldoCota(BigDecimal.ZERO);
+        saldo.setCadastro(LocalDateTime.now());
         return saldoFundoInvestimentoRepository.save(saldo);
       });
   }

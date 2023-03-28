@@ -27,14 +27,14 @@ public class ManterSaldoFundoInvestimentoService {
     final String id
   ) {
     val saldo = obterSaldoFundoInvestimentoPorFundoInvestimentoService.fundo(fundoInvestimento);
-    val multiply = TipoOperacaoFundoInvestimento.RESGATE.equals(tipoOperacao) ? BigDecimal.ONE : BigDecimal.ONE.negate();
+    val multiply = TipoOperacaoFundoInvestimento.APLICACAO.equals(tipoOperacao) ? BigDecimal.ONE : BigDecimal.ONE.negate();
     saldo.setSaldoFinanceiro(saldo.getSaldoFinanceiro().add(valorFinanceiro.multiply(multiply)));
     saldo.setSaldoCota(saldo.getSaldoCota().add(valorCota.multiply(multiply)));
     if (!Objects.isNull(id)) {
       val multiplyInvertido = multiply.negate();
-      val operacao = obterOperacaoFundoInvestimentoService.id(id);
-      saldo.setSaldoFinanceiro(saldo.getSaldoFinanceiro().add(operacao.getValorFinanceiro().multiply(multiplyInvertido)));
-      saldo.setSaldoCota(saldo.getSaldoCota().add(operacao.getValorCota().multiply(multiply)));
+      val valoresOperacaoAnterior = obterOperacaoFundoInvestimentoService.id(id);
+      saldo.setSaldoFinanceiro(saldo.getSaldoFinanceiro().add(valoresOperacaoAnterior.getValorFinanceiro().multiply(multiplyInvertido)));
+      saldo.setSaldoCota(saldo.getSaldoCota().add(valoresOperacaoAnterior.getValorCota().multiply(multiplyInvertido)));
     }
     return saldoFundoInvestimentoRepository.save(saldo);
   }
