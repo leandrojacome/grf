@@ -65,12 +65,12 @@ public interface OperacaoFundoInvestimentoRepository extends JpaRepository<Opera
     var spec = id();
     if (Objects.nonNull(dataOperacaoInicio)) {
       spec = spec.and((root, query, builder) -> {
-        return builder.greaterThanOrEqualTo(root.get("dataOperacaoInicio"), dataOperacaoInicio);
+        return builder.greaterThanOrEqualTo(root.get("dataOperacao"), dataOperacaoInicio);
       });
     }
     if (Objects.nonNull(dataOperacaoFim)) {
       spec = spec.and((root, query, builder) -> {
-        return builder.lessThanOrEqualTo(root.get("dataOperacaoFim"), dataOperacaoFim);
+        return builder.lessThanOrEqualTo(root.get("dataOperacao"), dataOperacaoFim);
       });
     }
     return spec;
