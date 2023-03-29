@@ -26,6 +26,10 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 	@Column(name = "TIPO_TAXA", nullable = false)
 	private TipoTaxa tipoTaxa;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "TIPO_TAXA_NEGOCIACAO", nullable = false)
+	private TipoTaxa tipoTaxaNegociacao;
+	
 	@Column(name = "TAXA_PRE", nullable = true)
 	private BigDecimal taxaPre;
 
@@ -34,6 +38,9 @@ public class OperacaoRendaFixaDefinitivaSecundario extends OperacaoRendaFixaDefi
 
 	@Column(name = "TAXA_EFETIVA", nullable = true)
 	private BigDecimal taxaEfetiva;
+
+	@Column(name = "TAXA_EFETIVA_NEGOCIACAO", nullable = true)
+	private BigDecimal taxaEfetivaNegociacao;
 
 	@Column(name = "TAXA_PRE_NEGOCIACAO", nullable = true)
 	private BigDecimal taxaPreNegociacao;

@@ -23,7 +23,7 @@ public class OperacaoRendaFixaDefinitivaOutput {
     private String codigoCustodiaBB;
     private FormaMensuracaoEnum formaMensuracao; // ver isso, retornar descricao
     private LocalDateTime dataEmissao;
-    private LocalDateTime dataLiquidacao;
+    private LocalDateTime dataLiquidez;
     private LocalDateTime dataCompra;
     private Integer prazoDC;
     private Integer prazoDU;
@@ -40,10 +40,11 @@ public class OperacaoRendaFixaDefinitivaOutput {
 	private IndicadorFinanceiroOutput custoOperacao;
 
     private TipoTaxa tipoTaxa;
+    private TipoTaxa tipoTaxaNegociacao;	//secundario
     private BigDecimal taxaPre;
 	private Boolean diasUteisEmissao;		//secundario
     private BigDecimal taxaEfetiva;
-	private BigDecimal taxaNegociacao;
+	private BigDecimal taxaEfetivaNegociacao;//secundario
 	private BigDecimal taxaPreNegociacao;
 	private Boolean diasUteisNegociacao; //secundario
 	private IndicadorFinanceiroOutput indice;

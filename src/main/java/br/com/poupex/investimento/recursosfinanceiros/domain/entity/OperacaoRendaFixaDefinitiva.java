@@ -44,8 +44,8 @@ public class OperacaoRendaFixaDefinitiva extends Operacao {
 	@Column(name = "DATA_EMISSAO", nullable = false)
 	private LocalDateTime dataEmissao;
 
-	@Column(name = "DATA_LIQUIDACAO", nullable = false)
-	private LocalDateTime dataLiquidacao;
+	@Column(name = "DATA_LIQUIDEZ", nullable = false)
+	private LocalDateTime dataLiquidez;
 
 	@Column(name = "DATA_COMPRA", nullable = false)
 	private LocalDateTime dataCompra;

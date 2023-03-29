@@ -37,7 +37,7 @@ public class OperacaoRendaFixaDefinitivaInput {
     @NotNull
     private LocalDateTime dataEmissao;
     @NotNull
-    private LocalDateTime dataLiquidacao;
+    private LocalDateTime dataLiquidez;
     @NotNull
     private LocalDateTime dataCompra;
     @NotNull
@@ -69,9 +69,11 @@ public class OperacaoRendaFixaDefinitivaInput {
 	private String idCustoOperacao;
     @NotNull
     private TipoTaxa tipoTaxa;				//primario/secundario
+    private TipoTaxa tipoTaxaNegociacao;	//secundario
     private BigDecimal taxaPre;				//primario/secundario
 	private Boolean diasUteisEmissao;		//secundario
     private BigDecimal taxaEfetiva;			//primario/secundario
+	private BigDecimal taxaEfetivaNegociacao;//secundario
 	private BigDecimal taxaPreNegociacao;	//secundario
 	private Boolean diasUteisNegociacao; //secundario
 	private String idIndice;				//primario/secundario
