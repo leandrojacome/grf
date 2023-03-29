@@ -6,6 +6,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.OperacaoFundo
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
+import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarArquivoOperacaoFundoInvestimentoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -29,6 +30,8 @@ import javax.validation.Valid;
 @Tag(name = "Anexos operação financeira de fundos de investimentos")
 @OpenApiResponsesPadroes
 public class OperacaoFundosInvestimentosArquivoController {
+
+    private final CadastrarArquivoOperacaoFundoInvestimentoService cadastrarArquivoOperacaoFundoInvestimentoService;
 
     @AuditarTipo(tipo = AuditoriaTipo.API, recurso = OperacaoFundoInvestimentoArquivo.class)
     @Operation(summary = "Adiciona um arquivo (anexo) da Operação em fundos de investimentos")
