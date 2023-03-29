@@ -7,6 +7,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.CadastrarOperacaoFundoInvestimentoArquivoService;
+import br.com.poupex.investimento.recursosfinanceiros.service.DownloadOperacaoFundoInvestimentoArquivoService;
 import br.com.poupex.investimento.recursosfinanceiros.service.ExcluirOperacaoFundoInvestimentoArquivoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Slf4j
 @RestController
 @RequestMapping("operacoes-financeiras/fundos-investimentos/{id}/arquivos")
 @RequiredArgsConstructor
@@ -32,12 +34,13 @@ import javax.validation.Valid;
 public class OperacaoFundosInvestimentosArquivoController {
 
   private final CadastrarOperacaoFundoInvestimentoArquivoService cadastrarOperacaoFundoInvestimentoArquivoService;
+  private final DownloadOperacaoFundoInvestimentoArquivoService downloadOperacaoFundoInvestimentoArquivoService;
   private final ExcluirOperacaoFundoInvestimentoArquivoService excluirOperacaoFundoInvestimentoArquivoService;
 
   @AuditarTipo(tipo = AuditoriaTipo.API, recurso = OperacaoFundoInvestimentoArquivo.class)
   @Operation(summary = "Adiciona um arquivo (anexo) da Operação em fundos de investimentos")
   @ApiResponses({
-    @ApiResponse(responseCode = "201", description = "Arquivo adicionado"),
+    @ApiResponse(responseCode = "200", description = "Arquivo adicionado"),
   })
   @Parameters({
     @Parameter(name = "id", description = "Numero Identificador da operação financeira de fundos de investimentos"),
@@ -62,8 +65,8 @@ public class OperacaoFundosInvestimentosArquivoController {
   })
   @GetMapping("{arquivo}")
   public ResponseEntity<byte[]> read(@PathVariable final String id, @PathVariable final String arquivo) {
-
-    return ResponseEntity.ok().build();
+    log.debug(String.format("Id da operação de fundo de investimento a ser pesquisado: %s", id));
+    return ResponseEntity.ok(downloadOperacaoFundoInvestimentoArquivoService.execute(arquivo));
   }
 
   @AuditarTipo(tipo = AuditoriaTipo.API, recurso = OperacaoFundoInvestimentoArquivo.class)
