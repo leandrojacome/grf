@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RiscoArquivoOutput {
+public class ArquivoOutput {
   private String id;
   private String nome;
   private String tipo;

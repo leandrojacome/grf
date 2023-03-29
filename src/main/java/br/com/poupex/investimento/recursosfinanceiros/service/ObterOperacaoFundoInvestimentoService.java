@@ -24,18 +24,12 @@ public class ObterOperacaoFundoInvestimentoService {
   private final OperacaoFundoInvestimentoRepository operacaoFundoInvestimentoRepository;
 
   public ResponseModel execute(final String id) {
-    val operacao = id(id);
-    return new ResponseModel(
-      LocalDateTime.now(),
-      HttpStatus.OK.value(),
-      null, null, null, null,
-      mapper.map(operacao, OperacaoFundosInvestimentosOutputDetalhe.class)
-    );
+    return new ResponseModel(mapper.map(id(id), OperacaoFundosInvestimentosOutputDetalhe.class));
   }
 
   public OperacaoFundoInvestimento id(final String id) {
     return operacaoFundoInvestimentoRepository.findById(id).orElseThrow(
-      () -> new RecursoNaoEncontradoException("Operacao fundo investimento", String.format("Não foi Operação (Fundo de investimento) com id: %s", id))
+      () -> new RecursoNaoEncontradoException("Operacao fundo investimento", String.format("Não foi encontrada operação (Fundo de investimento) com id: %s", id))
     );
   }
 

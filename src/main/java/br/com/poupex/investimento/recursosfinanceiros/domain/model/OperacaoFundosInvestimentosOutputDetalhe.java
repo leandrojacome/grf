@@ -6,6 +6,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Conta;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
 import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.util.List;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,4 +27,5 @@ public class OperacaoFundosInvestimentosOutputDetalhe extends OperacaoFundosInve
   private BigDecimal custosValorCorretagem;
   private IndicadorFinanceiroOutput custosIndicadorFinanceiro;
   private String contraparteOperador;
+  private List<ArquivoOutput> arquivos;
 }
