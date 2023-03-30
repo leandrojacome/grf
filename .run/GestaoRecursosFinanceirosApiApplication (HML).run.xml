@@ -1,0 +1,27 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="GestaoRecursosFinanceirosApiApplication (HML)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="local" />
+    <additionalParameters>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="spring.datasource.url" />
+        <option name="value" value="jdbc:oracle:thin:@//dboraclehomolog.poupex.com.br:1521/homolog" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="spring.datasource.password" />
+        <option name="value" value="oF098*14cXyUgRS" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="spring.flyway.password" />
+        <option name="value" value="@g24#G^Xu804tRE" />
+      </param>
+    </additionalParameters>
+    <module name="gestao-recursos-financeiros-api" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.poupex.investimento.recursosfinanceiros.GestaoRecursosFinanceirosApiApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

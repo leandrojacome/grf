@@ -1,11 +1,10 @@
 package br.com.poupex.investimento.recursosfinanceiros.api.controller;
 
 import br.com.poupex.investimento.recursosfinanceiros.api.common.OpenApiResponsesPadroes;
-import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRisco;
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRiscoArquivo;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoArquivoInput;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoArquivoOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ArquivoOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.AuditoriaTipo;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.audit.annotations.AuditarTipo;
 import br.com.poupex.investimento.recursosfinanceiros.service.DownloadInstituicaoFinanceiraRiscoArquivoService;
@@ -43,7 +42,7 @@ public class InstituicaoRiscoArquivoController {
   @ApiResponses({
     @ApiResponse(responseCode = "200", description = "Arquivo adicionado", content = {
       @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
-      @Content(mediaType = "application/json", schema = @Schema(implementation = RiscoArquivoOutput.class))
+      @Content(mediaType = "application/json", schema = @Schema(implementation = ArquivoOutput.class))
     }),
   })
   @Parameters({

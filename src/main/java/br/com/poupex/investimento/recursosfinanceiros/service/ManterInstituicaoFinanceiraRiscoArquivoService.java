@@ -4,7 +4,7 @@ import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoF
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRiscoArquivo;
 import br.com.poupex.investimento.recursosfinanceiros.domain.exception.RecursoNaoEncontradoException;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.ResponseModel;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoArquivoOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ArquivoOutput;
 import br.com.poupex.investimento.recursosfinanceiros.infrastructure.repository.InstituicaoFinanceiraRiscoArquivoRepository;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class ManterInstituicaoFinanceiraRiscoArquivoService {
       String.format("Arquivo adicionado[instituicao:%s, risco:%s]", instituicao, risco),
       "Arquivo (Risco) adicionado com sucesso",
       null,
-      mapper.map(entity(instituicao, risco, arquivo), RiscoArquivoOutput.class)
+      mapper.map(entity(instituicao, risco, arquivo), ArquivoOutput.class)
     );
   }
 

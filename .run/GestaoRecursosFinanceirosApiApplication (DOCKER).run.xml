@@ -1,0 +1,52 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="GestaoRecursosFinanceirosApiApplication (DOCKER)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="local" />
+    <additionalParameters>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="spring.datasource.url" />
+        <option name="value" value="jdbc:oracle:thin:@//localhost:1521/oracle" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="spring.datasource.password" />
+        <option name="value" value="docker" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="spring.flyway.password" />
+        <option name="value" value="docker" />
+      </param>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="poupex.seguranca.habilitado" />
+        <option name="value" value="false" />
+      </param>
+      <param>
+        <option name="name" value="security.oauth2.client.client-id" />
+        <option name="value" value="d974a758f623c0fb97af568a0a210094a15bdef885b01063" />
+      </param>
+      <param>
+        <option name="name" value="security.oauth2.client.client-secret" />
+        <option name="value" value="f14fe88814bf4169fe00beb2e4ab9eddf461e0b488a40094a15bdef885b01063" />
+      </param>
+      <param>
+        <option name="name" value="security.oauth2.client.access-token-uri" />
+        <option name="value" value="https://hmlsso.poupex.com.br/f5-oauth2/v1/token" />
+      </param>
+      <param>
+        <option name="name" value="security.oauth2.client.user-authorization-uri" />
+        <option name="value" value="https://hmlsso.poupex.com.br/f5-oauth2/v1/authorize" />
+      </param>
+      <param>
+        <option name="name" value="poupex.api.terceiros.gestao-instrumentos-api-url" />
+        <option name="value" value="http://gestaoinstrumentosfinanceirosapihml.hml.cloud.poupex" />
+      </param>
+    </additionalParameters>
+    <module name="gestao-recursos-financeiros-api" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.poupex.investimento.recursosfinanceiros.GestaoRecursosFinanceirosApiApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
