@@ -51,7 +51,6 @@ public class OperacaoRendaFixaDefinitivaInput {
     private String idContraparte;
     @NotNull
     private Integer quantidade;
-    @NotNull
     private BigDecimal valorFinanceiro;
     @NotNull
     private Boolean cupom;
