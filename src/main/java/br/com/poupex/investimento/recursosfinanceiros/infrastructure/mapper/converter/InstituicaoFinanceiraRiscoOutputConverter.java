@@ -1,7 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.infrastructure.mapper.converter;
 
 import br.com.poupex.investimento.recursosfinanceiros.domain.entity.InstituicaoFinanceiraRisco;
-import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoArquivoOutput;
+import br.com.poupex.investimento.recursosfinanceiros.domain.model.ArquivoOutput;
 import br.com.poupex.investimento.recursosfinanceiros.domain.model.RiscoOutput;
 import br.com.poupex.investimento.recursosfinanceiros.service.ObterInstituicaoFinanceiraRiscoArquivoService;
 import lombok.val;
@@ -29,7 +29,7 @@ public class InstituicaoFinanceiraRiscoOutputConverter {
     val output = intern.map(input, RiscoOutput.class);
     try {
       obterInstituicaoFinanceiraRiscoArquivoService.lista(input).stream().findFirst().ifPresent(arquivo ->
-        output.setArquivo(RiscoArquivoOutput.builder().id(arquivo.getId()).nome(arquivo.getNome()).tipo(arquivo.getTipo())
+        output.setArquivo(ArquivoOutput.builder().id(arquivo.getId()).nome(arquivo.getNome()).tipo(arquivo.getTipo())
           .tamanho(arquivo.getTamanho()).build()
         )
       );

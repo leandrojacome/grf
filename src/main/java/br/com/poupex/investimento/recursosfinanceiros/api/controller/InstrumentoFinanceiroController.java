@@ -59,6 +59,7 @@ public class InstrumentoFinanceiroController {
     private final AlteraFundoInvestimentoService alteraFundoInvestimentoService;
     private final ObterListaInstrumentosFinanceirosService obterListaInstrumentosFinanceirosService;
     private final PesquisarTituloPublicoPorNomeSiglaService pesquisarTituloPublicoPorNomeSiglaService;
+    private final ObterSaldoFundoInvestimentoPorFundoInvestimentoService obterSaldoFundoInvestimentoPorFundoInvestimentoService;
 
     // Instrumentos Financeiros
 
@@ -273,6 +274,20 @@ public class InstrumentoFinanceiroController {
             @Parameter(name = "id", description = "Identificador do Fundo de Investimento")
             @PathVariable final String id) {
         return ResponseEntity.ok(obterFundoInvestimentoService.execute(id));
+    }
+
+    @Operation(summary = "Recupera saldo do fundo de investimento")
+    @ApiResponses({
+      @ApiResponse(responseCode = "200", description = "Saldo fundo de investimento", content = {
+        @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+        @Content(mediaType = "application/json", schema = @Schema(implementation = FundosInvestimentosInputOutput.class))
+      }),
+    })
+    @GetMapping("/fundos-investimentos/{id}/saldo")
+    public ResponseEntity<ResponseModel> recuperaSaldoFundoInvestimento(
+      @Parameter(name = "id", description = "Identificador do Fundo de Investimento")
+      @PathVariable final String id) {
+        return ResponseEntity.ok(obterSaldoFundoInvestimentoPorFundoInvestimentoService.execute(id));
     }
 
     @AuditarTipo(tipo = AuditoriaTipo.API, recurso = FundosInvestimentos.class)

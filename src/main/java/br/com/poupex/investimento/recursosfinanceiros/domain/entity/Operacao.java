@@ -24,8 +24,8 @@ public class Operacao extends AbstractEntidadeBase {
   @Override
   public void prePersist() {
     try {
-      val count = CadastrarOperacaoService.singleton.count(
-        CadastrarOperacaoService.singleton.cadastro(LocalDate.now())
+      val count = CadastrarOperacaoService.operacaoRepositorySingleton.count(
+        CadastrarOperacaoService.operacaoRepositorySingleton.cadastro(LocalDate.now())
       ) + 1;
       setBoleta(String.format("%s%04d", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")), count));
       setTipo(this.getClass().getSimpleName());
