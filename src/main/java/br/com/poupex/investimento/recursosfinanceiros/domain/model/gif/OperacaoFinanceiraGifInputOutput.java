@@ -15,20 +15,18 @@ public class OperacaoFinanceiraGifInputOutput {
 
 	private Long codigo;
 	private String numero;
-	private String cnpjOrigem;
-	private LocalDate dtCarga;
-	private String contraparte;
-	private Integer diasAtraso;
-	private Integer idadeMutuario;
-	private Integer estadoCivil;
-	private Integer estadoResidencia;
+	private String cnpjUta;
+	private String cpfCnpjContraparte;
+	private String nomeContraparte;
+	private LocalDate dtCompetencia;
+	private LocalDate dtEmissao;
 	private BigDecimal valor;
-	private Long codTipoInstrumentoFinanceiro;
+	private BigDecimal saldoFinanceiro;
+	private Long codInstrumentoFinanceiro; 
 	private Long codInstituicao;
 	private Long codFormaMensuracao;
-	private Long codCategoriaTransacao;
 	private InstituicaoGifInputOutput instituicao;
-	private TipoInstrumentoFinanceiroInputOutput tipoInstrumentoFinanceiro;
+	private InstrumentoFinanceiroGifInputOutput instrumentoFinanceiro;
 	private FormaMensuracaoOutput formaMensuracao;
 	    
 }

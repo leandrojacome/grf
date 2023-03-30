@@ -1,6 +1,7 @@
 package br.com.poupex.investimento.recursosfinanceiros.service;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -53,11 +54,8 @@ public class CadastrarOperacaoRendaFixaDefinitivaService {
         var inputGif = mapper.map(input, OperacaoFinanceiraGifInputOutput.class);
         
     	inputGif.setNumero(operacao.getBoleta());
+    	inputGif.setDtCompetencia(LocalDate.now());
         Long codigoGif = cadastrarOperacaoRendaFixaDefinitivaGifService.cadastrar(inputGif);
-
-        // enquanto o GIF nao retorna o codigo
-        // quando retornar o codigo, colocar indice unico no OPERACAO_GIF_CODIGO
-        codigoGif = (codigoGif == null ? 0 : codigoGif);
 
        	operacao.setOperacaoGifCodigo(codigoGif);
         operacao = operacaoRendaFixaDefinitivaRepository.save(operacao);
