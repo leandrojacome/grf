@@ -48,4 +48,7 @@ public class OperacaoRendaFixaDefinitivaPrimario extends OperacaoRendaFixaDefini
 	@Column(name = "VALOR_RESGATE", nullable = false)
 	private BigDecimal valorResgate;
 
+	@Column(name = "VALOR_FINANCEIRO", nullable = false)
+	private BigDecimal valorFinanceiro;
+
 }

@@ -30,7 +30,7 @@ public class OperacaoRendaFixaDefinitivaOutput {
     private LocalDateTime dataVencimento;
     private InstituicaoFinanceiraOutput emissor;
     private InstituicaoFinanceiraOutput contraparte;
-    private Integer qtdDias;
+    private Integer quantidade;
     private BigDecimal valorFinanceiro;
     private Boolean cupom;
     private PeriodoCupom periodoCupom;

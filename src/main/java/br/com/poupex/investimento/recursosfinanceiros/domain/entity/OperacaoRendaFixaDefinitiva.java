@@ -67,11 +67,8 @@ public class OperacaoRendaFixaDefinitiva extends Operacao {
 	@JoinColumn(name = "CONTRAPARTE")
 	private InstituicaoFinanceira contraparte;
 
-	@Column(name = "QTD_DIAS", nullable = false)
-	private Integer qtdDias;
-
-	@Column(name = "VALOR_FINANCEIRO", nullable = false)
-	private BigDecimal valorFinanceiro;
+	@Column(name = "QUANTIDADE", nullable = false)
+	private Integer quantidade;
 
 	@Column(name = "CUPOM", nullable = false)
 	private Boolean cupom;

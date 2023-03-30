@@ -51,7 +51,7 @@ public class OperacaoRendaFixaDefinitivaInput {
     @NotNull
     private String idContraparte;
     @NotNull
-    private Integer qtdDias;
+    private Integer quantidade;
     @NotNull
     private BigDecimal valorFinanceiro;
     @NotNull
