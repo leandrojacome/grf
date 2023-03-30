@@ -55,8 +55,8 @@ public class OperacaoFundosInvestimentosArquivoController {
 
   @Operation(summary = "Recupera (Download) do arquivo da Operação financeira de fundos de investimento")
   @ApiResponses({
-    @ApiResponse(responseCode = "200", description = "Download realizado", content = {
-      @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseModel.class)),
+    @ApiResponse(responseCode = "200", description = "Arquivo (Download)", content = {
+      @Content(schema = @Schema(implementation = byte[].class)),
     }),
   })
   @Parameters({

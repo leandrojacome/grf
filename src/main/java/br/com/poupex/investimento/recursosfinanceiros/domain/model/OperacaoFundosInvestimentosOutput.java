@@ -18,9 +18,12 @@ public class OperacaoFundosInvestimentosOutput {
   private String id;
   private String boleta;
   private TipoOperacaoFundoInvestimento tipoOperacao;
+  private String tipoOperacaoDescricao;
   private EmpresaOutput empresa;
+  private String empresaSigla;
   private LocalDate dataOperacao;
   private BigDecimal valorFinanceiro;
   private FundosInvestimentosInputOutput fundoInvestimento;
+  private String fundoInvestimentoNome;
   private LocalDateTime cadastro;
 }

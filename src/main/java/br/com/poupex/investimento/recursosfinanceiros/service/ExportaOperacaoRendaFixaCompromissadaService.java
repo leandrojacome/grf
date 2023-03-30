@@ -23,7 +23,7 @@ public class ExportaOperacaoRendaFixaCompromissadaService {
   private final ModelMapper mapper;
   private final ExportaOperacaoRendaFixaCompromissadaToCsvService exportaOperacaoRendaFixaCompromissadaToCsvService;
   private final ExportaReportService exportaReportService;
-  @Value("classpath:report/operacaoes_renda_fixa_compromissadas.jasper")
+  @Value("classpath:report/operacoes_renda_fixa_compromissadas.jasper")
   private Resource report;
 
   public byte[] execute(
