@@ -80,7 +80,7 @@ public class OperacaoRendaFixaDefinitiva extends Operacao {
 	@Column(name = "DATA_PRIMEIRO_CUPOM", nullable = true)
 	private LocalDateTime dataPrimeiroCupom;
 
-	@Column(name = "OPERADOR_CONTRAPARTE", nullable = false, length = 100)
+	@Column(name = "OPERADOR_CONTRAPARTE", nullable = true, length = 100)
 	private String operadorContraparte;
 
 	@Column(name = "VALOR_CORRETAGEM", nullable = false)
