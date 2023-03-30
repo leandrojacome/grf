@@ -57,7 +57,6 @@ public class OperacaoRendaFixaDefinitivaInput {
     private Boolean cupom;
     private PeriodoCupom periodoCupom;
     private LocalDateTime dataPrimeiroCupom;
-    @NotBlank
     @Size(max = 100)
     private String operadorContraparte;
     @NotNull
