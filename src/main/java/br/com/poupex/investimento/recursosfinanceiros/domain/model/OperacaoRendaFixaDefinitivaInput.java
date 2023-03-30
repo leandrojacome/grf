@@ -29,7 +29,6 @@ public class OperacaoRendaFixaDefinitivaInput {
     @NotBlank
     @Size(max = 30)
     private String codigoIfGrf;
-    @NotBlank
     @Size(max = 30)
     private String codigoCustodiaBB;
     @NotNull
@@ -56,9 +55,7 @@ public class OperacaoRendaFixaDefinitivaInput {
     private BigDecimal valorFinanceiro;
     @NotNull
     private Boolean cupom;
-    @NotNull
     private PeriodoCupom periodoCupom;
-    @NotNull
     private LocalDateTime dataPrimeiroCupom;
     @NotBlank
     @Size(max = 100)

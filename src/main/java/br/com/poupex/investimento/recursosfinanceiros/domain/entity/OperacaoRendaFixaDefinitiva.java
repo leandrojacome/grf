@@ -34,7 +34,7 @@ public class OperacaoRendaFixaDefinitiva extends Operacao {
 	@Column(name = "CODIGO_IF_GRF", nullable = false, length = 30)
 	private String codigoIfGrf;
 
-	@Column(name = "CODIGO_CUSTODIA_BB", nullable = false, length = 30)
+	@Column(name = "CODIGO_CUSTODIA_BB", nullable = true, length = 30)
 	private String codigoCustodiaBB;
 
 	@Enumerated(EnumType.STRING)
@@ -74,10 +74,10 @@ public class OperacaoRendaFixaDefinitiva extends Operacao {
 	private Boolean cupom;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "PERIODO_CUPOM", nullable = false)
+	@Column(name = "PERIODO_CUPOM", nullable = true)
 	private PeriodoCupom periodoCupom;
 
-	@Column(name = "DATA_PRIMEIRO_CUPOM", nullable = false)
+	@Column(name = "DATA_PRIMEIRO_CUPOM", nullable = true)
 	private LocalDateTime dataPrimeiroCupom;
 
 	@Column(name = "OPERADOR_CONTRAPARTE", nullable = false, length = 100)
