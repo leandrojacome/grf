@@ -87,6 +87,8 @@ public class FundosInvestimentosInputOutput {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	private String mensuracaoDescricao;
 
+	private String formaMensuracaoLabel;
+
 	@NotNull
 	private Nivel nivel;
 
@@ -96,6 +98,11 @@ public class FundosInvestimentosInputOutput {
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = unmask(cnpj);
+	}
+
+	public void setFormaMensuracaoLabel(String label){
+		formaMensuracaoLabel = label;
+		mensuracaoDescricao = label;
 	}
 
 }
