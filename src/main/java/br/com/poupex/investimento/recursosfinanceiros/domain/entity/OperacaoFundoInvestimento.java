@@ -67,7 +67,7 @@ public class OperacaoFundoInvestimento extends Operacao {
   public void prePersist() {
     super.prePersist();
     CadastrarOperacaoFundoInvestimentoService.manterSaldoFundoInvestimentoServiceSingleton.execute(
-      fundoInvestimento.getId(), tipoOperacao, valorFinanceiro, valorCota, null
+      fundoInvestimento.getId(), tipoOperacao, valorFinanceiro, quantidade, null
     );
   }
 
@@ -75,7 +75,7 @@ public class OperacaoFundoInvestimento extends Operacao {
   public void preUpdate() {
     super.preUpdate();
     CadastrarOperacaoFundoInvestimentoService.manterSaldoFundoInvestimentoServiceSingleton.execute(
-      fundoInvestimento.getId(), tipoOperacao, valorFinanceiro, valorCota, getId()
+      fundoInvestimento.getId(), tipoOperacao, valorFinanceiro, quantidade, getId()
     );
   }
 }
