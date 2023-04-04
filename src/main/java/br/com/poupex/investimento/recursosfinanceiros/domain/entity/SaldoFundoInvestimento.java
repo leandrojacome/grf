@@ -1,10 +1,6 @@
 package br.com.poupex.investimento.recursosfinanceiros.domain.entity;
 
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Conta;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.Empresa;
-import br.com.poupex.investimento.recursosfinanceiros.domain.enums.TipoOperacaoFundoInvestimento;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +20,7 @@ public class SaldoFundoInvestimento extends AbstractEntidadeBase {
   @Column(name = "SALDO_FINANCEIRO", nullable = false)
   private BigDecimal saldoFinanceiro;
 
-  @Column(name = "SALDO_COTA", nullable = false)
-  private BigDecimal saldoCota;
+  @Column(name = "QUANTIDADE_COTA", nullable = false)
+  private BigDecimal quantidadeCota;
 
 }

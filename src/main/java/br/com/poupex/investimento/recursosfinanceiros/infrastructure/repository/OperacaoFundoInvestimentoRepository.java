@@ -42,14 +42,10 @@ public interface OperacaoFundoInvestimentoRepository extends JpaRepository<Opera
   default Specification<OperacaoFundoInvestimento> valorFinanceiroEntre(final BigDecimal valorFinanceiroInicio, final BigDecimal valorFinanceiroFim) {
     var spec = id();
     if (Objects.nonNull(valorFinanceiroInicio)) {
-      spec = spec.and((root, query, builder) -> {
-        return builder.greaterThanOrEqualTo(root.get("valorFinanceiro"), valorFinanceiroInicio);
-      });
+      spec = spec.and((root, query, builder) -> builder.greaterThanOrEqualTo(root.get("valorFinanceiro"), valorFinanceiroInicio));
     }
     if (Objects.nonNull(valorFinanceiroFim)) {
-      spec = spec.and((root, query, builder) -> {
-        return builder.lessThanOrEqualTo(root.get("valorFinanceiro"), valorFinanceiroFim);
-      });
+      spec = spec.and((root, query, builder) -> builder.lessThanOrEqualTo(root.get("valorFinanceiro"), valorFinanceiroFim));
     }
     return spec;
   }
@@ -64,14 +60,10 @@ public interface OperacaoFundoInvestimentoRepository extends JpaRepository<Opera
   default Specification<OperacaoFundoInvestimento> dataOperacaoEntre(final LocalDate dataOperacaoInicio, final LocalDate dataOperacaoFim) {
     var spec = id();
     if (Objects.nonNull(dataOperacaoInicio)) {
-      spec = spec.and((root, query, builder) -> {
-        return builder.greaterThanOrEqualTo(root.get("dataOperacao"), dataOperacaoInicio);
-      });
+      spec = spec.and((root, query, builder) -> builder.greaterThanOrEqualTo(root.get("dataOperacao"), dataOperacaoInicio));
     }
     if (Objects.nonNull(dataOperacaoFim)) {
-      spec = spec.and((root, query, builder) -> {
-        return builder.lessThanOrEqualTo(root.get("dataOperacao"), dataOperacaoFim);
-      });
+      spec = spec.and((root, query, builder) -> builder.lessThanOrEqualTo(root.get("dataOperacao"), dataOperacaoFim));
     }
     return spec;
   }

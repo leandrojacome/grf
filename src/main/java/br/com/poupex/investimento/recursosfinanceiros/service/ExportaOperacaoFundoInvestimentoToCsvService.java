@@ -14,13 +14,15 @@ public class ExportaOperacaoFundoInvestimentoToCsvService {
   private final StringUtil stringUtil;
 
   public byte[] execute(final List<OperacaoFundosInvestimentosOutput> operacoes) {
-    val csv = new StringBuilder(String.format("%s,%s,%s,%s,%s\n", "Empresa", "Boleta", "Valor financeiro", "Fundo", "Data"));
-    operacoes.forEach(operacao -> csv.append(String.format("%s,%s,%s,%s,%s\n",
+    val csv = new StringBuilder(String.format("%s,%s,%s,%s,%s,%s\n", "Empresa", "Nº operação", "Data operação", "Tipo operação","Valor financeiro", "Fundo"));
+    operacoes.forEach(operacao -> csv.append(String.format("%s,%s,%s,%s,%s,%s\n",
       operacao.getEmpresaSigla(),
       operacao.getBoleta(),
+      operacao.getDataOperacao(),
+      operacao.getTipoOperacao().getDescricao(),
       operacao.getValorFinanceiro(),
-      operacao.getFundoInvestimento().getNome(),
-      operacao.getCadastro()
+      operacao.getFundoInvestimento().getNome()
+
     )));
     return stringUtil.decodeToUtf8(csv.toString()).getBytes();
   }

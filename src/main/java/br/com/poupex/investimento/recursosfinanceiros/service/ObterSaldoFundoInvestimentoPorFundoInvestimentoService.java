@@ -26,7 +26,7 @@ public class ObterSaldoFundoInvestimentoPorFundoInvestimentoService {
         val saldo = new SaldoFundoInvestimento();
         saldo.setFundoInvestimento(fundoInvestimento);
         saldo.setSaldoFinanceiro(BigDecimal.ZERO);
-        saldo.setSaldoCota(BigDecimal.ZERO);
+        saldo.setQuantidadeCota(BigDecimal.ZERO);
         saldo.setCadastro(LocalDateTime.now());
         return saldoFundoInvestimentoRepository.save(saldo);
       });
