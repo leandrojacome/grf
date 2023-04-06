@@ -32,7 +32,7 @@ public class AlterarOperacaoFundoInvestimentoService {
 
         BeanUtils.copyProperties(mapper.map(validaOperacaoFundoInvestimentoService.execute(input),
                         OperacaoFundoInvestimento.class), operacao,
-                "id", "boleta", "cadatro", "alteracao", "boleta");
+                "id", "boleta", "cadatro", "alteracao");
 
         try {
             operacao = operacaoFundoInvestimentoRepository.save(operacao);
@@ -47,7 +47,7 @@ public class AlterarOperacaoFundoInvestimentoService {
             }
         }
 
-        return new ResponseModel(String.format("Operação de Fundo de Investimento cadastrada com sucesso! Boleta número: %s.", operacao.getBoleta()),
+        return new ResponseModel(String.format("Operação de Fundo de Investimento alterada com sucesso! Boleta número: %s.", operacao.getBoleta()),
                 mapper.map(operacao, OperacaoFundosInvestimentosOutputDetalhe.class)
         );
         
