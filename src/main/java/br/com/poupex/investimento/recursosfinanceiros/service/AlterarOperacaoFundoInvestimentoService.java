@@ -20,43 +20,39 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @RequiredArgsConstructor
 public class AlterarOperacaoFundoInvestimentoService {
 
-    private final ModelMapper mapper;
-    private final ValidaOperacaoFundoInvestimentoService validaOperacaoFundoInvestimentoService;
-    private final OperacaoFundoInvestimentoRepository operacaoFundoInvestimentoRepository;
-    private final ManterSaldoFundoInvestimentoService manterSaldoFundoInvestimentoService;
-    private final ObterOperacaoFundoInvestimentoService obterOperacaoFundoInvestimentoService;
+  private final ModelMapper mapper;
+  private final ValidaOperacaoFundoInvestimentoService validaOperacaoFundoInvestimentoService;
+  private final OperacaoFundoInvestimentoRepository operacaoFundoInvestimentoRepository;
+  private final ManterSaldoFundoInvestimentoService manterSaldoFundoInvestimentoService;
+  private final ObterOperacaoFundoInvestimentoService obterOperacaoFundoInvestimentoService;
 
-    public ResponseModel execute(final String id, final OperacaoFundosInvestimentosInputCadastrar input) {
-
-        var operacao = obterOperacaoFundoInvestimentoService.id(id);
-
-        BeanUtils.copyProperties(mapper.map(validaOperacaoFundoInvestimentoService.execute(input),
-                        OperacaoFundoInvestimento.class), operacao,
-                "id", "boleta", "cadatro", "alteracao");
-
-        try {
-            operacao = operacaoFundoInvestimentoRepository.save(operacao);
-        } catch (DataIntegrityViolationException e) {
-            if (e.getCause() instanceof ConstraintViolationException
-                    && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
-                var msg = e.getCause().getCause().getMessage();
-
-                throw new NegocioException("Alterar Operação Fundo de Investimento", msg);
-            } else {
-                throw new NegocioException("Alterar Operação Fundo de Investimento", "Não foi possível alterar a operação");
-            }
-        }
-
-        return new ResponseModel(String.format("Operação de Fundo de Investimento alterada com sucesso! Boleta número: %s.", operacao.getBoleta()),
-                mapper.map(operacao, OperacaoFundosInvestimentosOutputDetalhe.class)
-        );
-        
+  public ResponseModel execute(final String id, final OperacaoFundosInvestimentosInputCadastrar input) {
+    var operacao = obterOperacaoFundoInvestimentoService.id(id);
+    BeanUtils.copyProperties(mapper.map(validaOperacaoFundoInvestimentoService.execute(input),
+        OperacaoFundoInvestimento.class), operacao,
+      "id", "boleta", "cadatro", "alteracao");
+    try {
+      operacao = operacaoFundoInvestimentoRepository.save(operacao);
+    } catch (DataIntegrityViolationException e) {
+      if (e.getCause() instanceof ConstraintViolationException
+        && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+        var msg = e.getCause().getCause().getMessage();
+        throw new NegocioException("Alterar Operação Fundo de Investimento", msg);
+      } else {
+        throw new NegocioException("Alterar Operação Fundo de Investimento", "Não foi possível alterar a operação");
+      }
     }
+    return new ResponseModel(String.format("Operação de Fundo de Investimento alterada com sucesso! Boleta número: %s.", operacao.getBoleta()),
+      mapper.map(operacao, OperacaoFundosInvestimentosOutputDetalhe.class)
+    );
 
-    public static ManterSaldoFundoInvestimentoService manterSaldoFundoInvestimentoServiceSingleton;
+  }
 
-    @PostConstruct
-    public void init() {
-        manterSaldoFundoInvestimentoServiceSingleton = manterSaldoFundoInvestimentoService;
-    }
+  public static ManterSaldoFundoInvestimentoService manterSaldoFundoInvestimentoServiceSingleton;
+
+  @PostConstruct
+  public void init() {
+    manterSaldoFundoInvestimentoServiceSingleton = manterSaldoFundoInvestimentoService;
+  }
+
 }
